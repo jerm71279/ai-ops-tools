@@ -1,0 +1,93 @@
+{
+  "version": "1.0.0",
+  "defaults": {
+    "timeout": 300,
+    "retry_count": 2,
+    "retry_delay": 5,
+    "output_dir": "./output",
+    "log_level": "INFO"
+  },
+  "providers": {
+    "claude": {
+      "enabled": true,
+      "model": "sonnet",
+      "timeout": 300,
+      "default_tools": ["Bash", "Read", "Write", "Edit"],
+      "cli": {
+        "command": "claude",
+        "prompt_flag": "-p",
+        "system_prompt_flag": "--system-prompt",
+        "tools_flag": "--allowedTools",
+        "json_output_flag": "--output-format=json"
+      }
+    },
+    "gemini": {
+      "enabled": true,
+      "model": "gemini-2.5-pro",
+      "timeout": 600,
+      "cli": {
+        "command": "gemini",
+        "prompt_flag": "-p",
+        "file_prefix": "@",
+        "json_output_flag": "--output-format=json"
+      }
+    },
+    "fara": {
+      "enabled": true,
+      "fara_dir": "~/fara",
+      "sandbox": true,
+      "max_steps": 50,
+      "screenshot_dir": "./screenshots",
+      "cli": {
+        "command": "python",
+        "module": "-m fara.cli",
+        "task_flag": "--task",
+        "url_flag": "--url",
+        "max_steps_flag": "--max-steps",
+        "sandbox_flag": "--sandbox"
+      }
+    }
+  },
+  "oberaconnect": {
+    "naming_conventions": {
+      "mikrotik": {
+        "interface_prefix": "ether",
+        "vlan_prefix": "vlan",
+        "bridge_prefix": "bridge"
+      },
+      "azure": {
+        "resource_group_prefix": "rg-oc-",
+        "vnet_prefix": "vnet-",
+        "nsg_prefix": "nsg-"
+      },
+      "unifi": {
+        "site_prefix": "oc-"
+      }
+    },
+    "default_tags": {
+      "managed_by": "OberaConnect",
+      "automation": "multi-ai-orchestrator"
+    },
+    "environments": {
+      "lab": {
+        "azure_subscription": "lab-subscription-id",
+        "resource_suffix": "-lab"
+      },
+      "production": {
+        "azure_subscription": "prod-subscription-id", 
+        "resource_suffix": "-prod"
+      }
+    }
+  },
+  "workflows": {
+    "customer_onboarding": {
+      "default_deployment_type": "standard",
+      "generate_configs": ["mikrotik", "unifi", "azure"],
+      "require_approval": true
+    },
+    "incident_analysis": {
+      "auto_remediate": false,
+      "notify_on_completion": true
+    }
+  }
+}

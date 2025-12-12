@@ -1,0 +1,545 @@
+================================================================================
+🔗 TEAM LINK CLUSTERS
+================================================================================
+
+📊 Analyzing 314 notes...
+
+================================================================================
+🏢 IT SERVICES TEAM - 136 notes
+================================================================================
+
+📄 Hub Note: [[May 2 4 2021]]
+   Related Notes (10):
+   • [[2025 OberaConnect Social Media Strategy]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Confidential  for Mash Technologies Corporation Avalara use only     Page   1]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[AGENCY CUSTOMER ID]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Client NameSales Lead]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[O365 Upgrade Marketing Plan]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+📄 Hub Note: [[Customer]]
+   Related Notes (10):
+   • [[Authentication and Identity Management Policy]] (score: 12)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Change Management Policy]] (score: 12)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Continuous Monitoring Policy]] (score: 12)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Customer Onboarding  Offboarding Policy]] (score: 12)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Customer Support  SLA Policy]] (score: 12)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+
+📄 Hub Note: [[AGENCY CUSTOMER ID]]
+   Related Notes (10):
+   • [[2025 OberaConnect Social Media Strategy]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Confidential  for Mash Technologies Corporation Avalara use only     Page   1]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[May 2 4 2021]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[O365 Upgrade Marketing Plan]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Client NameSales Lead]] (score: 9)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+📄 Hub Note: [[2025 OberaConnect Social Media Strategy]]
+   Related Notes (10):
+   • [[Confidential  for Mash Technologies Corporation Avalara use only     Page   1]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[May 2 4 2021]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[O365 Upgrade Marketing Plan]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[AGENCY CUSTOMER ID]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Client NameSales Lead]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+📄 Hub Note: [[Stephanie Okada]]
+   Related Notes (10):
+   • [[Authentication and Identity Management Policy]] (score: 9)
+     Shared: preservation-hold-library, sharepoint-all
+   • [[Change Management Policy]] (score: 9)
+     Shared: preservation-hold-library, sharepoint-all
+   • [[Continuous Monitoring Policy]] (score: 9)
+     Shared: preservation-hold-library, sharepoint-all
+   • [[Customer Onboarding  Offboarding Policy]] (score: 9)
+     Shared: preservation-hold-library, sharepoint-all
+   • [[Customer Support  SLA Policy]] (score: 9)
+     Shared: preservation-hold-library, sharepoint-all
+
+📄 Hub Note: [[OberaConnect LLC]]
+   Related Notes (10):
+   • [[Authentication and Identity Management Policy]] (score: 15)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Customer Onboarding  Offboarding Policy]] (score: 15)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Continuous Monitoring Policy]] (score: 14)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Remote Access Policy]] (score: 14)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Remote Troubleshooting and Access Policy]] (score: 14)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+
+📄 Hub Note: [[Confidential  for Mash Technologies Corporation Avalara use only     Page   1]]
+   Related Notes (10):
+   • [[2025 OberaConnect Social Media Strategy]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[May 2 4 2021]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[AGENCY CUSTOMER ID]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Client NameSales Lead]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[O365 Upgrade Marketing Plan]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+📄 Hub Note: [[Authentication and Identity Management Policy]]
+   Related Notes (10):
+   • [[Customer Onboarding  Offboarding Policy]] (score: 15)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[OberaConnect LLC]] (score: 15)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Continuous Monitoring Policy]] (score: 14)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Remote Access Policy]] (score: 14)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Remote Troubleshooting and Access Policy]] (score: 14)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+
+📄 Hub Note: [[O365 Upgrade Marketing Plan]]
+   Related Notes (10):
+   • [[2025 OberaConnect Social Media Strategy]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[AGENCY CUSTOMER ID]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Client NameSales Lead]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Confidential  for Mash Technologies Corporation Avalara use only     Page   1]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[May 2 4 2021]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+📄 Hub Note: [[[SOC][MSP][asset-management] ISO 27001-Aligned SOCMSP Framework Architecture]]
+   Related Notes (10):
+   • [[[SOC][MSP][asset-management] ISO 27001-Aligned SOCMSP Framework Architecture and Coverage]] (score: 45)
+     Shared: corp-app-idea, soc, msp
+   • [[[ticketing-system][configuration-items][asset-management] CMDB  Change Management System Implementation Guide]] (score: 23)
+     Shared: cmdb, corp-app-idea, compliance
+   • [[[risk-management][corp-app-idea][asset-management] ISO 27001 Schema Viewer - Database Structure and Controls]] (score: 21)
+     Shared: corp-app-idea, compliance, resources
+   • [[[risk-management][corp-app-idea][asset-management] ISO 27001 Schema Viewer - Database Structure Overview]] (score: 21)
+     Shared: corp-app-idea, compliance, resources
+   • [[[integration][authentication][edge-functions] OberaConnect System Status Report - Version 600]] (score: 19)
+     Shared: cmdb, corp-app-idea, compliance
+
+================================================================================
+🏢 ENGINEERING TEAM - 158 notes
+================================================================================
+
+📄 Hub Note: [[DOQJSign Envelope ID 32E79EC8-DD28-4E50-A98A-A372D4E5E8A5]]
+   Related Notes (10):
+   • [[Customer]] (score: 8)
+     Shared: oberaconnect-technical, sharepoint-all
+   • [[Network Services  Support]] (score: 8)
+     Shared: oberaconnect-technical, sharepoint-all
+   • [[To prepare for the site survey of the seaside city-wide WiFi system and the Uniti dark fiber build-o]] (score: 8)
+     Shared: oberaconnect-technical, sharepoint-all
+   • [[1 Objective]] (score: 7)
+     Shared: oberaconnect-technical, sharepoint-all
+   • [[Caption for Blake]] (score: 7)
+     Shared: oberaconnect-technical, sharepoint-all
+
+📄 Hub Note: [[OTJ Architects]]
+   Related Notes (10):
+   • [[Customer]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Caption for Blake]] (score: 10)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Customer Onboarding  Offboarding Policy]] (score: 10)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Customer Support  SLA Policy]] (score: 10)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Harris VacationsEngle Volkers - Site Survey]] (score: 10)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+
+📄 Hub Note: [[Customer]]
+   Related Notes (10):
+   • [[Network Services  Support]] (score: 12)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Caption for Blake]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[City of Bonifay]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Kinder Kids 64]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[OTJ Architects]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+
+📄 Hub Note: [[config-file-header]]
+   Related Notes (10):
+   • [[Current configuration  9754 bytes]] (score: 14)
+     Shared: sexton, obera-connect-managed-service-device-configurations, sharepoint-all
+   • [[.md]] (score: 13)
+     Shared: sexton, obera-connect-managed-service-device-configurations, sharepoint-all
+   • [[0x4e470x010x00GS7xxTS TPS         53036            0x000000000x00000000000000]] (score: 13)
+     Shared: sexton, obera-connect-managed-service-device-configurations, sharepoint-all
+   • [[Connecting to 1012083]] (score: 13)
+     Shared: sexton, obera-connect-managed-service-device-configurations, sharepoint-all
+   • [[Connecting to 1921681002]] (score: 13)
+     Shared: sexton, obera-connect-managed-service-device-configurations, sharepoint-all
+
+📄 Hub Note: [[2025 OberaConnect Social Media Strategy]]
+   Related Notes (10):
+   • [[Client NameSales Lead]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[ID Ship To]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Kevin Luker - 2514040624]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Page 1 of 3]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Sales Questionnaire Form]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+📄 Hub Note: [[Current configuration  9754 bytes]]
+   Related Notes (10):
+   • [[config-file-header]] (score: 14)
+     Shared: sexton, obera-connect-managed-service-device-configurations, sharepoint-all
+   • [[.md]] (score: 13)
+     Shared: sexton, obera-connect-managed-service-device-configurations, sharepoint-all
+   • [[0x4e470x010x00GS7xxTS TPS         53036            0x000000000x00000000000000]] (score: 13)
+     Shared: sexton, obera-connect-managed-service-device-configurations, sharepoint-all
+   • [[Connecting to 1012083]] (score: 13)
+     Shared: sexton, obera-connect-managed-service-device-configurations, sharepoint-all
+   • [[Connecting to 1921681002]] (score: 13)
+     Shared: sexton, obera-connect-managed-service-device-configurations, sharepoint-all
+
+📄 Hub Note: [[Sexton Main 48 port switch]]
+   Related Notes (10):
+   • [[0x4e470x010x00GS7xxTS TPS         53036            0x000000000x00000000000000]] (score: 13)
+     Shared: sexton, obera-connect-managed-service-device-configurations, sharepoint-all
+   • [[config-file-header]] (score: 13)
+     Shared: sexton, obera-connect-managed-service-device-configurations, sharepoint-all
+   • [[Connecting to 1012083]] (score: 13)
+     Shared: sexton, obera-connect-managed-service-device-configurations, sharepoint-all
+   • [[Connecting to 1921681002]] (score: 13)
+     Shared: sexton, obera-connect-managed-service-device-configurations, sharepoint-all
+   • [[Current configuration  3722 bytes]] (score: 13)
+     Shared: sexton, obera-connect-managed-service-device-configurations, sharepoint-all
+
+📄 Hub Note: [[Stephanie Okada]]
+   Related Notes (10):
+   • [[Asset Management Policy]] (score: 8)
+     Shared: preservation-hold-library, sharepoint-all
+   • [[CASE STUDY City of Freeport FL]] (score: 8)
+     Shared: preservation-hold-library, sharepoint-all
+   • [[Change Management Policy]] (score: 8)
+     Shared: preservation-hold-library, sharepoint-all
+   • [[Configuration Management Policy]] (score: 8)
+     Shared: preservation-hold-library, sharepoint-all
+   • [[Continuous Monitoring Policy]] (score: 8)
+     Shared: preservation-hold-library, sharepoint-all
+
+📄 Hub Note: [[OberaConnect LLC]]
+   Related Notes (10):
+   • [[Change Management Policy]] (score: 12)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Asset Management Policy]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Audit and Accountability Policy]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Business Application Governance Policy]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Configuration Management Policy]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+
+📄 Hub Note: [[From Devon Harris]]
+   Related Notes (10):
+   • [[Client NameSales Lead]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Sales Questionnaire Form]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Business Name]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Business Name Dunlap and Shipman FREEPORT]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Business Name Elite Real Estate]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+================================================================================
+🏢 PLANT TEAM - 49 notes
+================================================================================
+
+📄 Hub Note: [[May 2 4 2021]]
+   Related Notes (10):
+   • [[Kevin Luker - 2514040624]] (score: 12)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Gafford Construction ATT Information]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[LEASE]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[MASTER SERVICES AGREEMENT]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Page 1 of 3]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+📄 Hub Note: [[OTJ Architects]]
+   Related Notes (10):
+   • [[REGAL STEPHENS CONSTRUCTIONSUITE 2 INTERIOR OFFICE BUILDOUT FOR]] (score: 12)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Customer]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[100 SOUTH CHURCH ST FAIRHOPE AL 36532THE FAIRHOPE K-1 CENTERCITY OF FAIRHOPE]] (score: 10)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Acceptable Use Policy AUP]] (score: 10)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[OberaConnect]] (score: 10)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+
+📄 Hub Note: [[MASTER SERVICES AGREEMENT]]
+   Related Notes (10):
+   • [[May 2 4 2021]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Confidential  for Mash Technologies Corporation Avalara use only     Page   1]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Gafford Construction ATT Information]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Kevin Luker - 2514040624]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[LEASE]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+📄 Hub Note: [[LEASE]]
+   Related Notes (10):
+   • [[May 2 4 2021]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Page 1 of 3]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Confidential  for Mash Technologies Corporation Avalara use only     Page   1]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Gafford Construction ATT Information]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Kevin Luker - 2514040624]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+📄 Hub Note: [[Customer]]
+   Related Notes (10):
+   • [[Acceptable Use Policy AUP]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Customer Onboarding  Offboarding Policy]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[OberaConnect]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[OTJ Architects]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Physical Security Policy]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+
+📄 Hub Note: [[REGAL STEPHENS CONSTRUCTIONSUITE 2 INTERIOR OFFICE BUILDOUT FOR]]
+   Related Notes (10):
+   • [[OTJ Architects]] (score: 12)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Customer]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[100 SOUTH CHURCH ST FAIRHOPE AL 36532THE FAIRHOPE K-1 CENTERCITY OF FAIRHOPE]] (score: 10)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Acceptable Use Policy AUP]] (score: 10)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[OberaConnect]] (score: 10)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+
+📄 Hub Note: [[Confidential  for Mash Technologies Corporation Avalara use only     Page   1]]
+   Related Notes (10):
+   • [[Client NameSales Lead]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Kevin Luker - 2514040624]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[LEASE]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[MASTER SERVICES AGREEMENT]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[May 2 4 2021]] (score: 10)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+📄 Hub Note: [[[SOC][MSP][asset-management] ISO 27001-Aligned SOCMSP Framework Architecture]]
+   Related Notes (7):
+   • [[[SOC][MSP][asset-management] ISO 27001-Aligned SOCMSP Framework Architecture and Coverage]] (score: 41)
+     Shared: corp-app-idea, soc, msp
+   • [[[hr-process][security-framework][it-security] Employee Security Onboarding Master Plan v10]] (score: 13)
+     Shared: security-framework, resources, corp-app-idea
+   • [[[power-platform][risk-management][oberaconnect] ISO 27001 Executive Slide Deck Summary]] (score: 13)
+     Shared: corp-interface-executive-summary, compliance, resources
+   • [[[schemaview-json][saas-platform][workflow-automation] OberaConnect Platform Architecture]] (score: 10)
+     Shared: compliance, resources, corp-app-idea
+   • [[[endpoint-security][secure-admin-workstation][siem] Modular SAW Deployment Guide - Azure Ubuntu Implementation]] (score: 7)
+     Shared: compliance, resources
+
+📄 Hub Note: [[[SOC][MSP][asset-management] ISO 27001-Aligned SOCMSP Framework Architecture and Coverage]]
+   Related Notes (7):
+   • [[[SOC][MSP][asset-management] ISO 27001-Aligned SOCMSP Framework Architecture]] (score: 41)
+     Shared: corp-app-idea, soc, msp
+   • [[[hr-process][security-framework][it-security] Employee Security Onboarding Master Plan v10]] (score: 13)
+     Shared: security-framework, compliance, corp-app-idea
+   • [[[power-platform][risk-management][oberaconnect] ISO 27001 Executive Slide Deck Summary]] (score: 13)
+     Shared: corp-interface-executive-summary, compliance, resources
+   • [[[schemaview-json][saas-platform][workflow-automation] OberaConnect Platform Architecture]] (score: 10)
+     Shared: compliance, resources, corp-app-idea
+   • [[[endpoint-security][secure-admin-workstation][siem] Modular SAW Deployment Guide - Azure Ubuntu Implementation]] (score: 7)
+     Shared: compliance, resources
+
+📄 Hub Note: [[Customer Onboarding  Offboarding Policy]]
+   Related Notes (10):
+   • [[Customer]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Physical Security Policy]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Third-Party Risk Management Policy]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Acceptable Use Policy AUP]] (score: 10)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Asset Management Policy]] (score: 10)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+
+================================================================================
+🏢 SALES TEAM - 146 notes
+================================================================================
+
+📄 Hub Note: [[OPERATING AGREEMENT OF]]
+   Related Notes (10):
+   • [[Formal Submission for Events]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Form W-9 Request for Taxpayer Give Form to the]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Form    W-9]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[L]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[May 2 4 2021]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+📄 Hub Note: [[AGREEMENT FOR NON-D ISCLOSURE OF CONFIDENTIALPROPRIETARY]]
+   Related Notes (10):
+   • [[2025 OberaConnect Social Media Strategy]] (score: 12)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Christopher Ingram]] (score: 12)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[May 2 4 2021]] (score: 12)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[O365 Upgrade Marketing Plan]] (score: 12)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[OberaConnect New Hire Onboarding Template]] (score: 12)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+📄 Hub Note: [[Your Workers Compensation]]
+   Related Notes (10):
+   • [[NAME Other Named Insured AND MAILING ADDRESS including ZIP4 NAICS]] (score: 14)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[2025 OberaConnect Social Media Strategy]] (score: 13)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[May 2 4 2021]] (score: 13)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[OberaConnectLLC]] (score: 13)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Sales Process  Updated as 3172025]] (score: 13)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+📄 Hub Note: [[May 2 4 2021]]
+   Related Notes (10):
+   • [[NAME Other Named Insured AND MAILING ADDRESS including ZIP4 NAICS]] (score: 14)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Sales Order Q-1208925]] (score: 14)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[2025 OberaConnect Social Media Strategy]] (score: 13)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Christopher Ingram]] (score: 13)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[From Devon Harris]] (score: 13)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+📄 Hub Note: [[NAME Other Named Insured AND MAILING ADDRESS including ZIP4 NAICS]]
+   Related Notes (10):
+   • [[Sales Process  Updated as 3172025]] (score: 15)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[2025 OberaConnect Social Media Strategy]] (score: 14)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[May 2 4 2021]] (score: 14)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Your Workers Compensation]] (score: 14)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[AGENCY CUSTOMER ID]] (score: 13)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+📄 Hub Note: [[OTJ Architects]]
+   Related Notes (10):
+   • [[Acceptable Use Policy AUP]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Access Control Policy]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Asset Management Policy]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Audit and Accountability Policy]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+   • [[Authentication and Identity Management Policy]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-technical, sharepoint-all
+
+📄 Hub Note: [[1UNIFORMSALESUSETAXRESALECERTIFICATE MULTIJURISDICTION]]
+   Related Notes (10):
+   • [[Obera Connect-ClientID2219]] (score: 11)
+     Shared: preservation-hold-library, oberaconnect-admin, sharepoint-all
+   • [[Agent Agreement]] (score: 10)
+     Shared: preservation-hold-library, oberaconnect-admin, sharepoint-all
+   • [[Month DD YYYY]] (score: 10)
+     Shared: preservation-hold-library, oberaconnect-admin, sharepoint-all
+   • [[SC 50 62 10 18]] (score: 10)
+     Shared: preservation-hold-library, oberaconnect-admin, sharepoint-all
+   • [[2024 Florida Annual Resale Certificate for Sales Tax]] (score: 9)
+     Shared: preservation-hold-library, sharepoint-all
+
+📄 Hub Note: [[MASTER SERVICES AGREEMENT]]
+   Related Notes (10):
+   • [[2025 OberaConnect Social Media Strategy]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[AGENCY CUSTOMER ID]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Confidential  for Mash Technologies Corporation Avalara use only     Page   1]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Kevin Luker - 2514040624]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[NAME Other Named Insured AND MAILING ADDRESS including ZIP4 NAICS]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+📄 Hub Note: [[OberaConnectLLC]]
+   Related Notes (10):
+   • [[2025 OberaConnect Social Media Strategy]] (score: 13)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[NAME Other Named Insured AND MAILING ADDRESS including ZIP4 NAICS]] (score: 13)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Your Workers Compensation]] (score: 13)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[AGENCY CUSTOMER ID]] (score: 12)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Christopher Ingram]] (score: 12)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+📄 Hub Note: [[LEASE]]
+   Related Notes (10):
+   • [[2024 Florida Annual Resale Certificate for Sales Tax]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[2025 OberaConnect Social Media Strategy]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[AGENCY CUSTOMER ID]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[AGREEMENT FOR NON-D ISCLOSURE OF CONFIDENTIALPROPRIETARY]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+   • [[Business Name]] (score: 11)
+     Shared: preservation-hold-library, sharepoint-all, oberaconnect-shared-directory
+
+================================================================================
+✅ TEAM CLUSTER ANALYSIS COMPLETE
+================================================================================

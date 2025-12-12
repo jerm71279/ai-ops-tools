@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OberaConnect Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            background: #fff;
+        }
+
+        .header {
+            border-bottom: 3px solid #0066CC;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #666666;
+            font-style: italic;
+            margin-left: 2px;
+        }
+
+        .doc-meta {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .doc-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .doc-date {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0066CC;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .section-content {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .section-content p {
+            margin-bottom: 10px;
+        }
+
+        .section-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section-content li {
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 11px;
+            color: #999999;
+            text-align: center;
+        }
+
+        .highlight-box {
+            background: #f5f9ff;
+            border-left: 4px solid #0066CC;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .action-item {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
+        </div>
+        <div class="tagline">Technology Solutions for Modern Business</div>
+
+        <div class="doc-meta">
+            <div class="doc-title">SOP-MAC-001 Shared Drive v1.0.0</div>
+            <div class="doc-date">Date: [MM/DD/YYYY]</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Executive Summary</div>
+        <div class="section-content">
+            <table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>**Document ID**</strong></th>
+<th><strong>**SOP-MAC-001**</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>**Version**</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td>**Status**</td>
+<td>Approved</td>
+</tr>
+<tr class="odd">
+<td>**Date**</td>
+<td>2025-12-02</td>
+</tr>
+<tr class="even">
+<td>**Department**</td>
+<td>IT</td>
+</tr>
+<tr class="odd">
+<td>**Author**</td>
+<td>OberaConnect IT</td>
+</tr>
+</tbody>
+</table>
+<p>────────────────────────────────────────────────────────────</p>
+<h1 id="purpose">1.0 Purpose</h1>
+<p>This document outlines the standard procedure for connecting to
+(mapping) a network shared drive on a computer running macOS. Following
+these steps ensures consistent and successful access to shared network
+resources.</p>
+<h1 id="scope">2.0 Scope</h1>
+<p>This procedure applies to all employees and contractors using
+company-provided Mac computers who require access to network shared
+drives.</p>
+<h1 id="prerequisites">3.0 Prerequisites</h1>
+<p>Before starting, ensure you have the following:</p>
+<ul>
+<li><p>A Mac computer connected to the company network (either via
+Ethernet or VPN).</p></li>
+<li><p>The server address (file path) for the shared drive (e.g.,
+`smb://servername/sharename`).</p></li>
+<li><p>Valid user credentials (username and password) with permission to
+access the server.</p></li>
+</ul>
+<h1 id="procedure">4.0 Procedure</h1>
+<p>Follow these steps to map a shared drive.</p>
+<h2 id="connecting-to-the-server">4.1 Connecting to the Server</h2>
+<ol type="1">
+<li><p>Open **Finder** by clicking its icon in the Dock.</p></li>
+<li><p>From the menu bar at the top of the screen, click
+**Go**.</p></li>
+<li><p>In the dropdown menu, select **Connect to Server...**. (Keyboard
+shortcut: `Command+K`)</p></li>
+<li><p>In the "Connect to Server" window, enter the server address in
+the **Server Address** field. The format must be
+`smb://&lt;server_path&gt;`.</p></li>
+</ol>
+<ul>
+<li><p>*Example:* `smb://fcgserver/fulcrumshared`</p></li>
+</ul>
+<ol start="5" type="1">
+<li><p>Click the **Connect** button.</p></li>
+<li><p>A credentials prompt will appear. Select **Registered
+User**.</p></li>
+<li><p>Enter your assigned server **Name** (username) and
+**Password**.</p></li>
+<li><p>Click **Connect**. The drive is now mounted.</p></li>
+</ol>
+<h2 id="making-the-drive-visible">4.2 Making the Drive Visible</h2>
+<p>To ensure the connected drive is easily accessible, follow these
+steps:</p>
+<ol start="9" type="1">
+<li><p>With **Finder** as the active application, click **Finder** in
+the top menu bar.</p></li>
+<li><p>Select **Settings...** (on macOS Ventura and newer) or
+**Preferences...** (on older macOS versions).</p></li>
+<li><p>In the settings/preferences window, click on the **General**
+tab.</p></li>
+<li><p>Under "Show these items on the desktop:", ensure the box for
+**Connected servers** is checked.</p></li>
+<li><p>Next, click on the **Sidebar** tab.</p></li>
+<li><p>Under "Locations", ensure the box for **Connected servers** is
+checked.</p></li>
+</ol>
+<h1 id="verification">5.0 Verification</h1>
+<p>Upon successful completion of the procedure, the shared drive will be
+visible in the following locations:</p>
+<ul>
+<li><p>On the **Desktop**.</p></li>
+<li><p>In the **Finder sidebar** under the "Locations" section.</p></li>
+</ul>
+<p>You can now navigate the drive's contents by double-clicking its icon
+in either of these locations.</p>
+<h1 id="revision-history">6.0 Revision History</h1>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Version</th>
+<th>Date</th>
+<th>Author</th>
+<th>Change Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0</td>
+<td>2025-12-02</td>
+<td>OberaConnect IT</td>
+<td>Initial document creation from source material.</td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Details</div>
+        <div class="section-content">
+            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
+
+            <div class="highlight-box">
+                <strong>Key Point:</strong> [Important information to highlight]
+            </div>
+
+            <p>Supporting details:</p>
+            <ul>
+                <li>[Detail item 1]</li>
+                <li>[Detail item 2]</li>
+                <li>[Detail item 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Next Steps</div>
+        <div class="section-content">
+            <div class="action-item">
+                <strong>Action Required:</strong> [Specific action item with owner and deadline]
+            </div>
+
+            <ul>
+                <li>[Next step 1]</li>
+                <li>[Next step 2]</li>
+                <li>[Next step 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        OberaConnect LLC | www.oberaconnect.com | Confidential
+    </div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+{
+  "customer": "Spanish Fort Water System",
+  "project": "Spanish Fort Water System - Network Installation",
+  "created": "2025-12-01T14:21:41.143206",
+  "tasks": [
+    {
+      "title": "Review network scan report and checklist",
+      "phase": "Planning",
+      "status": "To Do",
+      "priority": "High"
+    },
+    {
+      "title": "Order equipment from vendors",
+      "phase": "Planning",
+      "status": "To Do",
+      "priority": "High"
+    },
+    {
+      "title": "Schedule installation date with customer",
+      "phase": "Planning",
+      "status": "To Do",
+      "priority": "High"
+    },
+    {
+      "title": "Install and configure firewall - Main office",
+      "phase": "Execution",
+      "status": "To Do",
+      "priority": "High"
+    },
+    {
+      "title": "Configure firewall rules and policies - Main office",
+      "phase": "Execution",
+      "status": "To Do",
+      "priority": "High"
+    },
+    {
+      "title": "Install and configure switch(es) - Main office",
+      "phase": "Execution",
+      "status": "To Do",
+      "priority": "Medium"
+    },
+    {
+      "title": "Install and configure access points - Main office",
+      "phase": "Execution",
+      "status": "To Do",
+      "priority": "Medium"
+    },
+    {
+      "title": "Install and configure firewall - 30781 WT Road",
+      "phase": "Execution",
+      "status": "To Do",
+      "priority": "High"
+    },
+    {
+      "title": "Configure firewall rules and policies - 30781 WT Road",
+      "phase": "Execution",
+      "status": "To Do",
+      "priority": "High"
+    },
+    {
+      "title": "Install and configure switch(es) - 30781 WT Road",
+      "phase": "Execution",
+      "status": "To Do",
+      "priority": "Medium"
+    },
+    {
+      "title": "Install and configure access points - 30781 WT Road",
+      "phase": "Execution",
+      "status": "To Do",
+      "priority": "Medium"
+    },
+    {
+      "title": "Test network connectivity all locations",
+      "phase": "Testing",
+      "status": "To Do",
+      "priority": "High"
+    },
+    {
+      "title": "Test VoIP system connectivity",
+      "phase": "Testing",
+      "status": "To Do",
+      "priority": "Medium"
+    },
+    {
+      "title": "Verify wireless coverage",
+      "phase": "Testing",
+      "status": "To Do",
+      "priority": "Medium"
+    },
+    {
+      "title": "Create network diagrams",
+      "phase": "Documentation",
+      "status": "To Do",
+      "priority": "Medium"
+    },
+    {
+      "title": "Document device configurations",
+      "phase": "Documentation",
+      "status": "To Do",
+      "priority": "Medium"
+    },
+    {
+      "title": "Update credentials in Keeper",
+      "phase": "Documentation",
+      "status": "To Do",
+      "priority": "High"
+    },
+    {
+      "title": "Get customer sign-off",
+      "phase": "Handoff",
+      "status": "To Do",
+      "priority": "High"
+    }
+  ]
+}

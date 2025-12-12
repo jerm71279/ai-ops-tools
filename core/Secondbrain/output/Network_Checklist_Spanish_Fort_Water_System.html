@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Checklist - Spanish Fort Water System</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 1.75rem;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .meta-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .meta-item {
+            background: rgba(255,255,255,0.1);
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .meta-item label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+
+        .meta-item span {
+            display: block;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .progress-bar {
+            background: var(--gray-200);
+            border-radius: 999px;
+            height: 12px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--success) 0%, #34d399 100%);
+            height: 100%;
+            border-radius: 999px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-weight: 600;
+            color: var(--gray-600);
+            margin-bottom: 24px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--gray-100);
+        }
+
+        .section-header h2 {
+            font-size: 1.25rem;
+            color: var(--gray-800);
+        }
+
+        .section-badge {
+            background: var(--gray-100);
+            color: var(--gray-600);
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .checklist-item:hover {
+            background: var(--gray-50);
+        }
+
+        .checklist-item.completed {
+            background: #ecfdf5;
+        }
+
+        .checklist-item.completed .item-text {
+            text-decoration: line-through;
+            color: var(--gray-600);
+        }
+
+        .checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--gray-300);
+            border-radius: 6px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .checklist-item.completed .checkbox {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .checkbox svg {
+            width: 14px;
+            height: 14px;
+            stroke: white;
+            stroke-width: 3;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .checklist-item.completed .checkbox svg {
+            opacity: 1;
+        }
+
+        .item-content {
+            flex: 1;
+        }
+
+        .item-text {
+            font-weight: 500;
+        }
+
+        .item-note {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            margin-top: 4px;
+        }
+
+        .sub-items {
+            margin-left: 34px;
+            margin-top: 8px;
+        }
+
+        .sub-item {
+            padding: 8px 12px;
+            font-size: 0.9rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        th {
+            background: var(--gray-50);
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        tr:hover {
+            background: var(--gray-50);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-complete {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-critical {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .findings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .finding-card {
+            background: var(--gray-50);
+            border-radius: 8px;
+            padding: 16px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .finding-card.critical {
+            border-left-color: var(--danger);
+        }
+
+        .finding-card.moderate {
+            border-left-color: var(--warning);
+        }
+
+        .finding-card.positive {
+            border-left-color: var(--success);
+        }
+
+        .finding-card h4 {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .finding-card p {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            border-bottom: 2px solid var(--gray-200);
+            padding-bottom: 8px;
+        }
+
+        .tab {
+            padding: 8px 16px;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--gray-600);
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-300);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .add-task-form {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px dashed var(--gray-300);
+        }
+
+        .task-input {
+            flex: 1;
+            padding: 10px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        .task-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: var(--gray-400);
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+        }
+
+        .delete-btn:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        @media print {
+            body { background: white; }
+            .section { box-shadow: none; border: 1px solid var(--gray-200); }
+            .btn { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Network Installation Checklist</h1>
+            <p>Spanish Fort Water System - OberaConnect Technical Documentation</p>
+            <div class="meta-info">
+                <div class="meta-item">
+                    <label>Date Created</label>
+                    <span>2025-11-19</span>
+                </div>
+                <div class="meta-item">
+                    <label>Last Updated</label>
+                    <span>2025-12-01</span>
+                </div>
+                <div class="meta-item">
+                    <label>Project Manager</label>
+                    <span>Jeremy Smith</span>
+                </div>
+                <div class="meta-item">
+                    <label>Total Devices</label>
+                    <span>18 (3 Locations)</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="section">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            <div class="progress-text" id="progressText">0 of 0 tasks completed (0%)</div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>Project Overview</h2>
+            </div>
+            <table>
+                <tr><th>Item</th><th>Value</th></tr>
+                <tr><td>Site Address</td><td>30686 Driftwood Lane, Spanish Fort, AL 36527</td></tr>
+                <tr><td>ISP</td><td>Via ASUS Router (to be verified)</td></tr>
+                <tr><td>Number of Users</td><td>54-56</td></tr>
+                <tr><td>Network Range</td><td>192.168.1.0/24 (both locations)</td></tr>
+                <tr><td>Locations</td><td>3 sites total</td></tr>
+            </table>
+
+            <h3 style="margin-top: 20px; margin-bottom: 12px;">Recommended Equipment</h3>
+            <table>
+                <tr><th>Component</th><th>Current</th><th>Recommended</th></tr>
+                <tr><td>Router/Firewall</td><td>ASUS WRT (Consumer-grade)</td><td>SonicWall TZ</td></tr>
+                <tr><td>Switches</td><td>Netgear GS748T 48-port</td><td>Ubiquiti 24 port POE</td></tr>
+                <tr><td>Access Points</td><td>To be identified</td><td>Ubiquiti UniFi</td></tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>Network Scan Results - December 1, 2025</h2>
+            </div>
+
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('loc1')">Location #1 - Main Office</div>
+                <div class="tab" onclick="switchTab('loc2')">Location #2 - Secondary Site</div>
+            </div>
+
+            <div class="tab-content active" id="loc1">
+                <p style="margin-bottom: 16px;"><strong>14 devices discovered</strong> | Router MAC: 4C:ED:FB:AD:3D:88</p>
+                <table>
+                    <tr><th>IP Address</th><th>Hostname</th><th>Device Type</th><th>Manufacturer</th></tr>
+                    <tr><td>192.168.1.1</td><td>router.asus.com</td><td>Router</td><td>ASUSTek</td></tr>
+                    <tr><td>192.168.1.23</td><td>SFWS-PC-RVS</td><td>Windows PC</td><td>Dell</td></tr>
+                    <tr><td>192.168.1.45</td><td>Counter</td><td>Windows PC</td><td>Dell</td></tr>
+                    <tr><td>192.168.1.46</td><td>JONDA</td><td>Printer</td><td>Epson ET-5800</td></tr>
+                    <tr><td>192.168.1.60</td><td>EPSON7C6ACF</td><td>Printer</td><td>Epson ET-5800</td></tr>
+                    <tr><td>192.168.1.98</td><td>W60B</td><td>VoIP Base</td><td>Yealink</td></tr>
+                    <tr><td>192.168.1.112</td><td>-</td><td>VoIP Device</td><td>Yealink</td></tr>
+                    <tr><td>192.168.1.123</td><td>-</td><td>Switch</td><td>Netgear GS748T</td></tr>
+                    <tr><td>192.168.1.128</td><td>Spanish-Fort-AL-SCC</td><td>Server</td><td>Dell</td></tr>
+                    <tr><td>192.168.1.134</td><td>-</td><td>Security Panel</td><td>DMP</td></tr>
+                    <tr><td>192.168.1.160</td><td>SFWS-PC24-JONDA</td><td>Windows PC</td><td>Dell</td></tr>
+                    <tr><td>192.168.1.181</td><td>SFWS-PC-Tanya</td><td>Windows PC</td><td>Dell</td></tr>
+                    <tr><td>192.168.1.240</td><td>-</td><td>Unknown</td><td>Arcadyan</td></tr>
+                </table>
+            </div>
+
+            <div class="tab-content" id="loc2">
+                <p style="margin-bottom: 16px;"><strong>4 devices discovered</strong> | Router MAC: 18:31:BF:5E:A5:70</p>
+                <table>
+                    <tr><th>IP Address</th><th>Hostname</th><th>Device Type</th><th>Manufacturer</th></tr>
+                    <tr><td>192.168.1.1</td><td>router.asus.com</td><td>Router</td><td>ASUSTek</td></tr>
+                    <tr><td>192.168.1.13</td><td>EPSON834441</td><td>Printer</td><td>Epson ET-5800</td></tr>
+                    <tr><td>192.168.1.166</td><td>Jason-s-Z-Fold6</td><td>Mobile</td><td>Samsung</td></tr>
+                    <tr><td>192.168.1.253</td><td>NucBox_K8</td><td>Mini PC</td><td>Gaoshengda</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>Security Observations</h2>
+            </div>
+            <div class="findings-grid">
+                <div class="finding-card critical">
+                    <h4>ASUS Consumer Routers</h4>
+                    <p>Both locations using consumer-grade routers. Replace with SonicWall TZ for enterprise security.</p>
+                </div>
+                <div class="finding-card critical">
+                    <h4>SMB Services Active</h4>
+                    <p>Windows file sharing on workstations. Verify SMBv1 is disabled and SMB signing enabled.</p>
+                </div>
+                <div class="finding-card moderate">
+                    <h4>VoIP SIP Unencrypted</h4>
+                    <p>SIP traffic on port 5060 at Location #1. Consider SIP over TLS (port 5061).</p>
+                </div>
+                <div class="finding-card moderate">
+                    <h4>HTTP Admin Interfaces</h4>
+                    <p>Multiple devices expose web interfaces. Ensure strong passwords on all devices.</p>
+                </div>
+                <div class="finding-card positive">
+                    <h4>Mini PC Firewall Enabled</h4>
+                    <p>NucBox_K8 at Location #2 has all ports filtered - good security posture.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>Phase 1: Network Discovery & Assessment</h2>
+                <span class="section-badge" id="phase1Badge">0/0</span>
+            </div>
+
+            <div class="checklist-item completed" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Schedule on-site discovery session with customer</div>
+                    <div class="item-note">Scheduled: 11/30/2025</div>
+                </div>
+            </div>
+
+            <div class="checklist-item completed" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Document current network topology</div>
+                    <div class="item-note">Completed 12/1/2025 - Both locations scanned</div>
+                </div>
+            </div>
+
+            <div class="sub-items">
+                <div class="checklist-item sub-item completed" onclick="toggleItem(this)">
+                    <div class="checkbox">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                    </div>
+                    <div class="item-content">
+                        <div class="item-text">Identify existing network devices (routers, switches, APs)</div>
+                    </div>
+                </div>
+                <div class="checklist-item sub-item completed" onclick="toggleItem(this)">
+                    <div class="checkbox">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                    </div>
+                    <div class="item-content">
+                        <div class="item-text">Map IP addressing scheme and VLAN structure</div>
+                        <div class="item-note">Current: 192.168.1.0/24 - No VLANs configured</div>
+                    </div>
+                </div>
+                <div class="checklist-item sub-item" onclick="toggleItem(this)">
+                    <div class="checkbox">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                    </div>
+                    <div class="item-content">
+                        <div class="item-text">Document internet connection type and bandwidth</div>
+                    </div>
+                </div>
+                <div class="checklist-item sub-item completed" onclick="toggleItem(this)">
+                    <div class="checkbox">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                    </div>
+                    <div class="item-content">
+                        <div class="item-text">Identify critical systems and devices</div>
+                        <div class="item-note">Server: 192.168.1.128, Security: 192.168.1.134</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Assess physical infrastructure</div>
+                </div>
+            </div>
+
+            <div class="sub-items">
+                <div class="checklist-item sub-item" onclick="toggleItem(this)">
+                    <div class="checkbox">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                    </div>
+                    <div class="item-content">
+                        <div class="item-text">Evaluate existing cabling (Cat5e/6, fiber)</div>
+                    </div>
+                </div>
+                <div class="checklist-item sub-item" onclick="toggleItem(this)">
+                    <div class="checkbox">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                    </div>
+                    <div class="item-content">
+                        <div class="item-text">Check rack space availability</div>
+                    </div>
+                </div>
+                <div class="checklist-item sub-item" onclick="toggleItem(this)">
+                    <div class="checkbox">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                    </div>
+                    <div class="item-content">
+                        <div class="item-text">Identify mounting locations for access points</div>
+                    </div>
+                </div>
+                <div class="checklist-item sub-item" onclick="toggleItem(this)">
+                    <div class="checkbox">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                    </div>
+                    <div class="item-content">
+                        <div class="item-text">Verify power availability (PoE requirements, UPS)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checklist-item completed" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Document security gaps and vulnerabilities</div>
+                    <div class="item-note">Completed 12/1/2025 - See Security Observations</div>
+                </div>
+            </div>
+
+            <div class="checklist-item completed" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Identify single points of failure</div>
+                    <div class="item-note">Single ASUS router is gateway, no redundancy</div>
+                </div>
+            </div>
+
+            <div class="checklist-item completed" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Create network diagram (current state)</div>
+                    <div class="item-note">See Network Scan Report 2025-12-01</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>Phase 2: Recommendation & Design</h2>
+                <span class="section-badge" id="phase2Badge">0/0</span>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Core Router/Firewall - Model and specifications</div>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Create proposed network topology diagram</div>
+                </div>
+            </div>
+
+            <div class="checklist-item completed" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Define IP addressing scheme</div>
+                    <div class="item-note">Native VLAN: 10.55.0.0/24 (Gateway: 10.55.0.1)</div>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Plan VLAN structure</div>
+                    <div class="item-note">Data, Voice, Guest, IoT, Security VLANs needed</div>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Plan wireless network architecture</div>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Design security policies and firewall rules</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>Phase 3: Pre-Configuration & Preparation</h2>
+                <span class="section-badge" id="phase3Badge">0/0</span>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Create configuration templates (router, switch, AP)</div>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Configure devices in lab/staging environment</div>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Test configurations (connectivity, VLANs, security)</div>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Schedule installation date/time with customer</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>Phase 4: Installation Day</h2>
+                <span class="section-badge" id="phase4Badge">0/0</span>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Install and connect physical equipment</div>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Upload final configurations</div>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Test internet connectivity from all VLANs</div>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Verify wireless coverage and performance</div>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Migrate devices to new network</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>Phase 5: Post-Installation & Handoff</h2>
+                <span class="section-badge" id="phase5Badge">0/0</span>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Configure network monitoring (SNMP, alerts, logging)</div>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Add devices to NinjaOne/RMM</div>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Conduct final walkthrough with customer</div>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Obtain customer sign-off</div>
+                </div>
+            </div>
+
+            <div class="checklist-item" onclick="toggleItem(this)">
+                <div class="checkbox">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                </div>
+                <div class="item-content">
+                    <div class="item-text">Schedule 30-day follow-up review</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>Custom Tasks</h2>
+                <span class="section-badge" id="customBadge">0/0</span>
+            </div>
+            <div id="customTasks"></div>
+            <div class="add-task-form">
+                <input type="text" id="newTaskInput" class="task-input" placeholder="Enter new task..." onkeypress="if(event.key==='Enter')addTask()">
+                <button class="btn btn-primary" onclick="addTask()">+ Add Task</button>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-primary" onclick="saveProgress()">Save Progress</button>
+            <button class="btn btn-secondary" onclick="window.print()">Print Checklist</button>
+            <button class="btn btn-secondary" onclick="exportData()">Export Data</button>
+            <button class="btn btn-danger" onclick="clearAllData()">Reset All</button>
+        </div>
+    </div>
+
+    <script>
+        // Custom tasks storage
+        let customTasks = [];
+
+        // Load saved state
+        function loadProgress() {
+            const saved = localStorage.getItem('sfwb_checklist');
+            if (saved) {
+                const data = JSON.parse(saved);
+                // Load checkbox states for static items
+                document.querySelectorAll('.checklist-item:not(.custom-task)').forEach((item, index) => {
+                    if (data.items && data.items[index]) {
+                        item.classList.add('completed');
+                    }
+                });
+                // Load custom tasks
+                if (data.customTasks) {
+                    customTasks = data.customTasks;
+                    renderCustomTasks();
+                }
+            }
+            updateProgress();
+        }
+
+        // Render custom tasks
+        function renderCustomTasks() {
+            const container = document.getElementById('customTasks');
+            container.innerHTML = '';
+
+            customTasks.forEach((task, index) => {
+                const div = document.createElement('div');
+                div.className = 'checklist-item custom-task' + (task.completed ? ' completed' : '');
+                div.innerHTML = `
+                    <div class="checkbox" onclick="toggleCustomTask(${index})">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg>
+                    </div>
+                    <div class="item-content" onclick="toggleCustomTask(${index})">
+                        <div class="item-text">${escapeHtml(task.text)}</div>
+                    </div>
+                    <button class="delete-btn" onclick="deleteTask(${index})" title="Delete task">&times;</button>
+                `;
+                container.appendChild(div);
+            });
+
+            updateCustomBadge();
+        }
+
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Add new task
+        function addTask() {
+            const input = document.getElementById('newTaskInput');
+            const text = input.value.trim();
+
+            if (text) {
+                customTasks.push({ text: text, completed: false });
+                input.value = '';
+                renderCustomTasks();
+                saveProgress();
+                updateProgress();
+            }
+        }
+
+        // Toggle custom task
+        function toggleCustomTask(index) {
+            customTasks[index].completed = !customTasks[index].completed;
+            renderCustomTasks();
+            saveProgress();
+            updateProgress();
+        }
+
+        // Delete task
+        function deleteTask(index) {
+            if (confirm('Delete this task?')) {
+                customTasks.splice(index, 1);
+                renderCustomTasks();
+                saveProgress();
+                updateProgress();
+            }
+        }
+
+        // Update custom tasks badge
+        function updateCustomBadge() {
+            const total = customTasks.length;
+            const done = customTasks.filter(t => t.completed).length;
+            const badge = document.getElementById('customBadge');
+            if (badge) {
+                badge.textContent = `${done}/${total}`;
+            }
+        }
+
+        // Toggle item completion (for static items)
+        function toggleItem(item) {
+            item.classList.toggle('completed');
+            updateProgress();
+            saveProgress();
+        }
+
+        // Update progress display
+        function updateProgress() {
+            const staticItems = document.querySelectorAll('.checklist-item:not(.custom-task)');
+            const staticCompleted = document.querySelectorAll('.checklist-item.completed:not(.custom-task)');
+            const customCompleted = customTasks.filter(t => t.completed).length;
+
+            const total = staticItems.length + customTasks.length;
+            const done = staticCompleted.length + customCompleted;
+            const percent = total > 0 ? Math.round((done / total) * 100) : 0;
+
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressText').textContent =
+                `${done} of ${total} tasks completed (${percent}%)`;
+        }
+
+        // Save to localStorage
+        function saveProgress() {
+            const items = [];
+            document.querySelectorAll('.checklist-item:not(.custom-task)').forEach(item => {
+                items.push(item.classList.contains('completed'));
+            });
+            localStorage.setItem('sfwb_checklist', JSON.stringify({
+                items: items,
+                customTasks: customTasks,
+                lastSaved: new Date().toISOString()
+            }));
+        }
+
+        // Clear all data
+        function clearAllData() {
+            if (confirm('Reset all progress and custom tasks? This cannot be undone.')) {
+                localStorage.removeItem('sfwb_checklist');
+                customTasks = [];
+                document.querySelectorAll('.checklist-item').forEach(item => {
+                    item.classList.remove('completed');
+                });
+                renderCustomTasks();
+                updateProgress();
+            }
+        }
+
+        // Tab switching
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Export data
+        function exportData() {
+            const items = [];
+            document.querySelectorAll('.checklist-item:not(.custom-task)').forEach(item => {
+                const textEl = item.querySelector('.item-text');
+                if (textEl) {
+                    items.push({
+                        task: textEl.textContent,
+                        completed: item.classList.contains('completed'),
+                        type: 'static'
+                    });
+                }
+            });
+
+            customTasks.forEach(task => {
+                items.push({
+                    task: task.text,
+                    completed: task.completed,
+                    type: 'custom'
+                });
+            });
+
+            const blob = new Blob([JSON.stringify(items, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'sfwb_checklist_export.json';
+            a.click();
+        }
+
+        // Initialize
+        loadProgress();
+    </script>
+</body>
+</html>

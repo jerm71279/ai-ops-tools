@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OberaConnect Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            background: #fff;
+        }
+
+        .header {
+            border-bottom: 3px solid #0066CC;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #666666;
+            font-style: italic;
+            margin-left: 2px;
+        }
+
+        .doc-meta {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .doc-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .doc-date {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0066CC;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .section-content {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .section-content p {
+            margin-bottom: 10px;
+        }
+
+        .section-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section-content li {
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 11px;
+            color: #999999;
+            text-align: center;
+        }
+
+        .highlight-box {
+            background: #f5f9ff;
+            border-left: 4px solid #0066CC;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .action-item {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
+        </div>
+        <div class="tagline">Technology Solutions for Modern Business</div>
+
+        <div class="doc-meta">
+            <div class="doc-title">SOP-SP-002 SharePoint Permissions v1.0.0</div>
+            <div class="doc-date">Date: [MM/DD/YYYY]</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Executive Summary</div>
+        <div class="section-content">
+            <p>I will now generate the complete Standard Operating Procedure (SOP)
+as SOP-SP-002.md and save it in the current directory.</p>
+<p>Error executing tool write_file: Tool "write_file" not found in
+registry. Tools must use the exact names that are registered. Did you
+mean one of: "read_file", "write_todos", "web_fetch"?</p>
+<p>I am unable to create files directly. However, I have generated the
+complete SOP markdown for SOP-SP-002.md. You can copy the content below
+and save it to the desired file.</p>
+<p>Standard Operating Procedure: SOP-SP-002</p>
+<p>Title: Adding SharePoint Read-Only Permissions to an Existing Azure
+Application</p>
+<p>Version: 1.0</p>
+<p>Effective Date: 2025-12-02</p>
+<p>Owner: System Administrator</p>
+<p>────────────────────────────────────────────────────────────</p>
+<h1 id="purpose">1.0 Purpose</h1>
+<p>This document outlines the standard procedure for adding
+Sites.Read.All and Files.Read.All application permissions to an existing
+Azure Active Directory (Azure AD) application. This enables the
+application to securely authenticate and retrieve data from SharePoint
+on behalf of the system, without user interaction, adhering to the
+principle of least privilege.</p>
+<h1 id="scope">2.0 Scope</h1>
+<p>This procedure applies to the existing Azure AD application used for
+the SecondBrain project. It is intended for administrators with the
+necessary permissions to manage application registrations and grant
+tenant-wide admin consent in the Azure portal.</p>
+<h1 id="prerequisites">3.0 Prerequisites</h1>
+<ul>
+<li><p>An existing Azure AD application registration.</p></li>
+<li><p>Administrative access to the Azure portal
+(`portal.azure.com`).</p></li>
+<li><p>The name or Application ID of the target Azure
+application.</p></li>
+<li><p>Terminal access to the application server to update environment
+files.</p></li>
+</ul>
+<h1 id="procedure">4.0 Procedure</h1>
+<p>The procedure is divided into four main parts: adding API
+permissions, granting consent, obtaining credentials, and configuring
+the local environment.</p>
+<h2 id="add-api-permissions">4.1 Add API Permissions</h2>
+<ol type="1">
+<li><p>Navigate to the Azure portal and open **Azure Active
+Directory**.</p></li>
+<li><p>Go to **App registrations** and select your existing
+application.</p></li>
+<li><p>In the left sidebar, click on **API permissions**.</p></li>
+<li><p>Click the **+ Add a permission** button.</p></li>
+<li><p>In the "Request API permissions" panel, select **Microsoft
+Graph**.</p></li>
+<li><p>Select **Application permissions**. This allows the application
+to authenticate on its own, which is required for a background
+service.</p></li>
+<li><p>In the "Select permissions" search box, find and add the
+following two permissions:</p></li>
+</ol>
+<ul>
+<li><p>**`Sites.Read.All`**: Check the box. This permits reading items
+in all site collections.</p></li>
+<li><p>**`Files.Read.All`**: Check the box. This permits reading files
+in all site collections.</p></li>
+</ul>
+<ol start="8" type="1">
+<li><p>Click the **Add permissions** button at the bottom of the
+panel.</p></li>
+</ol>
+<h2 id="grant-admin-consent">4.2 Grant Admin Consent</h2>
+<ol start="9" type="1">
+<li><p>Once the permissions are added, they will appear in the API
+permissions list with a status of "Not granted".</p></li>
+<li><p>Click the **"Grant admin consent for [Your Tenant Name]"** button
+located above the permissions list.</p></li>
+<li><p>A confirmation dialog will appear. Click **Yes**.</p></li>
+<li><p>Wait for the status of the new permissions to update to
+"Granted", indicated by a green checkmark. The final configuration
+should appear as follows:</p></li>
+</ol>
+<p>`</p>
+<p>✓ User.Read (Delegated) - Granted</p>
+<p>✓ Sites.Read.All (Application) - Granted</p>
+<p>✓ Files.Read.All (Application) - Granted</p>
+<p>`</p>
+<h2 id="obtain-application-credentials">4.3 Obtain Application
+Credentials</h2>
+<p>Three pieces of information are required to configure the
+application.</p>
+<ol start="13" type="1">
+<li><p>**Tenant ID**:</p></li>
+</ol>
+<ul>
+<li><p>Navigate to the **Overview** page for your application.</p></li>
+<li><p>Copy the **Directory (tenant) ID** value.</p></li>
+</ul>
+<ol start="14" type="1">
+<li><p>**Application (Client) ID**:</p></li>
+</ol>
+<ul>
+<li><p>On the same **Overview** page, copy the **Application (client)
+ID** value.</p></li>
+</ul>
+<ol start="15" type="1">
+<li><p>**Client Secret**:</p></li>
+</ol>
+<ul>
+<li><p>Navigate to the **Certificates &amp; secrets** page.</p></li>
+<li><p>If you do not have an active, unexpired secret whose value you
+have saved, you must create a new one.</p></li>
+<li><p>Click **+ New client secret**.</p></li>
+<li><p>Provide a description (e.g., `SecondBrain SharePoint
+Access`).</p></li>
+<li><p>Set the expiration period (e.g., `24 months`).</p></li>
+<li><p>Click **Add**.</p></li>
+<li><p>**CRITICAL:** Immediately copy the new secret's **Value** and
+store it in a secure location. This value is only shown once.</p></li>
+</ul>
+<h2 id="configure-environment-file">4.4 Configure Environment File</h2>
+<ol start="16" type="1">
+<li><p>Connect to the application server via terminal.</p></li>
+<li><p>Navigate to the project directory:</p></li>
+</ol>
+<p>`bash</p>
+<p>cd /home/mavrick/Projects/Secondbrain</p>
+<p>`</p>
+<ol start="18" type="1">
+<li><p>Open the `.env` file for editing:</p></li>
+</ol>
+<p>`bash</p>
+<p>nano .env</p>
+<p>`</p>
+<ol start="19" type="1">
+<li><p>Add or update the following lines with the credentials obtained
+in the previous step:</p></li>
+</ol>
+<p>`bash</p>
+<p>AZURE_TENANT_ID=your-tenant-id-here</p>
+<p>AZURE_CLIENT_ID=your-application-client-id-here</p>
+<p>AZURE_CLIENT_SECRET=your-client-secret-value-here</p>
+<p>`</p>
+<ol start="20" type="1">
+<li><p>Save the file and exit the editor (`Ctrl+X`, then `Y`, then
+`Enter`).</p></li>
+</ol>
+<h1 id="verification">5.0 Verification</h1>
+<p>To confirm that the permissions and credentials are correctly
+configured, run the test script.</p>
+<ol start="21" type="1">
+<li><p>Navigate to the project directory:</p></li>
+</ol>
+<p>`bash</p>
+<p>cd /home/mavrick/Projects/Secondbrain</p>
+<p>`</p>
+<ol start="22" type="1">
+<li><p>Execute the SharePoint importer script using the project's
+virtual environment:</p></li>
+</ol>
+<p>`bash</p>
+<p>./venv/bin/python sharepoint_importer.py</p>
+<p>`</p>
+<ol start="23" type="1">
+<li><p>**Expected Output**: The script should successfully list the
+available SharePoint sites without any permission errors.</p></li>
+</ol>
+<p>`</p>
+<p>📍 Listing SharePoint sites...</p>
+<p>📍 Found X SharePoint sites:</p>
+<ul>
+<li><p>Site Name 1 (https://...)</p></li>
+<li><p>Site Name 2 (https://...)</p></li>
+</ul>
+<p>`</p>
+<h1 id="security-considerations">6.0 Security Considerations</h1>
+<ul>
+<li><p>**Principle of Least Privilege**: This procedure grants read-only
+access (`.Read.All`). **DO NOT** grant write permissions (e.g.,
+`Sites.ReadWrite.All`, `Sites.FullControl.All`) unless explicitly
+required and approved.</p></li>
+<li><p>**Permission Scope**:</p></li>
+<li><p>`Sites.Read.All`: Allows the application to list sites and read
+metadata. It does not permit creating, altering, or deleting
+sites.</p></li>
+<li><p>`Files.Read.All`: Allows the application to download files and
+read file metadata. It does not permit uploading, altering, or deleting
+files.</p></li>
+<li><p>**Credential Security**: The `AZURE_CLIENT_SECRET` is a sensitive
+credential. Ensure it is stored securely and is not committed to version
+control. Use environment files (`.env`) or a secrets management
+system.</p></li>
+</ul>
+<h1 id="troubleshooting">7.0 Troubleshooting</h1>
+<ul>
+<li><p>**Error: "Insufficient privileges to complete the
+operation"**</p></li>
+<li><p>**Cause**: Admin consent has not been granted or has not yet
+propagated.</p></li>
+<li><p>**Solution**: Ensure you have completed step **4.2 Grant Admin
+Consent**. Wait up to 5-10 minutes for permissions to fully propagate
+across Microsoft's systems.</p></li>
+<li><p>**Error: "Failed to get access token"**</p></li>
+<li><p>**Cause**: The credentials in the `.env` file are
+incorrect.</p></li>
+<li><p>**Solution**: Double-check that the `AZURE_TENANT_ID`,
+`AZURE_CLIENT_ID`, and `AZURE_CLIENT_SECRET` values are copied correctly
+and have no extra characters or whitespace. Verify the client secret has
+not expired.</p></li>
+<li><p>**Error: "Collection does not exist"**</p></li>
+<li><p>**Cause**: The Site ID used in a script is incorrect.</p></li>
+<li><p>**Solution**: Ensure you are using the correct `site_id` as
+provided by the verification script in section **5.0**.</p></li>
+</ul>
+<h1 id="appendix">8.0 Appendix</h1>
+<h2 id="post-setup-actions">8.1 Post-Setup Actions</h2>
+<p>After successful verification, you can use the configured importer to
+interact with SharePoint.</p>
+<ol start="24" type="1">
+<li><p>Launch the Python interpreter within the project's
+environment:</p></li>
+</ol>
+<p>`bash</p>
+<p>./venv/bin/python</p>
+<p>`</p>
+<ol start="25" type="1">
+<li><p>Use the `SharePointImporter` class to list libraries and download
+files:</p></li>
+</ol>
+<p>`python</p>
+<p>from sharepoint_importer import SharePointImporter</p>
+<p>importer = SharePointImporter()</p>
+<p>Example: List document libraries in a specific site</p>
+<p>libraries =
+importer.list_document_libraries(site_id="YOUR_SITE_ID")</p>
+<p>Example: Download files from a specific library</p>
+<p>importer.download_files_from_library(</p>
+<p>site_id="YOUR_SITE_ID",</p>
+<p>drive_id="YOUR_DRIVE_ID",</p>
+<p>output_dir="input_documents/sharepoint/oberaconnect"</p>
+<p>)</p>
+<p>`</p>
+<h2 id="completion-checklist">8.2 Completion Checklist</h2>
+<ul>
+<li><p>[ ] `Sites.Read.All` (Application) permission added.</p></li>
+<li><p>[ ] `Files.Read.All` (Application) permission added.</p></li>
+<li><p>[ ] Admin consent granted for new permissions.</p></li>
+<li><p>[ ] Tenant ID copied from application Overview page.</p></li>
+<li><p>[ ] Application (Client) ID copied from application Overview
+page.</p></li>
+<li><p>[ ] Client Secret created and its value securely copied.</p></li>
+<li><p>[ ] `AZURE_TENANT_ID`, `AZURE_CLIENT_ID`, and
+`AZURE_CLIENT_SECRET` added to `.env` file.</p></li>
+<li><p>[ ] Connection verified successfully with
+`sharepoint_importer.py`.</p></li>
+</ul>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Details</div>
+        <div class="section-content">
+            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
+
+            <div class="highlight-box">
+                <strong>Key Point:</strong> [Important information to highlight]
+            </div>
+
+            <p>Supporting details:</p>
+            <ul>
+                <li>[Detail item 1]</li>
+                <li>[Detail item 2]</li>
+                <li>[Detail item 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Next Steps</div>
+        <div class="section-content">
+            <div class="action-item">
+                <strong>Action Required:</strong> [Specific action item with owner and deadline]
+            </div>
+
+            <ul>
+                <li>[Next step 1]</li>
+                <li>[Next step 2]</li>
+                <li>[Next step 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        OberaConnect LLC | www.oberaconnect.com | Confidential
+    </div>
+</body>
+</html>

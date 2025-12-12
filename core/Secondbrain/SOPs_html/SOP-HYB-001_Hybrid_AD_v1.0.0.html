@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OberaConnect Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            background: #fff;
+        }
+
+        .header {
+            border-bottom: 3px solid #0066CC;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #666666;
+            font-style: italic;
+            margin-left: 2px;
+        }
+
+        .doc-meta {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .doc-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .doc-date {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0066CC;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .section-content {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .section-content p {
+            margin-bottom: 10px;
+        }
+
+        .section-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section-content li {
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 11px;
+            color: #999999;
+            text-align: center;
+        }
+
+        .highlight-box {
+            background: #f5f9ff;
+            border-left: 4px solid #0066CC;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .action-item {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
+        </div>
+        <div class="tagline">Technology Solutions for Modern Business</div>
+
+        <div class="doc-meta">
+            <div class="doc-title">SOP-HYB-001 Hybrid AD v1.0.0</div>
+            <div class="doc-date">Date: [MM/DD/YYYY]</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Executive Summary</div>
+        <div class="section-content">
+            <p>Version: 1.0</p>
+<p>Status: Final</p>
+<p>Author: OberaConnect IT</p>
+<p>Date: 2025-12-02</p>
+<p>────────────────────────────────────────────────────────────</p>
+<h1 id="purpose">1.0 Purpose</h1>
+<p>The purpose of this Standard Operating Procedure (SOP) is to document
+the major components of the Setco Hybrid Active Directory (AD)
+environment, which integrates the on-premises Windows Active Directory
+with Microsoft 365 (M365).</p>
+<h1 id="scope">2.0 Scope</h1>
+<p>This SOP applies to the management and troubleshooting of the core
+infrastructure that enables the hybrid AD functionality for Setco. This
+includes the AD Sync service, Active Directory Federation Services
+(ADFS), and related DNS configurations.</p>
+<h1 id="prerequisites">3.0 Prerequisites</h1>
+<ul>
+<li><p>Basic understanding of Windows Server Active Directory.</p></li>
+<li><p>Familiarity with Microsoft 365 administration.</p></li>
+<li><p>Knowledge of DNS principles and management.</p></li>
+</ul>
+<h1 id="procedure">4.0 Procedure</h1>
+<h2 id="setco-dc01-active-directory-sync-service">4.1 Setco-DC01: Active
+Directory Sync Service</h2>
+<ol type="1">
+<li><p>**Component:** `Setco-DC01`</p></li>
+<li><p>**Role:** Active Directory domain controller responsible for
+synchronizing user accounts and passwords from the on-premises Windows
+Active Directory to M365.</p></li>
+<li><p>**Service Name:** The synchronization service is named `Microsoft
+Azure AD Sync`.</p></li>
+<li><p>**Sync Direction:** The synchronization is one-way, from the
+on-premises AD to M365.</p></li>
+</ol>
+<ul>
+<li><p>**Important:** Accounts created directly in M365 will not be
+synchronized back to the on-premises Active Directory.</p></li>
+</ul>
+<ol start="5" type="1">
+<li><p>**Troubleshooting:** If the AD Sync is not updating correctly,
+the first step is to attempt a restart of the `Microsoft Azure AD Sync`
+service on `Setco-DC01`.</p></li>
+</ol>
+<h2 id="setco-adfs01-active-directory-federation-services">4.2
+Setco-ADFS01: Active Directory Federation Services</h2>
+<ol start="6" type="1">
+<li><p>**Component:** `Setco-ADFS01`</p></li>
+<li><p>**Role:** Provides secure, authenticated access to resources for
+domain-joined devices, web applications, and other systems within the
+organization's AD, as well as approved third-party systems.</p></li>
+<li><p>**Authentication Flow:** M365 communicates with the on-premises
+AD environment through the ADFS services for authentication
+purposes.</p></li>
+</ol>
+<h2 id="setco-dns-settings-authentication-discovery">4.3 Setco DNS
+Settings: Authentication Discovery</h2>
+<ol start="9" type="1">
+<li><p>**Mechanism:** Microsoft's authentication services locate the
+on-premises ADFS server by querying public DNS records for the domain
+(`setcoservices.com`).</p></li>
+<li><p>**DNS Record:** The key record is an `A` record with the name
+`externalvalidation`.</p></li>
+<li><p>**Configuration:** The `externalvalidation.setcoservices.com` `A`
+record must be set to the external IP address of the ADFS server
+(`Setco-ADFS01`).</p></li>
+<li><p>**Authentication Process:**</p></li>
+</ol>
+<ul>
+<li><p>A user attempts to log in to a Microsoft service.</p></li>
+<li><p>Microsoft's authenticator identifies the user's domain (e.g.,
+`setcoservices.com`).</p></li>
+<li><p>It then looks for the `externalvalidation` `A` record for that
+domain.</p></li>
+<li><p>Authentication requests are directed to the IP address specified
+in that record, which is the ADFS server. The IP address itself is
+configured in Azure.</p></li>
+</ul>
+<h1 id="verification">5.0 Verification</h1>
+<ol start="13" type="1">
+<li><p>**AD Sync Health:** Check the synchronization status in the
+Microsoft 365 admin center to ensure that the last sync was successful
+and recent.</p></li>
+<li><p>**M365 Login:** Have a test user attempt to log in to the M365
+portal. A successful login that redirects to the organization's ADFS
+login page and then back to M365 confirms that the ADFS and DNS
+configuration is working.</p></li>
+</ol>
+<h1 id="additional-considerations">6.0 Additional Considerations</h1>
+<ul>
+<li><p>Any changes to the external IP address of the `Setco-ADFS01`
+server must be reflected in the `externalvalidation.setcoservices.com`
+DNS `A` record to avoid authentication failures.</p></li>
+<li><p>The `Microsoft Azure AD Sync` service should be monitored for any
+stoppage or errors, as this will prevent password and user object
+changes from being reflected in M365.</p></li>
+</ul>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Details</div>
+        <div class="section-content">
+            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
+
+            <div class="highlight-box">
+                <strong>Key Point:</strong> [Important information to highlight]
+            </div>
+
+            <p>Supporting details:</p>
+            <ul>
+                <li>[Detail item 1]</li>
+                <li>[Detail item 2]</li>
+                <li>[Detail item 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Next Steps</div>
+        <div class="section-content">
+            <div class="action-item">
+                <strong>Action Required:</strong> [Specific action item with owner and deadline]
+            </div>
+
+            <ul>
+                <li>[Next step 1]</li>
+                <li>[Next step 2]</li>
+                <li>[Next step 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        OberaConnect LLC | www.oberaconnect.com | Confidential
+    </div>
+</body>
+</html>

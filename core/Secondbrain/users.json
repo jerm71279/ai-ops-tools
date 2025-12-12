@@ -1,0 +1,12 @@
+{
+  "admin": {
+    "password": "scrypt:32768:8:1$BoVWa5Quz6ApLAcB$d0cc7ffc2697b10abd19852a6b49aa75ec7c195672f86db029bcdf945282d987d4fc2a21b6a0b07588b21a04cd291d5e791e63a4d4d9229bc4a29e098a41fed4",
+    "name": "Administrator",
+    "role": "admin"
+  },
+  "user": {
+    "password": "scrypt:32768:8:1$JE73zdgSmUviTdOM$b2ea956007edc2ea135b6d44c3785091c68dac3b94c9388623515c4b373bc790e32f6b4d1f4e9832b843248ac47bb38fb2856dd79d0d61cc7fdc3a0d18b806bc",
+    "name": "OberaConnect User",
+    "role": "user"
+  }
+}

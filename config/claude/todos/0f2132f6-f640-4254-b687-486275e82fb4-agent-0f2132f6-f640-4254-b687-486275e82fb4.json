@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Scan all projects in the Projects directory",
+    "status": "completed",
+    "activeForm": "Scanning all projects in the Projects directory"
+  },
+  {
+    "content": "Analyze project structure and health indicators",
+    "status": "completed",
+    "activeForm": "Analyzing project structure and health indicators"
+  },
+  {
+    "content": "Check for feedback loops and documentation",
+    "status": "in_progress",
+    "activeForm": "Checking for feedback loops and documentation"
+  },
+  {
+    "content": "Assess git repository status",
+    "status": "pending",
+    "activeForm": "Assessing git repository status"
+  },
+  {
+    "content": "Generate comprehensive health report",
+    "status": "pending",
+    "activeForm": "Generating comprehensive health report"
+  }
+]

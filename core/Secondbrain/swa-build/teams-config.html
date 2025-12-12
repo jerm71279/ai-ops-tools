@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Hub - Teams Configuration</title>
+    <script src="https://res.cdn.office.net/teams-js/2.0.0/js/MicrosoftTeams.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0078D4;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .description {
+            color: #666;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+        .features {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .features h3 {
+            margin-top: 0;
+            color: #0078D4;
+        }
+        .features ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .features li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Engineering Hub</h1>
+        <p>Configure the Engineering Command Center tab for your team channel.</p>
+
+        <div class="form-group">
+            <label for="defaultTab">Default View</label>
+            <select id="defaultTab">
+                <option value="projects">Projects</option>
+                <option value="kanban">Task Board (Kanban)</option>
+                <option value="timereports">Time Reports</option>
+                <option value="todos">To-Do List</option>
+                <option value="calendar">Calendar</option>
+            </select>
+            <p class="description">Choose which view opens by default when team members access this tab.</p>
+        </div>
+
+        <div class="features">
+            <h3>Features Included</h3>
+            <ul>
+                <li><strong>Projects</strong> - Track all engineering projects</li>
+                <li><strong>Task Board</strong> - Kanban board for task management</li>
+                <li><strong>Time Reports</strong> - Billable hours and utilization</li>
+                <li><strong>To-Do List</strong> - Weekly task planning</li>
+                <li><strong>Calendar</strong> - Team schedule view</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        microsoftTeams.app.initialize().then(() => {
+            microsoftTeams.pages.config.registerOnSaveHandler((saveEvent) => {
+                const defaultTab = document.getElementById('defaultTab').value;
+
+                microsoftTeams.pages.config.setConfig({
+                    entityId: 'engineering-hub',
+                    contentUrl: `https://jolly-island-06ade710f.3.azurestaticapps.net?tab=${defaultTab}`,
+                    websiteUrl: 'https://jolly-island-06ade710f.3.azurestaticapps.net',
+                    suggestedDisplayName: 'Engineering Hub'
+                });
+
+                saveEvent.notifySuccess();
+            });
+
+            // Enable the save button
+            microsoftTeams.pages.config.setValidityState(true);
+        });
+    </script>
+</body>
+</html>

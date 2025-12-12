@@ -1,0 +1,52 @@
+[
+  {
+    "content": "Gather information about the current alert configuration",
+    "status": "completed",
+    "activeForm": "Gathering information about alert configuration"
+  },
+  {
+    "content": "Verify backup-specific alert rules exist and are enabled",
+    "status": "completed",
+    "activeForm": "Verifying backup-specific alert rules"
+  },
+  {
+    "content": "Guide user on selecting correct signal for backup alerts",
+    "status": "completed",
+    "activeForm": "Guiding user on signal selection"
+  },
+  {
+    "content": "Navigate to Recovery Services vault (not VM)",
+    "status": "completed",
+    "activeForm": "Navigating to Recovery Services vault"
+  },
+  {
+    "content": "Enable diagnostic settings on Recovery Services vault with Resource-specific mode",
+    "status": "completed",
+    "activeForm": "Enabling diagnostic settings"
+  },
+  {
+    "content": "Set up built-in backup alerts (immediate) OR wait for Log Analytics",
+    "status": "in_progress",
+    "activeForm": "Setting up alerts"
+  },
+  {
+    "content": "Create alert for backup job failed",
+    "status": "pending",
+    "activeForm": "Creating backup failed alert"
+  },
+  {
+    "content": "Create alert for backup job started",
+    "status": "pending",
+    "activeForm": "Creating backup started alert"
+  },
+  {
+    "content": "Create alert for backup job completed",
+    "status": "pending",
+    "activeForm": "Creating backup completed alert"
+  },
+  {
+    "content": "Test all alert configurations",
+    "status": "pending",
+    "activeForm": "Testing alert configurations"
+  }
+]

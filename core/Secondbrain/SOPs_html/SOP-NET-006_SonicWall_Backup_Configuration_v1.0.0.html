@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OberaConnect Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            background: #fff;
+        }
+
+        .header {
+            border-bottom: 3px solid #0066CC;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #666666;
+            font-style: italic;
+            margin-left: 2px;
+        }
+
+        .doc-meta {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .doc-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .doc-date {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0066CC;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .section-content {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .section-content p {
+            margin-bottom: 10px;
+        }
+
+        .section-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section-content li {
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 11px;
+            color: #999999;
+            text-align: center;
+        }
+
+        .highlight-box {
+            background: #f5f9ff;
+            border-left: 4px solid #0066CC;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .action-item {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
+        </div>
+        <div class="tagline">Technology Solutions for Modern Business</div>
+
+        <div class="doc-meta">
+            <div class="doc-title">SOP-NET-006 SonicWall Backup Configuration v1.0.0</div>
+            <div class="doc-date">Date: [MM/DD/YYYY]</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Executive Summary</div>
+        <div class="section-content">
+            <p>Title: SonicWall Configuration Backup</p>
+<p>Version: 1.0</p>
+<p>Author: Jeremy Smith</p>
+<p>Date: 2025-12-05</p>
+<p>────────────────────────────────────────────────────────────</p>
+<h1 id="purpose">1.0 Purpose</h1>
+<p>To establish a standardized procedure for exporting and securely
+storing SonicWall firewall configuration backups before deployment,
+after significant changes, or as part of routine maintenance. This
+ensures rapid recovery capability and configuration integrity
+verification.</p>
+<h1 id="scope">2.0 Scope</h1>
+<p>This procedure applies to all Network Technicians and Engineers
+responsible for:</p>
+<ul>
+<li><p>Pre-deployment configuration backup (before shipping to
+customer)</p></li>
+<li><p>Post-installation configuration backup</p></li>
+<li><p>Configuration changes requiring rollback capability</p></li>
+<li><p>Routine scheduled backups</p></li>
+</ul>
+<h1 id="prerequisites">3.0 Prerequisites</h1>
+<ul>
+<li><p>**Access:** Administrative credentials to the SonicWall
+device</p></li>
+<li><p>**Keeper Access:** Valid credentials to the Obera Connect Keeper
+vault</p></li>
+<li><p>**Network:** Active connection to the SonicWall management
+interface</p></li>
+</ul>
+<h1 id="backup-file-naming-convention">4.0 Backup File Naming
+Convention</h1>
+<p>Use the following format for all configuration backup files:</p>
+<p>[CustomerCode]_[DeviceModel]_[Date]_[Type].exp</p>
+<p>Examples:</p>
+<p>SFWB_TZ270_2025-12-05_preshipment.exp</p>
+<p>SFWB_TZ270_2025-12-05_postinstall.exp</p>
+<p>SFWB_TZ270_2025-12-05_prechange.exp</p>
+<p>Customer Codes: Use standard 4-letter customer abbreviation (e.g.,
+SFWB, SETC, GRLE)</p>
+<p>Type Identifiers:</p>
+<ul>
+<li><p>`preshipment` - Before shipping device to customer</p></li>
+<li><p>`postinstall` - After successful on-site installation</p></li>
+<li><p>`prechange` - Before making configuration changes</p></li>
+<li><p>`scheduled` - Routine scheduled backup</p></li>
+</ul>
+<h1 id="procedure">5.0 Procedure</h1>
+<h2 id="export-configuration-from-sonicwall">5.1 Export Configuration
+from SonicWall</h2>
+<ol type="1">
+<li><p>**Log In to SonicWall:**</p></li>
+</ol>
+<ul>
+<li><p>Open a web browser and navigate to the SonicWall management
+IP</p></li>
+<li><p>Log in with administrative credentials</p></li>
+</ul>
+<ol start="2" type="1">
+<li><p>**Navigate to Backup Settings:**</p></li>
+</ol>
+<ul>
+<li><p>Go to **Device &gt; Settings &gt; Firmware &amp;
+Backups**</p></li>
+<li><p>Alternatively: **System &gt; Firmware and Backups** (older
+firmware)</p></li>
+</ul>
+<ol start="3" type="1">
+<li><p>**Export Configuration:**</p></li>
+</ol>
+<ul>
+<li><p>Locate the **Import/Export Configuration** section</p></li>
+<li><p>Click **Export Configuration**</p></li>
+<li><p>When prompted, choose to include or exclude the
+following:</p></li>
+<li><p>**Include Certificates:** Yes (recommended)</p></li>
+<li><p>**Include VPN Keys:** Yes (if VPN configured)</p></li>
+<li><p>Save the `.exp` file using the naming convention in Section
+4.0</p></li>
+</ul>
+<ol start="4" type="1">
+<li><p>**Verify Export:**</p></li>
+</ol>
+<ul>
+<li><p>Confirm the file downloaded successfully</p></li>
+<li><p>Check file size is reasonable (typically 50KB - 500KB depending
+on complexity)</p></li>
+<li><p>File size of 0 KB indicates a failed export - retry</p></li>
+</ul>
+<h2 id="store-configuration-in-keeper-manual-process">5.2 Store
+Configuration in Keeper (Manual Process)</h2>
+<p>&gt; Note: API automation via Keeper Secrets Manager (KSM) is pending
+approval. Until KSM is enabled, use the manual process below.</p>
+<ol start="5" type="1">
+<li><p>**Log In to Keeper:**</p></li>
+</ol>
+<ul>
+<li><p>Access Keeper vault at
+`https://keepersecurity.com/vault`</p></li>
+<li><p>Or use Keeper desktop/browser extension</p></li>
+</ul>
+<ol start="6" type="1">
+<li><p>**Navigate to Firewalls Folder:**</p></li>
+</ol>
+<ul>
+<li><p>In **My Vault**, locate the **Firewalls** shared folder</p></li>
+<li><p>This is the central repository for all firewall
+configurations</p></li>
+</ul>
+<ol start="7" type="1">
+<li><p>**Create New Record:**</p></li>
+</ol>
+<ul>
+<li><p>Click **+ Create New**</p></li>
+<li><p>Select **Login** or **File** record type</p></li>
+<li><p>Fill in the following fields:</p></li>
+<li><p>**Title:** `[CustomerCode] - SonicWall [Model] Config -
+[Date]`</p></li>
+<li><p>Example: `SFWB - SonicWall TZ270 Config - 2025-12-05`</p></li>
+<li><p>**Attachments:** Upload the `.exp` file</p></li>
+</ul>
+<ol start="8" type="1">
+<li><p>**Add Metadata in Notes:**</p></li>
+</ol>
+<p>`</p>
+<p>Customer: Spanish Fort Water Board (SFWB)</p>
+<p>Device: SonicWall TZ270</p>
+<p>Serial: [Serial Number]</p>
+<p>Firmware: 7.0.1-5161</p>
+<p>WAN IP: [Public IP if applicable]</p>
+<p>Backup Date: 2025-12-05</p>
+<p>Backup Type: Pre-Shipment</p>
+<p>Technician: [Your Name]</p>
+<p>Verified: Yes</p>
+<p>`</p>
+<ol start="9" type="1">
+<li><p>**Rename Downloaded File (Optional):**</p></li>
+</ol>
+<ul>
+<li><p>SonicWall exports with default naming like:</p></li>
+</ul>
+<p>sonicwall-TZ 270-SonicOS
+7.0.1-5161-R6164-2025-12-05T14_05_24.264Z.exp</p>
+<ul>
+<li><p>Rename to standard format before uploading:</p></li>
+</ul>
+<p>SFWB_TZ270_2025-12-05_preshipment.exp</p>
+<h2 id="verify-backup-integrity">5.3 Verify Backup Integrity</h2>
+<ol start="10" type="1">
+<li><p>**File Validation:**</p></li>
+</ol>
+<ul>
+<li><p>Open the `.exp` file in a text editor</p></li>
+<li><p>Verify it contains XML configuration data (not empty or
+corrupted)</p></li>
+<li><p>First line should contain `&lt;?xml version=` or similar
+header</p></li>
+</ul>
+<ol start="11" type="1">
+<li><p>**Document in Keeper Notes:**</p></li>
+</ol>
+<ul>
+<li><p>Add verification status: `Verified: Yes`</p></li>
+<li><p>Add checksum if required for compliance: `MD5: [hash]`</p></li>
+</ul>
+<h1 id="pre-shipment-backup-checklist">6.0 Pre-Shipment Backup
+Checklist</h1>
+<p>Complete this checklist before shipping any SonicWall to
+customer:</p>
+<ul>
+<li><p>[ ] Configuration export completed successfully</p></li>
+<li><p>[ ] File named according to naming convention</p></li>
+<li><p>[ ] File uploaded to Keeper in correct customer folder</p></li>
+<li><p>[ ] Metadata added to Keeper record (serial, firmware,
+date)</p></li>
+<li><p>[ ] Backup file verified (not empty/corrupted)</p></li>
+<li><p>[ ] MySonicWall portal shows device registered</p></li>
+</ul>
+<h1 id="restore-procedure-reference">7.0 Restore Procedure
+(Reference)</h1>
+<p>If configuration restore is needed:</p>
+<ol start="12" type="1">
+<li><p>Access SonicWall management interface</p></li>
+<li><p>Navigate to **Device &gt; Settings &gt; Firmware &amp;
+Backups**</p></li>
+<li><p>Click **Import Configuration**</p></li>
+<li><p>Browse to and select the `.exp` file from Keeper</p></li>
+<li><p>Click **Import**</p></li>
+<li><p>Review import summary and confirm</p></li>
+<li><p>Device will reboot to apply configuration</p></li>
+</ol>
+<p>Note: Restore will overwrite current configuration. Ensure you have a
+backup of current config before restoring.</p>
+<h1 id="backup-schedule">8.0 Backup Schedule</h1>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Backup Type</strong></th>
+<th><strong>When</strong></th>
+<th><strong>Retention</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pre-Shipment</td>
+<td>Before shipping to customer</td>
+<td>Permanent</td>
+</tr>
+<tr class="even">
+<td>Post-Install</td>
+<td>After successful installation</td>
+<td>Permanent</td>
+</tr>
+<tr class="odd">
+<td>Pre-Change</td>
+<td>Before any configuration changes</td>
+<td>90 days</td>
+</tr>
+<tr class="even">
+<td>Scheduled</td>
+<td>Monthly (managed devices)</td>
+<td>12 months</td>
+</tr>
+</tbody>
+</table>
+<h1 id="troubleshooting">9.0 Troubleshooting</h1>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Issue</strong></th>
+<th><strong>Resolution</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Export fails or 0 KB file</td>
+<td>1. Clear browser cache and retry&lt;br&gt;2. Try different
+browser&lt;br&gt;3. Check available disk space on management
+station</td>
+</tr>
+<tr class="even">
+<td>Cannot upload to Keeper</td>
+<td>1. Verify Keeper permissions&lt;br&gt;2. Check file size
+limits&lt;br&gt;3. Contact admin for folder access</td>
+</tr>
+<tr class="odd">
+<td>Configuration appears corrupted</td>
+<td>1. Re-export from device&lt;br&gt;2. If device inaccessible, check
+for previous backups in Keeper</td>
+</tr>
+</tbody>
+</table>
+<h1 id="future-automated-storage-with-keeper-commander">10.0 Future:
+Automated Storage with Keeper Commander</h1>
+<p>Keeper Commander CLI can automate config storage without requiring
+KSM add-on.</p>
+<h2 id="prerequisites-1">10.1 Prerequisites</h2>
+<ul>
+<li><p>Keeper Commander installed: `pipx install
+keepercommander`</p></li>
+<li><p>One-time interactive login to cache credentials</p></li>
+</ul>
+<h2 id="automation-commands">10.2 Automation Commands</h2>
+<p>Login (interactive, first time only)</p>
+<p>keeper shell</p>
+<p>&gt; login jeremy.smith@oberaconnect.com</p>
+<p>Upload file to Firewalls folder (batch mode)</p>
+<p>keeper --batch-mode upload-attachment --folder "Firewalls" --file
+"SFWB_TZ270_2025-12-05_preshipment.exp"</p>
+<p>Create record with attachment</p>
+<p>keeper --batch-mode add-record --folder "Firewalls" \</p>
+<p>--title "SFWB - SonicWall TZ270 Config - 2025-12-05" \</p>
+<p>--notes "Customer: SFWB\nDevice: TZ270\nBackup Type: Pre-Shipment"
+\</p>
+<p>--attach "SFWB_TZ270_2025-12-05_preshipment.exp"</p>
+<h2 id="full-api-automation-requires-ksm">10.3 Full API Automation
+(Requires KSM)</h2>
+<p>When Keeper Secrets Manager is approved:</p>
+<ul>
+<li><p>Programmatic token-based authentication</p></li>
+<li><p>REST API access</p></li>
+<li><p>CI/CD integration</p></li>
+<li><p>Zero-touch automation</p></li>
+</ul>
+<p>Request KSM from subscription admin to enable full automation.</p>
+<h1 id="references">11.0 References</h1>
+<ul>
+<li><p>SOP-NET-001: Initial SonicWall Firewall Setup</p></li>
+<li><p>SOP-NET-004: Register Device in MySonicwall</p></li>
+<li><p>Keeper Security Vault: https://keepersecurity.com/vault</p></li>
+<li><p>Keeper Commander Docs:
+https://docs.keeper.io/secrets-manager/commander-cli</p></li>
+</ul>
+<p>────────────────────────────────────────────────────────────</p>
+<p>End of Document</p>
+<p>────────────────────────────────────────────────────────────</p>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Details</div>
+        <div class="section-content">
+            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
+
+            <div class="highlight-box">
+                <strong>Key Point:</strong> [Important information to highlight]
+            </div>
+
+            <p>Supporting details:</p>
+            <ul>
+                <li>[Detail item 1]</li>
+                <li>[Detail item 2]</li>
+                <li>[Detail item 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Next Steps</div>
+        <div class="section-content">
+            <div class="action-item">
+                <strong>Action Required:</strong> [Specific action item with owner and deadline]
+            </div>
+
+            <ul>
+                <li>[Next step 1]</li>
+                <li>[Next step 2]</li>
+                <li>[Next step 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        OberaConnect LLC | www.oberaconnect.com | Confidential
+    </div>
+</body>
+</html>

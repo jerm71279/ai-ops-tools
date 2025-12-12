@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Create Nmap_Project directory",
+    "status": "completed",
+    "activeForm": "Creating Nmap_Project directory"
+  },
+  {
+    "content": "Move all scanning/nmap/MCP related files to Nmap_Project",
+    "status": "completed",
+    "activeForm": "Moving scanning/nmap/MCP related files to Nmap_Project"
+  },
+  {
+    "content": "Move Setco_Azure_Migration contents to Azure_Projects",
+    "status": "completed",
+    "activeForm": "Moving Setco_Azure_Migration contents to Azure_Projects"
+  },
+  {
+    "content": "Remove empty Setco_Azure_Migration directory",
+    "status": "in_progress",
+    "activeForm": "Removing empty Setco_Azure_Migration directory"
+  },
+  {
+    "content": "Verify organization is complete",
+    "status": "pending",
+    "activeForm": "Verifying organization is complete"
+  }
+]

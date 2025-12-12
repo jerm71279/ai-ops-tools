@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OberaConnect Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            background: #fff;
+        }
+
+        .header {
+            border-bottom: 3px solid #0066CC;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #666666;
+            font-style: italic;
+            margin-left: 2px;
+        }
+
+        .doc-meta {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .doc-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .doc-date {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0066CC;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .section-content {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .section-content p {
+            margin-bottom: 10px;
+        }
+
+        .section-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section-content li {
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 11px;
+            color: #999999;
+            text-align: center;
+        }
+
+        .highlight-box {
+            background: #f5f9ff;
+            border-left: 4px solid #0066CC;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .action-item {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
+        </div>
+        <div class="tagline">Technology Solutions for Modern Business</div>
+
+        <div class="doc-meta">
+            <div class="doc-title">SOP-NET-002 MikroTik Config v1.0.0</div>
+            <div class="doc-date">Date: [MM/DD/YYYY]</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Executive Summary</div>
+        <div class="section-content">
+            <table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>**Document ID:**</td>
+<td>SOP-NET-002</td>
+</tr>
+<tr class="even">
+<td>**Title:**</td>
+<td>MikroTik Router Configuration</td>
+</tr>
+<tr class="odd">
+<td>**Version:**</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td>**Status:**</td>
+<td>Final</td>
+</tr>
+<tr class="odd">
+<td>**Author:**</td>
+<td>System Administrator</td>
+</tr>
+<tr class="even">
+<td>**Approved By:**</td>
+<td>Director of Technology</td>
+</tr>
+<tr class="odd">
+<td>**Effective Date:**</td>
+<td>2025-12-02</td>
+</tr>
+</tbody>
+</table>
+<p>────────────────────────────────────────────────────────────</p>
+<h1 id="purpose">1.0 Purpose</h1>
+<p>The purpose of this Standard Operating Procedure (SOP) is to provide
+a standardized, step-by-step guide for the basic configuration of
+MikroTik routers. Adhering to this procedure ensures that all routers
+are set up with consistent, secure, and reliable settings.</p>
+<h1 id="scope">2.0 Scope</h1>
+<p>This SOP applies to all IT personnel and network engineers
+responsible for deploying and managing MikroTik routers within the
+organization's infrastructure. This document covers the initial setup
+and essential configuration components. Advanced or client-specific
+configurations are outside the scope of this document.</p>
+<h1 id="responsibilities">3.0 Responsibilities</h1>
+<ul>
+<li><p>**Network Engineers / IT Technicians:** Responsible for executing
+the procedures outlined in this document.</p></li>
+<li><p>**Director of Technology:** Responsible for reviewing and
+approving this SOP and any subsequent revisions.</p></li>
+</ul>
+<h1 id="prerequisites">4.0 Prerequisites</h1>
+<ul>
+<li><p>Physical or remote access to the MikroTik router.</p></li>
+<li><p>Access to the MikroTik WinBox utility.</p></li>
+<li><p>Knowledge of the client's network requirements, including WAN IP
+information, and internal IP schema.</p></li>
+</ul>
+<h1 id="procedure">5.0 Procedure</h1>
+<p>This procedure outlines the key configuration steps to be performed
+in the MikroTik router's interface, typically using WinBox.</p>
+<h2 id="system-identity">5.1 System: Identity</h2>
+<p>Set a unique and identifiable name for the router.</p>
+<ol type="1">
+<li><p>Navigate to **System &gt; Identity**.</p></li>
+<li><p>Set the `Identity` field to a descriptive name related to the
+client or location (e.g., `ClientName-Router`).</p></li>
+</ol>
+<h2 id="interfaces">5.2 Interfaces</h2>
+<p>Review and manage the physical and virtual interfaces.</p>
+<ol start="3" type="1">
+<li><p>Navigate to **Interfaces**.</p></li>
+<li><p>Disable any unused physical ports.</p></li>
+<li><p>If required, create VLANs by clicking the **Add (+)** button and
+selecting **VLAN**. Assign a `Name`, `VLAN ID`, and associate it with a
+physical `Interface`.</p></li>
+</ol>
+<h2 id="bridge">5.3 Bridge</h2>
+<p>Create a bridge to logically group multiple interfaces (e.g., for a
+single LAN segment).</p>
+<ol start="6" type="1">
+<li><p>Navigate to **Bridge**.</p></li>
+<li><p>On the **Bridge** tab, click **Add (+)** to create a new
+bridge.</p></li>
+<li><p>On the **Ports** tab, click **Add (+)** to assign interfaces
+(physical ports or VLANs) to the newly created bridge.</p></li>
+</ol>
+<h2 id="ip-addresses">5.4 IP: Addresses</h2>
+<p>Assign IP addresses to the router's interfaces.</p>
+<ol start="9" type="1">
+<li><p>Navigate to **IP &gt; Addresses**.</p></li>
+<li><p>Click **Add (+)** to assign an IP address.</p></li>
+<li><p>Specify the `Address` with its subnet (e.g.,
+`192.168.1.1/24`).</p></li>
+<li><p>Assign it to the correct `Interface` (e.g., the WAN port, a LAN
+bridge, or a VLAN).</p></li>
+<li><p>Repeat for all necessary interfaces (WAN, LAN, etc.).</p></li>
+</ol>
+<h2 id="ip-dhcp-client">5.5 IP: DHCP Client</h2>
+<p>Configure the WAN interface to receive an IP address automatically if
+a static IP is not provided by the ISP.</p>
+<ol start="14" type="1">
+<li><p>Navigate to **IP &gt; DHCP Client**.</p></li>
+<li><p>Click **Add (+)**.</p></li>
+<li><p>Set the `Interface` to the primary WAN port (e.g.,
+`ether1`).</p></li>
+<li><p>Ensure this is only used if the WAN IP is dynamic.</p></li>
+</ol>
+<h2 id="ip-pool">5.6 IP: Pool</h2>
+<p>Define the range of IP addresses to be distributed by the DHCP
+server.</p>
+<ol start="18" type="1">
+<li><p>Navigate to **IP &gt; Pool**.</p></li>
+<li><p>Click **Add (+)**.</p></li>
+<li><p>Assign a `Name` to the pool (e.g., `lan-pool`).</p></li>
+<li><p>Define the `Addresses` range. Format:
+`192.168.1.20-192.168.1.200`.</p></li>
+</ol>
+<h2 id="ip-dhcp-server">5.7 IP: DHCP Server</h2>
+<p>Configure the DHCP server to assign IP addresses to client devices on
+the LAN.</p>
+<ol start="22" type="1">
+<li><p>Navigate to **IP &gt; DHCP Server**.</p></li>
+<li><p>On the **DHCP** tab, click **Add (+)**.</p></li>
+<li><p>Configure the server instance:</p></li>
+</ol>
+<ul>
+<li><p>**Name:** A descriptive name for the server.</p></li>
+<li><p>**Interface:** The LAN bridge or interface the server will listen
+on.</p></li>
+<li><p>**Address Pool:** Select the pool created in step 5.6.</p></li>
+</ul>
+<ol start="25" type="1">
+<li><p>Navigate to the **Networks** tab and click **Add (+)**.</p></li>
+<li><p>Define the network details:</p></li>
+</ol>
+<ul>
+<li><p>**Address:** The network address and subnet (e.g.,
+`192.168.1.0/24`).</p></li>
+<li><p>**Gateway:** The router's LAN IP address (e.g.,
+`192.168.1.1`).</p></li>
+<li><p>**DNS Servers:** The DNS servers to be provided to
+clients.</p></li>
+</ul>
+<ol start="27" type="1">
+<li><p>Navigate to the **Leases** tab to view active leases. Static
+leases can be created here by assigning an IP to a specific MAC
+address.</p></li>
+</ol>
+<h2 id="ip-dns">5.8 IP: DNS</h2>
+<p>Configure the DNS servers that the router itself will use for
+resolution.</p>
+<ol start="28" type="1">
+<li><p>Navigate to **IP &gt; DNS**.</p></li>
+<li><p>In the `Servers` field, enter the IP addresses of the primary and
+secondary DNS servers.</p></li>
+</ol>
+<h2 id="ip-routes">5.9 IP: Routes</h2>
+<p>Ensure a default route exists for outbound internet traffic. This is
+often added automatically but should be verified.</p>
+<ol start="30" type="1">
+<li><p>Navigate to **IP &gt; Routes**.</p></li>
+<li><p>Check for a route where `Dst. Address` is `0.0.0.0/0`.</p></li>
+<li><p>If it does not exist, click **Add (+)** and create it:</p></li>
+</ol>
+<ul>
+<li><p>**Dst. Address:** `0.0.0.0/0`</p></li>
+<li><p>**Gateway:** The ISP's gateway IP address (the WAN
+gateway).</p></li>
+</ul>
+<h2 id="ip-firewall---nat">5.10 IP: Firewall - NAT</h2>
+<p>Configure Network Address Translation (NAT) to allow devices on the
+internal network to access the internet.</p>
+<ol start="33" type="1">
+<li><p>Navigate to **IP &gt; Firewall &gt; NAT**.</p></li>
+<li><p>Click **Add (+)** to create a new rule.</p></li>
+<li><p>In the **General** tab:</p></li>
+</ol>
+<ul>
+<li><p>**Chain:** `srcnat`</p></li>
+<li><p>**Out. Interface:** Set to the primary WAN port (e.g.,
+`ether1`).</p></li>
+</ul>
+<ol start="36" type="1">
+<li><p>In the **Action** tab:</p></li>
+</ol>
+<ul>
+<li><p>**Action:** `masquerade`</p></li>
+</ul>
+<h2 id="ip-firewall---firewall-rules">5.11 IP: Firewall - Firewall
+Rules</h2>
+<p>Implement basic firewall rules to block common unsolicited inbound
+traffic.</p>
+<ol start="37" type="1">
+<li><p>Navigate to **IP &gt; Firewall &gt; Firewall Rules**.</p></li>
+<li><p>Create rules to drop inbound traffic on the WAN interface for the
+following ports. For each rule, set **Chain**=`input`, **In.
+Interface**=`ether1` (or your WAN port), and **Action**=`drop`.</p></li>
+</ol>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Protocol</strong></th>
+<th><strong>Destination Port</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>UDP</td>
+<td>53, 123, 161</td>
+</tr>
+<tr class="even">
+<td>TCP</td>
+<td>21, 22, 23, 53, 80, 443, 8080, 2000</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ip-services">5.12 IP: Services</h2>
+<p>Disable non-essential services and change the port for WinBox to
+enhance security.</p>
+<ol start="39" type="1">
+<li><p>Navigate to **IP &gt; Services**.</p></li>
+<li><p>Disable all services **except for `winbox`**.</p></li>
+<li><p>Double-click on `winbox` and change the `Port` to
+`8899`.</p></li>
+</ol>
+<h2 id="tools-telnetssh">5.13 Tools: Telnet/SSH</h2>
+<p>The Telnet/SSH client can be used for initial setup of other network
+devices, such as access points.</p>
+<ol start="42" type="1">
+<li><p>Navigate to **Tools &gt; Telnet** or **Tools &gt; SSH**.</p></li>
+<li><p>Enter the IP address of the device you need to
+configure.</p></li>
+</ol>
+<h1 id="revision-history">6.0 Revision History</h1>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Version</th>
+<th>Date</th>
+<th>Author</th>
+<th>Change Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0</td>
+<td>2025-12-02</td>
+<td>System Administrator</td>
+<td>Initial document creation.</td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Details</div>
+        <div class="section-content">
+            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
+
+            <div class="highlight-box">
+                <strong>Key Point:</strong> [Important information to highlight]
+            </div>
+
+            <p>Supporting details:</p>
+            <ul>
+                <li>[Detail item 1]</li>
+                <li>[Detail item 2]</li>
+                <li>[Detail item 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Next Steps</div>
+        <div class="section-content">
+            <div class="action-item">
+                <strong>Action Required:</strong> [Specific action item with owner and deadline]
+            </div>
+
+            <ul>
+                <li>[Next step 1]</li>
+                <li>[Next step 2]</li>
+                <li>[Next step 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        OberaConnect LLC | www.oberaconnect.com | Confidential
+    </div>
+</body>
+</html>

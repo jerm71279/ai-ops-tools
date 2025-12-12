@@ -1,0 +1,32 @@
+{
+  "name": "Azure VM Backup - Daily Report",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{"field": "cronExpression", "expression": "0 7 * * 1-5"}]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Weekdays 7 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "command": "mkdir -p ~/oberaconnect-ai-ops/reports && cd ~/oberaconnect-ai-ops/core/Secondbrain && python3 scripts/azure_backup_report.py -o ~/oberaconnect-ai-ops/reports/azure_backup_$(date +%Y-%m-%d).md"
+      },
+      "id": "run-backup-report",
+      "name": "Generate Backup Report",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [450, 300]
+    }
+  ],
+  "connections": {
+    "Weekdays 7 AM": {"main": [[{"node": "Generate Backup Report", "type": "main", "index": 0}]]}
+  },
+  "settings": {"executionOrder": "v1"},
+  "tags": [{"name": "cron-migration"}, {"name": "weekdays"}, {"name": "azure"}, {"name": "backup"}]
+}

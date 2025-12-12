@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OberaConnect Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            background: #fff;
+        }
+
+        .header {
+            border-bottom: 3px solid #0066CC;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #666666;
+            font-style: italic;
+            margin-left: 2px;
+        }
+
+        .doc-meta {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .doc-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .doc-date {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0066CC;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .section-content {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .section-content p {
+            margin-bottom: 10px;
+        }
+
+        .section-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section-content li {
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 11px;
+            color: #999999;
+            text-align: center;
+        }
+
+        .highlight-box {
+            background: #f5f9ff;
+            border-left: 4px solid #0066CC;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .action-item {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
+        </div>
+        <div class="tagline">Technology Solutions for Modern Business</div>
+
+        <div class="doc-meta">
+            <div class="doc-title">SOP-SP-001 SharePoint ReadOnly v1.0.0</div>
+            <div class="doc-date">Date: [MM/DD/YYYY]</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Executive Summary</div>
+        <div class="section-content">
+            <p>────────────────────────────────────────────────────────────</p>
+<h1
+id="sop-sp-001-sharepoint-read-only-access-configuration">SOP-SP-001:
+SharePoint Read-Only Access Configuration</h1>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>**Document ID**</strong></th>
+<th><strong>**Version**</strong></th>
+<th><strong>**Effective Date**</strong></th>
+<th><strong>**Author**</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SOP-SP-001</td>
+<td>1.0</td>
+<td>2025-12-02</td>
+<td>Gemini Agent</td>
+</tr>
+</tbody>
+</table>
+<h2 id="purpose">1.0 Purpose</h2>
+<p>To establish a standardized and secure procedure for configuring a
+read-only Azure AD application. This application will grant the
+OberaConnect Second Brain system access to download and process
+documents from SharePoint. The procedure is designed to have zero impact
+on existing user permissions, data integrity, or Microsoft 365
+settings.</p>
+<h2 id="scope">2.0 Scope</h2>
+<p>This SOP applies to all Azure Administrators within OberaConnect who
+are tasked with configuring data access for internal systems. This
+procedure is strictly limited to the creation and configuration of the
+SecondBrain-ReadOnly-SharePoint application.</p>
+<h2 id="responsibilities">3.0 Responsibilities</h2>
+<ul>
+<li><p>**Azure Administrator:** Responsible for executing all steps
+outlined in this SOP, ensuring permissions are correctly configured, and
+securely storing the generated credentials.</p></li>
+</ul>
+<h2 id="prerequisites">4.0 Prerequisites</h2>
+<ul>
+<li><p>Administrative access to the OberaConnect Azure Portal
+(https://portal.azure.com).</p></li>
+<li><p>Access to the server environment where the Second Brain
+application is hosted to configure environment variables.</p></li>
+</ul>
+<h2 id="procedure">5.0 Procedure</h2>
+<p>This procedure is divided into three main parts: App Registration in
+Azure, local credential configuration, and connection testing.</p>
+<h3 id="part-a-azure-app-registration">5.1 Part A: Azure App
+Registration</h3>
+<p>5.1.1 Navigate to Azure App Registrations</p>
+<ol type="1">
+<li><p>Log in to the **Azure Portal**:
+[https://portal.azure.com](https://portal.azure.com)</p></li>
+<li><p>From the left sidebar, select **Azure Active
+Directory**.</p></li>
+<li><p>Select **App registrations**.</p></li>
+<li><p>Click **+ New registration**.</p></li>
+</ol>
+<p>5.1.2 Register the Application</p>
+<ol start="5" type="1">
+<li><p>Fill in the registration form with the following
+details:</p></li>
+</ol>
+<ul>
+<li><p>**Name:** `SecondBrain-ReadOnly-SharePoint`</p></li>
+<li><p>**Supported account types:** Select **Accounts in this
+organizational directory only (OberaConnect only - Single
+tenant)**.</p></li>
+<li><p>**Redirect URI:** Leave this section blank.</p></li>
+</ul>
+<ol start="6" type="1">
+<li><p>Click the **Register** button to create the application.</p></li>
+</ol>
+<p>5.1.3 Record Application Identifiers</p>
+<ol start="7" type="1">
+<li><p>After registration, you will be on the app's overview
+page.</p></li>
+<li><p>Copy and securely store the following values for use in Step
+5.2:</p></li>
+</ol>
+<ul>
+<li><p>`Application (client) ID`</p></li>
+<li><p>`Directory (tenant) ID`</p></li>
+</ul>
+<p>5.1.4 Create a Client Secret</p>
+<ol start="9" type="1">
+<li><p>From the left sidebar, select **Certificates &amp;
+secrets**.</p></li>
+<li><p>Click **+ New client secret**.</p></li>
+<li><p>Provide the following details:</p></li>
+</ol>
+<ul>
+<li><p>**Description:** `SecondBrain Read Access`</p></li>
+<li><p>**Expires:** `24 months` (or as per company policy).</p></li>
+</ul>
+<ol start="12" type="1">
+<li><p>Click **Add**.</p></li>
+<li><p>**CRITICAL:** Immediately copy the **Value** of the client
+secret. This value is only displayed once. Securely store it for use in
+Step 5.2.</p></li>
+</ol>
+<p>5.1.5 Grant Read-Only API Permissions</p>
+<ol start="14" type="1">
+<li><p>From the left sidebar, select **API permissions**.</p></li>
+<li><p>Click **+ Add a permission**.</p></li>
+<li><p>Select **Microsoft Graph**.</p></li>
+<li><p>Select **Application permissions**. **Do not use Delegated
+permissions.**</p></li>
+<li><p>In the "Select permissions" search box, find and check the
+following permissions:</p></li>
+</ol>
+<ul>
+<li><p>`Sites.Read.All`</p></li>
+<li><p>`Files.Read.All`</p></li>
+</ul>
+<ol start="19" type="1">
+<li><p>**VERIFY:** Ensure no "Write," "Manage," or "FullControl"
+permissions are added. This application must remain
+**READ-ONLY**.</p></li>
+<li><p>Click **Add permissions**.</p></li>
+</ol>
+<p>5.1.6 Grant Admin Consent</p>
+<ol start="21" type="1">
+<li><p>On the API permissions page, click the **Grant admin consent for
+OberaConnect** button.</p></li>
+<li><p>A confirmation prompt will appear. Click **Yes**.</p></li>
+<li><p>Verify that a green checkmark appears in the "Status" column for
+both permissions.</p></li>
+</ol>
+<h3 id="part-b-credential-configuration">5.2 Part B: Credential
+Configuration</h3>
+<ol start="24" type="1">
+<li><p>Connect to the WSL/Linux system hosting the application.</p></li>
+<li><p>Navigate to the project directory:</p></li>
+</ol>
+<p>`bash</p>
+<p>cd /home/mavrick/Projects/Secondbrain</p>
+<p>`</p>
+<ol start="26" type="1">
+<li><p>Open the environment variable file for editing:</p></li>
+</ol>
+<p>`bash</p>
+<p>nano .env</p>
+<p>`</p>
+<ol start="27" type="1">
+<li><p>Add the following lines to the file, replacing the placeholder
+text with the values copied from steps 5.1.3 and 5.1.4:</p></li>
+</ol>
+<p>`bash</p>
+<p>SharePoint Read-Only Access</p>
+<p>AZURE_TENANT_ID=your-tenant-id-here</p>
+<p>AZURE_CLIENT_ID=your-client-id-here</p>
+<p>AZURE_CLIENT_SECRET=your-secret-value-here</p>
+<p>`</p>
+<ol start="28" type="1">
+<li><p>Save the file and exit the editor (Ctrl+X, then Y, then
+Enter).</p></li>
+</ol>
+<h3 id="part-c-connection-testing">5.3 Part C: Connection Testing</h3>
+<ol start="29" type="1">
+<li><p>Ensure you are in the project directory:</p></li>
+</ol>
+<p>`bash</p>
+<p>cd /home/mavrick/Projects/Secondbrain</p>
+<p>`</p>
+<ol start="30" type="1">
+<li><p>Execute the SharePoint importer script to test the
+connection:</p></li>
+</ol>
+<p>`bash</p>
+<p>./venv/bin/python sharepoint_importer.py</p>
+<p>`</p>
+<ol start="31" type="1">
+<li><p>A successful test will output a list of SharePoint sites,
+confirming the credentials and permissions are correct.</p></li>
+</ol>
+<h2 id="security-compliance">6.0 Security &amp; Compliance</h2>
+<ul>
+<li><p>**Capabilities:** The application is strictly limited to reading
+SharePoint sites/libraries and downloading copies of files. It can view
+file metadata.</p></li>
+<li><p>**Restrictions:** The application **CANNOT** modify, delete, or
+create files in SharePoint. It cannot alter permissions, access user
+data (e.g., email), or change any Microsoft 365 settings.</p></li>
+<li><p>**Isolation:** This is a standalone app registration, completely
+isolated from other OberaConnect Azure applications. It uses its own
+credentials and permissions.</p></li>
+</ul>
+<h2 id="revocation-procedure">7.0 Revocation Procedure</h2>
+<p>To revoke access for this application, perform the following
+steps:</p>
+<ol start="32" type="1">
+<li><p>Navigate to **Azure Portal &gt; Azure Active Directory &gt; App
+registrations**.</p></li>
+<li><p>Search for and select `SecondBrain-ReadOnly-SharePoint`.</p></li>
+<li><p>On the application overview page, click **Delete**.</p></li>
+<li><p>Confirm the deletion. Access will be immediately and permanently
+revoked.</p></li>
+</ol>
+<h2 id="verification-checklist">8.0 Verification Checklist</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Step</strong></th>
+<th><strong>Verification Point</strong></th>
+<th><strong>Completed (✔)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>App is named `SecondBrain-ReadOnly-SharePoint`.</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Permissions are **Application permissions**, not Delegated.</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Only `Sites.Read.All` and `Files.Read.All` are granted.</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>No write, manage, or full control permissions are present.</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Admin consent has been granted (green checkmarks visible).</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Client ID, Tenant ID, and Client Secret are copied correctly.</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Credentials have been securely added to the `.env` file.</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>The connection test script (`sharepoint_importer.py`) runs
+successfully.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>────────────────────────────────────────────────────────────</p>
+<h2 id="approval">9.0 Approval</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Role</th>
+<th>Name</th>
+<th>Signature</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>**Document Owner**</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>**Approved By**</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Details</div>
+        <div class="section-content">
+            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
+
+            <div class="highlight-box">
+                <strong>Key Point:</strong> [Important information to highlight]
+            </div>
+
+            <p>Supporting details:</p>
+            <ul>
+                <li>[Detail item 1]</li>
+                <li>[Detail item 2]</li>
+                <li>[Detail item 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Next Steps</div>
+        <div class="section-content">
+            <div class="action-item">
+                <strong>Action Required:</strong> [Specific action item with owner and deadline]
+            </div>
+
+            <ul>
+                <li>[Next step 1]</li>
+                <li>[Next step 2]</li>
+                <li>[Next step 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        OberaConnect LLC | www.oberaconnect.com | Confidential
+    </div>
+</body>
+</html>

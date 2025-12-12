@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Install Keeper Commander CLI",
+    "status": "completed",
+    "activeForm": "Installing Keeper Commander CLI"
+  },
+  {
+    "content": "Login to Keeper Commander CLI",
+    "status": "completed",
+    "activeForm": "Logging into Keeper Commander CLI"
+  },
+  {
+    "content": "Build custom Keeper MCP server using Commander CLI",
+    "status": "completed",
+    "activeForm": "Building custom Keeper MCP server"
+  },
+  {
+    "content": "Create SonicWall backup workflow for orchestrator",
+    "status": "completed",
+    "activeForm": "Creating SonicWall backup workflow"
+  },
+  {
+    "content": "Test workflow with SFWB config upload",
+    "status": "pending",
+    "activeForm": "Testing workflow with SFWB config upload"
+  }
+]

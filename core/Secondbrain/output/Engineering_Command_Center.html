@@ -1,0 +1,3060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Command Center - OberaConnect</title>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #0ea5e9;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --surface: #ffffff;
+            --surface-dark: #f8fafc;
+            --surface-darker: #f1f5f9;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --ai-claude: #d97706;
+            --ai-gemini: #059669;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(20px);
+            padding: 12px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left { display: flex; align-items: center; gap: 16px; }
+
+        .logo-container { display: flex; align-items: center; gap: 12px; }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 4px 14px rgba(99,102,241,0.4);
+        }
+
+        .header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-subtitle {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ai-agent-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: var(--radius-md);
+            border: 2px solid;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .ai-agent-btn.claude {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-color: var(--ai-claude);
+            color: #92400e;
+        }
+
+        .ai-agent-btn.claude:hover {
+            background: linear-gradient(135deg, #fde68a, #fcd34d);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(217,119,6,0.3);
+        }
+
+        .ai-agent-btn.gemini {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            border-color: var(--ai-gemini);
+            color: #065f46;
+        }
+
+        .ai-agent-btn.gemini:hover {
+            background: linear-gradient(135deg, #a7f3d0, #6ee7b7);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(5,150,105,0.3);
+        }
+
+        .ai-status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .ai-status.active { background: var(--success); }
+        .ai-status.idle { background: var(--text-muted); }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .header-right { display: flex; align-items: center; gap: 12px; }
+
+        .header-time {
+            font-size: 13px;
+            color: var(--text-secondary);
+            padding: 8px 14px;
+            background: var(--surface-dark);
+            border-radius: var(--radius-md);
+            font-weight: 500;
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 4px 14px rgba(99,102,241,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99,102,241,0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+            padding: 8px 12px;
+        }
+
+        .btn-ghost:hover {
+            background: var(--surface-dark);
+            color: var(--primary);
+        }
+
+        /* Envelope Container */
+        .envelope-container {
+            padding: 24px 32px;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        /* Envelope Tabs */
+        .envelope-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: -2px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .envelope-tab {
+            padding: 14px 28px;
+            background: rgba(255,255,255,0.85);
+            border: none;
+            border-radius: 20px 20px 0 0;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .envelope-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: transparent;
+            border-radius: 20px 20px 0 0;
+            transition: background 0.3s ease;
+        }
+
+        .envelope-tab:hover {
+            background: rgba(255,255,255,0.95);
+            transform: translateY(-3px);
+        }
+
+        .envelope-tab.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .envelope-tab.active::before {
+            background: linear-gradient(90deg, var(--primary) 0%, #8b5cf6 100%);
+        }
+
+        .tab-badge {
+            background: var(--primary);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            min-width: 22px;
+            text-align: center;
+        }
+
+        /* Envelope Content */
+        .envelope-content {
+            background: white;
+            border-radius: 0 24px 24px 24px;
+            box-shadow: var(--shadow-xl);
+            min-height: 700px;
+            overflow: hidden;
+        }
+
+        .tab-panel {
+            display: none;
+            padding: 28px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-panel.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--surface-dark) 0%, white 100%);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+        }
+
+        .stat-card.total::before { background: var(--primary); }
+        .stat-card.progress::before { background: var(--warning); }
+        .stat-card.priority::before { background: var(--danger); }
+        .stat-card.completed::before { background: var(--success); }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-card.total .stat-icon { background: rgba(99,102,241,0.1); color: var(--primary); }
+        .stat-card.progress .stat-icon { background: rgba(245,158,11,0.1); color: var(--warning); }
+        .stat-card.priority .stat-icon { background: rgba(239,68,68,0.1); color: var(--danger); }
+        .stat-card.completed .stat-icon { background: rgba(16,185,129,0.1); color: var(--success); }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Toolbar */
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .search-box {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 14px 10px 40px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            transition: all 0.3s ease;
+            background: var(--surface-dark);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+        }
+
+        .search-box .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .filter-group { display: flex; gap: 8px; }
+
+        .filter-select {
+            padding: 10px 14px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            background: var(--surface-dark);
+            cursor: pointer;
+            min-width: 130px;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .view-toggle {
+            display: flex;
+            background: var(--surface-dark);
+            border-radius: var(--radius-md);
+            padding: 3px;
+        }
+
+        .view-btn {
+            padding: 8px 14px;
+            border: none;
+            background: transparent;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .view-btn.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Kanban Board - Draggable */
+        .kanban-board {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding-bottom: 16px;
+        }
+
+        .kanban-column {
+            min-width: 300px;
+            max-width: 300px;
+            background: var(--surface-dark);
+            border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .kanban-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+
+        .kanban-header.not-started { background: linear-gradient(135deg, #e2e8f0, #cbd5e1); }
+        .kanban-header.open { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+        .kanban-header.in-progress { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+        .kanban-header.on-hold { background: linear-gradient(135deg, #fce7f3, #fbcfe8); }
+        .kanban-header.pending { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
+        .kanban-header.completed { background: linear-gradient(135deg, #d1fae5, #a7f3d0); }
+        .kanban-header.resolved { background: linear-gradient(135deg, #d1fae5, #a7f3d0); }
+        .kanban-header.closed { background: linear-gradient(135deg, #e5e7eb, #d1d5db); }
+
+        .kanban-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .kanban-count {
+            background: rgba(0,0,0,0.1);
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .kanban-cards {
+            padding: 12px;
+            flex: 1;
+            min-height: 200px;
+        }
+
+        .kanban-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 14px;
+            margin-bottom: 10px;
+            box-shadow: var(--shadow-sm);
+            cursor: grab;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .kanban-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
+        }
+
+        .kanban-card.sortable-ghost {
+            opacity: 0.4;
+            border: 2px dashed var(--primary);
+        }
+
+        .kanban-card.sortable-drag {
+            box-shadow: var(--shadow-xl);
+            transform: rotate(3deg);
+        }
+
+        .kanban-card-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .kanban-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .kanban-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+        }
+
+        .comment-count {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .comment-count:hover { color: var(--primary); }
+
+        /* Chat Card System */
+        .chat-cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-card {
+            display: flex;
+            gap: 14px;
+            padding: 16px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .chat-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+            transform: translateX(4px);
+        }
+
+        .chat-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .chat-body { flex: 1; min-width: 0; }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .chat-title {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--text-primary);
+        }
+
+        .chat-time {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .chat-preview {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .chat-footer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .chat-tag {
+            padding: 3px 10px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .tag-priority-low { background: rgba(16,185,129,0.1); color: var(--success); }
+        .tag-priority-medium { background: rgba(245,158,11,0.1); color: var(--warning); }
+        .tag-priority-high { background: rgba(239,68,68,0.1); color: var(--danger); }
+        .tag-priority-critical { background: var(--danger); color: white; }
+
+        .tag-status-not-started { background: rgba(148,163,184,0.2); color: var(--text-secondary); }
+        .tag-status-open { background: rgba(14,165,233,0.1); color: var(--secondary); }
+        .tag-status-in-progress { background: rgba(245,158,11,0.1); color: var(--warning); }
+        .tag-status-on-hold { background: rgba(236,72,153,0.1); color: #ec4899; }
+        .tag-status-pending { background: rgba(139,92,246,0.1); color: #8b5cf6; }
+        .tag-status-completed { background: rgba(16,185,129,0.1); color: var(--success); }
+        .tag-status-resolved { background: rgba(16,185,129,0.1); color: var(--success); }
+        .tag-status-closed { background: rgba(100,116,139,0.1); color: var(--text-secondary); }
+
+        .chat-assignee {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .chat-assignee-avatar {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--surface-darker);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* Tools Index */
+        .tools-categories { display: grid; gap: 20px; }
+
+        .tool-category {
+            background: var(--surface-dark);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .category-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .category-icon.data { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+        .category-icon.network { background: linear-gradient(135deg, #0ea5e9, #06b6d4); }
+        .category-icon.document { background: linear-gradient(135deg, #10b981, #34d399); }
+        .category-icon.automation { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+        .category-icon.agent { background: linear-gradient(135deg, #ec4899, #f472b6); }
+        .category-icon.config { background: linear-gradient(135deg, #64748b, #94a3b8); }
+
+        .category-title { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+        .category-count { font-size: 13px; color: var(--text-muted); }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 12px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 14px;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .tool-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .tool-name {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tool-name .file-icon { color: var(--primary); }
+
+        .tool-description {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .tool-actions {
+            display: flex;
+            gap: 6px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+        }
+
+        .tool-action-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--border);
+            background: white;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .tool-action-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(99,102,241,0.05);
+        }
+
+        .tool-action-btn:active {
+            transform: scale(0.95);
+        }
+
+        .tool-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tool-detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .tool-detail-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .tool-detail-value {
+            font-size: 12px;
+            color: var(--text-primary);
+            font-family: monospace;
+        }
+
+        /* Planner */
+        .planner-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .planner-date {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .planner-nav { display: flex; gap: 8px; }
+
+        .planner-nav-btn {
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--border);
+            background: white;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .planner-nav-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .planner-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .day-column {
+            background: var(--surface-dark);
+            border-radius: var(--radius-lg);
+            padding: 12px;
+            min-height: 250px;
+        }
+
+        .day-header {
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 10px;
+        }
+
+        .day-name {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .day-date {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .day-column.today .day-date {
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .day-tasks { display: flex; flex-direction: column; gap: 6px; }
+
+        .day-task {
+            padding: 8px;
+            background: white;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            border-left: 3px solid var(--primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .day-task:hover {
+            box-shadow: var(--shadow-sm);
+            transform: translateX(2px);
+        }
+
+        .day-task.priority-high { border-left-color: var(--danger); }
+        .day-task.priority-medium { border-left-color: var(--warning); }
+
+        /* Assignee Sections */
+        .assignee-sections { display: flex; flex-direction: column; gap: 24px; }
+
+        .assignee-section {
+            background: var(--surface-dark);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .assignee-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .assignee-avatar-lg {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .assignee-info { flex: 1; }
+        .assignee-name { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+        .assignee-stats { display: flex; gap: 14px; margin-top: 4px; }
+
+        .assignee-stat {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .assignee-stat strong { color: var(--text-secondary); }
+
+        .todo-list { padding: 12px; }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: white;
+            border-radius: var(--radius-md);
+            margin-bottom: 6px;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .todo-item:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .todo-checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .todo-checkbox:hover { border-color: var(--primary); }
+
+        .todo-checkbox.checked {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .todo-content { flex: 1; }
+        .todo-title { font-weight: 500; color: var(--text-primary); margin-bottom: 4px; font-size: 14px; }
+        .todo-item.completed .todo-title { text-decoration: line-through; color: var(--text-muted); }
+        .todo-meta { display: flex; gap: 10px; font-size: 11px; color: var(--text-muted); }
+
+        .todo-due { display: flex; align-items: center; gap: 4px; }
+        .todo-due.overdue { color: var(--danger); }
+        .todo-due.soon { color: var(--warning); }
+
+        /* Quick Add */
+        .quick-add {
+            background: linear-gradient(135deg, var(--surface-dark) 0%, white 100%);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px dashed var(--border);
+        }
+
+        .quick-add-title { font-weight: 600; margin-bottom: 12px; color: var(--text-primary); }
+
+        .quick-add-form { display: flex; gap: 10px; }
+
+        .quick-add-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+        }
+
+        .quick-add-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* AI Assistant Panel */
+        .ai-panel {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+            z-index: 200;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ai-panel.open { right: 0; }
+
+        .ai-panel-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .ai-panel-title {
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ai-panel-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ai-panel-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .ai-chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .ai-message {
+            display: flex;
+            gap: 12px;
+        }
+
+        .ai-message.user { flex-direction: row-reverse; }
+
+        .ai-message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .ai-message.assistant .ai-message-avatar {
+            background: linear-gradient(135deg, var(--primary), #8b5cf6);
+            color: white;
+        }
+
+        .ai-message.user .ai-message-avatar {
+            background: var(--surface-dark);
+            color: var(--text-secondary);
+        }
+
+        .ai-message-content {
+            background: var(--surface-dark);
+            padding: 12px 16px;
+            border-radius: var(--radius-lg);
+            max-width: 85%;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .ai-message.user .ai-message-content {
+            background: var(--primary);
+            color: white;
+        }
+
+        .ai-panel-input {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 10px;
+        }
+
+        .ai-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            font-size: 14px;
+            resize: none;
+        }
+
+        .ai-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .ai-send-btn {
+            width: 44px;
+            height: 44px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .ai-send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(99,102,241,0.4);
+        }
+
+        /* Detail Modal with Comments */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15,23,42,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            animation: modalSlide 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes modalSlide {
+            from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--surface-dark);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .modal-content-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 24px;
+        }
+
+        .modal-main { }
+
+        .modal-sidebar {
+            border-left: 1px solid var(--border);
+            padding-left: 24px;
+        }
+
+        .form-group { margin-bottom: 16px; }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .form-label .required { color: var(--danger); }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+        }
+
+        .form-textarea { min-height: 80px; resize: vertical; }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Comments Section */
+        .comments-section {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .comments-title {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 16px;
+        }
+
+        .comment-item {
+            display: flex;
+            gap: 10px;
+        }
+
+        .comment-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary), #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .comment-content { flex: 1; }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .comment-author { font-weight: 600; font-size: 13px; color: var(--text-primary); }
+        .comment-time { font-size: 11px; color: var(--text-muted); }
+
+        .comment-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            background: var(--surface-dark);
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+        }
+
+        .comment-input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .comment-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            resize: none;
+        }
+
+        .comment-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .comment-send {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Activity Log in Sidebar */
+        .activity-section { margin-bottom: 20px; }
+        .activity-title { font-weight: 600; font-size: 14px; margin-bottom: 12px; color: var(--text-primary); }
+
+        .activity-list { display: flex; flex-direction: column; gap: 10px; }
+
+        .activity-item {
+            display: flex;
+            gap: 10px;
+            font-size: 12px;
+        }
+
+        .activity-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--surface-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-text { color: var(--text-secondary); line-height: 1.4; }
+        .activity-text strong { color: var(--text-primary); }
+        .activity-time { color: var(--text-muted); font-size: 11px; }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 40px;
+        }
+
+        .empty-state-icon {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 20px;
+            background: var(--surface-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p { color: var(--text-muted); margin-bottom: 20px; }
+
+        /* Loading */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            color: var(--text-muted);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 12px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .planner-grid { grid-template-columns: repeat(4, 1fr); }
+            .modal-content-grid { grid-template-columns: 1fr; }
+            .modal-sidebar { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 20px; }
+        }
+
+        @media (max-width: 768px) {
+            .envelope-container { padding: 16px; }
+            .envelope-tabs { flex-wrap: wrap; }
+            .envelope-tab { padding: 10px 16px; font-size: 12px; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .toolbar { flex-direction: column; }
+            .search-container { max-width: 100%; }
+            .form-row { grid-template-columns: 1fr; }
+            .planner-grid { grid-template-columns: 1fr; }
+            .header-center { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i data-lucide="cpu" style="width:26px;height:26px;"></i>
+                </div>
+                <div>
+                    <h1>Engineering Command Center</h1>
+                    <span class="header-subtitle">OberaConnect Second Brain</span>
+                </div>
+            </div>
+        </div>
+        <div class="header-center">
+            <button class="ai-agent-btn claude" onclick="toggleAIPanel('claude')">
+                <span class="ai-status active"></span>
+                <i data-lucide="bot" style="width:16px;height:16px;"></i>
+                Claude Agent
+            </button>
+            <button class="ai-agent-btn gemini" onclick="toggleAIPanel('gemini')">
+                <span class="ai-status active"></span>
+                <i data-lucide="sparkles" style="width:16px;height:16px;"></i>
+                Gemini Agent
+            </button>
+        </div>
+        <div class="header-right">
+            <div class="header-time" id="currentTime"></div>
+            <button class="btn btn-secondary" onclick="refreshData()">
+                <i data-lucide="refresh-cw" style="width:14px;height:14px;"></i>
+                Sync
+            </button>
+        </div>
+    </header>
+
+    <div class="envelope-container">
+        <div class="envelope-tabs">
+            <button class="envelope-tab active" data-tab="projects" onclick="switchTab('projects')">
+                <i data-lucide="folder-kanban" style="width:18px;height:18px;"></i>
+                Projects
+                <span class="tab-badge" id="projects-count">0</span>
+            </button>
+            <button class="envelope-tab" data-tab="tickets" onclick="switchTab('tickets')">
+                <i data-lucide="ticket" style="width:18px;height:18px;"></i>
+                Engineering Tickets
+                <span class="tab-badge" id="tickets-count">0</span>
+            </button>
+            <button class="envelope-tab" data-tab="tools" onclick="switchTab('tools')">
+                <i data-lucide="wrench" style="width:18px;height:18px;"></i>
+                Tools Index
+                <span class="tab-badge" id="tools-count">0</span>
+            </button>
+            <button class="envelope-tab" data-tab="todos" onclick="switchTab('todos')">
+                <i data-lucide="list-checks" style="width:18px;height:18px;"></i>
+                To-Do List
+                <span class="tab-badge" id="todos-count">0</span>
+            </button>
+        </div>
+
+        <div class="envelope-content">
+            <!-- Projects Tab -->
+            <div class="tab-panel active" id="projects-panel">
+                <div class="stats-grid">
+                    <div class="stat-card total">
+                        <div class="stat-header">
+                            <span class="stat-label">Total Projects</span>
+                            <div class="stat-icon"><i data-lucide="layers"></i></div>
+                        </div>
+                        <div class="stat-value" id="stat-projects-total">0</div>
+                    </div>
+                    <div class="stat-card progress">
+                        <div class="stat-header">
+                            <span class="stat-label">In Progress</span>
+                            <div class="stat-icon"><i data-lucide="loader"></i></div>
+                        </div>
+                        <div class="stat-value" id="stat-projects-progress">0</div>
+                    </div>
+                    <div class="stat-card priority">
+                        <div class="stat-header">
+                            <span class="stat-label">High Priority</span>
+                            <div class="stat-icon"><i data-lucide="alert-triangle"></i></div>
+                        </div>
+                        <div class="stat-value" id="stat-projects-high">0</div>
+                    </div>
+                    <div class="stat-card completed">
+                        <div class="stat-header">
+                            <span class="stat-label">Completed</span>
+                            <div class="stat-icon"><i data-lucide="check-circle-2"></i></div>
+                        </div>
+                        <div class="stat-value" id="stat-projects-completed">0</div>
+                    </div>
+                </div>
+
+                <div class="toolbar">
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i data-lucide="search" class="search-icon" style="width:16px;height:16px;"></i>
+                            <input type="text" placeholder="Search projects..." id="projectSearchInput" oninput="filterItems('projects')">
+                        </div>
+                        <div class="filter-group">
+                            <select class="filter-select" id="projectStatusFilter" onchange="filterItems('projects')">
+                                <option value="">All Statuses</option>
+                                <option value="Not Started">Not Started</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="On Hold">On Hold</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                            <select class="filter-select" id="projectPriorityFilter" onchange="filterItems('projects')">
+                                <option value="">All Priorities</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display:flex;gap:10px;align-items:center;">
+                        <div class="view-toggle">
+                            <button class="view-btn active" onclick="switchView('projects', 'chat')">
+                                <i data-lucide="layout-list" style="width:14px;height:14px;"></i>
+                                Cards
+                            </button>
+                            <button class="view-btn" onclick="switchView('projects', 'kanban')">
+                                <i data-lucide="kanban" style="width:14px;height:14px;"></i>
+                                Kanban
+                            </button>
+                        </div>
+                        <button class="btn btn-primary" onclick="showModal('add', 'projects')">
+                            <i data-lucide="plus" style="width:16px;height:16px;"></i>
+                            New Project
+                        </button>
+                    </div>
+                </div>
+
+                <div id="projects-chat-view" class="chat-cards-container"></div>
+                <div id="projects-kanban-view" class="kanban-board" style="display:none;"></div>
+            </div>
+
+            <!-- Tickets Tab -->
+            <div class="tab-panel" id="tickets-panel">
+                <div class="stats-grid">
+                    <div class="stat-card total">
+                        <div class="stat-header">
+                            <span class="stat-label">Total Tickets</span>
+                            <div class="stat-icon"><i data-lucide="ticket"></i></div>
+                        </div>
+                        <div class="stat-value" id="stat-tickets-total">0</div>
+                    </div>
+                    <div class="stat-card progress">
+                        <div class="stat-header">
+                            <span class="stat-label">Open</span>
+                            <div class="stat-icon"><i data-lucide="circle-dot"></i></div>
+                        </div>
+                        <div class="stat-value" id="stat-tickets-open">0</div>
+                    </div>
+                    <div class="stat-card priority">
+                        <div class="stat-header">
+                            <span class="stat-label">High Priority</span>
+                            <div class="stat-icon"><i data-lucide="flame"></i></div>
+                        </div>
+                        <div class="stat-value" id="stat-tickets-high">0</div>
+                    </div>
+                    <div class="stat-card completed">
+                        <div class="stat-header">
+                            <span class="stat-label">Resolved</span>
+                            <div class="stat-icon"><i data-lucide="check-check"></i></div>
+                        </div>
+                        <div class="stat-value" id="stat-tickets-resolved">0</div>
+                    </div>
+                </div>
+
+                <div class="toolbar">
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i data-lucide="search" class="search-icon" style="width:16px;height:16px;"></i>
+                            <input type="text" placeholder="Search tickets..." id="ticketSearchInput" oninput="filterItems('tickets')">
+                        </div>
+                        <div class="filter-group">
+                            <select class="filter-select" id="ticketStatusFilter" onchange="filterItems('tickets')">
+                                <option value="">All Statuses</option>
+                                <option value="Open">Open</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Resolved">Resolved</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+                            <select class="filter-select" id="ticketPriorityFilter" onchange="filterItems('tickets')">
+                                <option value="">All Priorities</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display:flex;gap:10px;align-items:center;">
+                        <div class="view-toggle">
+                            <button class="view-btn active" onclick="switchView('tickets', 'chat')">
+                                <i data-lucide="layout-list" style="width:14px;height:14px;"></i>
+                                Cards
+                            </button>
+                            <button class="view-btn" onclick="switchView('tickets', 'kanban')">
+                                <i data-lucide="kanban" style="width:14px;height:14px;"></i>
+                                Kanban
+                            </button>
+                        </div>
+                        <button class="btn btn-primary" onclick="showModal('add', 'tickets')">
+                            <i data-lucide="plus" style="width:16px;height:16px;"></i>
+                            New Ticket
+                        </button>
+                    </div>
+                </div>
+
+                <div id="tickets-chat-view" class="chat-cards-container"></div>
+                <div id="tickets-kanban-view" class="kanban-board" style="display:none;"></div>
+            </div>
+
+            <!-- Tools Index Tab -->
+            <div class="tab-panel" id="tools-panel">
+                <div class="toolbar" style="margin-bottom:20px;">
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i data-lucide="search" class="search-icon" style="width:16px;height:16px;"></i>
+                            <input type="text" placeholder="Search tools..." id="toolSearchInput" oninput="filterTools()">
+                        </div>
+                    </div>
+                </div>
+                <div class="tools-categories" id="tools-container"></div>
+            </div>
+
+            <!-- To-Do List Tab -->
+            <div class="tab-panel" id="todos-panel">
+                <div class="planner-header">
+                    <div class="planner-date" id="planner-date"></div>
+                    <div class="planner-nav">
+                        <button class="planner-nav-btn" onclick="navigateWeek(-1)">
+                            <i data-lucide="chevron-left" style="width:18px;height:18px;"></i>
+                        </button>
+                        <button class="btn btn-secondary" onclick="goToToday()">Today</button>
+                        <button class="planner-nav-btn" onclick="navigateWeek(1)">
+                            <i data-lucide="chevron-right" style="width:18px;height:18px;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="planner-grid" id="planner-grid"></div>
+
+                <div class="quick-add">
+                    <div class="quick-add-title">Quick Add Task</div>
+                    <div class="quick-add-form">
+                        <input type="text" class="quick-add-input" id="quickAddInput" placeholder="What needs to be done?">
+                        <select class="filter-select" id="quickAddAssignee">
+                            <option value="">Assign to...</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="quickAddTask()">
+                            <i data-lucide="plus" style="width:16px;height:16px;"></i>
+                            Add
+                        </button>
+                    </div>
+                </div>
+
+                <div class="assignee-sections" id="assignee-sections"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Assistant Panel -->
+    <div class="ai-panel" id="aiPanel">
+        <div class="ai-panel-header">
+            <div class="ai-panel-title">
+                <i data-lucide="bot" style="width:20px;height:20px;"></i>
+                <span id="aiPanelTitle">AI Assistant</span>
+            </div>
+            <button class="ai-panel-close" onclick="closeAIPanel()">
+                <i data-lucide="x" style="width:18px;height:18px;"></i>
+            </button>
+        </div>
+        <div class="ai-panel-body">
+            <div class="ai-chat-messages" id="aiChatMessages">
+                <div class="ai-message assistant">
+                    <div class="ai-message-avatar">
+                        <i data-lucide="bot" style="width:16px;height:16px;"></i>
+                    </div>
+                    <div class="ai-message-content">
+                        Hello! I'm your AI assistant. I can help you:
+                        <ul style="margin:8px 0 0 16px;font-size:13px;">
+                            <li>Summarize overdue tasks</li>
+                            <li>Analyze ticket trends</li>
+                            <li>Generate meeting schedules</li>
+                            <li>Create project templates</li>
+                            <li>Automate reminders</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ai-panel-input">
+            <textarea class="ai-input" id="aiInput" placeholder="Ask me anything..." rows="2"></textarea>
+            <button class="ai-send-btn" onclick="sendAIMessage()">
+                <i data-lucide="send" style="width:18px;height:18px;"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Tool Detail Modal -->
+    <div class="modal-overlay" id="toolModal">
+        <div class="modal" style="max-width:500px;">
+            <div class="modal-header">
+                <h2 class="modal-title" id="toolModalTitle">Tool Name</h2>
+                <button class="modal-close" onclick="closeToolModal()">
+                    <i data-lucide="x" style="width:18px;height:18px;"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="currentToolName">
+                <div style="margin-bottom:16px;">
+                    <span class="chat-tag" style="background:var(--primary);color:white;" id="toolModalCategory">Category</span>
+                </div>
+                <p style="color:var(--text-secondary);margin-bottom:20px;line-height:1.6;" id="toolModalDesc">Tool description</p>
+                <div id="toolModalDetails" style="background:var(--surface-dark);border-radius:var(--radius-md);padding:16px;"></div>
+            </div>
+            <div class="modal-footer" style="justify-content:space-between;">
+                <div style="display:flex;gap:8px;">
+                    <button class="btn btn-secondary" onclick="viewToolCode(document.getElementById('currentToolName').value)">
+                        <i data-lucide="code" style="width:14px;height:14px;"></i> View Code
+                    </button>
+                    <button class="btn btn-secondary" onclick="showToolDocs(document.getElementById('currentToolName').value)">
+                        <i data-lucide="book-open" style="width:14px;height:14px;"></i> Docs
+                    </button>
+                </div>
+                <button class="btn btn-primary" onclick="runTool(document.getElementById('currentToolName').value)">
+                    <i data-lucide="play" style="width:14px;height:14px;"></i> Run Tool
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Modal with Comments -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Item Details</h2>
+                <button class="modal-close" onclick="closeModal()">
+                    <i data-lucide="x" style="width:18px;height:18px;"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-content-grid">
+                    <div class="modal-main">
+                        <input type="hidden" id="itemId">
+                        <input type="hidden" id="itemType">
+
+                        <div class="form-group">
+                            <label class="form-label">Title <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="itemName" placeholder="Enter title...">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-textarea" id="itemDescription" placeholder="Describe the item..."></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" id="itemStatus">
+                                    <option value="Not Started">Not Started</option>
+                                    <option value="Open">Open</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="On Hold">On Hold</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Resolved">Resolved</option>
+                                    <option value="Closed">Closed</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Priority</label>
+                                <select class="form-select" id="itemPriority">
+                                    <option value="Low">Low</option>
+                                    <option value="Medium" selected>Medium</option>
+                                    <option value="High">High</option>
+                                    <option value="Critical">Critical</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Assigned To</label>
+                                <input type="text" class="form-input" id="itemAssignee" placeholder="Name...">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Team</label>
+                                <select class="form-select" id="itemTeam">
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Network">Network</option>
+                                    <option value="Security">Security</option>
+                                    <option value="Support">Support</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Customer</label>
+                                <input type="text" class="form-input" id="itemCustomer" placeholder="Customer name...">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Due Date</label>
+                                <input type="date" class="form-input" id="itemDueDate">
+                            </div>
+                        </div>
+
+                        <!-- Comments Section -->
+                        <div class="comments-section">
+                            <div class="comments-title">
+                                <i data-lucide="message-circle" style="width:18px;height:18px;"></i>
+                                Comments
+                            </div>
+                            <div class="comments-list" id="commentsList"></div>
+                            <div class="comment-input-container">
+                                <textarea class="comment-input" id="commentInput" placeholder="Add a comment..." rows="2"></textarea>
+                                <button class="comment-send" onclick="addComment()">
+                                    <i data-lucide="send" style="width:16px;height:16px;"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-sidebar">
+                        <div class="activity-section">
+                            <div class="activity-title">Activity Log</div>
+                            <div class="activity-list" id="activityList">
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <i data-lucide="plus" style="width:12px;height:12px;color:var(--success);"></i>
+                                    </div>
+                                    <div>
+                                        <div class="activity-text"><strong>Jeremy Smith</strong> created this item</div>
+                                        <div class="activity-time">2 hours ago</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <i data-lucide="edit-3" style="width:12px;height:12px;color:var(--primary);"></i>
+                                    </div>
+                                    <div>
+                                        <div class="activity-text">Status changed to <strong>In Progress</strong></div>
+                                        <div class="activity-time">1 hour ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Notes</label>
+                            <textarea class="form-textarea" id="itemNotes" placeholder="Additional notes..." rows="4"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveItem()">
+                    <i data-lucide="save" style="width:14px;height:14px;"></i>
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const CONFIG = {
+            siteId: 'oberaconnect.sharepoint.com,3894a9a1-76ac-4955-88b2-a1d335f35f78,522e18b4-c876-4c61-b74b-53adb0e6ddef',
+            projectsListId: 'a310c2d1-634f-44d0-862b-6750bf8788ce',
+            ticketsListId: 'd135fb01-4f30-429d-94ad-b908a0c6a9f7',
+            accessToken: 'eyJ0eXAiOiJKV1QiLCJub25jZSI6IkJlS0RiUmpmeGJKUXFLU2tjN3Y5aU43RlNqTklqWV9jRnB1MExIT2hLR1EiLCJhbGciOiJSUzI1NiIsIng1dCI6InJ0c0ZULWItN0x1WTdEVlllU05LY0lKN1ZuYyIsImtpZCI6InJ0c0ZULWItN0x1WTdEVlllU05LY0lKN1ZuYyJ9.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9hZDZjZmU4ZS1iZjlkLTRiYjAtYmZkNy0wNTA1OGMyYzY5ZGQvIiwiaWF0IjoxNzY0MTA4Mzc1LCJuYmYiOjE3NjQxMDgzNzUsImV4cCI6MTc2NDExMjI3NSwiYWlvIjoiazJKZ1lIZ21kVnlXcmJuMGpsS0hYRGRuMnBFR0FBPT0iLCJhcHBfZGlzcGxheW5hbWUiOiJTaGFyZXBvaW50IFJlYWQtT25seSBJbnRlcmZhY2UiLCJhcHBpZCI6IjI1Mjc2ODljLWZkNWItNDdkNi04MjBjLTQ1ZTQxNTdmOWE0ZiIsImFwcGlkYWNyIjoiMSIsImlkcCI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0L2FkNmNmZThlLWJmOWQtNGJiMC1iZmQ3LTA1MDU4YzJjNjlkZC8iLCJpZHR5cCI6ImFwcCIsIm9pZCI6IjcxYTE1NWI3LWMxNzctNGZjMS05NTg0LWQ5YmZhNGU3NGVjOCIsInJoIjoiMS5BVklBanY1c3JaMl9zRXVfMXdVRmpDeHAzUU1BQUFBQUFBQUF3QUFBQUFBQUFBQzZBQUJTQUEuIiwicm9sZXMiOlsiVXNlci5SZWFkQmFzaWMuQWxsIiwiU2l0ZXMuUmVhZC5BbGwiLCJTaXRlcy5SZWFkV3JpdGUuQWxsIiwiU2l0ZXMuTWFuYWdlLkFsbCIsIkZpbGVzLlJlYWRXcml0ZS5BbGwiLCJGaWxlcy5SZWFkLkFsbCIsIk1haWwuU2VuZCJdLCJzdWIiOiI3MWExNTViNy1jMTc3LTRmYzEtOTU4NC1kOWJmYTRlNzRlYzgiLCJ0ZW5hbnRfcmVnaW9uX3Njb3BlIjoiTkEiLCJ0aWQiOiJhZDZjZmU4ZS1iZjlkLTRiYjAtYmZkNy0wNTA1OGMyYzY5ZGQiLCJ1dGkiOiJIUldtSjBtTzkwaWhXem9RdWc1ZEFBIiwidmVyIjoiMS4wIiwid2lkcyI6WyIwOTk3YTFkMC0wZDFkLTRhY2ItYjQwOC1kNWNhNzMxMjFlOTAiXSwieG1zX2FjZCI6MTc2MzA2OTQxOCwieG1zX2FjdF9mY3QiOiIzIDkiLCJ4bXNfZnRkIjoidFNHdjFOOWc2U004QnVSV1F1aDdIczdRQThoRlRzc3hoU3pRaFRXNFE2QUJkWE5sWVhOMExXUnpiWE0iLCJ4bXNfaWRyZWwiOiI3IDYiLCJ4bXNfcmQiOiIwLjQyTGxZQkppREJJUzRXQVhFb2pxT2I0Nm9XZWlVOHZHWW5lV3lwNG1vQ2lua0lDRW5abGQ4Nm9ISHAzNkc1cWZ6S3A3RFJUbEVCSmdab0NBQTFBYUFBIiwieG1zX3N1Yl9mY3QiOiIzIDkiLCJ4bXNfdGNkdCI6MTY3NDUwMTY0NywieG1zX3RudF9mY3QiOiIzIDEwIn0.DntVSspPtCR9HHAroKio70RGvc8WF7r7T5Qx2zwy0FuFbW7MSD2ODVb11wfOknm4-W-9Efcn_hPRXHgCeEdWthcIppqNs-uc1lqYCDJ0UR-tgjJJhzbZRSh4jt6ANCkZl21pgtGnLx2fFs6Hx8-2a0FaRSUKrD7L3ELIuT1NMC7UrgfLcjXbCmih4fTcI5Qv3Db3KScTnpD38LOMyJy1v88NCDXY-e6OGs0Xcp5DkGy8ENJeKJSL4SrZPG2gEC6SMBgjWtkxDOMF2p2X-BSBmah2-76BEpor_MgaoIhOIm-F86Wtmn3Wp6xXsKuq6MIM2cBA9nihQ0WbwBs9CkC4OQ'
+        };
+
+        const GRAPH_API = 'https://graph.microsoft.com/v1.0';
+
+        // State
+        let currentTab = 'projects';
+        let currentViews = { projects: 'chat', tickets: 'chat' };
+        let projectsData = [];
+        let ticketsData = [];
+        let commentsData = {};
+        let currentWeekStart = getWeekStart(new Date());
+        let currentAIAgent = 'claude';
+
+        // Tools Index
+        const TOOLS_INDEX = {
+            'Data Processing & Import': {
+                icon: 'data',
+                tools: [
+                    { name: 'sharepoint_importer.py', desc: 'Import documents from SharePoint' },
+                    { name: 'download_sharepoint.py', desc: 'Download files from SharePoint sites' },
+                    { name: 'download_all_sharepoint.py', desc: 'Bulk download all SharePoint content' },
+                    { name: 'slack_importer.py', desc: 'Import Slack channel exports' },
+                    { name: 'slab_importer.py', desc: 'Import documentation from Slab' },
+                    { name: 'process_batch.py', desc: 'Batch document processing pipeline' }
+                ]
+            },
+            'Network & Call Flow': {
+                icon: 'network',
+                tools: [
+                    { name: 'call_flow_processor.py', desc: 'Process customer call flow documents' },
+                    { name: 'call_flow_generator.py', desc: 'Generate call flow templates' },
+                    { name: 'call_flow_web.py', desc: 'Web interface for call flows' },
+                    { name: 'network_checklist.py', desc: 'Network installation checklist' }
+                ]
+            },
+            'Document Management': {
+                icon: 'document',
+                tools: [
+                    { name: 'document_processor.py', desc: 'Core document processing engine' },
+                    { name: 'claude_processor.py', desc: 'AI-powered document analysis' },
+                    { name: 'html_generator.py', desc: 'Generate HTML from documents' },
+                    { name: 'metadata_extractor.py', desc: 'Extract document metadata' },
+                    { name: 'suggest_links.py', desc: 'AI-suggested document links' }
+                ]
+            },
+            'Automation & Scheduling': {
+                icon: 'automation',
+                tools: [
+                    { name: 'daily_engineering_summary.py', desc: 'Generate daily email summaries' },
+                    { name: 'engineering_tracker.py', desc: 'Engineering projects/tickets API' },
+                    { name: 'contract_tracker.py', desc: 'Customer contract management' },
+                    { name: 'ee_team_dashboard.py', desc: 'EE Team dashboard backend' }
+                ]
+            },
+            'AI Agents & MCP': {
+                icon: 'agent',
+                tools: [
+                    { name: 'agent_orchestrator.py', desc: 'Multi-agent orchestration system' },
+                    { name: 'agent_notebooklm_analyst.py', desc: 'NotebookLM analysis agent' },
+                    { name: 'mcp_obsidian_server.py', desc: 'MCP server for Obsidian' },
+                    { name: 'query_brain.py', desc: 'RAG query engine' },
+                    { name: 'rag_web.py', desc: 'Web interface for RAG system' }
+                ]
+            },
+            'Configuration & Utilities': {
+                icon: 'config',
+                tools: [
+                    { name: 'config.py', desc: 'Application configuration' },
+                    { name: 'vector_store.py', desc: 'ChromaDB vector storage' },
+                    { name: 'rebuild_index.py', desc: 'Rebuild search index' },
+                    { name: 'cleanup_vault.py', desc: 'Clean up Obsidian vault' }
+                ]
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            updateTime();
+            setInterval(updateTime, 1000);
+            renderToolsIndex();
+            renderPlanner();
+            loadData();
+        });
+
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = now.toLocaleString('en-US', {
+                weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
+        }
+
+        // Tab & View switching
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.envelope-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById(`${tab}-panel`).classList.add('active');
+            lucide.createIcons();
+        }
+
+        function switchView(type, view) {
+            currentViews[type] = view;
+            const container = document.getElementById(`${type}-panel`);
+            container.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+            event.target.closest('.view-btn').classList.add('active');
+
+            document.getElementById(`${type}-chat-view`).style.display = view === 'chat' ? 'flex' : 'none';
+            document.getElementById(`${type}-kanban-view`).style.display = view === 'kanban' ? 'flex' : 'none';
+
+            renderItems(type);
+        }
+
+        // Data Loading - SharePoint Integration with Historical Tracking
+        async function loadData() {
+            // Check if SharePoint is configured
+            if (CONFIG.siteId && !CONFIG.siteId.includes('{{')) {
+                await Promise.all([loadFromSharePoint('projects'), loadFromSharePoint('tickets')]);
+            } else {
+                // Demo mode - local data
+                showDemoData('projects');
+                showDemoData('tickets');
+            }
+            renderTodosByAssignee();
+        }
+
+        async function loadFromSharePoint(type) {
+            const listId = type === 'projects' ? CONFIG.projectsListId : CONFIG.ticketsListId;
+
+            try {
+                const response = await fetch(
+                    `${GRAPH_API}/sites/${CONFIG.siteId}/lists/${listId}/items?expand=fields`,
+                    { headers: { 'Authorization': `Bearer ${CONFIG.accessToken}` } }
+                );
+
+                if (!response.ok) throw new Error('SharePoint API error');
+
+                const data = await response.json();
+                const items = data.value || [];
+
+                // Map SharePoint version history metadata
+                items.forEach(item => {
+                    item.sharePointId = item.id;
+                    item.createdDateTime = item.createdDateTime;
+                    item.lastModifiedDateTime = item.lastModifiedDateTime;
+                    item.createdBy = item.createdBy?.user?.displayName || 'Unknown';
+                    item.modifiedBy = item.lastModifiedBy?.user?.displayName || 'Unknown';
+                });
+
+                if (type === 'projects') {
+                    projectsData = items;
+                    updateProjectStats();
+                    renderItems('projects');
+                } else {
+                    ticketsData = items;
+                    updateTicketStats();
+                    renderItems('tickets');
+                }
+
+                console.log(`Loaded ${items.length} ${type} from SharePoint`);
+            } catch (error) {
+                console.error(`Error loading ${type} from SharePoint:`, error);
+                showDemoData(type);
+            }
+        }
+
+        // Save to SharePoint with version tracking
+        async function saveToSharePoint(type, item, isNew = false) {
+            const listId = type === 'projects' ? CONFIG.projectsListId : CONFIG.ticketsListId;
+            const titleField = type === 'projects' ? 'ProjectName' : 'TicketTitle';
+
+            const data = {
+                fields: {
+                    [titleField]: item.fields[titleField] || item.fields.ProjectName || item.fields.TicketTitle,
+                    Description: item.fields.Description || '',
+                    Status: item.fields.Status || 'Not Started',
+                    Priority: item.fields.Priority || 'Medium',
+                    AssignedTo: item.fields.AssignedTo || '',
+                    Team: item.fields.Team || 'Engineering',
+                    Customer: item.fields.Customer || '',
+                    Notes: item.fields.Notes || item.fields.Resolution || ''
+                }
+            };
+
+            if (item.fields.DueDate) {
+                data.fields.DueDate = item.fields.DueDate;
+            }
+
+            try {
+                const url = isNew
+                    ? `${GRAPH_API}/sites/${CONFIG.siteId}/lists/${listId}/items`
+                    : `${GRAPH_API}/sites/${CONFIG.siteId}/lists/${listId}/items/${item.sharePointId || item.id}`;
+
+                const response = await fetch(url, {
+                    method: isNew ? 'POST' : 'PATCH',
+                    headers: {
+                        'Authorization': `Bearer ${CONFIG.accessToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log(`${isNew ? 'Created' : 'Updated'} in SharePoint with version tracking`);
+
+                    // Log activity for audit trail
+                    logActivity(type, item, isNew ? 'created' : 'updated');
+
+                    return result;
+                } else {
+                    throw new Error(`SharePoint save failed: ${response.status}`);
+                }
+            } catch (error) {
+                console.error('SharePoint save error:', error);
+                return null;
+            }
+        }
+
+        // Get item version history from SharePoint
+        async function getVersionHistory(type, itemId) {
+            const listId = type === 'projects' ? CONFIG.projectsListId : CONFIG.ticketsListId;
+
+            try {
+                const response = await fetch(
+                    `${GRAPH_API}/sites/${CONFIG.siteId}/lists/${listId}/items/${itemId}/versions`,
+                    { headers: { 'Authorization': `Bearer ${CONFIG.accessToken}` } }
+                );
+
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.value || [];
+                }
+            } catch (error) {
+                console.error('Error fetching version history:', error);
+            }
+            return [];
+        }
+
+        // Activity logging for audit trail
+        function logActivity(type, item, action) {
+            const activity = {
+                timestamp: new Date().toISOString(),
+                type: type,
+                itemId: item.id,
+                action: action,
+                user: 'Current User', // Would be from MSAL auth
+                changes: item.fields
+            };
+
+            // Store locally for quick access (also persisted in SharePoint)
+            const activityLog = JSON.parse(localStorage.getItem('activityLog') || '[]');
+            activityLog.unshift(activity);
+            localStorage.setItem('activityLog', JSON.stringify(activityLog.slice(0, 100)));
+
+            console.log('Activity logged:', activity);
+        }
+
+        function showDemoData(type) {
+            const demoProjects = [
+                { id: '1', fields: { ProjectName: 'Network Infrastructure Upgrade', Description: 'Complete overhaul of core network infrastructure', Status: 'In Progress', Priority: 'High', AssignedTo: 'Jeremy Smith', Team: 'Network', Customer: 'OberaConnect', DueDate: '2025-12-15' }, comments: [
+                    { author: 'Jeremy Smith', text: 'Started the initial assessment phase', time: '2 hours ago' },
+                    { author: 'Mike Johnson', text: 'Equipment has been ordered', time: '1 hour ago' }
+                ]},
+                { id: '2', fields: { ProjectName: 'Security Audit Implementation', Description: 'Implement findings from Q3 security audit', Status: 'Not Started', Priority: 'Critical', AssignedTo: 'Security Team', Team: 'Security', Customer: 'Internal', DueDate: '2025-12-01' }, comments: []},
+                { id: '3', fields: { ProjectName: 'VoIP System Migration', Description: 'Migrate legacy PBX to cloud-based VoIP', Status: 'In Progress', Priority: 'Medium', AssignedTo: 'Network Team', Team: 'Engineering', Customer: 'Dunlap PCB', DueDate: '2025-12-20' }, comments: []},
+                { id: '4', fields: { ProjectName: 'Documentation Portal', Description: 'Build internal documentation portal', Status: 'Completed', Priority: 'Low', AssignedTo: 'Jeremy Smith', Team: 'Engineering', Customer: 'Internal', DueDate: '2025-11-15' }, comments: []},
+                { id: '5', fields: { ProjectName: 'Client Dashboard', Description: 'Customer-facing service monitoring dashboard', Status: 'On Hold', Priority: 'Medium', AssignedTo: 'Dev Team', Team: 'Engineering', Customer: 'Multiple', DueDate: '2025-01-15' }, comments: []}
+            ];
+
+            const demoTickets = [
+                { id: 't1', fields: { TicketTitle: 'VPN Connection Issues - Spanish Fort', Description: 'Intermittent VPN disconnections reported', Status: 'Open', Priority: 'High', AssignedTo: 'Jeremy Smith', Team: 'Network', Customer: 'Spanish Fort', DueDate: '2025-11-26' }, comments: [
+                    { author: 'Support Team', text: 'Initial report received from customer', time: '3 hours ago' },
+                    { author: 'Jeremy Smith', text: 'Investigating firewall logs', time: '1 hour ago' }
+                ]},
+                { id: 't2', fields: { TicketTitle: 'Email Delivery Delays', Description: 'Outbound emails delayed by 10+ minutes', Status: 'In Progress', Priority: 'Critical', AssignedTo: 'Support Team', Team: 'Support', Customer: 'Parabalus', DueDate: '2025-11-25' }, comments: []},
+                { id: 't3', fields: { TicketTitle: 'Firewall Rule Update', Description: 'Add new rules for remote access', Status: 'Pending', Priority: 'Medium', AssignedTo: 'Security Team', Team: 'Security', Customer: 'Setco', DueDate: '2025-11-28' }, comments: []},
+                { id: 't4', fields: { TicketTitle: 'Backup Verification Failed', Description: 'Weekly backup showing errors', Status: 'Resolved', Priority: 'High', AssignedTo: 'Jeremy Smith', Team: 'Engineering', Customer: 'Setco', DueDate: '2025-11-20' }, comments: []},
+                { id: 't5', fields: { TicketTitle: 'New User Onboarding', Description: 'Setup accounts for new employees', Status: 'Closed', Priority: 'Low', AssignedTo: 'Support Team', Team: 'Support', Customer: 'Dunlap PCB', DueDate: '2025-11-22' }, comments: []}
+            ];
+
+            if (type === 'projects') {
+                projectsData = demoProjects;
+                demoProjects.forEach(p => commentsData[p.id] = p.comments || []);
+                updateProjectStats();
+                renderItems('projects');
+            } else {
+                ticketsData = demoTickets;
+                demoTickets.forEach(t => commentsData[t.id] = t.comments || []);
+                updateTicketStats();
+                renderItems('tickets');
+            }
+        }
+
+        // Stats
+        function updateProjectStats() {
+            const total = projectsData.length;
+            const inProgress = projectsData.filter(i => i.fields.Status === 'In Progress').length;
+            const high = projectsData.filter(i => ['High', 'Critical'].includes(i.fields.Priority)).length;
+            const completed = projectsData.filter(i => i.fields.Status === 'Completed').length;
+
+            document.getElementById('stat-projects-total').textContent = total;
+            document.getElementById('stat-projects-progress').textContent = inProgress;
+            document.getElementById('stat-projects-high').textContent = high;
+            document.getElementById('stat-projects-completed').textContent = completed;
+            document.getElementById('projects-count').textContent = total;
+        }
+
+        function updateTicketStats() {
+            const total = ticketsData.length;
+            const open = ticketsData.filter(i => ['Open', 'In Progress'].includes(i.fields.Status)).length;
+            const high = ticketsData.filter(i => ['High', 'Critical'].includes(i.fields.Priority)).length;
+            const resolved = ticketsData.filter(i => ['Resolved', 'Closed'].includes(i.fields.Status)).length;
+
+            document.getElementById('stat-tickets-total').textContent = total;
+            document.getElementById('stat-tickets-open').textContent = open;
+            document.getElementById('stat-tickets-high').textContent = high;
+            document.getElementById('stat-tickets-resolved').textContent = resolved;
+            document.getElementById('tickets-count').textContent = total;
+        }
+
+        // Rendering
+        function renderItems(type) {
+            const view = currentViews[type];
+            if (view === 'chat') {
+                renderChatView(type);
+            } else {
+                renderKanbanView(type);
+            }
+        }
+
+        function renderChatView(type) {
+            const container = document.getElementById(`${type}-chat-view`);
+            const items = type === 'projects' ? getFilteredProjects() : getFilteredTickets();
+
+            if (items.length === 0) {
+                container.innerHTML = `<div class="empty-state">
+                    <div class="empty-state-icon"><i data-lucide="${type === 'projects' ? 'folder-kanban' : 'ticket'}" style="width:36px;height:36px;"></i></div>
+                    <h3>No ${type} found</h3>
+                    <p>Create a new item to get started</p>
+                    <button class="btn btn-primary" onclick="showModal('add', '${type}')">
+                        <i data-lucide="plus" style="width:16px;height:16px;"></i> Add ${type === 'projects' ? 'Project' : 'Ticket'}
+                    </button>
+                </div>`;
+                lucide.createIcons();
+                return;
+            }
+
+            container.innerHTML = items.map(item => {
+                const f = item.fields;
+                const title = f.ProjectName || f.TicketTitle || 'Untitled';
+                const commentCount = (commentsData[item.id] || []).length;
+                return `<div class="chat-card" onclick="showModal('edit', '${type}', '${item.id}')">
+                    <div class="chat-avatar">${getInitials(f.AssignedTo)}</div>
+                    <div class="chat-body">
+                        <div class="chat-header">
+                            <span class="chat-title">${title}</span>
+                            <span class="chat-time">${f.DueDate ? formatDate(f.DueDate) : ''}</span>
+                        </div>
+                        <div class="chat-preview">${f.Description || 'No description'}</div>
+                        <div class="chat-footer">
+                            <span class="chat-tag tag-status-${(f.Status || 'not-started').toLowerCase().replace(/\s+/g, '-')}">${f.Status || 'Not Started'}</span>
+                            <span class="chat-tag tag-priority-${(f.Priority || 'medium').toLowerCase()}">${f.Priority || 'Medium'}</span>
+                            <span class="chat-assignee">
+                                <span class="chat-assignee-avatar">${getInitials(f.AssignedTo)}</span>
+                                ${f.AssignedTo || 'Unassigned'}
+                            </span>
+                            ${commentCount > 0 ? `<span class="comment-count"><i data-lucide="message-circle" style="width:14px;height:14px;"></i> ${commentCount}</span>` : ''}
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        function renderKanbanView(type) {
+            const container = document.getElementById(`${type}-kanban-view`);
+            const items = type === 'projects' ? getFilteredProjects() : getFilteredTickets();
+            const statuses = type === 'projects'
+                ? ['Not Started', 'In Progress', 'On Hold', 'Completed']
+                : ['Open', 'In Progress', 'Pending', 'Resolved', 'Closed'];
+
+            container.innerHTML = statuses.map(status => {
+                const statusItems = items.filter(i => (i.fields.Status || 'Not Started') === status);
+                const statusClass = status.toLowerCase().replace(/\s+/g, '-');
+                return `<div class="kanban-column">
+                    <div class="kanban-header ${statusClass}">
+                        <span class="kanban-title">${status}</span>
+                        <span class="kanban-count">${statusItems.length}</span>
+                    </div>
+                    <div class="kanban-cards" id="kanban-${type}-${statusClass}" data-status="${status}" data-type="${type}">
+                        ${statusItems.map(item => {
+                            const f = item.fields;
+                            const title = f.ProjectName || f.TicketTitle || 'Untitled';
+                            const commentCount = (commentsData[item.id] || []).length;
+                            return `<div class="kanban-card" data-id="${item.id}" onclick="showModal('edit', '${type}', '${item.id}')">
+                                <div class="kanban-card-title">${title}</div>
+                                <div class="kanban-card-meta">
+                                    <span class="chat-tag tag-priority-${(f.Priority || 'medium').toLowerCase()}">${f.Priority || 'Medium'}</span>
+                                    <span class="chat-assignee-avatar">${getInitials(f.AssignedTo)}</span>
+                                </div>
+                                <div class="kanban-card-footer">
+                                    <span class="comment-count" onclick="event.stopPropagation();">
+                                        <i data-lucide="message-circle" style="width:12px;height:12px;"></i> ${commentCount}
+                                    </span>
+                                    <span style="font-size:11px;color:var(--text-muted);">${f.DueDate ? formatDate(f.DueDate) : ''}</span>
+                                </div>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                </div>`;
+            }).join('');
+
+            lucide.createIcons();
+            initKanbanDragDrop(type);
+        }
+
+        // Initialize Drag & Drop
+        function initKanbanDragDrop(type) {
+            const columns = document.querySelectorAll(`[id^="kanban-${type}"]`);
+            columns.forEach(column => {
+                new Sortable(column, {
+                    group: `kanban-${type}`,
+                    animation: 200,
+                    ghostClass: 'sortable-ghost',
+                    dragClass: 'sortable-drag',
+                    onEnd: function(evt) {
+                        const itemId = evt.item.dataset.id;
+                        const newStatus = evt.to.dataset.status;
+                        const itemType = evt.to.dataset.type;
+
+                        const items = itemType === 'projects' ? projectsData : ticketsData;
+                        const item = items.find(i => i.id === itemId);
+                        if (item) {
+                            item.fields.Status = newStatus;
+                            if (itemType === 'projects') updateProjectStats();
+                            else updateTicketStats();
+                            renderTodosByAssignee();
+                        }
+                    }
+                });
+            });
+        }
+
+        // Filters
+        function getFilteredProjects() {
+            const search = document.getElementById('projectSearchInput').value.toLowerCase();
+            const status = document.getElementById('projectStatusFilter').value;
+            const priority = document.getElementById('projectPriorityFilter').value;
+
+            return projectsData.filter(item => {
+                const f = item.fields;
+                if (search && !(f.ProjectName || '').toLowerCase().includes(search) && !(f.Description || '').toLowerCase().includes(search)) return false;
+                if (status && f.Status !== status) return false;
+                if (priority && f.Priority !== priority) return false;
+                return true;
+            });
+        }
+
+        function getFilteredTickets() {
+            const search = document.getElementById('ticketSearchInput').value.toLowerCase();
+            const status = document.getElementById('ticketStatusFilter').value;
+            const priority = document.getElementById('ticketPriorityFilter').value;
+
+            return ticketsData.filter(item => {
+                const f = item.fields;
+                if (search && !(f.TicketTitle || '').toLowerCase().includes(search) && !(f.Description || '').toLowerCase().includes(search)) return false;
+                if (status && f.Status !== status) return false;
+                if (priority && f.Priority !== priority) return false;
+                return true;
+            });
+        }
+
+        function filterItems(type) { renderItems(type); }
+
+        // Tools Index
+        function renderToolsIndex() {
+            const container = document.getElementById('tools-container');
+            let totalTools = 0;
+
+            container.innerHTML = Object.entries(TOOLS_INDEX).map(([category, data]) => {
+                totalTools += data.tools.length;
+                return `<div class="tool-category">
+                    <div class="category-header">
+                        <div class="category-icon ${data.icon}">
+                            <i data-lucide="${getCategoryIcon(data.icon)}" style="width:22px;height:22px;"></i>
+                        </div>
+                        <div>
+                            <div class="category-title">${category}</div>
+                            <div class="category-count">${data.tools.length} tools</div>
+                        </div>
+                    </div>
+                    <div class="tools-grid">
+                        ${data.tools.map(tool => `<div class="tool-card" onclick="showToolModal('${tool.name}', '${tool.desc}', '${category}')">
+                            <div class="tool-name">
+                                <i data-lucide="file-code" class="file-icon" style="width:14px;height:14px;"></i>
+                                ${tool.name}
+                            </div>
+                            <div class="tool-description">${tool.desc}</div>
+                            <div class="tool-actions" onclick="event.stopPropagation();">
+                                <button class="tool-action-btn" onclick="viewToolCode('${tool.name}')" title="View Code">
+                                    <i data-lucide="code" style="width:14px;height:14px;"></i>
+                                </button>
+                                <button class="tool-action-btn" onclick="runTool('${tool.name}')" title="Run Tool">
+                                    <i data-lucide="play" style="width:14px;height:14px;"></i>
+                                </button>
+                                <button class="tool-action-btn" onclick="showToolDocs('${tool.name}')" title="Documentation">
+                                    <i data-lucide="book-open" style="width:14px;height:14px;"></i>
+                                </button>
+                            </div>
+                        </div>`).join('')}
+                    </div>
+                </div>`;
+            }).join('');
+
+            document.getElementById('tools-count').textContent = totalTools;
+            lucide.createIcons();
+        }
+
+        function getCategoryIcon(type) {
+            const icons = { data: 'database', network: 'network', document: 'file-text', automation: 'zap', agent: 'bot', config: 'settings' };
+            return icons[type] || 'file';
+        }
+
+        function filterTools() {
+            const search = document.getElementById('toolSearchInput').value.toLowerCase();
+            document.querySelectorAll('.tool-card').forEach(card => {
+                const name = card.querySelector('.tool-name').textContent.toLowerCase();
+                const desc = card.querySelector('.tool-description').textContent.toLowerCase();
+                card.style.display = (name.includes(search) || desc.includes(search)) ? 'block' : 'none';
+            });
+        }
+
+        // Tool Modal and Actions
+        function showToolModal(name, desc, category) {
+            const toolInfo = getToolInfo(name);
+
+            document.getElementById('toolModalTitle').textContent = name;
+            document.getElementById('toolModalCategory').textContent = category;
+            document.getElementById('toolModalDesc').textContent = desc;
+            document.getElementById('toolModalDetails').innerHTML = `
+                <div class="tool-detail-row">
+                    <span class="tool-detail-label">File Type:</span>
+                    <span class="tool-detail-value">${name.endsWith('.py') ? 'Python Script' : name.endsWith('.html') ? 'HTML Application' : 'Script'}</span>
+                </div>
+                <div class="tool-detail-row">
+                    <span class="tool-detail-label">Location:</span>
+                    <span class="tool-detail-value">/home/mavrick/Projects/Secondbrain/${name}</span>
+                </div>
+                <div class="tool-detail-row">
+                    <span class="tool-detail-label">Status:</span>
+                    <span class="tool-detail-value" style="color:var(--success);">Available</span>
+                </div>
+                ${toolInfo.relatedTools ? `
+                <div class="tool-detail-row">
+                    <span class="tool-detail-label">Related Tools:</span>
+                    <span class="tool-detail-value">${toolInfo.relatedTools.join(', ')}</span>
+                </div>` : ''}
+            `;
+            document.getElementById('currentToolName').value = name;
+            document.getElementById('toolModal').style.display = 'flex';
+            lucide.createIcons();
+        }
+
+        function closeToolModal() {
+            document.getElementById('toolModal').style.display = 'none';
+        }
+
+        function getToolInfo(name) {
+            const toolRelations = {
+                'sharepoint_importer.py': { relatedTools: ['download_sharepoint.py', 'process_sharepoint.py'] },
+                'call_flow_processor.py': { relatedTools: ['call_flow_generator.py', 'call_flow_web.py'] },
+                'query_brain.py': { relatedTools: ['vector_store.py', 'rag_web.py'] },
+                'engineering_tracker.py': { relatedTools: ['daily_engineering_summary.py', 'ee_team_dashboard.py'] },
+                'agent_orchestrator.py': { relatedTools: ['agent_notebooklm_analyst.py', 'mcp_obsidian_server.py'] }
+            };
+            return toolRelations[name] || {};
+        }
+
+        function viewToolCode(name) {
+            // For web context, open in GitHub or show code viewer
+            const githubBase = 'https://github.com/your-repo/secondbrain/blob/main/';
+
+            // Show code in AI panel for analysis
+            toggleAIPanel('claude');
+            const messages = document.getElementById('aiChatMessages');
+            messages.innerHTML += `<div class="ai-message user">
+                <div class="ai-message-avatar"><i data-lucide="user" style="width:14px;height:14px;"></i></div>
+                <div class="ai-message-content">Show me the code for ${name}</div>
+            </div>`;
+
+            setTimeout(() => {
+                messages.innerHTML += `<div class="ai-message assistant">
+                    <div class="ai-message-avatar"><i data-lucide="bot" style="width:14px;height:14px;"></i></div>
+                    <div class="ai-message-content">
+                        <strong>${name}</strong><br><br>
+                        To view the code, you can:<br>
+                        <ul style="margin:8px 0 0 16px;font-size:13px;">
+                            <li>Open in VS Code: <code>code /home/mavrick/Projects/Secondbrain/${name}</code></li>
+                            <li>View in terminal: <code>cat ${name}</code></li>
+                            <li>Open in GitHub (if synced)</li>
+                        </ul>
+                        <br>
+                        Would you like me to explain what this tool does?
+                    </div>
+                </div>`;
+                messages.scrollTop = messages.scrollHeight;
+                lucide.createIcons();
+            }, 500);
+
+            closeToolModal();
+        }
+
+        function runTool(name) {
+            const toolCommands = {
+                'engineering_tracker.py': 'source venv/bin/activate && python engineering_tracker.py',
+                'daily_engineering_summary.py': 'source venv/bin/activate && python daily_engineering_summary.py',
+                'call_flow_web.py': 'source venv/bin/activate && python call_flow_web.py',
+                'query_brain.py': 'source venv/bin/activate && python query_brain.py',
+                'rag_web.py': 'source venv/bin/activate && python rag_web.py',
+                'rebuild_index.py': 'source venv/bin/activate && python rebuild_index.py',
+                'contract_tracker.py': 'source venv/bin/activate && python contract_tracker.py'
+            };
+
+            const command = toolCommands[name] || `source venv/bin/activate && python ${name}`;
+
+            // Show run instructions in modal
+            toggleAIPanel('gemini');
+            const messages = document.getElementById('aiChatMessages');
+            messages.innerHTML += `<div class="ai-message user">
+                <div class="ai-message-avatar"><i data-lucide="user" style="width:14px;height:14px;"></i></div>
+                <div class="ai-message-content">Run ${name}</div>
+            </div>`;
+
+            setTimeout(() => {
+                const isWebTool = name.includes('web') || name.endsWith('.html');
+                messages.innerHTML += `<div class="ai-message assistant">
+                    <div class="ai-message-avatar"><i data-lucide="bot" style="width:14px;height:14px;"></i></div>
+                    <div class="ai-message-content">
+                        <strong>Running ${name}</strong><br><br>
+                        ${isWebTool ? `
+                        This is a web application. To run it:<br>
+                        <code style="display:block;background:#1e293b;color:#e2e8f0;padding:10px;border-radius:6px;margin:8px 0;font-size:12px;">
+                        cd /home/mavrick/Projects/Secondbrain<br>
+                        ${command}
+                        </code>
+                        Then open <strong>http://localhost:5000</strong> in your browser.
+                        ` : `
+                        To run this tool:<br>
+                        <code style="display:block;background:#1e293b;color:#e2e8f0;padding:10px;border-radius:6px;margin:8px 0;font-size:12px;">
+                        cd /home/mavrick/Projects/Secondbrain<br>
+                        ${command}
+                        </code>
+                        `}
+                        <br>
+                        <button class="btn btn-primary" style="margin-top:8px;font-size:12px;padding:8px 12px;" onclick="copyToClipboard('cd /home/mavrick/Projects/Secondbrain && ${command}')">
+                            <i data-lucide="copy" style="width:12px;height:12px;"></i> Copy Command
+                        </button>
+                    </div>
+                </div>`;
+                messages.scrollTop = messages.scrollHeight;
+                lucide.createIcons();
+            }, 500);
+
+            closeToolModal();
+        }
+
+        function showToolDocs(name) {
+            const toolDocs = {
+                'engineering_tracker.py': 'Manages engineering projects and tickets via SharePoint Lists. Provides CRUD operations and dashboard generation.',
+                'daily_engineering_summary.py': 'Generates and sends daily email summaries of engineering projects and tickets. Runs on schedule (4 PM M-F).',
+                'call_flow_processor.py': 'Processes customer call flow documents (Word files) and extracts structured data like phone numbers, hours, and routing.',
+                'query_brain.py': 'RAG (Retrieval-Augmented Generation) query engine. Searches the vector database and returns relevant context.',
+                'agent_orchestrator.py': 'Multi-agent orchestration system for coordinating AI agents on complex tasks.',
+                'sharepoint_importer.py': 'Imports documents from SharePoint sites into the local knowledge base.',
+                'vector_store.py': 'ChromaDB vector storage utilities for semantic search indexing.',
+                'mcp_obsidian_server.py': 'Model Context Protocol server for Obsidian vault integration with AI tools.'
+            };
+
+            const doc = toolDocs[name] || `${name} - Python utility script for the Second Brain system.`;
+
+            toggleAIPanel('claude');
+            const messages = document.getElementById('aiChatMessages');
+            messages.innerHTML += `<div class="ai-message user">
+                <div class="ai-message-avatar"><i data-lucide="user" style="width:14px;height:14px;"></i></div>
+                <div class="ai-message-content">Show documentation for ${name}</div>
+            </div>`;
+
+            setTimeout(() => {
+                messages.innerHTML += `<div class="ai-message assistant">
+                    <div class="ai-message-avatar"><i data-lucide="bot" style="width:14px;height:14px;"></i></div>
+                    <div class="ai-message-content">
+                        <strong>${name}</strong><br><br>
+                        ${doc}<br><br>
+                        <strong>Usage:</strong><br>
+                        <code style="display:block;background:#1e293b;color:#e2e8f0;padding:10px;border-radius:6px;margin:8px 0;font-size:12px;">
+                        python ${name} --help
+                        </code>
+                        Would you like me to explain any specific functionality?
+                    </div>
+                </div>`;
+                messages.scrollTop = messages.scrollHeight;
+                lucide.createIcons();
+            }, 500);
+
+            closeToolModal();
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show brief confirmation
+                const btn = event.target.closest('button');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i data-lucide="check" style="width:12px;height:12px;"></i> Copied!';
+                btn.style.background = 'var(--success)';
+                lucide.createIcons();
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                    lucide.createIcons();
+                }, 2000);
+            });
+        }
+
+        // To-Do by Assignee
+        function renderTodosByAssignee() {
+            const allItems = [...projectsData, ...ticketsData];
+            const assigneeMap = {};
+
+            allItems.forEach(item => {
+                const f = item.fields;
+                const assignee = f.AssignedTo || 'Unassigned';
+                if (!assigneeMap[assignee]) assigneeMap[assignee] = { todos: [], completed: 0, high: 0 };
+                assigneeMap[assignee].todos.push({
+                    id: item.id,
+                    title: f.ProjectName || f.TicketTitle || 'Untitled',
+                    status: f.Status || 'Not Started',
+                    priority: f.Priority || 'Medium',
+                    dueDate: f.DueDate,
+                    type: f.ProjectName ? 'project' : 'ticket'
+                });
+                if (['Completed', 'Resolved', 'Closed'].includes(f.Status)) assigneeMap[assignee].completed++;
+                if (['High', 'Critical'].includes(f.Priority)) assigneeMap[assignee].high++;
+            });
+
+            const dropdown = document.getElementById('quickAddAssignee');
+            dropdown.innerHTML = '<option value="">Assign to...</option>' + Object.keys(assigneeMap).map(a => `<option value="${a}">${a}</option>`).join('');
+
+            const container = document.getElementById('assignee-sections');
+            const totalTodos = allItems.filter(i => !['Completed', 'Resolved', 'Closed'].includes(i.fields.Status)).length;
+            document.getElementById('todos-count').textContent = totalTodos;
+
+            container.innerHTML = Object.entries(assigneeMap).sort((a, b) => b[1].todos.length - a[1].todos.length).map(([assignee, data]) => {
+                const activeTodos = data.todos.filter(t => !['Completed', 'Resolved', 'Closed'].includes(t.status));
+                return `<div class="assignee-section">
+                    <div class="assignee-header">
+                        <div class="assignee-avatar-lg">${getInitials(assignee)}</div>
+                        <div class="assignee-info">
+                            <div class="assignee-name">${assignee}</div>
+                            <div class="assignee-stats">
+                                <span class="assignee-stat"><strong>${activeTodos.length}</strong> active</span>
+                                <span class="assignee-stat"><strong>${data.completed}</strong> completed</span>
+                                <span class="assignee-stat"><strong>${data.high}</strong> high priority</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="todo-list">
+                        ${data.todos.map(todo => {
+                            const isCompleted = ['Completed', 'Resolved', 'Closed'].includes(todo.status);
+                            return `<div class="todo-item ${isCompleted ? 'completed' : ''}" onclick="showModal('edit', '${todo.type}s', '${todo.id}')">
+                                <div class="todo-checkbox ${isCompleted ? 'checked' : ''}" onclick="event.stopPropagation(); toggleTodo('${todo.type}s', '${todo.id}')">
+                                    ${isCompleted ? '<i data-lucide="check" style="width:12px;height:12px;"></i>' : ''}
+                                </div>
+                                <div class="todo-content">
+                                    <div class="todo-title">${todo.title}</div>
+                                    <div class="todo-meta">
+                                        <span class="chat-tag tag-priority-${todo.priority.toLowerCase()}">${todo.priority}</span>
+                                        <span class="chat-tag tag-status-${todo.status.toLowerCase().replace(/\s+/g, '-')}">${todo.status}</span>
+                                        ${todo.dueDate ? `<span class="todo-due ${getDueClass(todo.dueDate)}">
+                                            <i data-lucide="calendar" style="width:11px;height:11px;"></i> ${formatDate(todo.dueDate)}
+                                        </span>` : ''}
+                                    </div>
+                                </div>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                </div>`;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        // Planner
+        function getWeekStart(date) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+            return new Date(d.setDate(diff));
+        }
+
+        function renderPlanner() {
+            const plannerDate = document.getElementById('planner-date');
+            const endOfWeek = new Date(currentWeekStart);
+            endOfWeek.setDate(endOfWeek.getDate() + 6);
+            plannerDate.textContent = `${currentWeekStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${endOfWeek.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+
+            const grid = document.getElementById('planner-grid');
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const today = new Date(); today.setHours(0, 0, 0, 0);
+
+            grid.innerHTML = days.map((day, i) => {
+                const date = new Date(currentWeekStart);
+                date.setDate(date.getDate() + i);
+                const isToday = date.getTime() === today.getTime();
+                const dateStr = date.toISOString().split('T')[0];
+                const dayTasks = [...projectsData, ...ticketsData].filter(item => item.fields.DueDate && item.fields.DueDate.startsWith(dateStr));
+
+                return `<div class="day-column ${isToday ? 'today' : ''}">
+                    <div class="day-header">
+                        <div class="day-name">${day}</div>
+                        <div class="day-date">${date.getDate()}</div>
+                    </div>
+                    <div class="day-tasks">
+                        ${dayTasks.map(task => {
+                            const title = task.fields.ProjectName || task.fields.TicketTitle || 'Untitled';
+                            const priority = (task.fields.Priority || 'medium').toLowerCase();
+                            return `<div class="day-task priority-${priority}">${title}</div>`;
+                        }).join('')}
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function navigateWeek(dir) { currentWeekStart.setDate(currentWeekStart.getDate() + (dir * 7)); renderPlanner(); }
+        function goToToday() { currentWeekStart = getWeekStart(new Date()); renderPlanner(); }
+
+        function quickAddTask() {
+            const title = document.getElementById('quickAddInput').value.trim();
+            const assignee = document.getElementById('quickAddAssignee').value;
+            if (!title) { alert('Please enter a task title'); return; }
+
+            ticketsData.push({
+                id: 'new-' + Date.now(),
+                fields: { TicketTitle: title, Status: 'Open', Priority: 'Medium', AssignedTo: assignee || 'Unassigned', DueDate: new Date().toISOString().split('T')[0] }
+            });
+
+            document.getElementById('quickAddInput').value = '';
+            updateTicketStats();
+            renderTodosByAssignee();
+            renderPlanner();
+        }
+
+        function toggleTodo(type, itemId) {
+            const items = type === 'projects' ? projectsData : ticketsData;
+            const item = items.find(i => i.id === itemId);
+            if (item) {
+                const completed = ['Completed', 'Resolved', 'Closed'].includes(item.fields.Status);
+                item.fields.Status = completed ? 'In Progress' : (type === 'projects' ? 'Completed' : 'Resolved');
+            }
+            if (type === 'projects') updateProjectStats(); else updateTicketStats();
+            renderItems(type);
+            renderTodosByAssignee();
+        }
+
+        // Modal
+        function showModal(mode, type, itemId = null) {
+            const modal = document.getElementById('modal');
+            document.getElementById('itemType').value = type;
+
+            if (mode === 'add') {
+                document.getElementById('modalTitle').textContent = `New ${type === 'projects' ? 'Project' : 'Ticket'}`;
+                clearForm();
+                document.getElementById('commentsList').innerHTML = '';
+            } else {
+                document.getElementById('modalTitle').textContent = `Edit ${type === 'projects' ? 'Project' : 'Ticket'}`;
+                const items = type === 'projects' ? projectsData : ticketsData;
+                const item = items.find(i => i.id === itemId);
+                if (item) {
+                    populateForm(item);
+                    renderComments(itemId);
+                }
+            }
+
+            modal.style.display = 'flex';
+            lucide.createIcons();
+        }
+
+        function closeModal() { document.getElementById('modal').style.display = 'none'; }
+
+        function clearForm() {
+            ['itemId', 'itemName', 'itemDescription', 'itemAssignee', 'itemCustomer', 'itemDueDate', 'itemNotes'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('itemStatus').value = 'Not Started';
+            document.getElementById('itemPriority').value = 'Medium';
+            document.getElementById('itemTeam').value = 'Engineering';
+        }
+
+        function populateForm(item) {
+            const f = item.fields;
+            document.getElementById('itemId').value = item.id;
+            document.getElementById('itemName').value = f.ProjectName || f.TicketTitle || '';
+            document.getElementById('itemDescription').value = f.Description || '';
+            document.getElementById('itemStatus').value = f.Status || 'Not Started';
+            document.getElementById('itemPriority').value = f.Priority || 'Medium';
+            document.getElementById('itemAssignee').value = f.AssignedTo || '';
+            document.getElementById('itemTeam').value = f.Team || 'Engineering';
+            document.getElementById('itemCustomer').value = f.Customer || '';
+            document.getElementById('itemDueDate').value = f.DueDate ? f.DueDate.split('T')[0] : '';
+            document.getElementById('itemNotes').value = f.Notes || f.Resolution || '';
+        }
+
+        function renderComments(itemId) {
+            const comments = commentsData[itemId] || [];
+            const container = document.getElementById('commentsList');
+            container.innerHTML = comments.length === 0 ? '<p style="color:var(--text-muted);font-size:13px;">No comments yet</p>' :
+                comments.map(c => `<div class="comment-item">
+                    <div class="comment-avatar">${getInitials(c.author)}</div>
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <span class="comment-author">${c.author}</span>
+                            <span class="comment-time">${c.time}</span>
+                        </div>
+                        <div class="comment-text">${c.text}</div>
+                    </div>
+                </div>`).join('');
+        }
+
+        function addComment() {
+            const itemId = document.getElementById('itemId').value;
+            const text = document.getElementById('commentInput').value.trim();
+            if (!text || !itemId) return;
+
+            if (!commentsData[itemId]) commentsData[itemId] = [];
+            commentsData[itemId].push({ author: 'You', text: text, time: 'Just now' });
+
+            document.getElementById('commentInput').value = '';
+            renderComments(itemId);
+        }
+
+        async function saveItem() {
+            const itemId = document.getElementById('itemId').value;
+            const type = document.getElementById('itemType').value;
+            const titleField = type === 'projects' ? 'ProjectName' : 'TicketTitle';
+            const isNew = !itemId || itemId.startsWith('new-');
+
+            const newItem = {
+                id: itemId || 'new-' + Date.now(),
+                sharePointId: itemId && !itemId.startsWith('new-') ? itemId : null,
+                fields: {
+                    [titleField]: document.getElementById('itemName').value,
+                    Description: document.getElementById('itemDescription').value,
+                    Status: document.getElementById('itemStatus').value,
+                    Priority: document.getElementById('itemPriority').value,
+                    AssignedTo: document.getElementById('itemAssignee').value,
+                    Team: document.getElementById('itemTeam').value,
+                    Customer: document.getElementById('itemCustomer').value,
+                    DueDate: document.getElementById('itemDueDate').value,
+                    Notes: document.getElementById('itemNotes').value
+                }
+            };
+
+            const items = type === 'projects' ? projectsData : ticketsData;
+            const existingIndex = items.findIndex(i => i.id === itemId);
+            if (existingIndex >= 0) items[existingIndex] = newItem;
+            else items.push(newItem);
+
+            // Sync to SharePoint for historical tracking (if configured)
+            if (CONFIG.siteId && !CONFIG.siteId.includes('{{')) {
+                const spResult = await saveToSharePoint(type, newItem, isNew);
+                if (spResult) {
+                    // Update local item with SharePoint ID and timestamps
+                    newItem.sharePointId = spResult.id;
+                    newItem.lastModifiedDateTime = spResult.lastModifiedDateTime;
+                    console.log('Synced to SharePoint - version history preserved');
+                }
+            } else {
+                // Local-only mode - log to localStorage for demo
+                logActivity(type, newItem, isNew ? 'created' : 'updated');
+            }
+
+            closeModal();
+            if (type === 'projects') updateProjectStats(); else updateTicketStats();
+            renderItems(type);
+            renderTodosByAssignee();
+            renderPlanner();
+        }
+
+        // AI Panel
+        function toggleAIPanel(agent) {
+            currentAIAgent = agent;
+            const panel = document.getElementById('aiPanel');
+            const isOpen = panel.classList.contains('open');
+
+            if (isOpen && panel.dataset.agent === agent) {
+                panel.classList.remove('open');
+            } else {
+                panel.classList.add('open');
+                panel.dataset.agent = agent;
+                document.getElementById('aiPanelTitle').textContent = agent === 'claude' ? 'Claude Agent' : 'Gemini Agent';
+            }
+            lucide.createIcons();
+        }
+
+        function closeAIPanel() {
+            document.getElementById('aiPanel').classList.remove('open');
+        }
+
+        function sendAIMessage() {
+            const input = document.getElementById('aiInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const messages = document.getElementById('aiChatMessages');
+
+            // Add user message
+            messages.innerHTML += `<div class="ai-message user">
+                <div class="ai-message-avatar"><i data-lucide="user" style="width:14px;height:14px;"></i></div>
+                <div class="ai-message-content">${text}</div>
+            </div>`;
+
+            input.value = '';
+
+            // Simulate AI response
+            setTimeout(() => {
+                const responses = {
+                    claude: [
+                        "I've analyzed your current projects. You have 2 high-priority items that need attention this week.",
+                        "Based on your ticket trends, VPN and email issues are the most common. Consider creating a troubleshooting guide.",
+                        "I can help you create a sprint template for your engineering team. Want me to draft one?"
+                    ],
+                    gemini: [
+                        "Looking at your dashboard data, I suggest prioritizing the Security Audit - it's marked critical and due soon.",
+                        "I can generate a visual workflow diagram for your Network Infrastructure Upgrade project.",
+                        "Your team's velocity looks good! 4 items completed this week. Shall I create a summary report?"
+                    ]
+                };
+
+                const agentResponses = responses[currentAIAgent];
+                const response = agentResponses[Math.floor(Math.random() * agentResponses.length)];
+
+                messages.innerHTML += `<div class="ai-message assistant">
+                    <div class="ai-message-avatar"><i data-lucide="bot" style="width:14px;height:14px;"></i></div>
+                    <div class="ai-message-content">${response}</div>
+                </div>`;
+
+                messages.scrollTop = messages.scrollHeight;
+                lucide.createIcons();
+            }, 1000);
+        }
+
+        function refreshData() { loadData(); }
+
+        // Utilities
+        function getInitials(name) {
+            if (!name || name === 'Unassigned') return '?';
+            return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        function getDueClass(dateStr) {
+            if (!dateStr) return '';
+            const due = new Date(dateStr); due.setHours(0, 0, 0, 0);
+            const today = new Date(); today.setHours(0, 0, 0, 0);
+            const diff = Math.ceil((due - today) / (1000 * 60 * 60 * 24));
+            if (diff < 0) return 'overdue';
+            if (diff <= 3) return 'soon';
+            return '';
+        }
+
+        // Event listeners
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeAIPanel(); } });
+        document.getElementById('modal').addEventListener('click', e => { if (e.target.classList.contains('modal-overlay')) closeModal(); });
+        document.getElementById('aiInput').addEventListener('keypress', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendAIMessage(); } });
+    </script>
+</body>
+</html>

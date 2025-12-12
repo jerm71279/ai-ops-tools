@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Phase 0: Audit & Backup - Run analysis, grep hardcoded paths, check crontab/.bashrc",
+    "status": "in_progress",
+    "activeForm": "Running audit and backup phase"
+  },
+  {
+    "content": "Phase 1: Quick Wins - Clear caches, delete orphan ZIPs, remove venv (~16GB)",
+    "status": "pending",
+    "activeForm": "Clearing caches and reclaiming disk space"
+  },
+  {
+    "content": "Phase 2: Create new structure with forward symlinks",
+    "status": "pending",
+    "activeForm": "Creating new directory structure with symlinks"
+  },
+  {
+    "content": "Phase 3: Deduplicate - Compare and remove duplicate projects",
+    "status": "pending",
+    "activeForm": "Deduplicating projects"
+  },
+  {
+    "content": "Phase 4: Gradual code updates - Fix hardcoded paths one file at a time",
+    "status": "pending",
+    "activeForm": "Updating hardcoded paths in code"
+  },
+  {
+    "content": "Phase 5: Flip symlinks - Physical moves with backward compat",
+    "status": "pending",
+    "activeForm": "Flipping symlinks and moving files"
+  },
+  {
+    "content": "Phase 6: Validation & final cleanup",
+    "status": "pending",
+    "activeForm": "Validating and cleaning up"
+  }
+]

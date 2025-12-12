@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Phase 0: Run wsl_organizer.py analysis",
+    "status": "in_progress",
+    "activeForm": "Running wsl_organizer.py analysis"
+  },
+  {
+    "content": "Phase 0: Grep hardcoded paths",
+    "status": "pending",
+    "activeForm": "Grepping hardcoded paths"
+  },
+  {
+    "content": "Phase 0: System checks (crontab, bashrc, git repos)",
+    "status": "pending",
+    "activeForm": "Running system checks"
+  },
+  {
+    "content": "Phase 0: Document .env locations",
+    "status": "pending",
+    "activeForm": "Documenting .env locations"
+  },
+  {
+    "content": "Phase 1: Clear caches (~8GB)",
+    "status": "pending",
+    "activeForm": "Clearing caches"
+  },
+  {
+    "content": "Phase 1: Delete orphan ZIPs",
+    "status": "pending",
+    "activeForm": "Deleting orphan ZIPs"
+  },
+  {
+    "content": "Phase 1: Remove backup/temp files",
+    "status": "pending",
+    "activeForm": "Removing backup/temp files"
+  }
+]

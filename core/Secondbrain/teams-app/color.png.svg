@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="16" fill="#0078D4"/>
+  <g fill="white">
+    <!-- Gear icon representing engineering -->
+    <path d="M96 56c-22.1 0-40 17.9-40 40s17.9 40 40 40 40-17.9 40-40-17.9-40-40-40zm0 64c-13.3 0-24-10.7-24-24s10.7-24 24-24 24 10.7 24 24-10.7 24-24 24z"/>
+    <!-- Dashboard bars -->
+    <rect x="52" y="140" width="24" height="32" rx="4"/>
+    <rect x="84" y="128" width="24" height="44" rx="4"/>
+    <rect x="116" y="116" width="24" height="56" rx="4"/>
+  </g>
+  <text x="96" y="36" text-anchor="middle" fill="white" font-family="Segoe UI" font-size="14" font-weight="bold">ENG</text>
+</svg>

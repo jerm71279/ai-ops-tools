@@ -1,0 +1,220 @@
+"""
+Claude Processor - Simplified stub version
+Uses Claude API to structure content and check consistency
+"""
+from typing import Dict, Any, List
+from anthropic import Anthropic
+
+from config import ANTHROPIC_API_KEY, CLAUDE_MODEL
+
+
+class ClaudeProcessor:
+    """Uses Claude to process and structure content"""
+
+    def __init__(self):
+        if not ANTHROPIC_API_KEY:
+            raise ValueError("ANTHROPIC_API_KEY not set in environment")
+
+        self.client = Anthropic(api_key=ANTHROPIC_API_KEY)
+        self.model = CLAUDE_MODEL
+
+        print(f"✓ Claude processor initialized (model: {self.model})")
+
+    def structure_content(
+        self,
+        raw_content: str,
+        existing_concepts: List[str] = None,
+        similar_notes: List[Dict] = None
+    ) -> Dict[str, Any]:
+        """
+        Structure raw content into organized note format
+
+        Uses Claude to:
+        - Extract key concepts
+        - Generate summary
+        - Identify key points
+        - Suggest tags
+        - Create links to existing concepts
+        """
+
+        # Build context
+        context = ""
+        if existing_concepts:
+            context += f"\nExisting concepts in knowledge base: {', '.join(existing_concepts[:20])}"
+
+        if similar_notes:
+            context += f"\n\nSimilar notes found: {len(similar_notes)}"
+
+        # Create prompt
+        prompt = f"""You are structuring content for a knowledge base (Obsidian vault).
+
+{context}
+
+Raw content to structure:
+---
+{raw_content[:3000]}
+---
+
+Create a structured note with:
+1. Title (concise, descriptive)
+2. Summary (2-3 sentences)
+3. Key concepts (list main ideas/terms)
+4. Key points (bullet list of important information)
+5. Tags (relevant categorization tags)
+
+Respond in JSON format:
+{{
+  "title": "...",
+  "summary": "...",
+  "concepts": ["concept1", "concept2"],
+  "key_points": ["point1", "point2"],
+  "tags": ["tag1", "tag2"],
+  "content": "main content here"
+}}"""
+
+        try:
+            response = self.client.messages.create(
+                model=self.model,
+                max_tokens=2000,
+                messages=[{"role": "user", "content": prompt}]
+            )
+
+            # Extract JSON from response
+            import json
+            content = response.content[0].text
+
+            # Try to parse JSON
+            if '{' in content:
+                json_start = content.index('{')
+                json_end = content.rindex('}') + 1
+                json_str = content[json_start:json_end]
+                structured = json.loads(json_str)
+                return structured
+            else:
+                # Fallback structure
+                return self._fallback_structure(raw_content)
+
+        except Exception as e:
+            print(f"⚠ Claude structuring failed: {e}")
+            return self._fallback_structure(raw_content)
+
+    def check_consistency(self, structured_note: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Check a note for consistency issues
+
+        Returns:
+        - score: consistency score (0-1)
+        - issues: list of problems found
+        - suggestions: improvement recommendations
+        """
+
+        prompt = f"""Check this note for consistency and quality issues:
+
+Title: {structured_note.get('title')}
+Summary: {structured_note.get('summary')}
+Concepts: {', '.join(structured_note.get('concepts', []))}
+
+Look for:
+- Unclear terminology
+- Missing definitions
+- Inconsistent naming
+- Gaps in explanation
+
+Respond with JSON:
+{{
+  "score": 0.85,
+  "issues": ["issue1", "issue2"],
+  "suggestions": ["suggestion1", "suggestion2"]
+}}"""
+
+        try:
+            response = self.client.messages.create(
+                model=self.model,
+                max_tokens=1000,
+                messages=[{"role": "user", "content": prompt}]
+            )
+
+            import json
+            content = response.content[0].text
+
+            if '{' in content:
+                json_start = content.index('{')
+                json_end = content.rindex('}') + 1
+                json_str = content[json_start:json_end]
+                result = json.loads(json_str)
+                return result
+            else:
+                return {"score": 0.80, "issues": [], "suggestions": []}
+
+        except Exception as e:
+            print(f"⚠ Consistency check failed: {e}")
+            return {"score": 0.80, "issues": [], "suggestions": []}
+
+    def analyze_patterns(self, notes: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """
+        Analyze multiple notes for patterns and insights
+
+        Used by Agent 2 (NotebookLM Analyst)
+        """
+
+        # Create summary of notes
+        note_summaries = []
+        for note in notes[:10]:  # Limit to avoid token overflow
+            note_summaries.append(f"- {note.get('title', 'Untitled')}: {note.get('summary', '')[:100]}")
+
+        summaries_text = '\n'.join(note_summaries)
+
+        prompt = f"""Analyze these notes for patterns and consistency issues:
+
+{summaries_text}
+
+Identify:
+1. Common themes/patterns
+2. Terminology inconsistencies
+3. Documentation gaps
+4. Improvement opportunities
+
+Respond with JSON:
+{{
+  "patterns": ["pattern1", "pattern2"],
+  "inconsistencies": ["issue1", "issue2"],
+  "gaps": ["gap1", "gap2"],
+  "recommendations": ["rec1", "rec2"]
+}}"""
+
+        try:
+            response = self.client.messages.create(
+                model=self.model,
+                max_tokens=1500,
+                messages=[{"role": "user", "content": prompt}]
+            )
+
+            import json
+            content = response.content[0].text
+
+            if '{' in content:
+                json_start = content.index('{')
+                json_end = content.rindex('}') + 1
+                json_str = content[json_start:json_end]
+                result = json.loads(json_str)
+                return result
+            else:
+                return {"patterns": [], "inconsistencies": [], "gaps": [], "recommendations": []}
+
+        except Exception as e:
+            print(f"⚠ Pattern analysis failed: {e}")
+            return {"patterns": [], "inconsistencies": [], "gaps": [], "recommendations": []}
+
+    def _fallback_structure(self, raw_content: str) -> Dict[str, Any]:
+        """Fallback structure when Claude API fails"""
+        lines = raw_content.split('\n')
+        title = lines[0][:100] if lines else "Untitled"
+
+        return {
+            "title": title,
+            "summary": raw_content[:200] + "..." if len(raw_content) > 200 else raw_content,
+            "concepts": [],
+            "key_points": [],
+            "tags": [],
+            "content": raw_content
+        }

@@ -1,0 +1,83 @@
+# ============================================================================
+# OberaConnect AI Ops - Git Ignore
+# ============================================================================
+
+# Credentials & Secrets
+.credentials.json
+*.key
+*.pem
+.env
+.env.*
+secrets/
+credentials/
+
+# Claude CLI sensitive data
+**/history.jsonl
+**/file-history/
+**/session-env/
+**/projects/
+**/shell-snapshots/
+**/debug/
+**/statsig/
+**/plugins/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+.Python
+*.egg-info/
+dist/
+build/
+
+# Node
+node_modules/
+npm-debug.log
+package-lock.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+*:Zone.Identifier
+
+# Logs
+*.log
+logs/
+
+# Temp files
+*.tmp
+*.temp
+.cache/
+
+# Large/regenerable data
+local_sharepoint/
+*.zip
+
+# n8n
+*-with-creds.json
+
+# Scan output (keep templates, ignore raw output)
+**/scans/raw/
+**/scan_results/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+chroma/
+
+# Large files (exceed GitHub limits)
+*.msi
+core/Secondbrain/input_documents/
+core/Secondbrain/ai_os_cache/ml_models/

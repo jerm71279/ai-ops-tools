@@ -1,0 +1,32 @@
+{
+  "name": "Project Automation - New Install Check",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{"field": "cronExpression", "expression": "30 6 * * *"}]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily 6:30 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "command": "cd ~/oberaconnect-ai-ops/core/Secondbrain && ./venv/bin/python project_automation.py 2>/dev/null || python3 project_automation.py"
+      },
+      "id": "run-project-automation",
+      "name": "Check New Installs",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [450, 300]
+    }
+  ],
+  "connections": {
+    "Daily 6:30 AM": {"main": [[{"node": "Check New Installs", "type": "main", "index": 0}]]}
+  },
+  "settings": {"executionOrder": "v1"},
+  "tags": [{"name": "cron-migration"}, {"name": "daily"}, {"name": "projects"}]
+}

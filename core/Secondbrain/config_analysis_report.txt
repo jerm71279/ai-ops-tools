@@ -1,0 +1,533 @@
+======================================================================
+NETWORK CONFIG COMPLEXITY ANALYSIS REPORT
+Generated: 2025-12-09 12:52
+======================================================================
+
+## SUMMARY
+Total configs analyzed: 36
+MikroTik: 22
+SonicWall: 14
+
+Complexity Distribution:
+  VERY HIGH: 0 (similar to Saint Annes)
+  HIGH:      0
+  MEDIUM:    0
+  LOW:       36
+
+======================================================================
+DETAILED ANALYSIS (sorted by complexity)
+======================================================================
+
+### Fairhope Strip Mall
+File: fairhopestripmall.rsc
+Device: MikroTik Unknown
+Complexity: LOW (13/100)
+
+  VLANs:          7
+  Subnets:        20
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    4
+
+### MOBAMA
+File: mobama.rsc
+Device: MikroTik Unknown
+Complexity: LOW (8/100)
+
+  VLANs:          4
+  Subnets:        12
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    1
+
+### Ravenite
+File: ravenite.rsc
+Device: MikroTik Unknown
+Complexity: LOW (7/100)
+
+  VLANs:          1
+  Subnets:        6
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    16
+
+### Celebration Church Existing
+File: celebrationchurchOLD.rsc
+Device: MikroTik Unknown
+Complexity: LOW (7/100)
+
+  VLANs:          0
+  Subnets:        4
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    17
+
+### Celebration Church Existing
+File: celebrationchurchOLD(FYKriuDo63SXbGc6uIaSPA).rsc
+Device: MikroTik Unknown
+Complexity: LOW (7/100)
+
+  VLANs:          0
+  Subnets:        4
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    17
+
+### Clauger Rebuild Shop
+File: ClaugerRebuildShop.rsc
+Device: MikroTik Unknown
+Complexity: LOW (3/100)
+
+  VLANs:          0
+  Subnets:        4
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    1
+
+### Clauger Office
+File: ClaugerOffice.rsc
+Device: MikroTik Unknown
+Complexity: LOW (3/100)
+
+  VLANs:          1
+  Subnets:        6
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    1
+
+### Cosmos
+File: Cosmo.rsc
+Device: MikroTik Unknown
+Complexity: LOW (3/100)
+
+  VLANs:          2
+  Subnets:        8
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    2
+
+### Luna
+File: luna.rsc
+Device: MikroTik Unknown
+Complexity: LOW (3/100)
+
+  VLANs:          0
+  Subnets:        4
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    2
+
+### Phoenix Surfaces
+File: phoenixsurfaces.rsc
+Device: MikroTik Unknown
+Complexity: LOW (3/100)
+
+  VLANs:          0
+  Subnets:        4
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    2
+
+### Platinum Vacations
+File: platinumvacations.rsc
+Device: MikroTik Unknown
+Complexity: LOW (3/100)
+
+  VLANs:          1
+  Subnets:        6
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    1
+
+### Engel Volders
+File: engel&volkers.rsc
+Device: MikroTik Unknown
+Complexity: LOW (3/100)
+
+  VLANs:          1
+  Subnets:        6
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    1
+
+### Goo Roos
+File: gooroos.rsc
+Device: MikroTik Unknown
+Complexity: LOW (3/100)
+
+  VLANs:          0
+  Subnets:        3
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    1
+
+### Kinder Kids
+File: KinderKids.rsc
+Device: MikroTik Unknown
+Complexity: LOW (3/100)
+
+  VLANs:          2
+  Subnets:        8
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    2
+
+### DC Lawn
+File: dclawn.rsc
+Device: MikroTik Unknown
+Complexity: LOW (3/100)
+
+  VLANs:          2
+  Subnets:        6
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    1
+
+### Jubilee Pool
+File: JubileePool.rsc
+Device: MikroTik Unknown
+Complexity: LOW (3/100)
+
+  VLANs:          2
+  Subnets:        7
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    1
+
+### Emerald Coast Cruizers
+File: emeraldcoastcruizers.rsc
+Device: MikroTik Unknown
+Complexity: LOW (3/100)
+
+  VLANs:          0
+  Subnets:        4
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    1
+
+### City of Freeport
+File: CityofFreeport.rsc
+Device: MikroTik Unknown
+Complexity: LOW (3/100)
+
+  VLANs:          1
+  Subnets:        6
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    1
+
+### Sexton RX Sport
+File: sextongymrxsport.rsc
+Device: MikroTik Unknown
+Complexity: LOW (3/100)
+
+  VLANs:          1
+  Subnets:        6
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    1
+
+### Dunlap Shipman
+File: dunlapshipman.rsc
+Device: MikroTik Unknown
+Complexity: LOW (3/100)
+
+  VLANs:          1
+  Subnets:        6
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    1
+
+### Hinson Law
+File: hinsonlaw.rsc
+Device: MikroTik Unknown
+Complexity: LOW (3/100)
+
+  VLANs:          1
+  Subnets:        6
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    2
+
+### Judd Jackson CPA
+File: JuddJacksonCPA.rsc
+Device: MikroTik Unknown
+Complexity: LOW (3/100)
+
+  VLANs:          1
+  Subnets:        6
+  DHCP Pools:     1
+  NAT Rules:      1
+  Firewall Rules: 1
+  Static Routes:  1
+  VPN Tunnels:    2
+
+### Daniel Uhlfelder
+File: sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-17T11_45_06.299Z.exp
+Device: SonicWall TZ 270
+Complexity: LOW (0/100)
+
+  VLANs:          0
+  Subnets:        0
+  DHCP Pools:     0
+  NAT Rules:      0
+  Firewall Rules: 0
+  Static Routes:  0
+  VPN Tunnels:    0
+
+  Notes:
+    - SonicWall export - some values estimated from partial data
+
+### Fulcrum Daphne
+File: sonicwall-TZ 370W-SonicOS 7.3.0-7012-R8150-2025-09-17T12_16_36.640Z.exp
+Device: SonicWall TZ 370
+Complexity: LOW (0/100)
+
+  VLANs:          0
+  Subnets:        0
+  DHCP Pools:     0
+  NAT Rules:      0
+  Firewall Rules: 0
+  Static Routes:  0
+  VPN Tunnels:    0
+
+  Notes:
+    - SonicWall export - some values estimated from partial data
+
+### Tracery Panama City
+File: Tracery Panama City Beach sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-23T21_29_57.679Z.exp
+Device: SonicWall TZ 270
+Complexity: LOW (0/100)
+
+  VLANs:          0
+  Subnets:        0
+  DHCP Pools:     0
+  NAT Rules:      0
+  Firewall Rules: 0
+  Static Routes:  0
+  VPN Tunnels:    0
+
+  Notes:
+    - SonicWall export - some values estimated from partial data
+
+### Parabilis
+File: Parabilis sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-22T23_58_38.612Z.exp
+Device: SonicWall TZ 270
+Complexity: LOW (0/100)
+
+  VLANs:          0
+  Subnets:        0
+  DHCP Pools:     0
+  NAT Rules:      0
+  Firewall Rules: 0
+  Static Routes:  0
+  VPN Tunnels:    0
+
+  Notes:
+    - SonicWall export - some values estimated from partial data
+
+### Hoods Gulfport
+File: Hoods Gulfport sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-22T23_07_46.179Z.exp
+Device: SonicWall TZ 270
+Complexity: LOW (0/100)
+
+  VLANs:          0
+  Subnets:        0
+  DHCP Pools:     0
+  NAT Rules:      0
+  Firewall Rules: 0
+  Static Routes:  0
+  VPN Tunnels:    0
+
+  Notes:
+    - SonicWall export - some values estimated from partial data
+
+### Hoods Theodore
+File: Hoods Theodore sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-22T23_21_13.149Z.exp
+Device: SonicWall TZ 270
+Complexity: LOW (0/100)
+
+  VLANs:          0
+  Subnets:        0
+  DHCP Pools:     0
+  NAT Rules:      0
+  Firewall Rules: 0
+  Static Routes:  0
+  VPN Tunnels:    0
+
+  Notes:
+    - SonicWall export - some values estimated from partial data
+
+### Hoods Foley
+File: Hoods Foley sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-22T22_58_27.802Z.exp
+Device: SonicWall TZ 270
+Complexity: LOW (0/100)
+
+  VLANs:          0
+  Subnets:        0
+  DHCP Pools:     0
+  NAT Rules:      0
+  Firewall Rules: 0
+  Static Routes:  0
+  VPN Tunnels:    0
+
+  Notes:
+    - SonicWall export - some values estimated from partial data
+
+### Valve Quick
+File: Valve Quick sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-23T21_56_37.896Z.exp
+Device: SonicWall TZ 270
+Complexity: LOW (0/100)
+
+  VLANs:          0
+  Subnets:        0
+  DHCP Pools:     0
+  NAT Rules:      0
+  Firewall Rules: 0
+  Static Routes:  0
+  VPN Tunnels:    0
+
+  Notes:
+    - SonicWall export - some values estimated from partial data
+
+### Coastal Church Bay Minette
+File: sonicwall-TZ_400-6_5_5_1-6n-1758107644.exp
+Device: SonicWall Unknown
+Complexity: LOW (0/100)
+
+  VLANs:          0
+  Subnets:        0
+  DHCP Pools:     0
+  NAT Rules:      0
+  Firewall Rules: 0
+  Static Routes:  0
+  VPN Tunnels:    0
+
+  Notes:
+    - SonicWall export - some values estimated from partial data
+
+### Tracery Inlet Beach
+File: Tracery Inlet Beach sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-23T21_36_08.313Z.exp
+Device: SonicWall TZ 270
+Complexity: LOW (0/100)
+
+  VLANs:          0
+  Subnets:        0
+  DHCP Pools:     0
+  NAT Rules:      0
+  Firewall Rules: 0
+  Static Routes:  0
+  VPN Tunnels:    0
+
+  Notes:
+    - SonicWall export - some values estimated from partial data
+
+### Souvenir City
+File: Souvenir City sonicwall-TZ 270W-SonicOS 7.3.0-7012-R8150-2025-09-23T00_09_07.817Z.exp
+Device: SonicWall TZ 270
+Complexity: LOW (0/100)
+
+  VLANs:          0
+  Subnets:        0
+  DHCP Pools:     0
+  NAT Rules:      0
+  Firewall Rules: 0
+  Static Routes:  0
+  VPN Tunnels:    0
+
+  Notes:
+    - SonicWall export - some values estimated from partial data
+
+### Hammer Building Supply
+File: Hammer Building Supply sonicwall-TZ 270W-SonicOS 7.0.1-5119-R4713-2025-09-22T15_22_10.054Z.exp
+Device: SonicWall TZ 270
+Complexity: LOW (0/100)
+
+  VLANs:          0
+  Subnets:        0
+  DHCP Pools:     0
+  NAT Rules:      0
+  Firewall Rules: 0
+  Static Routes:  0
+  VPN Tunnels:    0
+
+  Notes:
+    - SonicWall export - some values estimated from partial data
+
+### Fulcrum Residential
+File: Fulcrum Residential sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-22T15_07_14.930Z.exp
+Device: SonicWall TZ 270
+Complexity: LOW (0/100)
+
+  VLANs:          0
+  Subnets:        0
+  DHCP Pools:     0
+  NAT Rules:      0
+  Firewall Rules: 0
+  Static Routes:  0
+  VPN Tunnels:    0
+
+  Notes:
+    - SonicWall export - some values estimated from partial data
+
+### JSUM
+File: JSUM sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-22T23_38_49.381Z.exp
+Device: SonicWall TZ 270
+Complexity: LOW (0/100)
+
+  VLANs:          0
+  Subnets:        0
+  DHCP Pools:     0
+  NAT Rules:      0
+  Firewall Rules: 0
+  Static Routes:  0
+  VPN Tunnels:    0
+
+  Notes:
+    - SonicWall export - some values estimated from partial data
+
+======================================================================
+RECOMMENDATIONS
+======================================================================

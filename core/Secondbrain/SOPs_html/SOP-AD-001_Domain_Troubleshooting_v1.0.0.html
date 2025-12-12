@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OberaConnect Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            background: #fff;
+        }
+
+        .header {
+            border-bottom: 3px solid #0066CC;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #666666;
+            font-style: italic;
+            margin-left: 2px;
+        }
+
+        .doc-meta {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .doc-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .doc-date {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0066CC;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .section-content {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .section-content p {
+            margin-bottom: 10px;
+        }
+
+        .section-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section-content li {
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 11px;
+            color: #999999;
+            text-align: center;
+        }
+
+        .highlight-box {
+            background: #f5f9ff;
+            border-left: 4px solid #0066CC;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .action-item {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
+        </div>
+        <div class="tagline">Technology Solutions for Modern Business</div>
+
+        <div class="doc-meta">
+            <div class="doc-title">SOP-AD-001 Domain Troubleshooting v1.0.0</div>
+            <div class="doc-date">Date: [MM/DD/YYYY]</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Executive Summary</div>
+        <div class="section-content">
+            <p>Version: 1.0</p>
+<p>Status: Final</p>
+<p>Author: System Administrator</p>
+<p>Date: 2025-12-02</p>
+<p>────────────────────────────────────────────────────────────</p>
+<h1 id="purpose">1.0 Purpose</h1>
+<p>The purpose of this Standard Operating Procedure (SOP) is to provide
+a systematic process for diagnosing and resolving network connectivity
+issues between an endpoint (computer or user) and the Active Directory
+(AD) domain controller.</p>
+<h1 id="scope">2.0 Scope</h1>
+<p>This procedure applies to any domain-joined computer that is unable
+to communicate with the Active Directory domain. This includes issues
+related to user logons, accessing network resources, or receiving group
+policy updates.</p>
+<h1 id="prerequisites">3.0 Prerequisites</h1>
+<ul>
+<li><p>Administrative privileges on the affected endpoint
+machine.</p></li>
+<li><p>Knowledge of the network's Domain Controller (DC) IP
+address(es).</p></li>
+<li><p>Access to firewall configuration, if applicable.</p></li>
+<li><p>Familiarity with basic Windows networking commands (`ipconfig`,
+`nltest`).</p></li>
+</ul>
+<h1 id="procedure">4.0 Procedure</h1>
+<h2 id="initial-dns-and-network-configuration-diagnostics">4.1 Initial
+DNS and Network Configuration Diagnostics</h2>
+<ol type="1">
+<li><p>**Open Command Prompt:** On the affected machine, open a Command
+Prompt window with administrative privileges.</p></li>
+<li><p>**Gather Network Information:** Execute the following command to
+display the current network configuration:</p></li>
+</ol>
+<p>`cmd</p>
+<p>ipconfig /all</p>
+<p>`</p>
+<ol start="3" type="1">
+<li><p>**Analyze Configuration:** Review the output and verify the
+following:</p></li>
+</ol>
+<ul>
+<li><p>The machine has a valid IP address for its subnet.</p></li>
+<li><p>Note whether the network adapter is configured for **DHCP** or a
+**Static IP**.</p></li>
+<li><p>Identify the listed DNS servers.</p></li>
+</ul>
+<h2 id="correcting-dns-configuration">4.2 Correcting DNS
+Configuration</h2>
+<ol start="4" type="1">
+<li><p>**Verify DNS Server Order:** The DNS server settings are critical
+for domain communication. Ensure they are configured in the correct
+order of priority:</p></li>
+</ol>
+<ul>
+<li><p>**Primary DNS:** Must be the primary Domain Controller's IP
+address.</p></li>
+<li><p>**Secondary DNS:** Should be the secondary Domain Controller's IP
+address, if one exists. If not, this can be the circuit provider's
+DNS.</p></li>
+<li><p>**Tertiary DNS:** A public DNS server (e.g., `8.8.8.8`) can be
+used as a final fallback.</p></li>
+</ul>
+<p>Example Hierarchy:</p>
+<ul>
+<li><p>Primary: `192.168.1.1` (Primary DC)</p></li>
+<li><p>Secondary: `192.168.1.2` (Secondary DC)</p></li>
+<li><p>Tertiary: `142.190.111.111` (ISP DNS)</p></li>
+</ul>
+<ol start="5" type="1">
+<li><p>**Apply DNS Changes:** If the DNS settings are incorrect, update
+them in the machine's network adapter properties.</p></li>
+<li><p>**Confirm Changes:** Run `ipconfig /all` again to ensure the new
+settings have been applied.</p></li>
+</ol>
+<h2 id="firewall-dns-configuration">4.3 Firewall DNS Configuration</h2>
+<ol start="7" type="1">
+<li><p>If a network firewall is in place, access its management
+interface.</p></li>
+<li><p>Verify that the DNS settings configured on the firewall match the
+required DNS hierarchy for the domain (i.e., pointing to the internal
+Domain Controllers).</p></li>
+</ol>
+<h1 id="verification">5.0 Verification</h1>
+<ol start="9" type="1">
+<li><p>**Test Domain Controller Discovery:** After confirming the DNS
+settings are correct, run the following command in the Command Prompt to
+verify that the endpoint can successfully discover the domain
+controller. Replace `&lt;domain_name&gt;` with the actual name of your
+AD domain (e.g., `obera.local`).</p></li>
+</ol>
+<p>`cmd</p>
+<p>nltest /dsgetdc:&lt;domain_name&gt;</p>
+<p>`</p>
+<ol start="10" type="1">
+<li><p>**Analyze Output:** A successful output will show the name of the
+DC that responded and confirm a connection. If the command fails or
+times out, the endpoint is still unable to communicate with the DC, and
+further troubleshooting is required.</p></li>
+</ol>
+<h1 id="additional-considerations">6.0 Additional Considerations</h1>
+<ul>
+<li><p>**Network Equipment Power Cycle:** If settings have been changed
+but are not propagating, a restart or power cycle of network switches,
+routers, and the affected endpoint may be required to force the changes
+to apply.</p></li>
+<li><p>**Firewall IP Reservation:** In environments with a firewall
+managing DHCP, it may be necessary to create a static IP reservation for
+the Domain Controller(s) to ensure their IP addresses do not
+change.</p></li>
+<li><p>**DHCP Lease Scope:** Adjustments to the DHCP lease scope on the
+firewall or DHCP server may be necessary in specific cases, such as
+network segmentation or IP address exhaustion. This should be evaluated
+on a case-by-case basis.</p></li>
+</ul>
+<p>────────────────────────────────────────────────────────────</p>
+<p>End of Document</p>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Details</div>
+        <div class="section-content">
+            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
+
+            <div class="highlight-box">
+                <strong>Key Point:</strong> [Important information to highlight]
+            </div>
+
+            <p>Supporting details:</p>
+            <ul>
+                <li>[Detail item 1]</li>
+                <li>[Detail item 2]</li>
+                <li>[Detail item 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Next Steps</div>
+        <div class="section-content">
+            <div class="action-item">
+                <strong>Action Required:</strong> [Specific action item with owner and deadline]
+            </div>
+
+            <ul>
+                <li>[Next step 1]</li>
+                <li>[Next step 2]</li>
+                <li>[Next step 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        OberaConnect LLC | www.oberaconnect.com | Confidential
+    </div>
+</body>
+</html>

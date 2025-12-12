@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Verify network monitoring infrastructure exists in codebase",
+    "status": "completed",
+    "activeForm": "Verifying network monitoring infrastructure exists in codebase"
+  },
+  {
+    "content": "Check edge functions for SNMP/Syslog collectors",
+    "status": "completed",
+    "activeForm": "Checking edge functions for SNMP/Syslog collectors"
+  },
+  {
+    "content": "Review network monitoring database schema",
+    "status": "completed",
+    "activeForm": "Reviewing network monitoring database schema"
+  },
+  {
+    "content": "Create configuration guide for SNMP/Syslog forwarding",
+    "status": "completed",
+    "activeForm": "Creating configuration guide for SNMP/Syslog forwarding"
+  },
+  {
+    "content": "Build test workflow for network alerts",
+    "status": "in_progress",
+    "activeForm": "Building test workflow for network alerts"
+  }
+]

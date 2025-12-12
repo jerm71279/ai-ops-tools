@@ -1,0 +1,359 @@
+#!/usr/bin/env python3
+"""
+Multi-AI Orchestrator CLI
+Main entry point for running AI workflows
+
+Usage:
+    # Check available providers
+    ./mai status
+    
+    # Run a quick task with auto-selected provider
+    ./mai run "Generate a MikroTik firewall config for 192.168.1.0/24"
+    
+    # Run with specific provider
+    ./mai run --provider claude "Refactor this Python code"
+    ./mai run --provider gemini --file large_log.txt "Analyze this log"
+    ./mai run --provider fara --url https://portal.example.com "Extract pricing data"
+    
+    # Run pre-built workflow
+    ./mai workflow customer_onboarding --customer "Acme Corp" --portal-url https://...
+    
+    # List workflows
+    ./mai workflow --list
+
+Author: OberaConnect Engineering
+Version: 1.0.0
+"""
+
+import argparse
+import json
+import logging
+import sys
+from pathlib import Path
+from typing import Optional
+
+# Add lib to path
+sys.path.insert(0, str(Path(__file__).parent))
+
+from lib import (
+    AIProvider, AIClientFactory, select_best_client,
+    ClaudeCLI, GeminiCLI, FaraCLI
+)
+from workflows.oberaconnect_workflows import (
+    list_available_workflows, get_workflow,
+    customer_onboarding_workflow,
+    vendor_data_extraction_workflow,
+    incident_analysis_workflow,
+    azure_service_deployment_workflow,
+    sop_from_portal_workflow,
+    vendor_price_comparison_workflow
+)
+
+
+def setup_logging(verbose: bool = False):
+    """Configure logging"""
+    level = logging.DEBUG if verbose else logging.INFO
+    logging.basicConfig(
+        level=level,
+        format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+
+
+def cmd_status(args):
+    """Check status of all AI providers"""
+    print("\n🤖 Multi-AI Orchestrator Status\n")
+    print("-" * 50)
+    
+    providers = [
+        ("Claude CLI", AIProvider.CLAUDE, "Code, configs, reasoning"),
+        ("Gemini CLI", AIProvider.GEMINI, "Large docs, video, audio"),
+        ("Fara-7B", AIProvider.FARA, "Web automation, portals"),
+    ]
+    
+    for name, provider, desc in providers:
+        client = AIClientFactory.get_client(provider)
+        status = "✅ Available" if client.is_available else "❌ Not found"
+        print(f"{name:15} {status:20} ({desc})")
+    
+    print("-" * 50)
+    print()
+
+
+def cmd_run(args):
+    """Run a single AI task"""
+    logger = logging.getLogger(__name__)
+    
+    # Determine provider
+    if args.provider:
+        provider = AIProvider[args.provider.upper()]
+    elif args.task_type:
+        provider = select_best_client(args.task_type)
+        logger.info(f"Auto-selected {provider.value} for task type: {args.task_type}")
+    else:
+        # Default to Claude for general prompts
+        provider = AIProvider.CLAUDE
+    
+    client = AIClientFactory.get_client(provider)
+    
+    if not client.is_available:
+        print(f"❌ Error: {provider.value} CLI is not available")
+        sys.exit(1)
+    
+    # Build execution kwargs
+    kwargs = {}
+    if args.files:
+        kwargs['files'] = args.files
+    if args.url and provider == AIProvider.FARA:
+        kwargs['url'] = args.url
+    if args.system_prompt and provider == AIProvider.CLAUDE:
+        kwargs['system_prompt'] = args.system_prompt
+    
+    print(f"\n🚀 Running with {provider.value}...\n")
+    
+    # Execute
+    if provider == AIProvider.FARA:
+        response = client.execute(task=args.prompt, **kwargs)
+    else:
+        response = client.execute(prompt=args.prompt, **kwargs)
+    
+    # Output
+    if response.success:
+        print(response.content)
+        if args.output:
+            with open(args.output, 'w') as f:
+                f.write(response.content)
+            print(f"\n📄 Output saved to: {args.output}")
+    else:
+        print(f"❌ Error: {response.error}")
+        sys.exit(1)
+
+
+def cmd_workflow(args):
+    """Run pre-built workflows"""
+    
+    if args.list:
+        print("\n📋 Available Workflows\n")
+        print("-" * 60)
+        for name, desc in list_available_workflows().items():
+            print(f"  {name:30} {desc}")
+        print("-" * 60)
+        print("\nUse: mai workflow <name> --help for workflow-specific options\n")
+        return
+    
+    if not args.workflow_name:
+        print("Error: Specify a workflow name or use --list")
+        sys.exit(1)
+    
+    # Build workflow-specific kwargs
+    kwargs = {}
+    
+    if args.workflow_name == "customer_onboarding":
+        if not args.customer or not args.portal_url:
+            print("Error: customer_onboarding requires --customer and --portal-url")
+            sys.exit(1)
+        kwargs = {
+            "customer_name": args.customer,
+            "portal_url": args.portal_url,
+            "deployment_type": args.deployment_type or "standard"
+        }
+    
+    elif args.workflow_name == "vendor_data_extraction":
+        if not args.vendor or not args.portal_url:
+            print("Error: vendor_data_extraction requires --vendor and --portal-url")
+            sys.exit(1)
+        kwargs = {
+            "vendor_name": args.vendor,
+            "portal_url": args.portal_url,
+            "data_type": args.data_type or "licensing"
+        }
+    
+    elif args.workflow_name == "incident_analysis":
+        if not args.incident_id or not args.log_files:
+            print("Error: incident_analysis requires --incident-id and --log-files")
+            sys.exit(1)
+        kwargs = {
+            "incident_id": args.incident_id,
+            "log_files": args.log_files,
+            "affected_systems": args.systems or []
+        }
+    
+    elif args.workflow_name == "azure_service_deployment":
+        if not args.service:
+            print("Error: azure_service_deployment requires --service")
+            sys.exit(1)
+        kwargs = {
+            "service_name": args.service,
+            "environment": args.environment or "lab",
+            "portal_automation": args.portal_automation or False
+        }
+    
+    elif args.workflow_name == "sop_from_portal":
+        if not args.sop_name or not args.portal_url or not args.task:
+            print("Error: sop_from_portal requires --sop-name, --portal-url, and --task")
+            sys.exit(1)
+        kwargs = {
+            "sop_name": args.sop_name,
+            "portal_url": args.portal_url,
+            "task_description": args.task
+        }
+    
+    elif args.workflow_name == "vendor_price_comparison":
+        if not args.product or not args.vendor_urls:
+            print("Error: vendor_price_comparison requires --product and --vendor-urls")
+            sys.exit(1)
+        kwargs = {
+            "product_name": args.product,
+            "vendor_urls": args.vendor_urls
+        }
+    
+    # Get and execute workflow
+    try:
+        pipeline = get_workflow(args.workflow_name, **kwargs)
+        
+        print(f"\n🔄 Running workflow: {args.workflow_name}")
+        print(f"   Description: {pipeline.description}")
+        print(f"   Steps: {len(pipeline.steps)}\n")
+        
+        # Build initial context
+        initial_context = kwargs.copy()
+        
+        result = pipeline.execute(initial_context)
+        
+        print("\n" + "=" * 60)
+        if result.success:
+            print(f"✅ Workflow completed successfully!")
+        else:
+            print(f"❌ Workflow failed at step {result.steps_completed + 1}")
+            print(f"   Error: {result.error}")
+        
+        print(f"   Steps: {result.steps_completed}/{result.total_steps}")
+        print(f"   Duration: {result.duration_seconds:.1f}s")
+        print("=" * 60)
+        
+        # Show outputs
+        if args.verbose and result.outputs:
+            print("\n📦 Outputs:")
+            for key, value in result.outputs.items():
+                if key not in kwargs:  # Don't show input params
+                    preview = str(value)[:200] + "..." if len(str(value)) > 200 else str(value)
+                    print(f"   {key}: {preview}")
+        
+    except ValueError as e:
+        print(f"❌ Error: {e}")
+        sys.exit(1)
+
+
+def cmd_chain(args):
+    """Run a custom chain of AI calls"""
+    from lib import PipelineBuilder
+    
+    # Parse chain definition from JSON
+    try:
+        chain_def = json.loads(args.chain_json)
+    except json.JSONDecodeError as e:
+        print(f"❌ Invalid JSON: {e}")
+        sys.exit(1)
+    
+    builder = PipelineBuilder(args.name or "custom_chain")
+    
+    for step in chain_def.get("steps", []):
+        provider = AIProvider[step["provider"].upper()]
+        builder.step(
+            name=step["name"],
+            provider=provider,
+            prompt=step["prompt"],
+            description=step.get("description", "")
+        )
+    
+    pipeline = builder.build()
+    
+    initial_context = chain_def.get("context", {})
+    result = pipeline.execute(initial_context)
+    
+    print(json.dumps(result.to_dict(), indent=2))
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Multi-AI CLI Orchestrator",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Check available AI providers
+  mai status
+  
+  # Quick run with auto-selected provider
+  mai run "Generate a bash script to backup /etc"
+  
+  # Run with specific provider
+  mai run --provider gemini --file logs.txt "Summarize errors"
+  mai run --provider fara --url https://portal.com "Extract pricing"
+  
+  # Run workflow
+  mai workflow customer_onboarding --customer "Acme" --portal-url https://...
+  mai workflow --list
+        """
+    )
+    parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
+    
+    subparsers = parser.add_subparsers(dest='command', help='Commands')
+    
+    # Status command
+    status_parser = subparsers.add_parser('status', help='Check AI provider status')
+    status_parser.set_defaults(func=cmd_status)
+    
+    # Run command
+    run_parser = subparsers.add_parser('run', help='Run a single AI task')
+    run_parser.add_argument('prompt', help='The prompt or task description')
+    run_parser.add_argument('-p', '--provider', choices=['claude', 'gemini', 'fara'],
+                          help='AI provider to use')
+    run_parser.add_argument('-t', '--task-type', 
+                          help='Task type for auto-selection (code_generation, log_analysis, web_automation, etc.)')
+    run_parser.add_argument('-f', '--files', nargs='+', help='Files to include as context')
+    run_parser.add_argument('-u', '--url', help='URL for Fara web automation')
+    run_parser.add_argument('-s', '--system-prompt', help='System prompt (Claude only)')
+    run_parser.add_argument('-o', '--output', help='Output file path')
+    run_parser.set_defaults(func=cmd_run)
+    
+    # Workflow command
+    wf_parser = subparsers.add_parser('workflow', help='Run pre-built workflows')
+    wf_parser.add_argument('workflow_name', nargs='?', help='Workflow name')
+    wf_parser.add_argument('-l', '--list', action='store_true', help='List available workflows')
+    
+    # Workflow-specific arguments
+    wf_parser.add_argument('--customer', help='Customer name')
+    wf_parser.add_argument('--vendor', help='Vendor name')
+    wf_parser.add_argument('--portal-url', help='Portal URL')
+    wf_parser.add_argument('--deployment-type', help='Deployment type')
+    wf_parser.add_argument('--data-type', help='Data type to extract')
+    wf_parser.add_argument('--incident-id', help='Incident ID')
+    wf_parser.add_argument('--log-files', nargs='+', help='Log files to analyze')
+    wf_parser.add_argument('--systems', nargs='+', help='Affected systems')
+    wf_parser.add_argument('--service', help='Azure service name')
+    wf_parser.add_argument('--environment', help='Deployment environment')
+    wf_parser.add_argument('--portal-automation', action='store_true', help='Use Fara for portal config')
+    wf_parser.add_argument('--sop-name', help='SOP name')
+    wf_parser.add_argument('--task', help='Task description')
+    wf_parser.add_argument('--product', help='Product name')
+    wf_parser.add_argument('--vendor-urls', nargs='+', help='Vendor URLs')
+    wf_parser.set_defaults(func=cmd_workflow)
+    
+    # Chain command
+    chain_parser = subparsers.add_parser('chain', help='Run custom chain from JSON')
+    chain_parser.add_argument('chain_json', help='JSON definition of the chain')
+    chain_parser.add_argument('-n', '--name', help='Chain name')
+    chain_parser.set_defaults(func=cmd_chain)
+    
+    args = parser.parse_args()
+    setup_logging(args.verbose)
+    
+    if args.command is None:
+        parser.print_help()
+        sys.exit(1)
+    
+    args.func(args)
+
+
+if __name__ == "__main__":
+    main()

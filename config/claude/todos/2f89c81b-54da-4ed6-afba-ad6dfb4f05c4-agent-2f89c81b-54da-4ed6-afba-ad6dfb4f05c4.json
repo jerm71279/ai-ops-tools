@@ -1,0 +1,7 @@
+[
+  {
+    "content": "Restart Docker and rebuild rag-engine",
+    "status": "in_progress",
+    "activeForm": "Waiting for Docker daemon to restart"
+  }
+]

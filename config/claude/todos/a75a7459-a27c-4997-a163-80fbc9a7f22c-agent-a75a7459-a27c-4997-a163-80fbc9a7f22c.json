@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Request Azure quota increase for cores in East US",
+    "status": "completed",
+    "activeForm": "Requesting Azure quota increase"
+  },
+  {
+    "content": "Add more cores via Azure Portal quota request",
+    "status": "in_progress",
+    "activeForm": "Adding more cores via Azure Portal"
+  },
+  {
+    "content": "Create SETCO-DC02-VM with OS and data disks",
+    "status": "pending",
+    "activeForm": "Creating SETCO-DC02-VM"
+  },
+  {
+    "content": "Configure new DC and verify AD replication",
+    "status": "pending",
+    "activeForm": "Configuring new DC"
+  }
+]

@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OberaConnect Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            background: #fff;
+        }
+
+        .header {
+            border-bottom: 3px solid #0066CC;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #666666;
+            font-style: italic;
+            margin-left: 2px;
+        }
+
+        .doc-meta {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .doc-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .doc-date {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0066CC;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .section-content {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .section-content p {
+            margin-bottom: 10px;
+        }
+
+        .section-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section-content li {
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 11px;
+            color: #999999;
+            text-align: center;
+        }
+
+        .highlight-box {
+            background: #f5f9ff;
+            border-left: 4px solid #0066CC;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .action-item {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
+        </div>
+        <div class="tagline">Technology Solutions for Modern Business</div>
+
+        <div class="doc-meta">
+            <div class="doc-title">SOP-NET-005 Ubiquiti Equipment Configuration v1.0.0</div>
+            <div class="doc-date">Date: [MM/DD/YYYY]</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Executive Summary</div>
+        <div class="section-content">
+            <table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>**Document ID:**</td>
+<td>SOP-NET-005</td>
+</tr>
+<tr class="even">
+<td>**Title:**</td>
+<td>Ubiquiti Equipment Configuration for New Customers</td>
+</tr>
+<tr class="odd">
+<td>**Category:**</td>
+<td>Network Administration</td>
+</tr>
+<tr class="even">
+<td>**Version:**</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td>**Status:**</td>
+<td>Draft</td>
+</tr>
+<tr class="even">
+<td>**Author:**</td>
+<td>System</td>
+</tr>
+<tr class="odd">
+<td>**Creation Date:**</td>
+<td>2025-12-04</td>
+</tr>
+<tr class="even">
+<td>**Approval Date:**</td>
+<td>Pending</td>
+</tr>
+</tbody>
+</table>
+<p>────────────────────────────────────────────────────────────</p>
+<h2 id="purpose">1.0 Purpose</h2>
+<p>To establish a standardized, repeatable process for configuring
+Ubiquiti/UniFi network equipment (switches, access points) for new
+customer deployments, ensuring proper firmware levels and consistent
+network configuration.</p>
+<h2 id="scope">2.0 Scope</h2>
+<p>This SOP applies to all Network Technicians responsible for deploying
+Ubiquiti UniFi equipment for clients. It covers switch pre-adoption
+firmware upgrades, access point deployment, and UniFi Controller
+adoption.</p>
+<h2 id="definitions">3.0 Definitions</h2>
+<ul>
+<li><p>**SOP:** Standard Operating Procedure</p></li>
+<li><p>**AP:** Access Point</p></li>
+<li><p>**USW:** UniFi Switch</p></li>
+<li><p>**SSH:** Secure Shell</p></li>
+<li><p>**DHCP:** Dynamic Host Configuration Protocol</p></li>
+<li><p>**OUI:** Organizationally Unique Identifier (MAC address
+prefix)</p></li>
+</ul>
+<h2 id="roles-responsibilities">4.0 Roles &amp; Responsibilities</h2>
+<ul>
+<li><p>**Network Technician/Engineer:** Responsible for executing all
+steps outlined in this SOP, ensuring equipment is correctly configured
+for deployment.</p></li>
+</ul>
+<h2 id="prerequisites">5.0 Prerequisites</h2>
+<ul>
+<li><p>Ubiquiti UniFi switch and/or access point(s)</p></li>
+<li><p>Access to UniFi Network Controller (cloud or
+self-hosted)</p></li>
+<li><p>SSH client (PuTTY or similar)</p></li>
+<li><p>Network access to customer subnet</p></li>
+<li><p>Customer subnet information from
+CUSTOMER_SUBNET_TRACKER.csv</p></li>
+</ul>
+<p>────────────────────────────────────────────────────────────</p>
+<h2 id="procedure">6.0 Procedure</h2>
+<h3 id="lab-pre-staging-environment">6.0.1 Lab Pre-Staging
+Environment</h3>
+<p>All customer equipment is configured in the OberaConnect lab
+environment before deployment:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Component</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Core Switch</td>
+<td>Ubiquiti switch (lab)</td>
+</tr>
+<tr class="even">
+<td>Firewall</td>
+<td>SonicWall (lab)</td>
+</tr>
+<tr class="odd">
+<td>Lab Subnet</td>
+<td>10.55.1.0/24</td>
+</tr>
+<tr class="even">
+<td>DHCP Source</td>
+<td>Lab SonicWall</td>
+</tr>
+</tbody>
+</table>
+<p>Workflow:</p>
+<ol type="1">
+<li><p>Connect customer device to lab core Ubiquiti switch</p></li>
+<li><p>Device receives DHCP from lab SonicWall (10.55.1.x)</p></li>
+<li><p>Configure/upgrade device in lab environment</p></li>
+<li><p>Device is ready for customer install date</p></li>
+</ol>
+<p>&gt; All device discovery and configuration steps below assume the
+device is connected to the lab network on 10.55.1.0/24.</p>
+<h3 id="pre-deployment-identify-device-ip">6.1 Pre-Deployment: Identify
+Device IP</h3>
+<p>After connecting the device to the lab network:</p>
+<ol start="5" type="1">
+<li><p>**From Windows CMD**, run ping sweep to find active
+devices:</p></li>
+</ol>
+<p>`cmd</p>
+<p>for /L %i in (1,1,254) do @(ping -n 1 -w 30 10.55.1.%i &gt;nul
+&amp;&amp; echo 10.55.1.%i is up)</p>
+<p>`</p>
+<p>&gt; Adjust subnet (10.55.1) to match customer network. Only
+responding IPs will be displayed.</p>
+<ol start="6" type="1">
+<li><p>**Then check ARP table for MAC addresses:**</p></li>
+</ol>
+<p>`cmd</p>
+<p>arp -a | findstr "10.55.1"</p>
+<p>`</p>
+<ol start="7" type="1">
+<li><p>**Identify Ubiquiti devices** by MAC prefix (OUI):</p></li>
+</ol>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Prefix</strong></th>
+<th><strong>Manufacturer</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>24-5a-4c</td>
+<td>Ubiquiti</td>
+</tr>
+<tr class="even">
+<td>28-70-4e</td>
+<td>Ubiquiti</td>
+</tr>
+<tr class="odd">
+<td>78-45-58</td>
+<td>Ubiquiti</td>
+</tr>
+<tr class="even">
+<td>80-2a-a8</td>
+<td>Ubiquiti</td>
+</tr>
+<tr class="odd">
+<td>74-83-c2</td>
+<td>Ubiquiti</td>
+</tr>
+<tr class="even">
+<td>dc-9f-db</td>
+<td>Ubiquiti</td>
+</tr>
+<tr class="odd">
+<td>f0-9f-c2</td>
+<td>Ubiquiti</td>
+</tr>
+</tbody>
+</table>
+<ol start="8" type="1">
+<li><p>**Alternative:** Check DHCP leases on SonicWall:</p></li>
+</ol>
+<ul>
+<li><p>Navigate to **Network &gt; DHCP Server &gt; Current DHCP
+Leases**</p></li>
+<li><p>Look for recent leases with Ubiquiti MAC prefixes or hostnames
+like `U7-Pro`, `UBNT`</p></li>
+</ul>
+<h3 id="switch-configuration-pre-adoption">6.2 Switch Configuration
+(Pre-Adoption)</h3>
+<p>&gt; IMPORTANT: Switches require SSH firmware upgrade BEFORE adoption
+into UniFi Controller. APs do NOT require this step.</p>
+<ol start="9" type="1">
+<li><p>**SSH into the switch:**</p></li>
+</ol>
+<p>`</p>
+<p>ssh ubnt@&lt;switch_ip&gt;</p>
+<p>`</p>
+<p>Default credentials: ubnt / ubnt</p>
+<ol start="10" type="1">
+<li><p>**Upgrade firmware via SSH:**</p></li>
+</ol>
+<p>`</p>
+<p>upgrade &lt;firmware_url&gt;</p>
+<p>`</p>
+<ol start="11" type="1">
+<li><p>**Firmware URLs by model:**</p></li>
+</ol>
+<p>USW-16-POE (v7.1.26):</p>
+<p>`</p>
+<p>upgrade
+https://dl.ui.com/unifi/firmware/USMULTUSW16POE/7.1.26.15869/US.MULT.USW_16_POE_7.1.26+15869.240926.2129.bin</p>
+<p>`</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Model</strong></th>
+<th><strong>Version</strong></th>
+<th><strong>Firmware URL</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>USW-16-POE</td>
+<td>7.1.26</td>
+<td>`https://dl.ui.com/unifi/firmware/USMULTUSW16POE/7.1.26.15869/US.MULT.USW_16_POE_7.1.26+15869.240926.2129.bin`</td>
+</tr>
+</tbody>
+</table>
+<p>&gt; See
+/home/mavrick/Projects/Secondbrain/reference/ubiquiti_firmware_urls.md
+for complete firmware URL reference and additional models.</p>
+<ol start="12" type="1">
+<li><p>**Wait for reboot** - Switch will automatically reboot after
+firmware download completes (~3-5 minutes).</p></li>
+<li><p>**Verify firmware** by SSH back in after reboot:</p></li>
+</ol>
+<p>`</p>
+<p>info</p>
+<p>`</p>
+<h3 id="access-point-configuration">6.3 Access Point Configuration</h3>
+<p>&gt; NOTE: APs can be adopted directly without manual firmware
+upgrade. The UniFi Controller will push firmware during adoption.</p>
+<ol start="14" type="1">
+<li><p>Connect AP to PoE switch port or PoE injector</p></li>
+<li><p>Wait for LED to show solid white (ready for adoption)</p></li>
+<li><p>Proceed to Section 6.4 for adoption</p></li>
+</ol>
+<h3 id="unifi-controller-adoption">6.4 UniFi Controller Adoption</h3>
+<ol start="17" type="1">
+<li><p>**Log into UniFi Network Controller**</p></li>
+<li><p>**Navigate to Devices** - Pending devices will appear
+automatically</p></li>
+<li><p>**Adopt device:**</p></li>
+</ol>
+<ul>
+<li><p>Click on pending device</p></li>
+<li><p>Click **Adopt**</p></li>
+<li><p>Wait for provisioning to complete</p></li>
+</ul>
+<ol start="20" type="1">
+<li><p>**Configure device settings:**</p></li>
+</ol>
+<ul>
+<li><p>Set device name (e.g., `SFWB_Main-SW01`,
+`SFWB_Rockwell-AP01`)</p></li>
+<li><p>Assign to appropriate site</p></li>
+</ul>
+<ol start="21" type="1">
+<li><p>**For switches - Configure ports:**</p></li>
+</ol>
+<ul>
+<li><p>Set port profiles as needed</p></li>
+<li><p>Configure VLANs if applicable</p></li>
+<li><p>Enable PoE on AP ports</p></li>
+</ul>
+<ol start="22" type="1">
+<li><p>**For APs - Configure wireless:**</p></li>
+</ol>
+<ul>
+<li><p>Assign to appropriate WLAN group</p></li>
+<li><p>Set transmit power if needed</p></li>
+<li><p>Configure band steering preferences</p></li>
+</ul>
+<h3 id="network-configuration-standards">6.5 Network Configuration
+Standards</h3>
+<p>Apply the following defaults per customer subnet:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Setting</strong></th>
+<th><strong>Default Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Gateway</td>
+<td>.1</td>
+</tr>
+<tr class="even">
+<td>DHCP Range</td>
+<td>.200-.254</td>
+</tr>
+<tr class="odd">
+<td>Static Range</td>
+<td>.2-.199</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>IP Range</strong></th>
+<th><strong>Purpose</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>.1</td>
+<td>Gateway/Router</td>
+</tr>
+<tr class="even">
+<td>.2-.99</td>
+<td>Infrastructure (switches, APs, servers)</td>
+</tr>
+<tr class="odd">
+<td>.100-.199</td>
+<td>Static client devices (printers, cameras)</td>
+</tr>
+<tr class="even">
+<td>.200-.254</td>
+<td>DHCP pool</td>
+</tr>
+</tbody>
+</table>
+<p>&gt; See
+/home/mavrick/Projects/Secondbrain/reference/network_defaults.md for
+complete reference.</p>
+<p>────────────────────────────────────────────────────────────</p>
+<h2 id="verification-quality-checks">7.0 Verification &amp; Quality
+Checks</h2>
+<ul>
+<li><p>Confirm device shows as "Online" in UniFi Controller</p></li>
+<li><p>Verify firmware is current (Controller will show update available
+if not)</p></li>
+<li><p>Test connectivity from client devices</p></li>
+<li><p>For APs: Verify SSID broadcast and client connection</p></li>
+<li><p>For switches: Verify port connectivity and PoE delivery</p></li>
+</ul>
+<h2 id="troubleshooting">8.0 Troubleshooting</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Issue</strong></th>
+<th><strong>Resolution</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cannot find device IP</td>
+<td>1. Verify device has power (LEDs active). 2. Check DHCP leases on
+SonicWall. 3. Ensure device is on same L2 network.</td>
+</tr>
+<tr class="even">
+<td>SSH connection refused</td>
+<td>1. Device may still be booting. 2. Device may already be adopted
+(different credentials). 3. Try default creds: ubnt/ubnt</td>
+</tr>
+<tr class="odd">
+<td>Firmware upgrade fails</td>
+<td>1. Verify URL is correct and accessible. 2. Check device has
+internet access. 3. Try alternate firmware version.</td>
+</tr>
+<tr class="even">
+<td>Device not appearing in Controller</td>
+<td>1. Verify L2 connectivity to Controller. 2. Check if device is on
+different VLAN. 3. Use UniFi mobile app for local discovery.</td>
+</tr>
+<tr class="odd">
+<td>Adoption fails</td>
+<td>1. Reset device to factory defaults. 2. Verify Controller is
+accessible from device subnet. 3. Check for IP conflicts.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="related-documents">9.0 Related Documents</h2>
+<ul>
+<li><p>Ubiquiti Firmware Reference:
+`/reference/ubiquiti_firmware_urls.md`</p></li>
+<li><p>Network Defaults: `/reference/network_defaults.md`</p></li>
+<li><p>Customer Subnet Tracker:
+`/network-config-builder/CUSTOMER_SUBNET_TRACKER.csv`</p></li>
+<li><p>SOP-NET-001: Initial SonicWall Firewall Setup</p></li>
+</ul>
+<h2 id="revision-history">10.0 Revision History</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Version</strong></th>
+<th><strong>Date</strong></th>
+<th><strong>Author</strong></th>
+<th><strong>Change Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0</td>
+<td>2025-12-04</td>
+<td>System</td>
+<td>Initial document creation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="approval">11.0 Approval</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Role</th>
+<th>Signature</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>Network Manager</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Details</div>
+        <div class="section-content">
+            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
+
+            <div class="highlight-box">
+                <strong>Key Point:</strong> [Important information to highlight]
+            </div>
+
+            <p>Supporting details:</p>
+            <ul>
+                <li>[Detail item 1]</li>
+                <li>[Detail item 2]</li>
+                <li>[Detail item 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Next Steps</div>
+        <div class="section-content">
+            <div class="action-item">
+                <strong>Action Required:</strong> [Specific action item with owner and deadline]
+            </div>
+
+            <ul>
+                <li>[Next step 1]</li>
+                <li>[Next step 2]</li>
+                <li>[Next step 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        OberaConnect LLC | www.oberaconnect.com | Confidential
+    </div>
+</body>
+</html>

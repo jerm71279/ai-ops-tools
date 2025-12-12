@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Tracker - OberaConnect</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .header {
+            background: white;
+            padding: 15px 30px;
+            border-bottom: 3px solid #4CAF50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            height: 60px;
+        }
+
+        .header h1 {
+            color: #1e3a5f;
+            font-size: 24px;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            background: white;
+            padding: 0 30px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            color: #1e3a5f;
+        }
+
+        .tab.active {
+            border-bottom-color: #4CAF50;
+            color: #1e3a5f;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 10px;
+            padding: 15px 30px;
+            background: white;
+        }
+
+        .view-btn {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .view-btn.active {
+            background: #1e3a5f;
+            color: white;
+            border-color: #1e3a5f;
+        }
+
+        .container {
+            padding: 20px 30px;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-filter {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 300px;
+            font-size: 14px;
+        }
+
+        .filter-select {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #45a049;
+        }
+
+        .btn-secondary {
+            background: #1e3a5f;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #2a4a6f;
+        }
+
+        /* List View */
+        .list-view {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .list-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr 150px;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            font-weight: 600;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .list-item {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr 150px;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e9ecef;
+            align-items: center;
+        }
+
+        .list-item:hover {
+            background: #f8f9fa;
+        }
+
+        .item-title {
+            font-weight: 500;
+            color: #1e3a5f;
+            cursor: pointer;
+        }
+
+        .item-title:hover {
+            text-decoration: underline;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .status-not-started { background: #e9ecef; color: #495057; }
+        .status-open { background: #e3f2fd; color: #1565c0; }
+        .status-in-progress { background: #fff3e0; color: #ef6c00; }
+        .status-on-hold { background: #fce4ec; color: #c2185b; }
+        .status-pending { background: #f3e5f5; color: #7b1fa2; }
+        .status-completed { background: #e8f5e9; color: #2e7d32; }
+        .status-resolved { background: #e8f5e9; color: #2e7d32; }
+        .status-closed { background: #eceff1; color: #546e7a; }
+        .status-cancelled { background: #ffebee; color: #c62828; }
+
+        .priority-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .priority-low { background: #e8f5e9; color: #2e7d32; }
+        .priority-medium { background: #fff3e0; color: #ef6c00; }
+        .priority-high { background: #ffebee; color: #c62828; }
+        .priority-critical { background: #c62828; color: white; }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .action-btn:hover {
+            background: #f8f9fa;
+        }
+
+        /* Kanban View */
+        .kanban-view {
+            display: none;
+        }
+
+        .kanban-board {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+        }
+
+        .kanban-column {
+            min-width: 300px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .kanban-column-header {
+            font-weight: 600;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .kanban-column-header .count {
+            background: rgba(0,0,0,0.1);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        .kanban-card {
+            background: white;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        .kanban-card:hover {
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+
+        .kanban-card-title {
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: #1e3a5f;
+        }
+
+        .kanban-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 8px;
+            width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            color: #1e3a5f;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        /* Stats */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .number {
+            font-size: 32px;
+            font-weight: 600;
+            color: #1e3a5f;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <img src="data:image/png;base64,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" alt="OberaConnect" class="logo">
+            <h1>Engineering Tracker</h1>
+        </div>
+        <div class="header-right">
+            <button class="btn btn-secondary" onclick="refreshData()">Refresh</button>
+        </div>
+    </div>
+
+    <div class="tabs">
+        <div class="tab active" data-tab="projects" onclick="switchTab('projects')">Projects</div>
+        <div class="tab" data-tab="tickets" onclick="switchTab('tickets')">Tickets</div>
+    </div>
+
+    <div class="container">
+        <div class="stats-row">
+            <div class="stat-card">
+                <h3>Total Items</h3>
+                <div class="number" id="stat-total">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>In Progress</h3>
+                <div class="number" id="stat-progress">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>High Priority</h3>
+                <div class="number" id="stat-high">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Completed</h3>
+                <div class="number" id="stat-completed">0</div>
+            </div>
+        </div>
+
+        <div class="view-toggle">
+            <button class="view-btn active" onclick="switchView('list')">List View</button>
+            <button class="view-btn" onclick="switchView('kanban')">Kanban Board</button>
+        </div>
+
+        <div class="toolbar">
+            <div class="search-filter">
+                <input type="text" class="search-input" placeholder="Search..." id="searchInput" oninput="filterItems()">
+                <select class="filter-select" id="statusFilter" onchange="filterItems()">
+                    <option value="">All Statuses</option>
+                    <option value="Not Started">Not Started</option>
+                    <option value="Open">Open</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="On Hold">On Hold</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Resolved">Resolved</option>
+                    <option value="Closed">Closed</option>
+                </select>
+                <select class="filter-select" id="priorityFilter" onchange="filterItems()">
+                    <option value="">All Priorities</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                    <option value="Critical">Critical</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="showModal('add')">+ New Item</button>
+        </div>
+
+        <div class="list-view" id="listView">
+            <div class="list-header">
+                <div>Title</div>
+                <div>Status</div>
+                <div>Priority</div>
+                <div>Assigned To</div>
+                <div>Due Date</div>
+                <div>Actions</div>
+            </div>
+            <div id="listItems">
+                <div class="loading">Loading...</div>
+            </div>
+        </div>
+
+        <div class="kanban-view" id="kanbanView">
+            <div class="kanban-board" id="kanbanBoard">
+                <!-- Kanban columns will be generated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">New Item</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="itemId">
+                <div class="form-group">
+                    <label for="itemName">Title *</label>
+                    <input type="text" id="itemName" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemDescription">Description</label>
+                    <textarea id="itemDescription"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="itemStatus">Status</label>
+                        <select id="itemStatus">
+                            <option value="Not Started">Not Started</option>
+                            <option value="Open">Open</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="On Hold">On Hold</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Resolved">Resolved</option>
+                            <option value="Closed">Closed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemPriority">Priority</label>
+                        <select id="itemPriority">
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                            <option value="Critical">Critical</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="itemAssignee">Assigned To</label>
+                        <input type="text" id="itemAssignee">
+                    </div>
+                    <div class="form-group">
+                        <label for="itemTeam">Team</label>
+                        <select id="itemTeam">
+                            <option value="Engineering">Engineering</option>
+                            <option value="Network">Network</option>
+                            <option value="Security">Security</option>
+                            <option value="Support">Support</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="itemCustomer">Customer</label>
+                        <input type="text" id="itemCustomer">
+                    </div>
+                    <div class="form-group">
+                        <label for="itemDueDate">Due Date</label>
+                        <input type="date" id="itemDueDate">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="itemNotes">Notes</label>
+                    <textarea id="itemNotes"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveItem()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration - will be set by Python script
+        const CONFIG = {
+            siteId: '{{SITE_ID}}',
+            projectsListId: '{{PROJECTS_LIST_ID}}',
+            ticketsListId: '{{TICKETS_LIST_ID}}',
+            accessToken: '{{ACCESS_TOKEN}}'
+        };
+
+        const GRAPH_API = 'https://graph.microsoft.com/v1.0';
+
+        let currentTab = 'projects';
+        let currentView = 'list';
+        let allItems = [];
+
+        // Tab switching
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+            loadItems();
+        }
+
+        // View switching
+        function switchView(view) {
+            currentView = view;
+            document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.getElementById('listView').style.display = view === 'list' ? 'block' : 'none';
+            document.getElementById('kanbanView').style.display = view === 'kanban' ? 'block' : 'none';
+
+            renderItems();
+        }
+
+        // Get current list ID
+        function getCurrentListId() {
+            return currentTab === 'projects' ? CONFIG.projectsListId : CONFIG.ticketsListId;
+        }
+
+        // Load items from SharePoint
+        async function loadItems() {
+            const listId = getCurrentListId();
+            if (!listId || listId.includes('{{')) {
+                showEmptyState('Configuration required. Please run the setup script.');
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `${GRAPH_API}/sites/${CONFIG.siteId}/lists/${listId}/items?expand=fields`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${CONFIG.accessToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+
+                const data = await response.json();
+                allItems = data.value || [];
+                updateStats();
+                renderItems();
+            } catch (error) {
+                console.error('Error loading items:', error);
+                showEmptyState('Error loading data. Please check your connection.');
+            }
+        }
+
+        // Render items based on current view
+        function renderItems() {
+            if (currentView === 'list') {
+                renderListView();
+            } else {
+                renderKanbanView();
+            }
+        }
+
+        // Render list view
+        function renderListView() {
+            const container = document.getElementById('listItems');
+            const filtered = getFilteredItems();
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="empty-state"><h3>No items found</h3><p>Create a new item to get started</p></div>';
+                return;
+            }
+
+            container.innerHTML = filtered.map(item => {
+                const fields = item.fields;
+                const title = fields.ProjectName || fields.TicketTitle || fields.Title || 'Untitled';
+                const status = fields.Status || 'Not Started';
+                const priority = fields.Priority || 'Medium';
+                const assignee = fields.AssignedTo || '-';
+                const dueDate = fields.DueDate ? new Date(fields.DueDate).toLocaleDateString() : '-';
+
+                return `
+                    <div class="list-item">
+                        <div class="item-title" onclick="showModal('edit', '${item.id}')">${title}</div>
+                        <div><span class="status-badge status-${status.toLowerCase().replace(' ', '-')}">${status}</span></div>
+                        <div><span class="priority-badge priority-${priority.toLowerCase()}">${priority}</span></div>
+                        <div>${assignee}</div>
+                        <div>${dueDate}</div>
+                        <div class="actions">
+                            <button class="action-btn" onclick="showModal('edit', '${item.id}')">Edit</button>
+                            <button class="action-btn" onclick="deleteItem('${item.id}')">Delete</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Render kanban view
+        function renderKanbanView() {
+            const board = document.getElementById('kanbanBoard');
+            const statuses = currentTab === 'projects'
+                ? ['Not Started', 'In Progress', 'On Hold', 'Completed']
+                : ['Open', 'In Progress', 'Pending', 'Resolved', 'Closed'];
+
+            const filtered = getFilteredItems();
+
+            board.innerHTML = statuses.map(status => {
+                const statusItems = filtered.filter(i => (i.fields.Status || 'Not Started') === status);
+                return `
+                    <div class="kanban-column">
+                        <div class="kanban-column-header">
+                            ${status}
+                            <span class="count">${statusItems.length}</span>
+                        </div>
+                        ${statusItems.map(item => {
+                            const fields = item.fields;
+                            const title = fields.ProjectName || fields.TicketTitle || fields.Title || 'Untitled';
+                            const priority = fields.Priority || 'Medium';
+                            const assignee = fields.AssignedTo || 'Unassigned';
+
+                            return `
+                                <div class="kanban-card" onclick="showModal('edit', '${item.id}')">
+                                    <div class="kanban-card-title">${title}</div>
+                                    <div class="kanban-card-meta">
+                                        <span class="priority-badge priority-${priority.toLowerCase()}">${priority}</span>
+                                        <span>${assignee}</span>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Filter items
+        function getFilteredItems() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const status = document.getElementById('statusFilter').value;
+            const priority = document.getElementById('priorityFilter').value;
+
+            return allItems.filter(item => {
+                const fields = item.fields;
+                const title = (fields.ProjectName || fields.TicketTitle || fields.Title || '').toLowerCase();
+                const desc = (fields.Description || '').toLowerCase();
+
+                if (search && !title.includes(search) && !desc.includes(search)) return false;
+                if (status && fields.Status !== status) return false;
+                if (priority && fields.Priority !== priority) return false;
+
+                return true;
+            });
+        }
+
+        function filterItems() {
+            renderItems();
+        }
+
+        // Update statistics
+        function updateStats() {
+            const total = allItems.length;
+            const inProgress = allItems.filter(i => i.fields.Status === 'In Progress').length;
+            const highPriority = allItems.filter(i => ['High', 'Critical'].includes(i.fields.Priority)).length;
+            const completed = allItems.filter(i => ['Completed', 'Resolved', 'Closed'].includes(i.fields.Status)).length;
+
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-progress').textContent = inProgress;
+            document.getElementById('stat-high').textContent = highPriority;
+            document.getElementById('stat-completed').textContent = completed;
+        }
+
+        // Modal functions
+        function showModal(mode, itemId = null) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modalTitle');
+
+            if (mode === 'add') {
+                title.textContent = `New ${currentTab === 'projects' ? 'Project' : 'Ticket'}`;
+                clearForm();
+            } else {
+                title.textContent = `Edit ${currentTab === 'projects' ? 'Project' : 'Ticket'}`;
+                const item = allItems.find(i => i.id === itemId);
+                if (item) populateForm(item);
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function clearForm() {
+            document.getElementById('itemId').value = '';
+            document.getElementById('itemName').value = '';
+            document.getElementById('itemDescription').value = '';
+            document.getElementById('itemStatus').value = currentTab === 'projects' ? 'Not Started' : 'Open';
+            document.getElementById('itemPriority').value = 'Medium';
+            document.getElementById('itemAssignee').value = '';
+            document.getElementById('itemTeam').value = 'Engineering';
+            document.getElementById('itemCustomer').value = '';
+            document.getElementById('itemDueDate').value = '';
+            document.getElementById('itemNotes').value = '';
+        }
+
+        function populateForm(item) {
+            const fields = item.fields;
+            document.getElementById('itemId').value = item.id;
+            document.getElementById('itemName').value = fields.ProjectName || fields.TicketTitle || fields.Title || '';
+            document.getElementById('itemDescription').value = fields.Description || '';
+            document.getElementById('itemStatus').value = fields.Status || 'Not Started';
+            document.getElementById('itemPriority').value = fields.Priority || 'Medium';
+            document.getElementById('itemAssignee').value = fields.AssignedTo || '';
+            document.getElementById('itemTeam').value = fields.Team || 'Engineering';
+            document.getElementById('itemCustomer').value = fields.Customer || '';
+            document.getElementById('itemDueDate').value = fields.DueDate ? fields.DueDate.split('T')[0] : '';
+            document.getElementById('itemNotes').value = fields.Notes || fields.Resolution || '';
+        }
+
+        // Save item
+        async function saveItem() {
+            const itemId = document.getElementById('itemId').value;
+            const listId = getCurrentListId();
+            const titleField = currentTab === 'projects' ? 'ProjectName' : 'TicketTitle';
+            const notesField = currentTab === 'projects' ? 'Notes' : 'Resolution';
+
+            const data = {
+                fields: {
+                    [titleField]: document.getElementById('itemName').value,
+                    Description: document.getElementById('itemDescription').value,
+                    Status: document.getElementById('itemStatus').value,
+                    Priority: document.getElementById('itemPriority').value,
+                    AssignedTo: document.getElementById('itemAssignee').value,
+                    Team: document.getElementById('itemTeam').value,
+                    Customer: document.getElementById('itemCustomer').value,
+                    [notesField]: document.getElementById('itemNotes').value
+                }
+            };
+
+            const dueDate = document.getElementById('itemDueDate').value;
+            if (dueDate) {
+                data.fields.DueDate = dueDate;
+            }
+
+            try {
+                const url = itemId
+                    ? `${GRAPH_API}/sites/${CONFIG.siteId}/lists/${listId}/items/${itemId}`
+                    : `${GRAPH_API}/sites/${CONFIG.siteId}/lists/${listId}/items`;
+
+                const response = await fetch(url, {
+                    method: itemId ? 'PATCH' : 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${CONFIG.accessToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    closeModal();
+                    loadItems();
+                } else {
+                    alert('Error saving item');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error saving item');
+            }
+        }
+
+        // Delete item
+        async function deleteItem(itemId) {
+            if (!confirm('Are you sure you want to delete this item?')) return;
+
+            const listId = getCurrentListId();
+
+            try {
+                const response = await fetch(
+                    `${GRAPH_API}/sites/${CONFIG.siteId}/lists/${listId}/items/${itemId}`,
+                    {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${CONFIG.accessToken}`
+                        }
+                    }
+                );
+
+                if (response.ok) {
+                    loadItems();
+                } else {
+                    alert('Error deleting item');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error deleting item');
+            }
+        }
+
+        // Refresh data
+        function refreshData() {
+            loadItems();
+        }
+
+        // Show empty state
+        function showEmptyState(message) {
+            document.getElementById('listItems').innerHTML = `<div class="empty-state"><h3>${message}</h3></div>`;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadItems();
+        });
+    </script>
+</body>
+</html>

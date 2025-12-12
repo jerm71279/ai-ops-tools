@@ -1,0 +1,112 @@
+cd "Router-Firewall Customer Sites"
+cd "Celebration Church - Existing"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Celebration_Church_Existing
+cd ..
+cd "Celebration Church - New"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Celebration_Church_New
+cd ..
+cd "City of Freeport - Sports Complex"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/City_of_Freeport
+cd ..
+cd "Clauger Office"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Clauger_Office
+cd ..
+cd "Clauger Rebuild Shop"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Clauger_Rebuild_Shop
+cd ..
+cd "Coastal Church Bay Minette"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Coastal_Church_Bay_Minette
+cd ..
+cd "Cosmos"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Cosmos
+cd ..
+cd "DC Lawn"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/DC_Lawn
+cd ..
+cd "Daniel Uhlfelder"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Daniel_Uhlfelder
+cd ..
+cd "Dunlap & Shipman"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Dunlap_Shipman
+cd ..
+cd "Emerald Coast Cruizers"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Emerald_Coast_Cruizers
+cd ..
+cd "Engel & Volders - 9961 30A "
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Engel_Volders_30A
+cd ..
+cd "Engel & Volders"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Engel_Volders
+cd ..
+cd "Fairhope Strip Mall"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Fairhope_Strip_Mall
+cd ..
+cd "Fulcrum - Daphne Office"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Fulcrum_Daphne
+cd ..
+cd "Fulcrum Residential - PW Change Required"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Fulcrum_Residential
+cd ..
+cd "Goo Roo's"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Goo_Roos
+cd ..
+cd "Hammer Building Supply"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Hammer_Building_Supply
+cd ..
+cd "Hinson Law"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Hinson_Law
+cd ..
+cd "Hoods Theodore"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Hoods_Theodore
+cd ..
+cd "JSUM"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/JSUM
+cd ..
+cd "Jubilee Pool"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Jubilee_Pool
+cd ..
+cd "Judd Jackson CPA"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Judd_Jackson_CPA
+cd ..
+cd "Kinder Kids"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Kinder_Kids
+cd ..
+cd "Luna"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Luna
+cd ..
+cd "MOBAMA"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/MOBAMA
+cd ..
+cd "OberaConnect - Default Information"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/OberaConnect_Default
+cd ..
+cd "Parabilis"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Parabilis
+cd ..
+cd "Phoenix Surfaces"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Phoenix_Surfaces
+cd ..
+cd "Platinum Vacations"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Platinum_Vacations
+cd ..
+cd "Ravenite"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Ravenite
+cd ..
+cd "Sexton - RX Sport - Gym"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Sexton_RX_Sport
+cd ..
+cd "Souvenir City"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Souvenir_City
+cd ..
+cd "Termac Construction"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Termac_Construction
+cd ..
+cd "Tracery Inlet Beach"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Tracery_Inlet_Beach
+cd ..
+cd "Tracery Panama City Beach"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Tracery_Panama_City
+cd ..
+cd "Valve Quick"
+download-attachment * --out-dir /home/mavrick/Projects/Secondbrain/keeper_configs/Valve_Quick
+cd ..

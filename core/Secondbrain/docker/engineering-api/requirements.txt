@@ -1,0 +1,18 @@
+# Engineering API Container Requirements
+python-dotenv==1.2.1
+requests==2.32.5
+Flask==3.1.2
+gunicorn==21.2.0
+Flask-SocketIO==5.3.0 # Add Flask-SocketIO
+
+# Microsoft Graph API
+msal==1.31.0
+
+# Email sending
+sendgrid==6.11.0
+
+# Date/time handling
+python-dateutil==2.9.0.post0
+
+# AI for summaries
+anthropic==0.72.0

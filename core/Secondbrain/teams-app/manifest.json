@@ -1,0 +1,93 @@
+{
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.16/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.16",
+    "version": "2.0.0",
+    "id": "2527689c-fd5b-47d6-820c-45e4157f9a4f",
+    "packageName": "com.oberaconnect.engineering",
+    "developer": {
+        "name": "OberaConnect",
+        "websiteUrl": "https://oberaconnect.com",
+        "privacyUrl": "https://oberaconnect.com/privacy",
+        "termsOfUseUrl": "https://oberaconnect.com/terms"
+    },
+    "icons": {
+        "color": "color.png",
+        "outline": "outline.png"
+    },
+    "name": {
+        "short": "Engineering Hub",
+        "full": "OberaConnect Engineering Command Center"
+    },
+    "description": {
+        "short": "Project management and time tracking for engineering team",
+        "full": "A comprehensive project management platform for the OberaConnect engineering team. Features include:\n\n- Project tracking with Kanban boards\n- Task management linked to projects\n- Time tracking and billing reports\n- AI-powered business analytics\n- Quote generation for work estimation\n\nIntegrates with SharePoint Lists for data storage and Microsoft 365 for authentication."
+    },
+    "accentColor": "#0078D4",
+    "staticTabs": [
+        {
+            "entityId": "projects",
+            "name": "Projects",
+            "contentUrl": "https://jolly-island-06ade710f.3.azurestaticapps.net?tab=projects",
+            "websiteUrl": "https://jolly-island-06ade710f.3.azurestaticapps.net",
+            "scopes": ["personal", "team"]
+        },
+        {
+            "entityId": "taskboard",
+            "name": "Task Board",
+            "contentUrl": "https://jolly-island-06ade710f.3.azurestaticapps.net?tab=kanban",
+            "websiteUrl": "https://jolly-island-06ade710f.3.azurestaticapps.net",
+            "scopes": ["personal", "team"]
+        },
+        {
+            "entityId": "timereports",
+            "name": "Time Reports",
+            "contentUrl": "https://jolly-island-06ade710f.3.azurestaticapps.net?tab=timereports",
+            "websiteUrl": "https://jolly-island-06ade710f.3.azurestaticapps.net",
+            "scopes": ["personal", "team"]
+        },
+        {
+            "entityId": "todos",
+            "name": "To-Do List",
+            "contentUrl": "https://jolly-island-06ade710f.3.azurestaticapps.net?tab=todos",
+            "websiteUrl": "https://jolly-island-06ade710f.3.azurestaticapps.net",
+            "scopes": ["personal", "team"]
+        }
+    ],
+    "configurableTabs": [
+        {
+            "configurationUrl": "https://jolly-island-06ade710f.3.azurestaticapps.net/teams-config.html",
+            "canUpdateConfiguration": true,
+            "scopes": ["team", "groupchat"],
+            "sharePointPreviewImage": "https://jolly-island-06ade710f.3.azurestaticapps.net/preview.png",
+            "supportedSharePointHosts": ["sharePointFullPage", "sharePointWebPart"]
+        }
+    ],
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "validDomains": [
+        "jolly-island-06ade710f.3.azurestaticapps.net",
+        "oberaconnect.sharepoint.com",
+        "login.microsoftonline.com",
+        "graph.microsoft.com"
+    ],
+    "webApplicationInfo": {
+        "id": "2527689c-fd5b-47d6-820c-45e4157f9a4f",
+        "resource": "api://jolly-island-06ade710f.3.azurestaticapps.net/2527689c-fd5b-47d6-820c-45e4157f9a4f"
+    },
+    "authorization": {
+        "permissions": {
+            "resourceSpecific": [
+                {
+                    "name": "TeamSettings.Read.Group",
+                    "type": "Application"
+                },
+                {
+                    "name": "ChannelMessage.Read.Group",
+                    "type": "Application"
+                }
+            ]
+        }
+    }
+}

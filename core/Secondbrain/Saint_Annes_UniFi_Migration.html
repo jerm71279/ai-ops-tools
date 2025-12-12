@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Saint Annes - MikroTik to UDM-Pro Migration</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Saint Annes - MikroTik to UDM-Pro Migration</h1>
+</header>
+<h1
+id="saint-annes-terrance---mikrotik-to-unifi-dream-machine-pro-migration">Saint
+Annes Terrance - MikroTik to UniFi Dream Machine Pro Migration</h1>
+<p><strong>Source Device:</strong> MikroTik CCR2116-12G-4S+ (RouterOS
+7.17.2) <strong>Target Device:</strong> Ubiquiti Dream Machine Pro
+(UDM-Pro) <strong>Migration Date:</strong> 2025-12-08</p>
+<hr />
+<h2 id="pre-migration-checklist">Pre-Migration Checklist</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" />Backup current MikroTik
+config</label></li>
+<li><label><input type="checkbox" />Document current WAN settings from
+ISP</label></li>
+<li><label><input type="checkbox" />Verify UDM-Pro firmware is up to
+date</label></li>
+<li><label><input type="checkbox" />Plan maintenance window (recommend
+off-hours)</label></li>
+<li><label><input type="checkbox" />Have rollback plan
+ready</label></li>
+</ul>
+<hr />
+<h2 id="wan-configuration">WAN Configuration</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Setting</th>
+<th>MikroTik Value</th>
+<th>UniFi Setting</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>WAN Interface</td>
+<td>sfp-sfpplus1</td>
+<td>WAN1 (Port 9 SFP+ or Port 11 RJ45)</td>
+</tr>
+<tr class="even">
+<td>WAN IP</td>
+<td>12.77.61.170/30</td>
+<td>Static IP</td>
+</tr>
+<tr class="odd">
+<td>Gateway</td>
+<td>12.77.61.169</td>
+<td>Gateway</td>
+</tr>
+<tr class="even">
+<td>DNS</td>
+<td>9.9.9.9, 8.8.8.8</td>
+<td>Primary/Secondary DNS</td>
+</tr>
+</tbody>
+</table>
+<p><strong>UniFi Path:</strong> Settings &gt; Internet &gt; Primary
+(WAN1)</p>
+<hr />
+<h2 id="infrastructure-networks-create-first">Infrastructure Networks
+(Create First)</h2>
+<h3 id="network-1-management-vlan-1">Network 1: Management (VLAN 1)</h3>
+<pre><code>Name: MGMT
+VLAN ID: 1
+Gateway/Subnet: 192.168.10.1/23
+DHCP Range: 192.168.10.25 - 192.168.11.253
+DHCP DNS: 9.9.9.9, 8.8.8.8
+Purpose: Management</code></pre>
+<h3 id="network-2-general-lan-vlan-10">Network 2: General LAN (VLAN
+10)</h3>
+<pre><code>Name: LAN
+VLAN ID: 10
+Gateway/Subnet: 192.168.20.1/23
+DHCP Range: 192.168.20.10 - 192.168.21.250
+DHCP DNS: 9.9.9.9, 8.8.8.8
+Purpose: Corporate</code></pre>
+<h3 id="network-3-cameras-vlan-22">Network 3: Cameras (VLAN 22)</h3>
+<pre><code>Name: CAMERA
+VLAN ID: 22
+Gateway/Subnet: 10.11.12.1/24
+DHCP Range: 10.11.12.10 - 10.11.12.254
+DHCP DNS: 9.9.9.9, 8.8.8.8
+Purpose: IoT (isolate from other networks)</code></pre>
+<h3 id="network-4-guest-wifi-vlan-40">Network 4: Guest WiFi (VLAN
+40)</h3>
+<pre><code>Name: GUEST
+VLAN ID: 40
+Gateway/Subnet: 10.1.40.1/24
+DHCP Range: 10.1.40.20 - 10.1.40.254
+DHCP DNS: 9.9.9.9, 8.8.8.8
+Purpose: Guest
+Network Isolation: Enable</code></pre>
+<h3 id="network-5-corporate-vlan-50">Network 5: Corporate (VLAN 50)</h3>
+<pre><code>Name: CORP
+VLAN ID: 50
+Gateway/Subnet: 172.16.13.1/24
+DHCP Range: 172.16.13.10 - 172.16.13.254
+DHCP DNS: 9.9.9.9, 8.8.8.8
+Purpose: Corporate</code></pre>
+<hr />
+<h2 id="unit-networks-84-vlans">Unit Networks (84 VLANs)</h2>
+<p><strong>UniFi Path:</strong> Settings &gt; Networks &gt; Create
+New</p>
+<p><strong>Standard Settings for ALL Unit VLANs:</strong> - Purpose:
+Corporate - DHCP Mode: DHCP Server - DHCP DNS: 4.2.2.2, 8.8.8.8 - DHCP
+Lease Time: 86400 (1 day) - Network Isolation: Recommended (isolates
+units from each other)</p>
+<h3 id="building-1---units-101-116">Building 1 - Units 101-116</h3>
+<table>
+<thead>
+<tr class="header">
+<th>VLAN ID</th>
+<th>Network Name</th>
+<th>Gateway/Subnet</th>
+<th>DHCP Start</th>
+<th>DHCP Stop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>101</td>
+<td>Unit-101</td>
+<td>10.10.2.1/24</td>
+<td>10.10.2.10</td>
+<td>10.10.2.200</td>
+</tr>
+<tr class="even">
+<td>102</td>
+<td>Unit-102</td>
+<td>10.10.3.1/24</td>
+<td>10.10.3.10</td>
+<td>10.10.3.200</td>
+</tr>
+<tr class="odd">
+<td>103</td>
+<td>Unit-103</td>
+<td>10.10.4.1/24</td>
+<td>10.10.4.10</td>
+<td>10.10.4.200</td>
+</tr>
+<tr class="even">
+<td>104</td>
+<td>Unit-104</td>
+<td>10.10.5.1/24</td>
+<td>10.10.5.10</td>
+<td>10.10.5.200</td>
+</tr>
+<tr class="odd">
+<td>105</td>
+<td>Unit-105</td>
+<td>10.10.6.1/24</td>
+<td>10.10.6.10</td>
+<td>10.10.6.200</td>
+</tr>
+<tr class="even">
+<td>106</td>
+<td>Unit-106</td>
+<td>10.10.7.1/24</td>
+<td>10.10.7.10</td>
+<td>10.10.7.200</td>
+</tr>
+<tr class="odd">
+<td>107</td>
+<td>Unit-107</td>
+<td>10.10.8.1/24</td>
+<td>10.10.8.10</td>
+<td>10.10.8.200</td>
+</tr>
+<tr class="even">
+<td>108</td>
+<td>Unit-108</td>
+<td>10.10.9.1/24</td>
+<td>10.10.9.10</td>
+<td>10.10.9.200</td>
+</tr>
+<tr class="odd">
+<td>109</td>
+<td>Unit-109</td>
+<td>10.10.10.1/24</td>
+<td>10.10.10.10</td>
+<td>10.10.10.200</td>
+</tr>
+<tr class="even">
+<td>110</td>
+<td>Unit-110</td>
+<td>10.10.11.1/24</td>
+<td>10.10.11.10</td>
+<td>10.10.11.200</td>
+</tr>
+<tr class="odd">
+<td>112</td>
+<td>Unit-112</td>
+<td>10.10.12.1/24</td>
+<td>10.10.12.10</td>
+<td>10.10.12.200</td>
+</tr>
+<tr class="even">
+<td>114</td>
+<td>Unit-114</td>
+<td>10.10.13.1/24</td>
+<td>10.10.13.10</td>
+<td>10.10.13.200</td>
+</tr>
+<tr class="odd">
+<td>116</td>
+<td>Unit-116</td>
+<td>10.10.15.1/24</td>
+<td>10.10.15.10</td>
+<td>10.10.15.200</td>
+</tr>
+</tbody>
+</table>
+<h3 id="building-2---units-201-227">Building 2 - Units 201-227</h3>
+<table>
+<thead>
+<tr class="header">
+<th>VLAN ID</th>
+<th>Network Name</th>
+<th>Gateway/Subnet</th>
+<th>DHCP Start</th>
+<th>DHCP Stop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>201</td>
+<td>Unit-201</td>
+<td>10.10.16.1/24</td>
+<td>10.10.16.10</td>
+<td>10.10.16.200</td>
+</tr>
+<tr class="even">
+<td>202</td>
+<td>Unit-202</td>
+<td>10.10.17.1/24</td>
+<td>10.10.17.10</td>
+<td>10.10.17.200</td>
+</tr>
+<tr class="odd">
+<td>203</td>
+<td>Unit-203</td>
+<td>10.10.18.1/24</td>
+<td>10.10.18.10</td>
+<td>10.10.18.200</td>
+</tr>
+<tr class="even">
+<td>204</td>
+<td>Unit-204</td>
+<td>10.10.19.1/24</td>
+<td>10.10.19.10</td>
+<td>10.10.19.200</td>
+</tr>
+<tr class="odd">
+<td>205</td>
+<td>Unit-205</td>
+<td>10.10.20.1/24</td>
+<td>10.10.20.10</td>
+<td>10.10.20.200</td>
+</tr>
+<tr class="even">
+<td>206</td>
+<td>Unit-206</td>
+<td>10.10.21.1/24</td>
+<td>10.10.21.10</td>
+<td>10.10.21.200</td>
+</tr>
+<tr class="odd">
+<td>207</td>
+<td>Unit-207</td>
+<td>10.10.22.1/24</td>
+<td>10.10.22.10</td>
+<td>10.10.22.200</td>
+</tr>
+<tr class="even">
+<td>208</td>
+<td>Unit-208</td>
+<td>10.10.23.1/24</td>
+<td>10.10.23.10</td>
+<td>10.10.23.200</td>
+</tr>
+<tr class="odd">
+<td>209</td>
+<td>Unit-209</td>
+<td>10.10.24.1/24</td>
+<td>10.10.24.10</td>
+<td>10.10.24.200</td>
+</tr>
+<tr class="even">
+<td>210</td>
+<td>Unit-210</td>
+<td>10.10.25.1/24</td>
+<td>10.10.25.10</td>
+<td>10.10.25.200</td>
+</tr>
+<tr class="odd">
+<td>211</td>
+<td>Unit-211</td>
+<td>10.10.26.1/24</td>
+<td>10.10.26.10</td>
+<td>10.10.26.200</td>
+</tr>
+<tr class="even">
+<td>213</td>
+<td>Unit-213</td>
+<td>10.10.27.1/24</td>
+<td>10.10.27.10</td>
+<td>10.10.27.200</td>
+</tr>
+<tr class="odd">
+<td>214</td>
+<td>Unit-214</td>
+<td>10.10.28.1/24</td>
+<td>10.10.28.10</td>
+<td>10.10.28.200</td>
+</tr>
+<tr class="even">
+<td>216</td>
+<td>Unit-216</td>
+<td>10.10.29.1/24</td>
+<td>10.10.29.10</td>
+<td>10.10.29.200</td>
+</tr>
+<tr class="odd">
+<td>217</td>
+<td>Unit-217-Office</td>
+<td>10.10.30.1/24</td>
+<td>10.10.30.10</td>
+<td>10.10.30.200</td>
+</tr>
+<tr class="even">
+<td>218</td>
+<td>Unit-218</td>
+<td>10.10.31.1/24</td>
+<td>10.10.31.10</td>
+<td>10.10.31.200</td>
+</tr>
+<tr class="odd">
+<td>219</td>
+<td>Unit-219</td>
+<td>10.10.32.1/24</td>
+<td>10.10.32.10</td>
+<td>10.10.32.200</td>
+</tr>
+<tr class="even">
+<td>220</td>
+<td>Unit-220</td>
+<td>10.10.33.1/24</td>
+<td>10.10.33.10</td>
+<td>10.10.33.200</td>
+</tr>
+<tr class="odd">
+<td>221</td>
+<td>Unit-221</td>
+<td>10.10.34.1/24</td>
+<td>10.10.34.10</td>
+<td>10.10.34.200</td>
+</tr>
+<tr class="even">
+<td>223</td>
+<td>Unit-223</td>
+<td>10.10.35.1/24</td>
+<td>10.10.35.10</td>
+<td>10.10.35.200</td>
+</tr>
+<tr class="odd">
+<td>225</td>
+<td>Unit-225</td>
+<td>10.10.36.1/24</td>
+<td>10.10.36.10</td>
+<td>10.10.36.200</td>
+</tr>
+<tr class="even">
+<td>227</td>
+<td>Unit-227</td>
+<td>10.10.37.1/24</td>
+<td>10.10.37.10</td>
+<td>10.10.37.200</td>
+</tr>
+</tbody>
+</table>
+<h3 id="building-3---units-301-327">Building 3 - Units 301-327</h3>
+<table>
+<thead>
+<tr class="header">
+<th>VLAN ID</th>
+<th>Network Name</th>
+<th>Gateway/Subnet</th>
+<th>DHCP Start</th>
+<th>DHCP Stop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>301</td>
+<td>Unit-301</td>
+<td>10.10.38.1/24</td>
+<td>10.10.38.10</td>
+<td>10.10.38.200</td>
+</tr>
+<tr class="even">
+<td>302</td>
+<td>Unit-302</td>
+<td>10.10.39.1/24</td>
+<td>10.10.39.10</td>
+<td>10.10.39.200</td>
+</tr>
+<tr class="odd">
+<td>303</td>
+<td>Unit-303</td>
+<td>10.10.40.1/24</td>
+<td>10.10.40.10</td>
+<td>10.10.40.200</td>
+</tr>
+<tr class="even">
+<td>304</td>
+<td>Unit-304</td>
+<td>10.10.41.1/24</td>
+<td>10.10.41.10</td>
+<td>10.10.41.200</td>
+</tr>
+<tr class="odd">
+<td>305</td>
+<td>Unit-305</td>
+<td>10.10.42.1/24</td>
+<td>10.10.42.10</td>
+<td>10.10.42.200</td>
+</tr>
+<tr class="even">
+<td>306</td>
+<td>Unit-306</td>
+<td>10.10.43.1/24</td>
+<td>10.10.43.10</td>
+<td>10.10.43.200</td>
+</tr>
+<tr class="odd">
+<td>307</td>
+<td>Unit-307</td>
+<td>10.10.44.1/24</td>
+<td>10.10.44.10</td>
+<td>10.10.44.200</td>
+</tr>
+<tr class="even">
+<td>308</td>
+<td>Unit-308</td>
+<td>10.10.45.1/24</td>
+<td>10.10.45.10</td>
+<td>10.10.45.200</td>
+</tr>
+<tr class="odd">
+<td>309</td>
+<td>Unit-309</td>
+<td>10.10.46.1/24</td>
+<td>10.10.46.10</td>
+<td>10.10.46.200</td>
+</tr>
+<tr class="even">
+<td>310</td>
+<td>Unit-310</td>
+<td>10.10.47.1/24</td>
+<td>10.10.47.10</td>
+<td>10.10.47.200</td>
+</tr>
+<tr class="odd">
+<td>311</td>
+<td>Unit-311</td>
+<td>10.10.48.1/24</td>
+<td>10.10.48.10</td>
+<td>10.10.48.200</td>
+</tr>
+<tr class="even">
+<td>312</td>
+<td>Unit-312</td>
+<td>10.10.49.1/24</td>
+<td>10.10.49.10</td>
+<td>10.10.49.200</td>
+</tr>
+<tr class="odd">
+<td>313</td>
+<td>Unit-313</td>
+<td>10.10.50.1/24</td>
+<td>10.10.50.10</td>
+<td>10.10.50.200</td>
+</tr>
+<tr class="even">
+<td>314</td>
+<td>Unit-314</td>
+<td>10.10.51.1/24</td>
+<td>10.10.51.10</td>
+<td>10.10.51.200</td>
+</tr>
+<tr class="odd">
+<td>315</td>
+<td>Unit-315</td>
+<td>10.10.52.1/24</td>
+<td>10.10.52.10</td>
+<td>10.10.52.200</td>
+</tr>
+<tr class="even">
+<td>316</td>
+<td>Unit-316</td>
+<td>10.10.53.1/24</td>
+<td>10.10.53.10</td>
+<td>10.10.53.200</td>
+</tr>
+<tr class="odd">
+<td>317</td>
+<td>Unit-317</td>
+<td>10.10.54.1/24</td>
+<td>10.10.54.10</td>
+<td>10.10.54.200</td>
+</tr>
+<tr class="even">
+<td>318</td>
+<td>Unit-318</td>
+<td>10.10.55.1/24</td>
+<td>10.10.55.10</td>
+<td>10.10.55.200</td>
+</tr>
+<tr class="odd">
+<td>319</td>
+<td>Unit-319</td>
+<td>10.10.56.1/24</td>
+<td>10.10.56.10</td>
+<td>10.10.56.200</td>
+</tr>
+<tr class="even">
+<td>320</td>
+<td>Unit-320</td>
+<td>10.10.57.1/24</td>
+<td>10.10.57.10</td>
+<td>10.10.57.200</td>
+</tr>
+<tr class="odd">
+<td>321</td>
+<td>Unit-321</td>
+<td>10.10.58.1/24</td>
+<td>10.10.58.10</td>
+<td>10.10.58.200</td>
+</tr>
+<tr class="even">
+<td>323</td>
+<td>Unit-323</td>
+<td>10.10.59.1/24</td>
+<td>10.10.59.10</td>
+<td>10.10.59.200</td>
+</tr>
+<tr class="odd">
+<td>325</td>
+<td>Unit-325</td>
+<td>10.10.60.1/24</td>
+<td>10.10.60.10</td>
+<td>10.10.60.200</td>
+</tr>
+<tr class="even">
+<td>327</td>
+<td>Unit-327</td>
+<td>10.10.61.1/24</td>
+<td>10.10.61.10</td>
+<td>10.10.61.200</td>
+</tr>
+</tbody>
+</table>
+<h3 id="building-4---units-401-427">Building 4 - Units 401-427</h3>
+<table>
+<thead>
+<tr class="header">
+<th>VLAN ID</th>
+<th>Network Name</th>
+<th>Gateway/Subnet</th>
+<th>DHCP Start</th>
+<th>DHCP Stop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>401</td>
+<td>Unit-401</td>
+<td>10.10.62.1/24</td>
+<td>10.10.62.10</td>
+<td>10.10.62.200</td>
+</tr>
+<tr class="even">
+<td>402</td>
+<td>Unit-402</td>
+<td>10.10.63.1/24</td>
+<td>10.10.63.10</td>
+<td>10.10.63.200</td>
+</tr>
+<tr class="odd">
+<td>403</td>
+<td>Unit-403</td>
+<td>10.10.64.1/24</td>
+<td>10.10.64.10</td>
+<td>10.10.64.200</td>
+</tr>
+<tr class="even">
+<td>404</td>
+<td>Unit-404</td>
+<td>10.10.64.1/24</td>
+<td>10.10.64.10</td>
+<td>10.10.64.200</td>
+</tr>
+<tr class="odd">
+<td>405</td>
+<td>Unit-405</td>
+<td>10.10.65.1/24</td>
+<td>10.10.65.10</td>
+<td>10.10.65.200</td>
+</tr>
+<tr class="even">
+<td>406</td>
+<td>Unit-406</td>
+<td>10.10.106.1/24</td>
+<td>10.10.106.10</td>
+<td>10.10.106.200</td>
+</tr>
+<tr class="odd">
+<td>407</td>
+<td>Unit-407</td>
+<td>10.10.66.1/24</td>
+<td>10.10.66.10</td>
+<td>10.10.66.200</td>
+</tr>
+<tr class="even">
+<td>408</td>
+<td>Unit-408</td>
+<td>10.10.108.1/24</td>
+<td>10.10.108.10</td>
+<td>10.10.108.200</td>
+</tr>
+<tr class="odd">
+<td>409</td>
+<td>Unit-409</td>
+<td>10.10.68.1/24</td>
+<td>10.10.68.10</td>
+<td>10.10.68.200</td>
+</tr>
+<tr class="even">
+<td>410</td>
+<td>Unit-410</td>
+<td>10.10.69.1/24</td>
+<td>10.10.69.10</td>
+<td>10.10.69.200</td>
+</tr>
+<tr class="odd">
+<td>411</td>
+<td>Unit-411</td>
+<td>10.10.72.1/24</td>
+<td>10.10.72.10</td>
+<td>10.10.72.200</td>
+</tr>
+<tr class="even">
+<td>412</td>
+<td>Unit-412</td>
+<td>10.10.73.1/24</td>
+<td>10.10.73.10</td>
+<td>10.10.73.200</td>
+</tr>
+<tr class="odd">
+<td>413</td>
+<td>Unit-413</td>
+<td>10.10.113.1/24</td>
+<td>10.10.113.10</td>
+<td>10.10.113.200</td>
+</tr>
+<tr class="even">
+<td>414</td>
+<td>Unit-414</td>
+<td>10.10.75.1/24</td>
+<td>10.10.75.10</td>
+<td>10.10.75.200</td>
+</tr>
+<tr class="odd">
+<td>415</td>
+<td>Unit-415</td>
+<td>10.10.76.1/24</td>
+<td>10.10.76.10</td>
+<td>10.10.76.200</td>
+</tr>
+<tr class="even">
+<td>416</td>
+<td>Unit-416</td>
+<td>10.10.77.1/24</td>
+<td>10.10.77.10</td>
+<td>10.10.77.200</td>
+</tr>
+<tr class="odd">
+<td>417</td>
+<td>Unit-417</td>
+<td>10.10.78.1/24</td>
+<td>10.10.78.10</td>
+<td>10.10.78.200</td>
+</tr>
+<tr class="even">
+<td>418</td>
+<td>Unit-418</td>
+<td>10.10.79.1/24</td>
+<td>10.10.79.10</td>
+<td>10.10.79.200</td>
+</tr>
+<tr class="odd">
+<td>419</td>
+<td>Unit-419</td>
+<td>10.10.80.1/24</td>
+<td>10.10.80.10</td>
+<td>10.10.80.200</td>
+</tr>
+<tr class="even">
+<td>420</td>
+<td>Unit-420</td>
+<td>10.10.81.1/24</td>
+<td>10.10.81.10</td>
+<td>10.10.81.200</td>
+</tr>
+<tr class="odd">
+<td>421</td>
+<td>Unit-421</td>
+<td>10.10.82.1/24</td>
+<td>10.10.82.10</td>
+<td>10.10.82.200</td>
+</tr>
+<tr class="even">
+<td>423</td>
+<td>Unit-423</td>
+<td>10.10.83.1/24</td>
+<td>10.10.83.10</td>
+<td>10.10.83.200</td>
+</tr>
+<tr class="odd">
+<td>425</td>
+<td>Unit-425</td>
+<td>10.10.84.1/24</td>
+<td>10.10.84.10</td>
+<td>10.10.84.200</td>
+</tr>
+<tr class="even">
+<td>427</td>
+<td>Unit-427</td>
+<td>10.10.85.1/24</td>
+<td>10.10.85.10</td>
+<td>10.10.85.200</td>
+</tr>
+</tbody>
+</table>
+<h3 id="building-5---units-509-527">Building 5 - Units 509-527</h3>
+<table>
+<thead>
+<tr class="header">
+<th>VLAN ID</th>
+<th>Network Name</th>
+<th>Gateway/Subnet</th>
+<th>DHCP Start</th>
+<th>DHCP Stop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>509</td>
+<td>Unit-509</td>
+<td>10.10.86.1/24</td>
+<td>10.10.86.10</td>
+<td>10.10.86.200</td>
+</tr>
+<tr class="even">
+<td>510</td>
+<td>Unit-510</td>
+<td>10.10.87.1/24</td>
+<td>10.10.87.10</td>
+<td>10.10.87.200</td>
+</tr>
+<tr class="odd">
+<td>511</td>
+<td>Unit-511</td>
+<td>10.10.88.1/24</td>
+<td>10.10.88.10</td>
+<td>10.10.88.200</td>
+</tr>
+<tr class="even">
+<td>512</td>
+<td>Unit-512</td>
+<td>10.10.89.1/24</td>
+<td>10.10.89.10</td>
+<td>10.10.89.200</td>
+</tr>
+<tr class="odd">
+<td>513</td>
+<td>Unit-513</td>
+<td>10.10.90.1/24</td>
+<td>10.10.90.10</td>
+<td>10.10.90.200</td>
+</tr>
+<tr class="even">
+<td>514</td>
+<td>Unit-514</td>
+<td>10.10.91.1/24</td>
+<td>10.10.91.10</td>
+<td>10.10.91.200</td>
+</tr>
+<tr class="odd">
+<td>515</td>
+<td>Unit-515</td>
+<td>10.10.92.1/24</td>
+<td>10.10.92.10</td>
+<td>10.10.92.200</td>
+</tr>
+<tr class="even">
+<td>516</td>
+<td>Unit-516</td>
+<td>10.10.93.1/24</td>
+<td>10.10.93.10</td>
+<td>10.10.93.200</td>
+</tr>
+<tr class="odd">
+<td>517</td>
+<td>Unit-517</td>
+<td>10.10.94.1/24</td>
+<td>10.10.94.10</td>
+<td>10.10.94.200</td>
+</tr>
+<tr class="even">
+<td>518</td>
+<td>Unit-518</td>
+<td>10.10.95.1/24</td>
+<td>10.10.95.10</td>
+<td>10.10.95.200</td>
+</tr>
+<tr class="odd">
+<td>519</td>
+<td>Unit-519</td>
+<td>10.10.96.1/24</td>
+<td>10.10.96.10</td>
+<td>10.10.96.200</td>
+</tr>
+<tr class="even">
+<td>520</td>
+<td>Unit-520</td>
+<td>10.10.97.1/24</td>
+<td>10.10.97.10</td>
+<td>10.10.97.200</td>
+</tr>
+<tr class="odd">
+<td>521</td>
+<td>Unit-521</td>
+<td>10.10.98.1/24</td>
+<td>10.10.98.10</td>
+<td>10.10.98.200</td>
+</tr>
+<tr class="even">
+<td>523</td>
+<td>Unit-523</td>
+<td>10.10.99.1/24</td>
+<td>10.10.99.10</td>
+<td>10.10.99.200</td>
+</tr>
+<tr class="odd">
+<td>525</td>
+<td>Unit-525</td>
+<td>10.10.100.1/24</td>
+<td>10.10.100.10</td>
+<td>10.10.100.200</td>
+</tr>
+<tr class="even">
+<td>527</td>
+<td>Unit-527</td>
+<td>10.10.101.1/24</td>
+<td>10.10.101.10</td>
+<td>10.10.101.200</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="port-forwarding-rules">Port Forwarding Rules</h2>
+<p><strong>UniFi Path:</strong> Settings &gt; Firewall &amp; Security
+&gt; Port Forwarding</p>
+<h3 id="stamp-machine-unit-217">Stamp Machine (Unit 217)</h3>
+<pre><code>Name: Stamp-Machine-HTTP
+Forward Rule: WAN &gt; 10.10.30.10
+Port: 80
+Protocol: TCP
+
+Name: Stamp-Machine-HTTPS
+Forward Rule: WAN &gt; 10.10.30.10
+Port: 443
+Protocol: TCP
+
+Name: Stamp-Machine-DNS
+Forward Rule: WAN &gt; 10.10.30.10
+Port: 53
+Protocol: TCP
+
+Name: Stamp-Machine-8080
+Forward Rule: WAN &gt; 10.10.30.10
+Port: 8080
+Protocol: TCP
+
+Name: Stamp-Machine-2000
+Forward Rule: WAN &gt; 10.10.30.10
+Port: 2000
+Protocol: TCP
+
+Name: Stamp-Machine-5228
+Forward Rule: WAN &gt; 10.10.30.10
+Port: 5228
+Protocol: TCP
+
+Name: Stamp-Machine-5938
+Forward Rule: WAN &gt; 10.10.30.10
+Port: 5938
+Protocol: TCP</code></pre>
+<hr />
+<h2 id="static-dhcp-reservations">Static DHCP Reservations</h2>
+<p><strong>UniFi Path:</strong> Settings &gt; Networks &gt; [Network]
+&gt; DHCP &gt; Static IP Settings</p>
+<h3 id="mgmt-network">MGMT Network</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>MAC Address</th>
+<th>IP Address</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Device-1</td>
+<td>84:47:09:17:0A:DB</td>
+<td>192.168.11.98</td>
+</tr>
+</tbody>
+</table>
+<h3 id="unit-217-office-network">Unit-217-Office Network</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>MAC Address</th>
+<th>IP Address</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Stamp-Machine</td>
+<td>54:EF:92:D2:3D:8E</td>
+<td>10.10.30.10</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="firewall-rules">Firewall Rules</h2>
+<p><strong>UniFi Path:</strong> Settings &gt; Firewall &amp; Security
+&gt; Firewall Rules</p>
+<h3 id="wan-in---block-common-attack-ports">WAN In - Block Common Attack
+Ports</h3>
+<pre><code>Rule: Block-Dangerous-TCP
+Action: Drop
+Type: WAN In
+Protocol: TCP
+Destination Port: 21,22,23,80,443,2000,8080</code></pre>
+<pre><code>Rule: Block-Dangerous-UDP
+Action: Drop
+Type: WAN In
+Protocol: UDP
+Destination Port: 53,123,161</code></pre>
+<h3 id="inter-vlan-traffic-optional---for-unit-isolation">Inter-VLAN
+Traffic (Optional - for unit isolation)</h3>
+<pre><code>Rule: Block-Unit-to-Unit
+Action: Drop
+Type: LAN In
+Source: All Unit Networks (10.10.0.0/16)
+Destination: All Unit Networks (10.10.0.0/16)
+Note: Allows each unit internet but blocks unit-to-unit</code></pre>
+<hr />
+<h2 id="switch-port-configuration">Switch Port Configuration</h2>
+<p><strong>UDM-Pro has 8x 1G LAN + 1x 10G SFP+ LAN + 2x 10G SFP+
+WAN</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Port</th>
+<th>Assignment</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Port 1-8</td>
+<td>LAN (1G RJ45)</td>
+<td>Available for devices/switches</td>
+</tr>
+<tr class="even">
+<td>Port 9</td>
+<td>WAN1 (10G SFP+)</td>
+<td>Primary Internet</td>
+</tr>
+<tr class="odd">
+<td>Port 10</td>
+<td>LAN (10G SFP+)</td>
+<td>Uplink to main switch (trunk)</td>
+</tr>
+<tr class="even">
+<td>Port 11</td>
+<td>WAN2 (1G RJ45)</td>
+<td>Backup Internet / Failover</td>
+</tr>
+</tbody>
+</table>
+<p><strong>UniFi Path:</strong> UniFi Devices &gt; UDM-Pro &gt; Ports
+&gt; Configure</p>
+<p>For trunk port (all VLANs): - Port Profile: All - Native Network:
+MGMT (or LAN)</p>
+<hr />
+<h2 id="migration-steps">Migration Steps</h2>
+<h3 id="phase-1-preparation">Phase 1: Preparation</h3>
+<ol type="1">
+<li>Export MikroTik config backup</li>
+<li>Document all current DHCP leases</li>
+<li>Update UDM-Pro firmware</li>
+<li>Pre-configure all networks in UniFi (can do while MikroTik is
+live)</li>
+</ol>
+<h3 id="phase-2-network-creation-do-in-unifi-before-cutover">Phase 2:
+Network Creation (Do in UniFi before cutover)</h3>
+<ol type="1">
+<li>Create all 5 infrastructure networks</li>
+<li>Create all 84 unit networks</li>
+<li>Configure DHCP settings for each</li>
+<li>Create firewall rules</li>
+<li>Create port forwarding rules</li>
+<li>Add static DHCP reservations</li>
+</ol>
+<h3 id="phase-3-cutover">Phase 3: Cutover</h3>
+<ol type="1">
+<li>Schedule maintenance window</li>
+<li>Disconnect MikroTik WAN</li>
+<li>Connect UDM-Pro WAN (Port 9 SFP+ or Port 11 RJ45)</li>
+<li>Configure WAN static IP</li>
+<li>Connect trunk port to switch</li>
+<li>Verify connectivity per-VLAN</li>
+<li>Test stamp machine port forwards</li>
+<li>Monitor for issues</li>
+</ol>
+<h3 id="phase-4-validation">Phase 4: Validation</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />All units have internet</label></li>
+<li><label><input type="checkbox" />Stamp machine accessible
+externally</label></li>
+<li><label><input type="checkbox" />Cameras on correct VLAN</label></li>
+<li><label><input type="checkbox" />Guest network isolated</label></li>
+<li><label><input type="checkbox" />Management access
+working</label></li>
+</ul>
+<hr />
+<h2 id="important-considerations">Important Considerations</h2>
+<h3 id="udm-pro-capabilities">UDM-Pro Capabilities</h3>
+<ul>
+<li><strong>Max Networks:</strong> 100+ networks supported (89 is within
+capacity)</li>
+<li><strong>Performance:</strong> 3.5 Gbps IDS/IPS, 10 Gbps routing</li>
+<li><strong>Memory:</strong> 4GB RAM - handles complex configs well</li>
+<li><strong>Bonus:</strong> Built-in UniFi Protect NVR slot
+(optional)</li>
+</ul>
+<h3 id="alternative-keep-vlans-on-existing-switch">Alternative: Keep
+VLANs on Existing Switch</h3>
+<p>If UDM-Pro struggles with 89 VLANs, consider: 1. Use UDM-Pro for
+routing/firewall only 2. Keep VLAN configuration on managed switch 3.
+UDM-Pro handles WAN, NAT, DHCP for core networks only</p>
+<h3 id="recommendations">Recommendations</h3>
+<ol type="1">
+<li><strong>Test with subset first</strong> - Create 10-15 VLANs, verify
+stability</li>
+<li><strong>Monitor memory/CPU</strong> - Check after adding all
+networks</li>
+<li><strong>Consider UniFi Enterprise</strong> - If performance issues,
+UXG-Pro handles more</li>
+<li><strong>Batch creation</strong> - Use UniFi API to create networks
+faster</li>
+</ol>
+<hr />
+<h2 id="unifi-api-bulk-network-creation-optional">UniFi API Bulk Network
+Creation (Optional)</h2>
+<p>For faster setup, use the UniFi API. Python script available upon
+request to automate network creation.</p>
+<hr />
+<h2 id="rollback-plan">Rollback Plan</h2>
+<p>If migration fails: 1. Disconnect UDM-Pro 2. Reconnect MikroTik 3.
+Verify all services restored 4. Document issues encountered 5. Plan
+remediation</p>
+<hr />
+<p><em>Generated by OberaConnect | 2025-12-08</em></p>
+</body>
+</html>

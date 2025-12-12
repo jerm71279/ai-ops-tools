@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 black mypy
+      
+      - name: Lint with flake8
+        run: |
+          flake8 lib/ workflows/ --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 lib/ workflows/ --count --exit-zero --max-complexity=10 --max-line-length=100 --statistics
+      
+      - name: Check formatting with black
+        run: |
+          black --check lib/ workflows/ || echo "Formatting issues found"
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      
+      - name: Test imports
+        run: |
+          python -c "from lib import AIProvider, ClaudeCLI, GeminiCLI, FaraCLI"
+          python -c "from lib import Pipeline, PipelineBuilder"
+          python -c "from workflows import list_available_workflows"
+      
+      - name: Run tests
+        run: |
+          pytest tests/ -v --cov=lib --cov-report=xml || echo "No tests yet"
+
+  validate-workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install package
+        run: pip install -e .
+      
+      - name: Validate workflow definitions
+        run: |
+          python -c "
+          from workflows import list_available_workflows, get_workflow
+          
+          workflows = list_available_workflows()
+          print(f'Found {len(workflows)} workflows:')
+          for name, desc in workflows.items():
+              print(f'  - {name}: {desc}')
+          "

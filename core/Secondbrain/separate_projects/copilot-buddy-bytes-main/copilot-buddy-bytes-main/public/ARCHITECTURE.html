@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OberaConnect Platform Architecture</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        @media print {
+            @page {
+                margin: 0.5in;
+                size: landscape;
+            }
+            
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+            
+            h1, h2 {
+                page-break-after: avoid;
+            }
+            
+            pre, .mermaid {
+                page-break-inside: avoid;
+            }
+            
+            .mermaid {
+                min-height: auto;
+                page-break-before: always;
+                padding: 20px;
+            }
+            
+            .zoom-controls {
+                display: none;
+            }
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        
+        h1 {
+            color: #8b5cf6;
+            border-bottom: 3px solid #8b5cf6;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 2.5em;
+        }
+        
+        h2 {
+            color: #6d28d9;
+            border-bottom: 2px solid #e9d5ff;
+            padding-bottom: 8px;
+            margin-top: 2em;
+            font-size: 1.8em;
+        }
+        
+        h3 {
+            color: #7c3aed;
+            margin-top: 1.5em;
+            font-size: 1.4em;
+        }
+        
+        h4 {
+            color: #8b5cf6;
+            margin-top: 1.2em;
+            font-size: 1.2em;
+        }
+        
+        code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+        
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+        
+        .mermaid {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            margin: 30px 0;
+            min-height: 1200px;
+            overflow: visible;
+        }
+        
+        .mermaid svg {
+            max-width: 100% !important;
+            height: auto !important;
+            min-height: 1000px;
+        }
+        
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin: 5px 0;
+        }
+        
+        strong {
+            color: #6d28d9;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background: #f3f4f6;
+            font-weight: 600;
+        }
+        
+        .metadata {
+            background: #f9fafb;
+            border-left: 4px solid #8b5cf6;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .architecture-layer {
+            background: #faf5ff;
+            border-left: 4px solid #8b5cf6;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .note {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+        
+        .zoom-controls {
+            position: sticky;
+            top: 20px;
+            right: 20px;
+            float: right;
+            z-index: 1000;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .zoom-btn {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 0 4px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        
+        .zoom-btn:hover {
+            background: #7c3aed;
+        }
+        
+        .diagram-container {
+            position: relative;
+            width: 100%;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🏛️ OberaConnect Platform Architecture</h1>
+    
+    <div class="metadata">
+        <strong>Document Version:</strong> 1.0<br>
+        <strong>Last Updated:</strong> October 2025<br>
+        <strong>Platform Completion:</strong> 88%<br>
+        <strong>Status:</strong> Production-Ready MVP
+    </div>
+
+    <h2>System Overview</h2>
+    <p>OberaConnect is a multi-tenant SaaS platform built on a modular, clause-aware architecture that separates concerns across customer management, department operations, integrations, and AI capabilities.</p>
+
+    <h3>Complete System Architecture</h3>
+    
+    <div class="zoom-controls">
+        <button class="zoom-btn" onclick="zoomDiagram(1.2)">Zoom In</button>
+        <button class="zoom-btn" onclick="zoomDiagram(0.8)">Zoom Out</button>
+        <button class="zoom-btn" onclick="resetZoom()">Reset</button>
+        <button class="zoom-btn" onclick="window.print()">Print</button>
+    </div>
+    
+    <div class="diagram-container">
+        <div class="mermaid" id="mainDiagram">
+graph TB
+    subgraph "Frontend Layer (React + Vite)"
+        Landing[Landing Page]
+        Portal[Employee Portal]
+        
+        subgraph "Department Dashboards"
+            ExecDash[Executive Dashboard]
+            ITDash[IT Dashboard]
+            HRDash[HR Dashboard]
+            SalesDash[Sales Dashboard]
+            FinDash[Finance Dashboard]
+            OpsDash[Operations Dashboard]
+            SOCDash[SOC Dashboard]
+            CompDash[Compliance Dashboard]
+        end
+        
+        subgraph "Admin & Tools"
+            AdminDash[Admin Dashboard]
+            AppAdmin[Applications Admin]
+            WorkflowUI[Workflow Builder UI]
+            KnowledgeUI[Knowledge Base UI]
+            IntegUI[Integrations UI]
+        end
+        
+        subgraph "AI Features"
+            AIAssist[Department AI Assistant]
+            IntAssist[Intelligent Assistant]
+            MCPGen[MCP Generator UI]
+        end
+    end
+    
+    subgraph "Edge Functions Layer (Lovable Cloud)"
+        DeptAssist[department-assistant]
+        MCPServer[mcp-server]
+        WorkflowExec[workflow-executor]
+        WorkflowHook[workflow-webhook]
+        RevioData[revio-data]
+        GraphAPI[graph-api]
+        SharePointSync[sharepoint-sync]
+        KnowProc[knowledge-processor]
+        IntellAssist[intelligent-assistant]
+        AIMCPGen[ai-mcp-generator]
+        WorkflowInsights[workflow-insights]
+    end
+    
+    subgraph "Lovable Cloud Backend"
+        Auth[Supabase Auth]
+        
+        subgraph "Core Tables"
+            Users[user_profiles]
+            Customers[customers]
+            Roles[roles + user_roles]
+            Apps[applications]
+        end
+        
+        subgraph "Integration Data"
+            Integrations[integrations]
+            IntegCreds[integration_credentials]
+            OnboardData[client_onboardings]
+        end
+        
+        subgraph "Workflow System"
+            Workflows[workflows]
+            WorkflowSteps[workflow_steps]
+            WorkflowExecs[workflow_executions]
+            WorkflowTriggers[workflow_triggers]
+        end
+        
+        subgraph "AI & Knowledge"
+            AIInteract[ai_interactions]
+            KnowArticles[knowledge_articles]
+            KnowFiles[knowledge_files]
+            MLInsights[ml_insights]
+        end
+        
+        subgraph "MCP System"
+            MCPServers[mcp_servers]
+            MCPTools[mcp_tools]
+            MCPLogs[mcp_execution_logs]
+        end
+        
+        subgraph "Compliance"
+            CompFrameworks[compliance_frameworks]
+            CompControls[compliance_controls]
+            CompReports[compliance_reports]
+            AuditLogs[audit_logs]
+        end
+        
+        RLS[Row Level Security]
+    end
+    
+    subgraph "External Systems"
+        M365[Microsoft 365]
+        SharePoint[SharePoint]
+        Revio[Revio Billing]
+        LovableAI[Lovable AI]
+    end
+    
+    Portal --> DeptAssist
+    AIAssist --> DeptAssist
+    WorkflowUI --> WorkflowExec
+    SalesDash --> RevioData
+    ITDash --> GraphAPI
+    DeptAssist --> AIInteract
+    WorkflowExec --> WorkflowExecs
+    GraphAPI --> M365
+    SharePointSync --> SharePoint
+    RevioData --> Revio
+    DeptAssist --> LovableAI
+    Auth --> Users
+    RLS --> Auth
+    Users --> Customers
+    
+    style Landing fill:#8b5cf6,stroke:#7c3aed,color:#fff
+    style Portal fill:#8b5cf6,stroke:#7c3aed,color:#fff
+    style Auth fill:#10b981,stroke:#059669,color:#fff
+    style RLS fill:#ef4444,stroke:#dc2626,color:#fff
+    style LovableAI fill:#f59e0b,stroke:#d97706,color:#fff
+    style M365 fill:#0078d4,stroke:#106ebe,color:#fff
+    style Revio fill:#3b82f6,stroke:#2563eb,color:#fff
+    </div>
+    </div>
+
+    <div class="architecture-layer">
+        <strong>Architecture Layers:</strong>
+        <ol>
+            <li><strong>Frontend Layer (Purple):</strong> 8 department-specific dashboards, employee portal, admin tools, and AI features built in React with Vite</li>
+            <li><strong>Edge Functions Layer:</strong> 11 serverless functions handling AI assistants, workflows, integrations, and external API connections</li>
+            <li><strong>Backend Layer (Green/Red):</strong> Lovable Cloud (Supabase) with 50+ tables organized into core user data, workflows, AI/knowledge, MCP tools, compliance tracking, and integrations</li>
+            <li><strong>External Systems:</strong> Microsoft 365, SharePoint, Revio billing, and Lovable AI for LLM capabilities</li>
+        </ol>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>🎨 Architectural Principles</h2>
+
+    <h3>1. Modular Design</h3>
+    <p>Each subsystem is independently testable, replaceable, and documented:</p>
+    <ul>
+        <li><strong>Authentication Module:</strong> User signup, login, session management</li>
+        <li><strong>Customization Module:</strong> Per-customer branding and feature toggles</li>
+        <li><strong>Dashboard Module:</strong> Department-specific views and data</li>
+        <li><strong>Integration Module:</strong> External system connections</li>
+        <li><strong>AI Module:</strong> Department assistants and MCP server integration</li>
+    </ul>
+
+    <h3>2. Data Isolation</h3>
+    <ul>
+        <li><strong>Row Level Security (RLS):</strong> All tables enforce customer/user isolation</li>
+        <li><strong>Department-Based Access:</strong> Users see only their department's data</li>
+        <li><strong>Customer Customization:</strong> UI adapts per customer without code changes</li>
+    </ul>
+
+    <h3>3. Strategic Ownership</h3>
+    <p>Design decisions remain with OberaConnect leadership:</p>
+    <ul>
+        <li>Schema structure (customer → profiles → customizations)</li>
+        <li>Department role definitions</li>
+        <li>Integration mapping logic</li>
+        <li>AI assistant behavior</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <h2>🗄️ Database Architecture</h2>
+
+    <h3>Schema Overview</h3>
+    <pre><code>┌─────────────────┐
+│   customers     │ (root entity)
+├─────────────────┤
+│ id              │
+│ company_name    │
+│ plan            │
+│ status          │
+└────────┬────────┘
+         │
+         ├──────────────────┬──────────────────┐
+         │                  │                  │
+┌────────▼────────┐  ┌──────▼──────────┐  ┌──▼──────────────────┐
+│ user_profiles   │  │ customer_       │  │ integrations        │
+│                 │  │ customizations  │  │                     │
+├─────────────────┤  ├─────────────────┤  ├─────────────────────┤
+│ user_id         │  │ customer_id     │  │ customer_id         │
+│ customer_id     │  │ company_logo    │  │ system_name         │
+│ full_name       │  │ primary_color   │  │ integration_type    │
+│ department      │  │ secondary_color │  │ status              │
+│ role            │  │ accent_color    │  │ auth_method         │
+└─────────────────┘  └─────────────────┘  └─────────────────────┘</code></pre>
+
+    <h3>Key Tables</h3>
+
+    <h4>customers</h4>
+    <p>Root entity representing client organizations.</p>
+    <ul>
+        <li><strong>Primary Key:</strong> id (UUID)</li>
+        <li><strong>Fields:</strong> company_name, contact_email, plan, status</li>
+        <li><strong>RLS Policy:</strong> Admin-only access for management</li>
+    </ul>
+
+    <h4>user_profiles</h4>
+    <p>User accounts linked to customers with department roles.</p>
+    <ul>
+        <li><strong>Primary Key:</strong> id (UUID)</li>
+        <li><strong>Foreign Keys:</strong> user_id → auth.users, customer_id → customers</li>
+        <li><strong>Department Types:</strong> admin, compliance, it, operations, hr, finance, sales, executive</li>
+        <li><strong>RLS Policy:</strong> Users can only view their own profile</li>
+    </ul>
+
+    <h4>customer_customizations</h4>
+    <p>Per-customer UI and feature configuration.</p>
+    <ul>
+        <li><strong>Primary Key:</strong> id (UUID)</li>
+        <li><strong>Foreign Key:</strong> customer_id → customers</li>
+        <li><strong>Branding:</strong> company_logo_url, primary_color, secondary_color, accent_color</li>
+        <li><strong>Features:</strong> enabled_integrations[], enabled_features[]</li>
+        <li><strong>Layout:</strong> default_dashboard, dashboard_layout (JSONB)</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <h2>🧩 Frontend Architecture</h2>
+
+    <h3>Component Hierarchy</h3>
+    <pre><code>App.tsx (Root)
+├── Navigation (Global)
+├── Routes
+│   ├── Index (Landing)
+│   │   ├── Hero
+│   │   ├── Features
+│   │   ├── Integrations
+│   │   ├── Testimonials
+│   │   ├── Pricing
+│   │   └── Footer
+│   │
+│   ├── Auth (Login/Signup)
+│   │
+│   ├── Portal (Employee Portal)
+│   │
+│   ├── AdminDashboard
+│   │   ├── MCPServerStatus
+│   │   └── Customer Table
+│   │
+│   └── [Department]Dashboard
+│       ├── Stats Cards
+│       ├── Department-Specific Widgets
+│       └── DepartmentAIAssistant
+│
+└── Toaster, Sonner (Notifications)</code></pre>
+
+    <h3>State Management</h3>
+    
+    <h4>TanStack Query (React Query)</h4>
+    <ul>
+        <li>Async state management for backend data</li>
+        <li>Automatic caching and revalidation</li>
+        <li>Query client configured in App.tsx</li>
+    </ul>
+
+    <h4>Custom Hooks</h4>
+    <ul>
+        <li><strong>useCustomerCustomization:</strong> Fetches and applies customer-specific UI settings</li>
+        <li><strong>useDemoMode:</strong> Detects preview/demo environment</li>
+        <li><strong>useRevioData:</strong> Fetches billing and revenue data</li>
+    </ul>
+
+    <h3>Routing Strategy</h3>
+    <p><strong>React Router v6</strong> with role-based access:</p>
+    <ul>
+        <li><code>/</code> → Landing page (public)</li>
+        <li><code>/auth</code> → Authentication (public)</li>
+        <li><code>/portal</code> → Employee portal (authenticated)</li>
+        <li><code>/admin</code> → Admin dashboard (admin role)</li>
+        <li><code>/dashboard/:department</code> → Department dashboards (role-based)</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <h2>🎨 Design System</h2>
+
+    <h3>Token-Based Styling</h3>
+    <p>All colors defined as HSL semantic tokens in <code>src/index.css</code>:</p>
+    <pre><code>:root {
+  --primary: [HSL];
+  --secondary: [HSL];
+  --accent: [HSL];
+  --background: [HSL];
+  --foreground: [HSL];
+}</code></pre>
+
+    <h3>Customization Flow</h3>
+    <ol>
+        <li>User signs up → customer_customizations record created</li>
+        <li>useCustomerCustomization hook loads on dashboard mount</li>
+        <li>Hook applies CSS variables: <code>document.documentElement.style.setProperty()</code></li>
+        <li>All components automatically reflect custom colors</li>
+    </ol>
+
+    <h2>🔌 Integration Architecture</h2>
+
+    <h3>Integration Types</h3>
+    <ol>
+        <li><strong>Billing & Revenue:</strong> OneBill, Revio</li>
+        <li><strong>Cloud & Identity:</strong> Microsoft 365, Azure</li>
+        <li><strong>Security:</strong> SonicWall, UniFi, MikroTik</li>
+        <li><strong>RMM & Infrastructure:</strong> NinjaOne</li>
+        <li><strong>Cybersecurity:</strong> Threatdown, OpenText</li>
+    </ol>
+
+    <div class="page-break"></div>
+
+    <h2>🤖 AI Architecture</h2>
+
+    <h3>Department AI Assistants</h3>
+    <p>Each department has a specialized AI assistant:</p>
+    <ul>
+        <li><strong>Component:</strong> DepartmentAIAssistant.tsx</li>
+        <li><strong>Backend:</strong> supabase/functions/department-assistant/index.ts</li>
+        <li><strong>Models:</strong> Lovable AI (Gemini, GPT variants)</li>
+    </ul>
+
+    <h3>MCP Server Integration</h3>
+    <p><strong>Model Context Protocol</strong> for advanced AI capabilities:</p>
+    <ul>
+        <li><strong>Registry:</strong> mcp_servers table tracks available servers</li>
+        <li><strong>Status Component:</strong> MCPServerStatus.tsx shows health</li>
+        <li><strong>Edge Function:</strong> supabase/functions/mcp-server/index.ts</li>
+        <li><strong>Capabilities:</strong> Tool execution, structured outputs, multi-step reasoning</li>
+    </ul>
+
+    <h3>Universal Workflow Engine</h3>
+    <p><strong>Advanced workflow automation with visual builder:</strong></p>
+    <ul>
+        <li><strong>Visual Builder:</strong> WorkflowBuilder.tsx - drag-and-drop step configuration</li>
+        <li><strong>Trigger Management:</strong> WebHook, schedule, event-based triggers</li>
+        <li><strong>Execution History:</strong> Real-time status and logs</li>
+        <li><strong>Edge Functions:</strong> workflow-executor, workflow-webhook</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <h2>🔐 Security Architecture</h2>
+
+    <h3>Authentication Flow</h3>
+    <pre><code>User → Supabase Auth → Session Token → RLS Policies → Data Access</code></pre>
+
+    <h3>Row Level Security (RLS)</h3>
+    <p>Every table has policies enforcing:</p>
+    <ul>
+        <li><strong>Customer Isolation:</strong> Users see only their customer's data</li>
+        <li><strong>Role-Based Access:</strong> Department-specific data filtering</li>
+        <li><strong>Admin Override:</strong> Admins can view all customers (for management)</li>
+    </ul>
+
+    <h2>🚀 Deployment Architecture</h2>
+
+    <h3>Lovable Cloud Platform</h3>
+    <ul>
+        <li><strong>Frontend:</strong> Deployed via Lovable (CDN + edge caching)</li>
+        <li><strong>Backend:</strong> Supabase (Postgres + Edge Functions)</li>
+        <li><strong>Static Assets:</strong> Bundled with Vite, served from CDN</li>
+    </ul>
+
+    <h3>Edge Functions</h3>
+    <p><strong>Available Edge Functions (11 Total):</strong></p>
+    <ol>
+        <li><strong>department-assistant:</strong> Department-specific AI chat</li>
+        <li><strong>mcp-server:</strong> Model Context Protocol execution</li>
+        <li><strong>workflow-executor:</strong> Multi-step workflow orchestration</li>
+        <li><strong>workflow-webhook:</strong> Webhook trigger endpoint</li>
+        <li><strong>revio-data:</strong> Billing & revenue data</li>
+        <li><strong>graph-api:</strong> Microsoft 365 integration</li>
+        <li><strong>sharepoint-sync:</strong> Document synchronization</li>
+        <li><strong>knowledge-processor:</strong> AI knowledge base processing</li>
+        <li><strong>intelligent-assistant:</strong> Cross-department AI</li>
+        <li><strong>ai-mcp-generator:</strong> Automated MCP configuration</li>
+        <li><strong>workflow-insights:</strong> Workflow analytics</li>
+    </ol>
+
+    <div class="page-break"></div>
+
+    <h2>📊 Data Flow Examples</h2>
+
+    <h3>User Signup Flow</h3>
+    <pre><code>1. User submits signup form (Auth.tsx)
+   ↓
+2. Supabase Auth creates user in auth.users
+   ↓
+3. Trigger creates customer record
+   ↓
+4. Trigger creates user_profile record
+   ↓
+5. Trigger creates customer_customizations
+   ↓
+6. User redirected to department dashboard
+   ↓
+7. useCustomerCustomization loads branding</code></pre>
+
+    <h3>Dashboard Data Load Flow</h3>
+    <pre><code>1. User navigates to /dashboard/[department]
+   ↓
+2. Dashboard checks authentication
+   ↓
+3. Verifies user's department
+   ↓
+4. Fetches department-specific stats (RLS enforced)
+   ↓
+5. Renders with customer customization
+   ↓
+6. AI assistant ready for queries</code></pre>
+
+    <h2>📈 Performance Patterns</h2>
+
+    <h3>Frontend</h3>
+    <ul>
+        <li>Code splitting via React Router</li>
+        <li>Lazy loading of dashboard components</li>
+        <li>TanStack Query caching reduces API calls</li>
+        <li>Design tokens prevent CSS bloat</li>
+    </ul>
+
+    <h3>Backend</h3>
+    <ul>
+        <li>Database indexes on foreign keys</li>
+        <li>RLS policies use indexed columns</li>
+        <li>Edge functions minimize cold starts</li>
+        <li>JSONB fields for flexible schema evolution</li>
+    </ul>
+
+    <div class="note">
+        <strong>Note:</strong> All data flows through authentication and RLS policies ensure users only access their organization's data based on their role and department.
+    </div>
+
+    <div class="footer">
+        <p><strong>Architecture Ownership:</strong> This design is maintained by OberaConnect leadership.</p>
+        <p>Developers implement within this framework to ensure strategic consistency and platform resilience.</p>
+        <p>Document Version 1.0 | October 2025 | Platform Completion: 88%</p>
+    </div>
+
+    <script>
+        let currentZoom = 1;
+        
+        function zoomDiagram(factor) {
+            currentZoom *= factor;
+            const diagram = document.getElementById('mainDiagram');
+            diagram.style.transform = `scale(${currentZoom})`;
+            diagram.style.transformOrigin = 'top left';
+        }
+        
+        function resetZoom() {
+            currentZoom = 1;
+            const diagram = document.getElementById('mainDiagram');
+            diagram.style.transform = 'scale(1)';
+        }
+        
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 30,
+                nodeSpacing: 80,
+                rankSpacing: 100
+            },
+            themeVariables: {
+                fontSize: '18px',
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+            }
+        });
+    </script>
+</body>
+</html>

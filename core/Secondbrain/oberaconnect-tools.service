@@ -1,0 +1,22 @@
+[Unit]
+Description=OberaConnect Tools Web Interface
+Documentation=https://github.com/oberaconnect/tools
+After=network.target
+
+[Service]
+Type=notify
+User=mavrick
+Group=mavrick
+RuntimeDirectory=oberaconnect-tools
+WorkingDirectory=/home/mavrick/Projects/Secondbrain
+Environment="PATH=/home/mavrick/Projects/Secondbrain/venv/bin"
+ExecStart=/home/mavrick/Projects/Secondbrain/venv/bin/gunicorn -c gunicorn_config_ssl.py call_flow_web_auth:app
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

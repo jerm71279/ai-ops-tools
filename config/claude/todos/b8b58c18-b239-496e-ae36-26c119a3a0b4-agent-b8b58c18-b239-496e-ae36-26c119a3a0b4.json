@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Delete backup alerts from OberaConnect tenant",
+    "status": "completed",
+    "activeForm": "Deleting backup alerts from OberaConnect"
+  },
+  {
+    "content": "Login to SetcoServices tenant",
+    "status": "in_progress",
+    "activeForm": "Logging into SetcoServices tenant"
+  },
+  {
+    "content": "Create backup alerts in SetcoServices tenant",
+    "status": "pending",
+    "activeForm": "Creating backup alerts in SetcoServices"
+  }
+]

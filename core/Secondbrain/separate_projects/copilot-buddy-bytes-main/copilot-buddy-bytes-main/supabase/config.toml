@@ -1,0 +1,76 @@
+project_id = "olrpexessehcijdvogxo"
+
+[functions.ninjaone-sync]
+verify_jwt = true
+
+[functions.ninjaone-ticket]
+verify_jwt = true
+
+[functions.ninjaone-webhook]
+verify_jwt = false
+
+[functions.mcp-server]
+verify_jwt = false
+
+[functions.department-assistant]
+verify_jwt = false
+
+[functions.workflow-executor]
+verify_jwt = false
+
+[functions.workflow-webhook]
+verify_jwt = false
+
+[functions.workflow-insights]
+verify_jwt = false
+
+[functions.ai-mcp-generator]
+verify_jwt = true
+
+[functions.knowledge-processor]
+verify_jwt = true
+
+[functions.graph-api]
+verify_jwt = true
+
+[functions.sharepoint-sync]
+verify_jwt = true
+
+[functions.intelligent-assistant]
+verify_jwt = true
+
+[functions.change-impact-analyzer]
+verify_jwt = true
+
+[functions.cipp-sync]
+verify_jwt = true
+
+[functions.repetitive-task-detector]
+verify_jwt = true
+
+[functions.automation-suggester]
+verify_jwt = true
+
+[functions.predictive-insights]
+verify_jwt = true
+
+[functions.workflow-orchestrator]
+verify_jwt = true
+
+[functions.analytics-processor]
+verify_jwt = true
+
+[functions.customer-management]
+verify_jwt = true
+
+[functions.auto-remediation]
+verify_jwt = true
+
+[functions.custom-report-engine]
+verify_jwt = true
+
+[functions.client-portal]
+verify_jwt = true
+
+[functions.workflow-intelligence]
+verify_jwt = true

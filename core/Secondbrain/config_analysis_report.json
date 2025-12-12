@@ -1,0 +1,873 @@
+[
+  {
+    "filename": "ClaugerRebuildShop.rsc",
+    "customer": "Clauger Rebuild Shop",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 4,
+    "subnets": [
+      "170.249.171.134/30",
+      "0.0.0.0/0",
+      "192.168.0.0/24",
+      "192.168.0.1/24"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 1,
+    "complexity_score": 3,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "ClaugerOffice.rsc",
+    "customer": "Clauger Office",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 1,
+    "vlans": [
+      100
+    ],
+    "subnet_count": 6,
+    "subnets": [
+      "192.168.100.0/24",
+      "0.0.0.0/0",
+      "192.168.0.0/24",
+      "192.168.100.1/24",
+      "170.249.181.170/30",
+      "192.168.0.1/24"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 1,
+    "complexity_score": 3,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "Cosmo.rsc",
+    "customer": "Cosmos",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 2,
+    "vlans": [
+      20,
+      50
+    ],
+    "subnet_count": 8,
+    "subnets": [
+      "192.168.1.1/24",
+      "10.20.20.1/24",
+      "192.168.1.0/24",
+      "142.190.106.74/30",
+      "192.168.100.0/24",
+      "0.0.0.0/0",
+      "192.168.100.1/24",
+      "10.20.20.0/24"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 2,
+    "complexity_score": 3,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "ravenite.rsc",
+    "customer": "Ravenite",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 1,
+    "vlans": [
+      200
+    ],
+    "subnet_count": 6,
+    "subnets": [
+      "208.114.200.134/30",
+      "192.168.1.1/24",
+      "192.168.1.0/24",
+      "0.0.0.0/0",
+      "192.168.0.0/24",
+      "192.168.0.1/24"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 16,
+    "complexity_score": 7,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "luna.rsc",
+    "customer": "Luna",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 4,
+    "subnets": [
+      "192.168.1.1/24",
+      "192.168.1.0/24",
+      "0.0.0.0/0",
+      "142.190.106.2/30"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 2,
+    "complexity_score": 3,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "phoenixsurfaces.rsc",
+    "customer": "Phoenix Surfaces",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 4,
+    "subnets": [
+      "192.168.1.1/24",
+      "0.0.0.0/0",
+      "192.168.1.0/24",
+      "142.190.24.250/30"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 2,
+    "complexity_score": 3,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "platinumvacations.rsc",
+    "customer": "Platinum Vacations",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 1,
+    "vlans": [
+      20
+    ],
+    "subnet_count": 6,
+    "subnets": [
+      "192.168.1.1/24",
+      "192.168.1.0/24",
+      "10.10.20.0/24",
+      "10.10.20.1/24",
+      "0.0.0.0/0",
+      "142.190.109.246/30"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 1,
+    "complexity_score": 3,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "engel&volkers.rsc",
+    "customer": "Engel Volders",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 1,
+    "vlans": [
+      20
+    ],
+    "subnet_count": 6,
+    "subnets": [
+      "142.190.116.38/30",
+      "10.10.20.0/24",
+      "10.10.20.1/24",
+      "192.168.100.0/24",
+      "0.0.0.0/0",
+      "192.168.100.1/24"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 1,
+    "complexity_score": 3,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "gooroos.rsc",
+    "customer": "Goo Roos",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 3,
+    "subnets": [
+      "69.85.251.18/30",
+      "192.168.88.1/24",
+      "192.168.88.0/24"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 1,
+    "complexity_score": 3,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "KinderKids.rsc",
+    "customer": "Kinder Kids",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 2,
+    "vlans": [
+      10,
+      50
+    ],
+    "subnet_count": 8,
+    "subnets": [
+      "69.85.196.126/30",
+      "192.168.50.0/24",
+      "192.168.1.1/24",
+      "192.168.1.0/24",
+      "0.0.0.0/0",
+      "192.168.50.1/24",
+      "10.3.3.0/24",
+      "10.3.3.1/24"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 2,
+    "complexity_score": 3,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "dclawn.rsc",
+    "customer": "DC Lawn",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 2,
+    "vlans": [
+      3,
+      20
+    ],
+    "subnet_count": 6,
+    "subnets": [
+      "208.114.200.186/30",
+      "192.168.1.1/24",
+      "192.168.1.0/24",
+      "10.0.0.1/24",
+      "0.0.0.0/0",
+      "10.0.0.0/24"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 1,
+    "complexity_score": 3,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "celebrationchurchOLD.rsc",
+    "customer": "Celebration Church Existing",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 4,
+    "subnets": [
+      "192.168.1.1/24",
+      "0.0.0.0/0",
+      "192.168.1.0/24",
+      "208.114.200.94/30"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 17,
+    "complexity_score": 7,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "celebrationchurchOLD(FYKriuDo63SXbGc6uIaSPA).rsc",
+    "customer": "Celebration Church Existing",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 4,
+    "subnets": [
+      "192.168.1.1/24",
+      "0.0.0.0/0",
+      "192.168.1.0/24",
+      "208.114.200.94/30"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 17,
+    "complexity_score": 7,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "fairhopestripmall.rsc",
+    "customer": "Fairhope Strip Mall",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 7,
+    "vlans": [
+      100,
+      200,
+      250,
+      300,
+      350,
+      400,
+      500
+    ],
+    "subnet_count": 20,
+    "subnets": [
+      "10.8.0.1/24",
+      "192.168.1.1/24",
+      "10.10.2.1/24",
+      "208.114.200.214/30",
+      "192.168.50.0/24",
+      "192.168.10.1/24",
+      "10.10.1.0/24",
+      "10.8.0.20/32",
+      "192.168.30.1/24",
+      "192.168.0.0/24"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 4,
+    "complexity_score": 13,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "JubileePool.rsc",
+    "customer": "Jubilee Pool",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 2,
+    "vlans": [
+      10,
+      20
+    ],
+    "subnet_count": 7,
+    "subnets": [
+      "192.168.2.0/24",
+      "10.10.20.0/24",
+      "10.10.20.1/24",
+      "0.0.0.0/0",
+      "192.168.0.0/24",
+      "208.114.201.50/30",
+      "192.168.0.1/24"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 1,
+    "complexity_score": 3,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "emeraldcoastcruizers.rsc",
+    "customer": "Emerald Coast Cruizers",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 4,
+    "subnets": [
+      "192.168.1.1/24",
+      "142.190.50.46/30",
+      "0.0.0.0/0",
+      "192.168.1.0/24"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 1,
+    "complexity_score": 3,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "CityofFreeport.rsc",
+    "customer": "City of Freeport",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 1,
+    "vlans": [
+      20
+    ],
+    "subnet_count": 6,
+    "subnets": [
+      "142.190.24.74/30",
+      "192.168.1.1/24",
+      "192.168.1.0/24",
+      "10.10.20.0/24",
+      "10.10.20.1/24",
+      "0.0.0.0/0"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 1,
+    "complexity_score": 3,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "sextongymrxsport.rsc",
+    "customer": "Sexton RX Sport",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 1,
+    "vlans": [
+      10
+    ],
+    "subnet_count": 6,
+    "subnets": [
+      "192.168.1.1/24",
+      "192.168.10.0/24",
+      "192.168.10.1/24",
+      "192.168.1.0/24",
+      "0.0.0.0/0",
+      "69.85.239.26/30"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 1,
+    "complexity_score": 3,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "mobama.rsc",
+    "customer": "MOBAMA",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 4,
+    "vlans": [
+      100,
+      200,
+      300,
+      400
+    ],
+    "subnet_count": 12,
+    "subnets": [
+      "10.10.200.0/24",
+      "10.10.40.1/24",
+      "10.10.30.0/24",
+      "192.168.1.1/24",
+      "10.10.40.0/24",
+      "192.168.1.0/24",
+      "10.10.200.1/24",
+      "0.0.0.0/0",
+      "10.10.100.1/24",
+      "10.10.30.1/24"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 1,
+    "complexity_score": 8,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "dunlapshipman.rsc",
+    "customer": "Dunlap Shipman",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 1,
+    "vlans": [
+      300
+    ],
+    "subnet_count": 6,
+    "subnets": [
+      "10.10.20.0/24",
+      "10.10.20.1/24",
+      "192.168.100.0/24",
+      "142.190.161.62/30",
+      "0.0.0.0/0",
+      "192.168.100.1/24"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 1,
+    "complexity_score": 3,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "hinsonlaw.rsc",
+    "customer": "Hinson Law",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 1,
+    "vlans": [
+      100
+    ],
+    "subnet_count": 6,
+    "subnets": [
+      "10.10.10.1/24",
+      "192.168.1.1/24",
+      "192.168.1.0/24",
+      "96.90.17.93/30",
+      "0.0.0.0/0",
+      "10.10.10.0/24"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 2,
+    "complexity_score": 3,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "JuddJacksonCPA.rsc",
+    "customer": "Judd Jackson CPA",
+    "device_type": "MikroTik",
+    "model": "Unknown",
+    "vlan_count": 1,
+    "vlans": [
+      20
+    ],
+    "subnet_count": 6,
+    "subnets": [
+      "192.168.1.1/24",
+      "192.168.1.0/24",
+      "10.10.20.0/24",
+      "10.10.20.1/24",
+      "142.190.109.170/30",
+      "0.0.0.0/0"
+    ],
+    "dhcp_pools": 1,
+    "nat_rules": 1,
+    "firewall_rules": 1,
+    "static_routes": 1,
+    "vpn_tunnels": 2,
+    "complexity_score": 3,
+    "complexity_level": "LOW",
+    "notes": []
+  },
+  {
+    "filename": "sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-17T11_45_06.299Z.exp",
+    "customer": "Daniel Uhlfelder",
+    "device_type": "SonicWall",
+    "model": "TZ 270",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 0,
+    "subnets": [],
+    "dhcp_pools": 0,
+    "nat_rules": 0,
+    "firewall_rules": 0,
+    "static_routes": 0,
+    "vpn_tunnels": 0,
+    "complexity_score": 0,
+    "complexity_level": "LOW",
+    "notes": [
+      "SonicWall export - some values estimated from partial data"
+    ]
+  },
+  {
+    "filename": "sonicwall-TZ 370W-SonicOS 7.3.0-7012-R8150-2025-09-17T12_16_36.640Z.exp",
+    "customer": "Fulcrum Daphne",
+    "device_type": "SonicWall",
+    "model": "TZ 370",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 0,
+    "subnets": [],
+    "dhcp_pools": 0,
+    "nat_rules": 0,
+    "firewall_rules": 0,
+    "static_routes": 0,
+    "vpn_tunnels": 0,
+    "complexity_score": 0,
+    "complexity_level": "LOW",
+    "notes": [
+      "SonicWall export - some values estimated from partial data"
+    ]
+  },
+  {
+    "filename": "Tracery Panama City Beach sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-23T21_29_57.679Z.exp",
+    "customer": "Tracery Panama City",
+    "device_type": "SonicWall",
+    "model": "TZ 270",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 0,
+    "subnets": [],
+    "dhcp_pools": 0,
+    "nat_rules": 0,
+    "firewall_rules": 0,
+    "static_routes": 0,
+    "vpn_tunnels": 0,
+    "complexity_score": 0,
+    "complexity_level": "LOW",
+    "notes": [
+      "SonicWall export - some values estimated from partial data"
+    ]
+  },
+  {
+    "filename": "Parabilis sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-22T23_58_38.612Z.exp",
+    "customer": "Parabilis",
+    "device_type": "SonicWall",
+    "model": "TZ 270",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 0,
+    "subnets": [],
+    "dhcp_pools": 0,
+    "nat_rules": 0,
+    "firewall_rules": 0,
+    "static_routes": 0,
+    "vpn_tunnels": 0,
+    "complexity_score": 0,
+    "complexity_level": "LOW",
+    "notes": [
+      "SonicWall export - some values estimated from partial data"
+    ]
+  },
+  {
+    "filename": "Hoods Gulfport sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-22T23_07_46.179Z.exp",
+    "customer": "Hoods Gulfport",
+    "device_type": "SonicWall",
+    "model": "TZ 270",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 0,
+    "subnets": [],
+    "dhcp_pools": 0,
+    "nat_rules": 0,
+    "firewall_rules": 0,
+    "static_routes": 0,
+    "vpn_tunnels": 0,
+    "complexity_score": 0,
+    "complexity_level": "LOW",
+    "notes": [
+      "SonicWall export - some values estimated from partial data"
+    ]
+  },
+  {
+    "filename": "Hoods Theodore sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-22T23_21_13.149Z.exp",
+    "customer": "Hoods Theodore",
+    "device_type": "SonicWall",
+    "model": "TZ 270",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 0,
+    "subnets": [],
+    "dhcp_pools": 0,
+    "nat_rules": 0,
+    "firewall_rules": 0,
+    "static_routes": 0,
+    "vpn_tunnels": 0,
+    "complexity_score": 0,
+    "complexity_level": "LOW",
+    "notes": [
+      "SonicWall export - some values estimated from partial data"
+    ]
+  },
+  {
+    "filename": "Hoods Foley sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-22T22_58_27.802Z.exp",
+    "customer": "Hoods Foley",
+    "device_type": "SonicWall",
+    "model": "TZ 270",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 0,
+    "subnets": [],
+    "dhcp_pools": 0,
+    "nat_rules": 0,
+    "firewall_rules": 0,
+    "static_routes": 0,
+    "vpn_tunnels": 0,
+    "complexity_score": 0,
+    "complexity_level": "LOW",
+    "notes": [
+      "SonicWall export - some values estimated from partial data"
+    ]
+  },
+  {
+    "filename": "Valve Quick sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-23T21_56_37.896Z.exp",
+    "customer": "Valve Quick",
+    "device_type": "SonicWall",
+    "model": "TZ 270",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 0,
+    "subnets": [],
+    "dhcp_pools": 0,
+    "nat_rules": 0,
+    "firewall_rules": 0,
+    "static_routes": 0,
+    "vpn_tunnels": 0,
+    "complexity_score": 0,
+    "complexity_level": "LOW",
+    "notes": [
+      "SonicWall export - some values estimated from partial data"
+    ]
+  },
+  {
+    "filename": "sonicwall-TZ_400-6_5_5_1-6n-1758107644.exp",
+    "customer": "Coastal Church Bay Minette",
+    "device_type": "SonicWall",
+    "model": "Unknown",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 0,
+    "subnets": [],
+    "dhcp_pools": 0,
+    "nat_rules": 0,
+    "firewall_rules": 0,
+    "static_routes": 0,
+    "vpn_tunnels": 0,
+    "complexity_score": 0,
+    "complexity_level": "LOW",
+    "notes": [
+      "SonicWall export - some values estimated from partial data"
+    ]
+  },
+  {
+    "filename": "Tracery Inlet Beach sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-23T21_36_08.313Z.exp",
+    "customer": "Tracery Inlet Beach",
+    "device_type": "SonicWall",
+    "model": "TZ 270",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 0,
+    "subnets": [],
+    "dhcp_pools": 0,
+    "nat_rules": 0,
+    "firewall_rules": 0,
+    "static_routes": 0,
+    "vpn_tunnels": 0,
+    "complexity_score": 0,
+    "complexity_level": "LOW",
+    "notes": [
+      "SonicWall export - some values estimated from partial data"
+    ]
+  },
+  {
+    "filename": "Souvenir City sonicwall-TZ 270W-SonicOS 7.3.0-7012-R8150-2025-09-23T00_09_07.817Z.exp",
+    "customer": "Souvenir City",
+    "device_type": "SonicWall",
+    "model": "TZ 270",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 0,
+    "subnets": [],
+    "dhcp_pools": 0,
+    "nat_rules": 0,
+    "firewall_rules": 0,
+    "static_routes": 0,
+    "vpn_tunnels": 0,
+    "complexity_score": 0,
+    "complexity_level": "LOW",
+    "notes": [
+      "SonicWall export - some values estimated from partial data"
+    ]
+  },
+  {
+    "filename": "Hammer Building Supply sonicwall-TZ 270W-SonicOS 7.0.1-5119-R4713-2025-09-22T15_22_10.054Z.exp",
+    "customer": "Hammer Building Supply",
+    "device_type": "SonicWall",
+    "model": "TZ 270",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 0,
+    "subnets": [],
+    "dhcp_pools": 0,
+    "nat_rules": 0,
+    "firewall_rules": 0,
+    "static_routes": 0,
+    "vpn_tunnels": 0,
+    "complexity_score": 0,
+    "complexity_level": "LOW",
+    "notes": [
+      "SonicWall export - some values estimated from partial data"
+    ]
+  },
+  {
+    "filename": "Fulcrum Residential sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-22T15_07_14.930Z.exp",
+    "customer": "Fulcrum Residential",
+    "device_type": "SonicWall",
+    "model": "TZ 270",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 0,
+    "subnets": [],
+    "dhcp_pools": 0,
+    "nat_rules": 0,
+    "firewall_rules": 0,
+    "static_routes": 0,
+    "vpn_tunnels": 0,
+    "complexity_score": 0,
+    "complexity_level": "LOW",
+    "notes": [
+      "SonicWall export - some values estimated from partial data"
+    ]
+  },
+  {
+    "filename": "JSUM sonicwall-TZ 270-SonicOS 7.3.0-7012-R8150-2025-09-22T23_38_49.381Z.exp",
+    "customer": "JSUM",
+    "device_type": "SonicWall",
+    "model": "TZ 270",
+    "vlan_count": 0,
+    "vlans": [],
+    "subnet_count": 0,
+    "subnets": [],
+    "dhcp_pools": 0,
+    "nat_rules": 0,
+    "firewall_rules": 0,
+    "static_routes": 0,
+    "vpn_tunnels": 0,
+    "complexity_score": 0,
+    "complexity_level": "LOW",
+    "notes": [
+      "SonicWall export - some values estimated from partial data"
+    ]
+  }
+]

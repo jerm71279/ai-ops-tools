@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Scan Report - Spanish Fort Waterboard</title>
+    <style>
+        :root {
+            --primary: #0ea5e9;
+            --primary-dark: #0284c7;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #6366f1;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--gray-900);
+            color: var(--gray-100);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--gray-800) 0%, var(--gray-900) 100%);
+            border: 1px solid var(--gray-700);
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: var(--gray-400);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .stat-card {
+            background: var(--gray-800);
+            border: 1px solid var(--gray-700);
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section {
+            background: var(--gray-800);
+            border: 1px solid var(--gray-700);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--gray-700);
+        }
+
+        .section-header h2 {
+            font-size: 1.25rem;
+            color: var(--gray-100);
+        }
+
+        .location-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .location-tab {
+            padding: 12px 24px;
+            background: var(--gray-700);
+            border: 1px solid var(--gray-600);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--gray-300);
+            transition: all 0.2s;
+        }
+
+        .location-tab:hover {
+            background: var(--gray-600);
+        }
+
+        .location-tab.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .location-content {
+            display: none;
+        }
+
+        .location-content.active {
+            display: block;
+        }
+
+        .location-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .summary-item {
+            background: var(--gray-900);
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .summary-item label {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+        }
+
+        .summary-item span {
+            display: block;
+            font-weight: 600;
+            margin-top: 4px;
+            color: var(--gray-100);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-700);
+        }
+
+        th {
+            background: var(--gray-900);
+            font-weight: 600;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover {
+            background: var(--gray-700);
+        }
+
+        .device-type {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .device-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .icon-router { background: #7c3aed20; color: #a78bfa; }
+        .icon-pc { background: #3b82f620; color: #60a5fa; }
+        .icon-printer { background: #10b98120; color: #34d399; }
+        .icon-voip { background: #f59e0b20; color: #fbbf24; }
+        .icon-server { background: #ef444420; color: #f87171; }
+        .icon-switch { background: #6366f120; color: #818cf8; }
+        .icon-security { background: #ec489920; color: #f472b6; }
+        .icon-other { background: #6b728020; color: #9ca3af; }
+        .icon-mobile { background: #14b8a620; color: #2dd4bf; }
+
+        .port-badge {
+            display: inline-block;
+            background: var(--gray-700);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin: 2px;
+            font-family: monospace;
+        }
+
+        .port-badge.critical { background: #ef444430; color: #fca5a5; }
+        .port-badge.warning { background: #f59e0b30; color: #fcd34d; }
+        .port-badge.info { background: #3b82f630; color: #93c5fd; }
+
+        .finding-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .finding-card {
+            background: var(--gray-900);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid var(--info);
+        }
+
+        .finding-card.critical { border-left-color: var(--danger); }
+        .finding-card.warning { border-left-color: var(--warning); }
+        .finding-card.success { border-left-color: var(--success); }
+
+        .finding-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            color: var(--gray-100);
+        }
+
+        .finding-card p {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+        }
+
+        .severity-badge {
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .severity-critical { background: var(--danger); color: white; }
+        .severity-moderate { background: var(--warning); color: var(--gray-900); }
+        .severity-low { background: var(--info); color: white; }
+        .severity-positive { background: var(--success); color: white; }
+
+        .printer-details {
+            background: var(--gray-900);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+
+        .printer-details h4 {
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .printer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .printer-field {
+            background: var(--gray-800);
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .printer-field label {
+            font-size: 0.7rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+        }
+
+        .printer-field span {
+            display: block;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        .network-diagram {
+            background: var(--gray-900);
+            border-radius: 12px;
+            padding: 24px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            white-space: pre;
+            line-height: 1.4;
+            color: var(--gray-300);
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: var(--gray-700);
+            border: 1px solid var(--gray-600);
+            border-radius: 6px;
+            color: var(--gray-300);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            background: var(--gray-600);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            padding: 8px 16px;
+            background: var(--gray-900);
+            border: 1px solid var(--gray-700);
+            border-radius: 6px;
+            color: var(--gray-100);
+            font-size: 0.9rem;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .recommendations {
+            display: grid;
+            gap: 12px;
+        }
+
+        .rec-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background: var(--gray-900);
+            border-radius: 8px;
+        }
+
+        .rec-priority {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .priority-immediate { background: var(--danger); color: white; }
+        .priority-short { background: var(--warning); color: var(--gray-900); }
+        .priority-long { background: var(--info); color: white; }
+
+        .rec-content h4 {
+            color: var(--gray-100);
+            margin-bottom: 4px;
+        }
+
+        .rec-content p {
+            color: var(--gray-500);
+            font-size: 0.85rem;
+        }
+
+        .export-btns {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--gray-700);
+            color: var(--gray-100);
+            border: 1px solid var(--gray-600);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-600);
+        }
+
+        @media print {
+            body { background: white; color: black; }
+            .section { border: 1px solid #ddd; }
+            .btn { display: none; }
+            .filter-bar { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .location-tabs { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Network Scan Report</h1>
+            <p>Spanish Fort Waterboard - December 1, 2025</p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">18</div>
+                    <div class="stat-label">Total Devices</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">Locations</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Security Findings</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">14</div>
+                    <div class="stat-label">Open Ports</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>Executive Summary</h2>
+            </div>
+            <p style="color: var(--gray-300); margin-bottom: 16px;">
+                A comprehensive network assessment was conducted at Spanish Fort Waterboard on December 1, 2025.
+                Two separate locations were scanned, both using the 192.168.1.0/24 subnet but with different routers.
+            </p>
+            <div class="location-summary">
+                <div class="summary-item">
+                    <label>Location #1 - Main Office</label>
+                    <span>14 hosts discovered</span>
+                </div>
+                <div class="summary-item">
+                    <label>Location #2 - Secondary Site</label>
+                    <span>4 hosts discovered</span>
+                </div>
+                <div class="summary-item">
+                    <label>Critical Findings</label>
+                    <span>2 issues identified</span>
+                </div>
+                <div class="summary-item">
+                    <label>Recommendation</label>
+                    <span>Replace ASUS routers with SonicWall</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>Discovered Devices</h2>
+            </div>
+
+            <div class="location-tabs">
+                <div class="location-tab active" onclick="switchLocation('loc1')">Location #1 - Main Office (14)</div>
+                <div class="location-tab" onclick="switchLocation('loc2')">Location #2 - Secondary Site (4)</div>
+            </div>
+
+            <div class="filter-bar">
+                <input type="text" class="search-box" placeholder="Search devices..." oninput="filterDevices(this.value)">
+                <button class="filter-btn active" onclick="filterByType('all')">All</button>
+                <button class="filter-btn" onclick="filterByType('pc')">PCs</button>
+                <button class="filter-btn" onclick="filterByType('printer')">Printers</button>
+                <button class="filter-btn" onclick="filterByType('network')">Network</button>
+            </div>
+
+            <div class="location-content active" id="loc1">
+                <div class="location-summary" style="margin-bottom: 20px;">
+                    <div class="summary-item">
+                        <label>Router MAC</label>
+                        <span>4C:ED:FB:AD:3D:88</span>
+                    </div>
+                    <div class="summary-item">
+                        <label>Network Range</label>
+                        <span>192.168.1.0/24</span>
+                    </div>
+                    <div class="summary-item">
+                        <label>Gateway</label>
+                        <span>192.168.1.1</span>
+                    </div>
+                </div>
+
+                <table id="devicesTable1">
+                    <thead>
+                        <tr>
+                            <th>Device</th>
+                            <th>IP Address</th>
+                            <th>Hostname</th>
+                            <th>Manufacturer</th>
+                            <th>Open Ports</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-type="network">
+                            <td><div class="device-type"><div class="device-icon icon-router">R</div>Router</div></td>
+                            <td><code>192.168.1.1</code></td>
+                            <td>router.asus.com</td>
+                            <td>ASUSTek</td>
+                            <td>
+                                <span class="port-badge">53/DNS</span>
+                                <span class="port-badge warning">80/HTTP</span>
+                                <span class="port-badge">515/LPD</span>
+                                <span class="port-badge">9100/JetDirect</span>
+                            </td>
+                        </tr>
+                        <tr data-type="pc">
+                            <td><div class="device-type"><div class="device-icon icon-pc">PC</div>Windows PC</div></td>
+                            <td><code>192.168.1.23</code></td>
+                            <td>SFWS-PC-RVS</td>
+                            <td>Dell</td>
+                            <td>
+                                <span class="port-badge">135/RPC</span>
+                                <span class="port-badge warning">139/NetBIOS</span>
+                                <span class="port-badge warning">445/SMB</span>
+                                <span class="port-badge">5357/UPnP</span>
+                            </td>
+                        </tr>
+                        <tr data-type="pc">
+                            <td><div class="device-type"><div class="device-icon icon-pc">PC</div>Windows PC</div></td>
+                            <td><code>192.168.1.45</code></td>
+                            <td>Counter</td>
+                            <td>Dell</td>
+                            <td>
+                                <span class="port-badge">135/RPC</span>
+                                <span class="port-badge warning">139/NetBIOS</span>
+                                <span class="port-badge warning">445/SMB</span>
+                                <span class="port-badge">5357/UPnP</span>
+                            </td>
+                        </tr>
+                        <tr data-type="printer">
+                            <td><div class="device-type"><div class="device-icon icon-printer">P</div>Printer</div></td>
+                            <td><code>192.168.1.46</code></td>
+                            <td>JONDA</td>
+                            <td>Epson ET-5800</td>
+                            <td>
+                                <span class="port-badge">80/HTTP</span>
+                                <span class="port-badge info">443/HTTPS</span>
+                                <span class="port-badge">139/NetBIOS</span>
+                                <span class="port-badge">445/SMB</span>
+                                <span class="port-badge">631/IPP</span>
+                                <span class="port-badge">9100/JetDirect</span>
+                            </td>
+                        </tr>
+                        <tr data-type="printer">
+                            <td><div class="device-type"><div class="device-icon icon-printer">P</div>Printer</div></td>
+                            <td><code>192.168.1.60</code></td>
+                            <td>EPSON7C6ACF</td>
+                            <td>Epson ET-5800</td>
+                            <td>
+                                <span class="port-badge">80/HTTP</span>
+                                <span class="port-badge info">443/HTTPS</span>
+                                <span class="port-badge">139/NetBIOS</span>
+                                <span class="port-badge">445/SMB</span>
+                                <span class="port-badge">631/IPP</span>
+                                <span class="port-badge">9100/JetDirect</span>
+                            </td>
+                        </tr>
+                        <tr data-type="network">
+                            <td><div class="device-type"><div class="device-icon icon-voip">V</div>VoIP Base</div></td>
+                            <td><code>192.168.1.98</code></td>
+                            <td>W60B</td>
+                            <td>Yealink</td>
+                            <td>
+                                <span class="port-badge">80/HTTP</span>
+                                <span class="port-badge info">443/HTTPS</span>
+                                <span class="port-badge critical">5060/SIP</span>
+                            </td>
+                        </tr>
+                        <tr data-type="network">
+                            <td><div class="device-type"><div class="device-icon icon-voip">V</div>VoIP Device</div></td>
+                            <td><code>192.168.1.112</code></td>
+                            <td>-</td>
+                            <td>Yealink</td>
+                            <td>
+                                <span class="port-badge">80/HTTP</span>
+                                <span class="port-badge info">443/HTTPS</span>
+                            </td>
+                        </tr>
+                        <tr data-type="network">
+                            <td><div class="device-type"><div class="device-icon icon-switch">S</div>Switch</div></td>
+                            <td><code>192.168.1.123</code></td>
+                            <td>-</td>
+                            <td>Netgear GS748T</td>
+                            <td>
+                                <span class="port-badge warning">80/HTTP</span>
+                            </td>
+                        </tr>
+                        <tr data-type="network">
+                            <td><div class="device-type"><div class="device-icon icon-server">SV</div>Server</div></td>
+                            <td><code>192.168.1.128</code></td>
+                            <td>Spanish-Fort-AL-SCC</td>
+                            <td>Dell</td>
+                            <td>
+                                <span class="port-badge">8000/HTTP</span>
+                                <span class="port-badge">8080/HTTP</span>
+                            </td>
+                        </tr>
+                        <tr data-type="network">
+                            <td><div class="device-type"><div class="device-icon icon-security">SEC</div>Security Panel</div></td>
+                            <td><code>192.168.1.134</code></td>
+                            <td>-</td>
+                            <td>DMP</td>
+                            <td>
+                                <span class="port-badge">2001/Unknown</span>
+                            </td>
+                        </tr>
+                        <tr data-type="pc">
+                            <td><div class="device-type"><div class="device-icon icon-pc">PC</div>Windows PC</div></td>
+                            <td><code>192.168.1.160</code></td>
+                            <td>SFWS-PC24-JONDA</td>
+                            <td>Dell</td>
+                            <td>
+                                <span class="port-badge">135/RPC</span>
+                                <span class="port-badge warning">139/NetBIOS</span>
+                                <span class="port-badge warning">445/SMB</span>
+                                <span class="port-badge">5357/UPnP</span>
+                            </td>
+                        </tr>
+                        <tr data-type="pc">
+                            <td><div class="device-type"><div class="device-icon icon-pc">PC</div>Windows PC</div></td>
+                            <td><code>192.168.1.181</code></td>
+                            <td>SFWS-PC-Tanya</td>
+                            <td>Dell</td>
+                            <td>
+                                <span class="port-badge">5357/UPnP</span>
+                            </td>
+                        </tr>
+                        <tr data-type="network">
+                            <td><div class="device-type"><div class="device-icon icon-other">?</div>Unknown</div></td>
+                            <td><code>192.168.1.240</code></td>
+                            <td>-</td>
+                            <td>Arcadyan</td>
+                            <td>
+                                <span class="port-badge">3000/Unknown</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="printer-details">
+                    <h4>Printer Details - JONDA (192.168.1.46)</h4>
+                    <div class="printer-grid">
+                        <div class="printer-field"><label>Model</label><span>Epson ET-5800 Series</span></div>
+                        <div class="printer-field"><label>MAC Address</label><span>DC:CD:2F:85:8B:D4</span></div>
+                        <div class="printer-field"><label>Firmware</label><span>04.18.KD21P5</span></div>
+                        <div class="printer-field"><label>Connection</label><span>Ethernet 100BASE-TX</span></div>
+                        <div class="printer-field"><label>IP Mode</label><span>DHCP</span></div>
+                        <div class="printer-field"><label>WiFi</label><span>Off</span></div>
+                    </div>
+                </div>
+
+                <div class="printer-details" style="margin-top: 12px;">
+                    <h4>Printer Details - EPSON7C6ACF (192.168.1.60)</h4>
+                    <div class="printer-grid">
+                        <div class="printer-field"><label>Model</label><span>Epson ET-5800 Series</span></div>
+                        <div class="printer-field"><label>MAC Address</label><span>DC:CD:2F:7C:6A:CF</span></div>
+                        <div class="printer-field"><label>Firmware</label><span>04.18.KD21P5</span></div>
+                        <div class="printer-field"><label>Connection</label><span>Ethernet 100BASE-TX</span></div>
+                        <div class="printer-field"><label>IP Mode</label><span>DHCP</span></div>
+                        <div class="printer-field"><label>WiFi</label><span>Off</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="location-content" id="loc2">
+                <div class="location-summary" style="margin-bottom: 20px;">
+                    <div class="summary-item">
+                        <label>Router MAC</label>
+                        <span>18:31:BF:5E:A5:70</span>
+                    </div>
+                    <div class="summary-item">
+                        <label>Network Range</label>
+                        <span>192.168.1.0/24</span>
+                    </div>
+                    <div class="summary-item">
+                        <label>Gateway</label>
+                        <span>192.168.1.1</span>
+                    </div>
+                </div>
+
+                <table id="devicesTable2">
+                    <thead>
+                        <tr>
+                            <th>Device</th>
+                            <th>IP Address</th>
+                            <th>Hostname</th>
+                            <th>Manufacturer</th>
+                            <th>Open Ports</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-type="network">
+                            <td><div class="device-type"><div class="device-icon icon-router">R</div>Router</div></td>
+                            <td><code>192.168.1.1</code></td>
+                            <td>router.asus.com</td>
+                            <td>ASUSTek</td>
+                            <td>
+                                <span class="port-badge">53/DNS</span>
+                                <span class="port-badge warning">80/HTTP</span>
+                                <span class="port-badge">18017/WAN Mon</span>
+                            </td>
+                        </tr>
+                        <tr data-type="printer">
+                            <td><div class="device-type"><div class="device-icon icon-printer">P</div>Printer</div></td>
+                            <td><code>192.168.1.13</code></td>
+                            <td>EPSON834441</td>
+                            <td>Epson ET-5800</td>
+                            <td>
+                                <span class="port-badge">80/HTTP</span>
+                                <span class="port-badge info">443/HTTPS</span>
+                                <span class="port-badge">139/NetBIOS</span>
+                                <span class="port-badge">445/SMB</span>
+                                <span class="port-badge">631/IPP</span>
+                                <span class="port-badge">9100/JetDirect</span>
+                            </td>
+                        </tr>
+                        <tr data-type="network">
+                            <td><div class="device-type"><div class="device-icon icon-mobile">M</div>Mobile</div></td>
+                            <td><code>192.168.1.166</code></td>
+                            <td>Jason-s-Z-Fold6</td>
+                            <td>Samsung</td>
+                            <td>
+                                <span class="port-badge info">All Filtered</span>
+                            </td>
+                        </tr>
+                        <tr data-type="pc">
+                            <td><div class="device-type"><div class="device-icon icon-pc">PC</div>Mini PC</div></td>
+                            <td><code>192.168.1.253</code></td>
+                            <td>NucBox_K8</td>
+                            <td>Gaoshengda</td>
+                            <td>
+                                <span class="port-badge info">All Filtered</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="printer-details">
+                    <h4>Printer Details - EPSON834441 (192.168.1.13)</h4>
+                    <div class="printer-grid">
+                        <div class="printer-field"><label>Model</label><span>Epson ET-5800 Series</span></div>
+                        <div class="printer-field"><label>MAC Address</label><span>DC:CD:2F:83:44:41</span></div>
+                        <div class="printer-field"><label>Firmware</label><span>04.18.KD21P5</span></div>
+                        <div class="printer-field"><label>Connection</label><span>WiFi (SEWSWH5)</span></div>
+                        <div class="printer-field"><label>WiFi Channel</label><span>153 (802.11ac)</span></div>
+                        <div class="printer-field"><label>Signal</label><span>Excellent</span></div>
+                        <div class="printer-field"><label>Security</label><span>WPA2-PSK (AES)</span></div>
+                        <div class="printer-field"><label>AP MAC</label><span>18:31:BF:5E:A5:74</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>Security Findings</h2>
+            </div>
+
+            <div class="finding-cards">
+                <div class="finding-card critical">
+                    <h4>
+                        <span class="severity-badge severity-critical">Critical</span>
+                        Router Admin Interface Exposed
+                    </h4>
+                    <p>ASUS WRT admin interface accessible on port 80 at both locations. Consumer-grade routers lack enterprise security features.</p>
+                </div>
+
+                <div class="finding-card critical">
+                    <h4>
+                        <span class="severity-badge severity-critical">Critical</span>
+                        SMB Services on Multiple Hosts
+                    </h4>
+                    <p>Windows file sharing active on workstations. SMB signing "enabled but not required" - potential for relay attacks.</p>
+                </div>
+
+                <div class="finding-card warning">
+                    <h4>
+                        <span class="severity-badge severity-moderate">Moderate</span>
+                        Unencrypted VoIP SIP
+                    </h4>
+                    <p>SIP traffic on TCP/5060 may be unencrypted. SIP TLS (5061) is available on Yealink devices but not configured.</p>
+                </div>
+
+                <div class="finding-card warning">
+                    <h4>
+                        <span class="severity-badge severity-moderate">Moderate</span>
+                        Multiple HTTP Admin Interfaces
+                    </h4>
+                    <p>Printers, switches, and VoIP devices have web interfaces accessible over HTTP. Verify strong passwords on all devices.</p>
+                </div>
+
+                <div class="finding-card success">
+                    <h4>
+                        <span class="severity-badge severity-positive">Positive</span>
+                        Location #2 Mini PC Firewall
+                    </h4>
+                    <p>NucBox_K8 has all ports filtered - good security posture. Firewall properly configured on this device.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>Recommendations</h2>
+            </div>
+
+            <div class="recommendations">
+                <div class="rec-item">
+                    <div class="rec-priority priority-immediate">1</div>
+                    <div class="rec-content">
+                        <h4>Replace ASUS routers with SonicWall TZ</h4>
+                        <p>Consumer-grade routers lack enterprise security features. Deploy SonicWall TZ at both locations for proper firewall, VPN, and threat protection.</p>
+                    </div>
+                </div>
+
+                <div class="rec-item">
+                    <div class="rec-priority priority-immediate">2</div>
+                    <div class="rec-content">
+                        <h4>Enable SMB Signing and Disable SMBv1</h4>
+                        <p>Configure Windows hosts to require SMB signing. Disable legacy SMBv1 protocol to prevent exploitation.</p>
+                    </div>
+                </div>
+
+                <div class="rec-item">
+                    <div class="rec-priority priority-short">3</div>
+                    <div class="rec-content">
+                        <h4>Implement Network Segmentation (VLANs)</h4>
+                        <p>Create separate VLANs for Data, Voice, Guest, IoT/Printers, and Security systems. Requires managed switch configuration.</p>
+                    </div>
+                </div>
+
+                <div class="rec-item">
+                    <div class="rec-priority priority-short">4</div>
+                    <div class="rec-content">
+                        <h4>Configure SIP over TLS for VoIP</h4>
+                        <p>Enable encrypted SIP (port 5061) on Yealink devices to protect voice communications.</p>
+                    </div>
+                </div>
+
+                <div class="rec-item">
+                    <div class="rec-priority priority-long">5</div>
+                    <div class="rec-content">
+                        <h4>Deploy Network Monitoring Solution</h4>
+                        <p>Implement SNMP monitoring, alerts, and logging. Add devices to NinjaOne/RMM for centralized management.</p>
+                    </div>
+                </div>
+
+                <div class="rec-item">
+                    <div class="rec-priority priority-long">6</div>
+                    <div class="rec-content">
+                        <h4>Implement 802.1X Authentication</h4>
+                        <p>Long-term goal: Deploy network access control to authenticate devices before allowing network access.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>Network Diagram</h2>
+            </div>
+
+            <div class="network-diagram">
+                          LOCATION #1 - MAIN OFFICE                    LOCATION #2 - SECONDARY SITE
+
+                             [Internet]                                      [Internet]
+                                 |                                               |
+                                 |                                               |
+                    [192.168.1.1 - ASUS Router]                     [192.168.1.1 - ASUS Router]
+                    MAC: 4C:ED:FB:AD:3D:88                          MAC: 18:31:BF:5E:A5:70
+                                 |                                               |
+            _____________________|_____________________              ____________|____________
+           |           |            |           |                  |            |            |
+       [Switch]    [Switch]    [Wireless]  [Direct]           [WiFi AP]    [WiFi]      [Wired?]
+           |           |            |           |                  |            |            |
+       +-------+   +-------+    +-------+   +-------+          +-------+    +-------+    +-------+
+       |  PCs  |   |Printers|   | VoIP  |   |Special|          |Printer|    |Mobile |    |Mini PC|
+       +-------+   +-------+    +-------+   +-------+          +-------+    +-------+    +-------+
+       .23 RVS     .46 JONDA    .98 W60B    .128 SCC           .13 EPSON   .166 Z-Fold6  .253 NucBox
+       .45 Counter .60 EPSON    .112 Yealink .134 DMP
+       .160 JONDA                           .240 Arcadyan
+       .181 Tanya
+
+                    [192.168.1.123 - Netgear GS748T]
+                         48-port Managed Switch
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>Scan Details</h2>
+            </div>
+
+            <table>
+                <tr><th>Phase</th><th>Command</th><th>Duration</th><th>Results</th></tr>
+                <tr>
+                    <td>1. Discovery</td>
+                    <td><code>nmap -sn 192.168.1.0/24</code></td>
+                    <td>5.70s</td>
+                    <td>14 hosts (Loc 1), 4 hosts (Loc 2)</td>
+                </tr>
+                <tr>
+                    <td>2. Standard</td>
+                    <td><code>nmap -F -sV [hosts]</code></td>
+                    <td>46.50s</td>
+                    <td>Top 100 ports scanned</td>
+                </tr>
+                <tr>
+                    <td>3. Intensive</td>
+                    <td><code>nmap -p- -sV -sC -T4</code></td>
+                    <td>~30min</td>
+                    <td>All 65535 ports</td>
+                </tr>
+            </table>
+
+            <p style="margin-top: 16px; color: var(--gray-500); font-size: 0.85rem;">
+                <strong>Report Generated By:</strong> OberaConnect Network Assessment Tool<br>
+                <strong>Location:</strong> Spanish Fort Waterboard, Spanish Fort, AL<br>
+                <strong>Date:</strong> December 1, 2025
+            </p>
+        </div>
+
+        <div class="export-btns">
+            <button class="btn btn-primary" onclick="window.print()">Print Report</button>
+            <button class="btn btn-secondary" onclick="exportJSON()">Export JSON</button>
+        </div>
+    </div>
+
+    <script>
+        function switchLocation(locId) {
+            document.querySelectorAll('.location-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.location-content').forEach(c => c.classList.remove('active'));
+
+            event.target.classList.add('active');
+            document.getElementById(locId).classList.add('active');
+        }
+
+        function filterDevices(query) {
+            query = query.toLowerCase();
+            document.querySelectorAll('tbody tr').forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        }
+
+        function filterByType(type) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('tbody tr').forEach(row => {
+                if (type === 'all') {
+                    row.style.display = '';
+                } else {
+                    const rowType = row.dataset.type;
+                    row.style.display = rowType === type ? '' : 'none';
+                }
+            });
+        }
+
+        function exportJSON() {
+            const data = {
+                customer: 'Spanish Fort Waterboard',
+                date: '2025-12-01',
+                locations: [
+                    {
+                        name: 'Main Office',
+                        router_mac: '4C:ED:FB:AD:3D:88',
+                        devices: 14
+                    },
+                    {
+                        name: 'Secondary Site',
+                        router_mac: '18:31:BF:5E:A5:70',
+                        devices: 4
+                    }
+                ],
+                total_devices: 18,
+                critical_findings: 2,
+                recommendations: 6
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'sfwb_network_scan_export.json';
+            a.click();
+        }
+    </script>
+</body>
+</html>

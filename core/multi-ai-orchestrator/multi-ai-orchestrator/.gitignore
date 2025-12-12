@@ -1,0 +1,44 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Output directories
+output/
+logs/
+screenshots/
+
+# Config with secrets
+config/secrets.json
+config/credentials.json
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Test coverage
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local development
+*.local.json

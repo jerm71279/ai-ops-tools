@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Checklist - Spanish Fort Water System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            padding: 20px 0;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #4CAF50;
+        }
+        .header h1 {
+            margin: 10px 0;
+            font-size: 24px;
+            color: #1e3a5f;
+        }
+        .auto-filled {
+            background: #e8f5e9;
+            border-left: 3px solid #4CAF50;
+            padding-left: 8px;
+        }
+        .manual-entry {
+            background: #fff3e0;
+            border-left: 3px solid #ff9800;
+            padding-left: 8px;
+        }
+        .customer-info {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .customer-info h2 {
+            margin-top: 0;
+            color: #1e3a5f;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .info-item {
+            padding: 8px;
+            border-radius: 4px;
+        }
+        .info-item strong {
+            color: #1e3a5f;
+        }
+        .legend {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .legend-auto {
+            width: 12px;
+            height: 12px;
+            background: #e8f5e9;
+            border-left: 3px solid #4CAF50;
+        }
+        .legend-manual {
+            width: 12px;
+            height: 12px;
+            background: #fff3e0;
+            border-left: 3px solid #ff9800;
+        }
+        .checklist-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #1e3a5f;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #2d5a87;
+            margin-top: 20px;
+        }
+        .checklist-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+        .checklist-item.nested {
+            padding-left: 30px;
+        }
+        .checklist-item label {
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+        }
+        .checklist-item input[type="checkbox"] {
+            margin-right: 10px;
+            margin-top: 3px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #4CAF50;
+            margin: 30px 0;
+        }
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 20px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+        .progress-text {
+            text-align: center;
+            font-weight: bold;
+            color: #1e3a5f;
+        }
+        .device-summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .device-count {
+            text-align: center;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+        .device-count .number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1e3a5f;
+        }
+        .device-count .label {
+            font-size: 12px;
+            color: #666;
+        }
+        @media print {
+            body { background: white; }
+            .checklist-section, .customer-info { box-shadow: none; break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Network Installation Checklist</h1>
+        <div>Customer: Spanish Fort Water System</div>
+        <div>Date: 2025-12-02</div>
+        <div class="legend">
+            <div class="legend-item"><div class="legend-auto"></div> Auto-filled from scan/SOW</div>
+            <div class="legend-item"><div class="legend-manual"></div> Requires manual entry</div>
+        </div>
+    </div>
+
+    <div class="customer-info">
+        <h2>Project Overview</h2>
+        <div class="info-grid">
+            <div class="info-item  manual-entry"><strong>Project Manager:</strong> [MANUAL ENTRY]</div>
+            <div class="info-item  manual-entry"><strong>Site Address:</strong> [MANUAL ENTRY]</div>
+            <div class="info-item  manual-entry"><strong>Contact:</strong> [MANUAL ENTRY]</div>
+            <div class="info-item  manual-entry"><strong>Email:</strong> [MANUAL ENTRY]</div>
+            <div class="info-item  manual-entry"><strong>Phone:</strong> [MANUAL ENTRY]</div>
+        </div>
+
+        <h3>Current Network</h3>
+        <div class="info-grid">
+            <div class="info-item manual-entry"><strong>ISP:</strong> [MANUAL ENTRY]</div>
+            <div class="info-item manual-entry"><strong>Speed:</strong> [MANUAL ENTRY]</div>
+            <div class="info-item auto-filled "><strong>Users:</strong> 4</div>
+            <div class="info-item auto-filled"><strong>Devices:</strong> 14</div>
+            <div class="info-item auto-filled"><strong>Router:</strong> ASUS Router</div>
+            <div class="info-item auto-filled"><strong>Switches:</strong> Netgear GS748T Switch</div>
+            <div class="info-item "><strong>APs:</strong> None detected</div>
+        </div>
+
+        <div class="device-summary">
+            <div class="device-count"><div class="number">4</div><div class="label">Workstations</div></div>
+            <div class="device-count"><div class="number">2</div><div class="label">Printers</div></div>
+            <div class="device-count"><div class="number">2</div><div class="label">VoIP Devices</div></div>
+            <div class="device-count"><div class="number">1</div><div class="label">Servers</div></div>
+        </div>
+
+        <h3>Existing Network Configuration (from scan)</h3>
+        <div class="info-grid">
+            <div class="info-item auto-filled"><strong>Existing Subnet:</strong> 192.168.1.0/24</div>
+            <div class="info-item auto-filled"><strong>Existing Gateway:</strong> 192.168.1.1</div>
+            <div class="info-item auto-filled"><strong>Existing Subnet Mask:</strong> 255.255.255.0</div>
+            <div class="info-item auto-filled"><strong>Existing DNS:</strong> 192.168.1.1</div>
+        </div>
+
+        <h3>OberaConnect Assigned Network Configuration</h3>
+        <div class="info-grid">
+            <div class="info-item auto-filled"><strong>Assigned Subnet:</strong> 10.54.4.0/24</div>
+            <div class="info-item auto-filled"><strong>Assigned Gateway:</strong> 10.54.4.1</div>
+            <div class="info-item auto-filled"><strong>Assigned Subnet Mask:</strong> 255.255.255.0</div>
+            <div class="info-item manual-entry"><strong>Primary DNS:</strong> [FROM SUBNET GENERATOR]</div>
+            <div class="info-item manual-entry"><strong>Secondary DNS:</strong> [FROM SUBNET GENERATOR]</div>
+        </div>
+
+        <h3>Public IP (from ISP)</h3>
+        <div class="info-grid">
+            <div class="info-item manual-entry"><strong>Public IP:</strong> [MANUAL ENTRY]</div>
+            <div class="info-item manual-entry"><strong>Public IP Range:</strong> [MANUAL ENTRY]</div>
+        </div>
+
+        <h3>Requirements</h3>
+        <div class="info-grid">
+            <div class="info-item"><strong>VLANs:</strong> Data, Voice, Guest, IoT, Security</div>
+            <div class="info-item"><strong>Guest Network:</strong> Yes</div>
+            <div class="info-item auto-filled"><strong>VoIP:</strong> Yes</div>
+            <div class="info-item"><strong>VPN:</strong> Yes</div>
+        </div>
+
+        <h3>Recommended Equipment (from SOW)</h3>
+        <div class="info-grid">
+            <div class="info-item auto-filled"><strong>Router/Firewall:</strong> SonicWall TZ2703YRADV</div>
+            <div class="info-item auto-filled"><strong>Switches:</strong> UBNT 24-POE, UBNT 8-Lite</div>
+            <div class="info-item auto-filled"><strong>Access Points:</strong> 2x UBNT U7-Pro, 1x UBNT U7-Pro</div>
+        </div>
+    </div>
+
+    <div class="progress-text">Progress: <span id="progress-percent">0%</span></div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+    </div>
+
+    <div class="checklist-section">
+        <h2>Phase 1: Network Discovery & Assessment</h2>
+<h3>Initial Site Survey</h3>
+<div class="checklist-item"><label><input type="checkbox"> Schedule on-site or virtual discovery session with customer</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Document current network topology</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Identify existing network devices (routers, switches, APs)</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Map IP addressing scheme and VLAN structure</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Document internet connection type and bandwidth</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Identify critical systems and devices</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Assess physical infrastructure</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Evaluate existing cabling (Cat5e/6, fiber)</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Check rack space availability</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Identify mounting locations for access points</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Verify power availability (PoE requirements, UPS)</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Gather business requirements</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Number of users and devices</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Bandwidth requirements per department/function</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Guest network requirements</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Security and compliance requirements</label></div>
+<h3>Network Analysis</h3>
+<div class="checklist-item"><label><input type="checkbox"> Conduct wireless site survey (if applicable)</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Identify RF interference sources</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Determine AP placement and quantity</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Plan channel allocation</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Analyze traffic patterns and bottlenecks</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Document security gaps and vulnerabilities</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Identify single points of failure</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Review backup and redundancy needs</label></div>
+<h3>Documentation Deliverables</h3>
+<div class="checklist-item"><label><input type="checkbox"> Create network diagram (current state)</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Document findings report</label></div>
+<hr>
+<h2>Phase 2: Recommendation & Design</h2>
+<h3>Device Recommendations</h3>
+<div class="checklist-item"><label><input type="checkbox"> **Core Router/Firewall**</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Model and specifications</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Throughput requirements</label></div>
+<h3>Design Documentation</h3>
+<div class="checklist-item"><label><input type="checkbox"> Create proposed network topology diagram</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Define IP addressing and VLAN scheme</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Management VLAN</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> User/data VLANs</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Voice VLAN</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Guest VLAN</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> IoT/security VLAN</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Plan wireless network architecture</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> SSID naming and security</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> AP coverage map</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Design security policies</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Firewall rules</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Access control lists</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Guest portal requirements</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Plan redundancy and failover</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Develop naming conventions for devices</label></div>
+<hr>
+<h2>Phase 3: Pre-Configuration & Preparation</h2>
+<h3>Equipment Receipt and Registration</h3>
+<div class="checklist-item"><label><input type="checkbox"> Verify all equipment received and matches order</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Check for physical damage during shipping</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Document serial numbers for all devices</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Register SonicWall device in MySonicWall portal</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Register UniFi devices in UniFi account (if applicable)</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Activate warranty and support contracts</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Verify firmware versions</label></div>
+<h3>Pre-Configuration</h3>
+<div class="checklist-item"><label><input type="checkbox"> Create configuration templates</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Router/firewall base config</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Switch base config</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> AP base config</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Configure devices in lab/staging environment</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Set management IPs</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Configure VLANs and (trunking if needed)</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Apply security policies</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Set up wireless controller and SSIDs</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Configure monitoring/management access</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Enable remote management for security remote access</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Test configurations</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Verify connectivity</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Test VLAN routing</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Validate security rules</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Check wireless functionality</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Document all configurations</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Create device labels with IP addresses</label></div>
+<h3>Installation Planning</h3>
+<div class="checklist-item"><label><input type="checkbox"> Schedule installation date/time with customer</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Coordinate downtime window (if required)</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Assign installation team roles</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Brief team on installation plan</label></div>
+<hr>
+<h2>Phase 4: Installation Day</h2>
+<h3>Configuration & Cutover</h3>
+<div class="checklist-item"><label><input type="checkbox"> Connect to each device and verify config</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Upload final configurations</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Establish internet connectivity</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Configure and test inter-VLAN routing</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Verify wireless network operation</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Test connectivity from each VLAN</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Migrate devices to new network (if applicable)</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Update DHCP scopes and DNS settings</label></div>
+<h3>Testing & Validation</h3>
+<div class="checklist-item"><label><input type="checkbox"> Test internet connectivity from all VLANs</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Verify wireless coverage and performance</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Test guest network isolation</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Validate firewall rules</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Check VPN connectivity (if applicable)</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Test failover/redundancy mechanisms</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Verify critical applications are accessible</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Run speed tests from multiple locations</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Test roaming between APs</label></div>
+<hr>
+<h2>Phase 5: Post-Installation & Handoff (Hand off to IT Services?)</h2>
+<h3>Monitoring & Optimization</h3>
+<div class="checklist-item"><label><input type="checkbox"> Configure network monitoring</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Set up SNMP monitoring</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Configure alerts and notifications</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Enable logging</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Add devices to management platform</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> NinjaOne/RMM integration</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Network management controller</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Monitor for first 24-48 hours</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Check for errors or warnings</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Optimize wireless channels if needed</label></div>
+<div class="checklist-item nested"><label><input type="checkbox"> Adjust QoS policies</label></div>
+<h3>Project Closeout</h3>
+<div class="checklist-item"><label><input type="checkbox"> Conduct final walkthrough with customer</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Obtain customer sign-off</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Document lessons learned</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Schedule 30-day follow-up review</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Package all documentation for handoff</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Update customer records in PSA/CRM</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Close project in project management system</label></div>
+<hr>
+<h2>Ongoing Maintenance (Post-Install)</h2>
+<h3>Regular Tasks</h3>
+<div class="checklist-item"><label><input type="checkbox"> Schedule firmware updates</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Review monitoring alerts weekly</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Conduct quarterly network health checks</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Update documentation as changes occur</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Review security policies quarterly</label></div>
+<h3>Support & Optimization</h3>
+<div class="checklist-item"><label><input type="checkbox"> Monitor network growth and capacity</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Adjust configurations as needed</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Plan for future expansion</label></div>
+<div class="checklist-item"><label><input type="checkbox"> Schedule annual network review with customer</label></div>
+
+    </div>
+
+    <script>
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const checked = document.querySelectorAll('input[type="checkbox"]:checked');
+            const percent = Math.round((checked.length / checkboxes.length) * 100);
+            document.getElementById('progress-percent').textContent = percent + '%';
+            document.getElementById('progress-fill').style.width = percent + '%';
+        }
+        document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+            cb.addEventListener('change', updateProgress);
+        });
+        updateProgress();
+    </script>
+</body>
+</html>

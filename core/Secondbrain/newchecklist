@@ -1,0 +1,4 @@
+#!/bin/bash
+# OberaConnect Network Installation Checklist Generator
+cd /home/mavrick/Projects/Secondbrain
+./venv/bin/python network_checklist.py "$@"

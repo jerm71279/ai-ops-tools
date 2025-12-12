@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OberaConnect Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            background: #fff;
+        }
+
+        .header {
+            border-bottom: 3px solid #0066CC;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #666666;
+            font-style: italic;
+            margin-left: 2px;
+        }
+
+        .doc-meta {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .doc-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .doc-date {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0066CC;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .section-content {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .section-content p {
+            margin-bottom: 10px;
+        }
+
+        .section-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section-content li {
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 11px;
+            color: #999999;
+            text-align: center;
+        }
+
+        .highlight-box {
+            background: #f5f9ff;
+            border-left: 4px solid #0066CC;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .action-item {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
+        </div>
+        <div class="tagline">Technology Solutions for Modern Business</div>
+
+        <div class="doc-meta">
+            <div class="doc-title">SOP-AV-001 Crestron Troubleshooting v1.0.0</div>
+            <div class="doc-date">Date: [MM/DD/YYYY]</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Executive Summary</div>
+        <div class="section-content">
+            <p>Title: Crestron Panel - "Loading Content" Error Troubleshooting</p>
+<p>Version: 1.0</p>
+<p>Date: 2025-12-02</p>
+<p>────────────────────────────────────────────────────────────</p>
+<h1 id="purpose">1.0 Purpose</h1>
+<p>This document provides a systematic procedure for diagnosing and
+resolving the "Loading Content" error on Crestron scheduling panels
+(TSW-770/1070 series) that are integrated with the AskCody room booking
+service.</p>
+<h1 id="scope">2.0 Scope</h1>
+<p>This SOP applies to all IT Support and AV Technicians responsible for
+maintaining Crestron AV hardware and associated room scheduling
+software. It specifically covers Crestron TSW-770, TSW-1070, and similar
+models failing to connect to the AskCody service.</p>
+<h1 id="responsibilities">3.0 Responsibilities</h1>
+<ul>
+<li><p>**IT Support Staff:** First line of support for troubleshooting
+network and application-level issues.</p></li>
+<li><p>**AV Technicians:** Responsible for hardware-level
+troubleshooting, firmware updates, and factory resets.</p></li>
+</ul>
+<h1 id="prerequisites">4.0 Prerequisites</h1>
+<p>Before beginning this procedure, ensure you have the following:</p>
+<ul>
+<li><p>Administrative PIN for the Crestron panel's settings
+menu.</p></li>
+<li><p>Credentials for the AskCody Admin Portal.</p></li>
+<li><p>Credentials for the Crestron XiO Cloud portal or direct web UI
+access to the panel.</p></li>
+<li><p>Network access to the same VLAN as the affected panel for testing
+purposes.</p></li>
+</ul>
+<h1 id="procedure">5.0 Procedure</h1>
+<p>Follow these steps sequentially. Do not proceed to the next step
+unless the current one fails to resolve the issue.</p>
+<h2 id="step-1-verify-network-and-internet-connectivity">5.1 Step 1:
+Verify Network and Internet Connectivity</h2>
+<p>Objective: Confirm the panel has a valid network connection and can
+reach required external services.</p>
+<ol type="1">
+<li><p>**Check Local Network Configuration:**</p></li>
+</ol>
+<ul>
+<li><p>Access the panel's setup menu (requires admin PIN).</p></li>
+<li><p>Navigate to `Settings` → `Network`.</p></li>
+<li><p>Verify that the panel has a valid IP Address, Subnet Mask,
+Gateway, and DNS server assigned.</p></li>
+</ul>
+<ol start="2" type="1">
+<li><p>**Test Network Path:**</p></li>
+</ol>
+<ul>
+<li><p>From another device on the same VLAN, attempt to `ping` the
+AskCody service endpoint (e.g., `ping
+&lt;tenant&gt;.askcody.com`).</p></li>
+<li><p>If the ping fails, investigate network infrastructure.</p></li>
+</ul>
+<ol start="3" type="1">
+<li><p>**Validate Firewall Rules:**</p></li>
+</ol>
+<ul>
+<li><p>Confirm that outbound HTTPS traffic on **TCP port 443** to
+`*.askcody.com` is permitted.</p></li>
+<li><p>Recent changes to VLANs, firewalls, or proxies are common causes
+of blockage.</p></li>
+</ul>
+<h2 id="step-2-confirm-askcody-service-health">5.2 Step 2: Confirm
+AskCody Service Health</h2>
+<p>Objective: Ensure the issue is not related to a service-wide outage
+or misconfiguration in the AskCody platform.</p>
+<ol start="4" type="1">
+<li><p>**Log in to the AskCody Admin Portal.**</p></li>
+<li><p>**Verify Room Resource:** Check that the room resource associated
+with the panel is correctly configured and assigned.</p></li>
+<li><p>**Check License Status:** Ensure all required licenses for the
+panel and resource are active.</p></li>
+<li><p>**Check for Service Incidents:** Review the official AskCody
+status page for any reported service-wide incidents.</p></li>
+</ol>
+<h2 id="step-3-re-authenticate-the-panel">5.3 Step 3: Re-authenticate
+the Panel</h2>
+<p>Objective: Refresh the authentication token and configuration URL on
+the device.</p>
+<ol start="8" type="1">
+<li><p>**Access Panel Setup:** On the Crestron panel, exit the AskCody
+app to access the setup menu (typically by holding a screen corner for
+~10 seconds).</p></li>
+<li><p>**Navigate to Web App Settings:** Go to `Apps` → `Web App
+Settings` (or the specific AskCody integration menu).</p></li>
+<li><p>**Verify URL:**</p></li>
+</ol>
+<ul>
+<li><p>Check the configured AskCody URL.</p></li>
+<li><p>It must match your tenant’s booking page exactly (e.g.,
+`https://&lt;tenant&gt;.askcody.com/panel/...`).</p></li>
+</ul>
+<ol start="11" type="1">
+<li><p>**Re-authenticate:** Use the on-screen options to re-enter
+credentials or re-pair the device with the AskCody service.</p></li>
+</ol>
+<h2 id="step-4-clear-cached-configuration-and-reload">5.4 Step 4: Clear
+Cached Configuration and Reload</h2>
+<p>Objective: Remove outdated cached data that may be causing the
+loading loop.</p>
+<ol start="12" type="1">
+<li><p>**Navigate to Application Settings:** In the panel's setup menu,
+find the application management section.</p></li>
+<li><p>**Clear Cache:** Select the option to `Clear Cache` or `Reload
+Web App`.</p></li>
+<li><p>**Reboot:** After clearing the cache, perform a soft reboot of
+the panel from the settings menu.</p></li>
+</ol>
+<p>&gt; Note: This step is critical if the AskCody URL has recently
+changed due to a migration or tenant update.</p>
+<h2 id="step-5-update-firmware-and-application">5.5 Step 5: Update
+Firmware and Application</h2>
+<p>Objective: Resolve potential compatibility issues between the panel's
+firmware and the AskCody application.</p>
+<ol start="15" type="1">
+<li><p>**Check Current Version:** Log in to **Crestron XiO Cloud** or
+the panel's local web UI to identify the current firmware
+version.</p></li>
+<li><p>**Update Firmware:** If the firmware is outdated, update it to
+the latest stable release recommended for use with AskCody.</p></li>
+<li><p>**Verify App Version:** Ensure the AskCody application package
+installed on the panel is the latest version.</p></li>
+</ol>
+<h2 id="step-6-hard-reboot-and-factory-reset-last-resort">5.6 Step 6:
+Hard Reboot and Factory Reset (Last Resort)</h2>
+<p>Objective: Return the panel to a factory default state and perform a
+clean installation.</p>
+<ol start="18" type="1">
+<li><p>**Perform Factory Reset:**</p></li>
+</ol>
+<ul>
+<li><p>From the panel's setup menu, locate the option to perform a
+factory reset.</p></li>
+<li><p>**WARNING:** This will erase all configuration from the
+device.</p></li>
+</ul>
+<ol start="19" type="1">
+<li><p>**Reinstall Application:** After the reset is complete, reinstall
+the AskCody integration package.</p></li>
+<li><p>**Re-register Panel:** Follow the initial setup process to
+re-register the panel in the AskCody Admin Portal and configure it for
+the correct room resource.</p></li>
+</ol>
+<h1 id="escalation">6.0 Escalation</h1>
+<p>If the procedure outlined above does not resolve the issue, escalate
+the ticket to a Senior AV Engineer and open a support case with the
+appropriate vendor (Crestron or AskCody). Include all troubleshooting
+steps performed.</p>
+<h1 id="common-causes-summary">7.0 Common Causes Summary</h1>
+<ul>
+<li><p>**URL Mismatch:** The URL in the panel's web app settings does
+not match the current AskCody tenant URL.</p></li>
+<li><p>**Cached Session:** The panel is holding onto an old, invalid
+session. (Resolved by Step 5.4)</p></li>
+<li><p>**Network Block:** Firewall or proxy rules are blocking outbound
+HTTPS traffic to `*.askcody.com`. (Resolved by Step 5.1)</p></li>
+</ul>
+<h1 id="revision-history">8.0 Revision History</h1>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Version</th>
+<th>Date</th>
+<th>Author</th>
+<th>Change Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0</td>
+<td>2025-12-02</td>
+<td>Gemini</td>
+<td>Initial document creation from source.</td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Details</div>
+        <div class="section-content">
+            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
+
+            <div class="highlight-box">
+                <strong>Key Point:</strong> [Important information to highlight]
+            </div>
+
+            <p>Supporting details:</p>
+            <ul>
+                <li>[Detail item 1]</li>
+                <li>[Detail item 2]</li>
+                <li>[Detail item 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Next Steps</div>
+        <div class="section-content">
+            <div class="action-item">
+                <strong>Action Required:</strong> [Specific action item with owner and deadline]
+            </div>
+
+            <ul>
+                <li>[Next step 1]</li>
+                <li>[Next step 2]</li>
+                <li>[Next step 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        OberaConnect LLC | www.oberaconnect.com | Confidential
+    </div>
+</body>
+</html>

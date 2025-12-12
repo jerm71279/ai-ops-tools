@@ -1,0 +1,95 @@
+{
+  "mcpServers": {
+    "obsidian-knowledge-base": {
+      "command": "python",
+      "args": [
+        "-m",
+        "mcp_obsidian_server"
+      ],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "ANTHROPIC_API_KEY": "${env:ANTHROPIC_API_KEY}",
+        "OBSIDIAN_VAULT_PATH": "${workspaceFolder}/obsidian_vault"
+      },
+      "description": "MCP server for Obsidian vault operations",
+      "tools": [
+        "create_note",
+        "update_note",
+        "search_notes",
+        "semantic_search",
+        "get_note_content",
+        "list_all_concepts",
+        "get_consistency_report",
+        "get_recent_notes"
+      ]
+    },
+    "notebooklm-analyst": {
+      "command": "python",
+      "args": [
+        "-m",
+        "mcp_notebooklm_server"
+      ],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "ANTHROPIC_API_KEY": "${env:ANTHROPIC_API_KEY}"
+      },
+      "description": "MCP server for NotebookLM analysis workflow",
+      "tools": [
+        "prepare_notes_export",
+        "generate_analysis_queries",
+        "simulate_notebooklm_analysis",
+        "process_feedback",
+        "create_improvement_plan",
+        "get_feedback_history",
+        "export_for_notebooklm"
+      ]
+    }
+  },
+  "agents": {
+    "obsidian-manager": {
+      "name": "Obsidian Knowledge Base Manager",
+      "description": "Manages Obsidian vault, maintains consistency, processes documents",
+      "mcp_servers": ["obsidian-knowledge-base"],
+      "partner_agent": "notebooklm-analyst",
+      "config_file": "agent_obsidian_manager.py",
+      "workflows": [
+        "process_document",
+        "daily_consistency_check",
+        "apply_feedback",
+        "batch_update",
+        "export_documentation"
+      ]
+    },
+    "notebooklm-analyst": {
+      "name": "NotebookLM Knowledge Analyst",
+      "description": "Analyzes patterns, provides feedback, monitors knowledge base health",
+      "mcp_servers": ["notebooklm-analyst"],
+      "partner_agent": "obsidian-manager",
+      "config_file": "agent_notebooklm_analyst.py",
+      "workflows": [
+        "daily_analysis",
+        "weekly_review",
+        "identify_patterns",
+        "detect_gaps",
+        "monitor_consistency"
+      ]
+    }
+  },
+  "orchestration": {
+    "orchestrator": "agent_orchestrator.py",
+    "scheduling": {
+      "daily_tasks": "17:00",
+      "weekly_tasks": "Friday 17:00"
+    },
+    "communication": {
+      "message_queue": true,
+      "logging": true,
+      "log_directory": "./orchestrator_logs"
+    }
+  },
+  "system": {
+    "version": "1.0.0",
+    "created": "2025-11-11",
+    "description": "Two-agent knowledge base system with MCP integration"
+  }
+}

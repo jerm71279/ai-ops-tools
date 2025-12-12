@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Analyze current DC02 network configuration",
+    "status": "completed",
+    "activeForm": "Analyzing current DC02 network configuration"
+  },
+  {
+    "content": "Verify DNS configuration and domain setup",
+    "status": "completed",
+    "activeForm": "Verifying DNS configuration and domain setup"
+  },
+  {
+    "content": "Provide steps to move DC02 to 10.20.1.x network",
+    "status": "in_progress",
+    "activeForm": "Providing steps to move DC02 to 10.20.1.x network"
+  }
+]

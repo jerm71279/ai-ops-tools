@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Complete SETCO-DC02 migration documentation",
+    "status": "completed",
+    "activeForm": "Creating migration documentation"
+  },
+  {
+    "content": "Update DHCP scope on 11 SonicWall firewalls",
+    "status": "pending",
+    "activeForm": "Updating DHCP scopes"
+  },
+  {
+    "content": "Monitor AD replication for 30 days",
+    "status": "pending",
+    "activeForm": "Monitoring AD replication"
+  },
+  {
+    "content": "Plan decommission of old vendor DC",
+    "status": "pending",
+    "activeForm": "Planning decommission"
+  }
+]

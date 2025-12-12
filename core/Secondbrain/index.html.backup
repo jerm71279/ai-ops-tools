@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Tracker - Interactive Dashboard</title>
+    <script src="https://alcdn.msauth.net/browser/2.38.1/js/msal-browser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid #f59e0b;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .logo-text {
+            color: white;
+        }
+
+        .logo-connect {
+            color: #f59e0b;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            border-left: 3px solid #f59e0b;
+            padding-left: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #1e3a8a;
+        }
+
+        .btn-primary:hover {
+            background: #f59e0b;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1e3a8a;
+        }
+
+        .section-header h2 {
+            font-size: 24px;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge {
+            background: #f59e0b;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        thead {
+            background: #f9fafb;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #374151;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-in-progress {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-not-started {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .status-open {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-pending {
+            background: #fce7f3;
+            color: #9f1239;
+        }
+
+        .status-completed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .priority-high {
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .priority-medium {
+            color: #f59e0b;
+            font-weight: 600;
+        }
+
+        .priority-low {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .login-screen {
+            text-align: center;
+            padding: 60px 30px;
+        }
+
+        .login-screen h2 {
+            font-size: 32px;
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+
+        .login-screen p {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6b7280;
+        }
+
+        .spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        input[contenteditable="true"],
+        td[contenteditable="true"] {
+            border: 1px dashed #667eea;
+            padding: 4px;
+            border-radius: 4px;
+        }
+
+        .summary-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid #1e3a8a;
+        }
+
+        .summary-card.warning {
+            border-left-color: #f59e0b;
+        }
+
+        .summary-card.danger {
+            border-left-color: #ef4444;
+        }
+
+        .summary-card.success {
+            border-left-color: #10b981;
+        }
+
+        .summary-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .summary-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+        }
+
+        .summary-card-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .summary-card-subtitle {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 5px;
+        }
+
+        .activity-feed {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .activity-feed h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+
+        .activity-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #3b82f6;
+        }
+
+        .activity-text {
+            flex: 1;
+            font-size: 14px;
+            color: #4b5563;
+        }
+
+        .activity-time {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        /* People Picker Autocomplete */
+        .autocomplete-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .autocomplete-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .autocomplete-dropdown.show {
+            display: block;
+        }
+
+        .autocomplete-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #f3f4f6;
+            transition: background-color 0.2s;
+        }
+
+        .autocomplete-item:hover {
+            background-color: #f3f4f6;
+        }
+
+        .autocomplete-item:last-child {
+            border-bottom: none;
+        }
+
+        .autocomplete-item-name {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 14px;
+        }
+
+        .autocomplete-item-email {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 2px;
+        }
+
+        .autocomplete-loading {
+            padding: 10px 15px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-text">Obera</span><span class="logo-connect">Connect</span>
+                </div>
+                <h1>Engineering Tracker</h1>
+            </div>
+            <div class="user-info">
+                <span id="userName"></span>
+                <button id="loginBtn" class="btn btn-primary" onclick="handleLogin()">Sign In</button>
+            </div>
+        </div>
+
+        <div id="loginScreen" class="content login-screen">
+            <h2>Welcome to Engineering Tracker</h2>
+            <p>Sign in with your Microsoft account to view and manage projects and tickets</p>
+            <button class="btn btn-primary" onclick="handleLogin()" style="padding: 15px 40px; font-size: 16px;">
+                🔐 Sign In with Microsoft
+            </button>
+        </div>
+
+        <div id="loadingScreen" class="content loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Loading your data...</p>
+        </div>
+
+        <div id="dashboardContent" class="content" style="display: none;">
+            <!-- Summary Dashboard -->
+            <div class="summary-dashboard">
+                <div class="summary-card">
+                    <div class="summary-card-header">
+                        <span class="summary-card-title">Total Projects</span>
+                    </div>
+                    <div class="summary-card-value" id="summaryTotalProjects">0</div>
+                    <div class="summary-card-subtitle" id="summaryProjectsStatus">0 in progress</div>
+                </div>
+
+                <div class="summary-card warning">
+                    <div class="summary-card-header">
+                        <span class="summary-card-title">Open Tickets</span>
+                    </div>
+                    <div class="summary-card-value" id="summaryOpenTickets">0</div>
+                    <div class="summary-card-subtitle" id="summaryTicketsStatus">0 pending</div>
+                </div>
+
+                <div class="summary-card danger">
+                    <div class="summary-card-header">
+                        <span class="summary-card-title">High Priority</span>
+                    </div>
+                    <div class="summary-card-value" id="summaryHighPriority">0</div>
+                    <div class="summary-card-subtitle">Requires attention</div>
+                </div>
+
+                <div class="summary-card success">
+                    <div class="summary-card-header">
+                        <span class="summary-card-title">Completed Today</span>
+                    </div>
+                    <div class="summary-card-value" id="summaryCompletedToday">0</div>
+                    <div class="summary-card-subtitle">Last 24 hours</div>
+                </div>
+            </div>
+
+            <!-- Projects Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>
+                        📋 Projects
+                        <span class="badge" id="projectCount">0</span>
+                    </h2>
+                    <button class="btn btn-success" onclick="showAddProjectModal()">
+                        + Add Project
+                    </button>
+                </div>
+                <table id="projectsTable">
+                    <thead>
+                        <tr>
+                            <th>Project Name</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Priority</th>
+                            <th>Assigned To</th>
+                            <th>Team</th>
+                            <th>Related Links</th>
+                            <th>📎 Attachments</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="projectsBody">
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tickets Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>
+                        🎫 Tickets
+                        <span class="badge" id="ticketCount">0</span>
+                    </h2>
+                    <button class="btn btn-success" onclick="showAddTicketModal()">
+                        + Add Ticket
+                    </button>
+                </div>
+                <table id="ticketsTable">
+                    <thead>
+                        <tr>
+                            <th>Ticket #</th>
+                            <th>Ticket Title</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Priority</th>
+                            <th>Assigned To</th>
+                            <th>Team</th>
+                            <th>Related Project</th>
+                            <th>Customer</th>
+                            <th>Related Links</th>
+                            <th>📎 Attachments</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ticketsBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Project Modal -->
+    <div id="addProjectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">Add New Project</div>
+            <div class="form-group">
+                <label>Project Name *</label>
+                <input type="text" id="newProjectName" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="newProjectDescription"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <select id="newProjectStatus">
+                    <option value="Not Started">Not Started</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                    <option value="On Hold">On Hold</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Priority</label>
+                <select id="newProjectPriority">
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Assigned To</label>
+                <input type="text" id="newProjectAssignedTo">
+            </div>
+            <div class="form-group">
+                <label>Team</label>
+                <select id="newProjectTeam">
+                    <option value="Engineering">Engineering</option>
+                    <option value="Network">Network</option>
+                    <option value="Support">Support</option>
+                    <option value="Development">Development</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal('addProjectModal')">Cancel</button>
+                <button class="btn btn-success" onclick="addProject()">Add Project</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Ticket Modal -->
+    <div id="addTicketModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">Add New Ticket</div>
+            <div class="form-group">
+                <label>Ticket Title *</label>
+                <input type="text" id="newTicketTitle" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="newTicketDescription"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <select id="newTicketStatus">
+                    <option value="Open" selected>Open</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Resolved">Resolved</option>
+                    <option value="Closed">Closed</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Priority</label>
+                <select id="newTicketPriority">
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Team</label>
+                <select id="newTicketTeam">
+                    <option value="Engineering">Engineering</option>
+                    <option value="Network">Network</option>
+                    <option value="Support">Support</option>
+                    <option value="Development">Development</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Related Project</label>
+                <input type="text" id="newTicketProject">
+            </div>
+            <div class="form-group">
+                <label>Customer</label>
+                <input type="text" id="newTicketCustomer">
+            </div>
+            <div class="form-group">
+                <label>Assigned To</label>
+                <input type="text" id="newTicketAssignedTo">
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal('addTicketModal')">Cancel</button>
+                <button class="btn btn-success" onclick="addTicket()">Add Ticket</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // MSAL Configuration
+        const msalConfig = {
+            auth: {
+                clientId: '2527689c-fd5b-47d6-820c-45e4157f9a4f',
+                authority: 'https://login.microsoftonline.com/ad6cfe8e-bf9d-4bb0-bfd7-05058c2c69dd',
+                redirectUri: 'https://jolly-island-06ade710f.3.azurestaticapps.net/'
+            },
+            cache: {
+                cacheLocation: 'localStorage',
+                storeAuthStateInCookie: false
+            }
+        };
+
+        const msalInstance = new msal.PublicClientApplication(msalConfig);
+
+        const loginRequest = {
+            scopes: ['Sites.ReadWrite.All', 'User.Read', 'User.ReadBasic.All']
+        };
+
+        let accessToken = null;
+        let siteId = 'oberaconnect.sharepoint.com,3894a9a1-76ac-4955-88b2-a1d335f35f78,522e18b4-c876-4c61-b74b-53adb0e6ddef';
+        let projectsListId = null;
+        let ticketsListId = null;
+        let orgUsers = []; // Store organization users for people picker
+
+        // Initialize on page load
+        msalInstance.handleRedirectPromise().then(response => {
+            if (response) {
+                handleResponse(response);
+            } else {
+                const accounts = msalInstance.getAllAccounts();
+                if (accounts.length > 0) {
+                    msalInstance.setActiveAccount(accounts[0]);
+                    acquireTokenAndLoadData();
+                }
+            }
+        });
+
+        async function handleLogin() {
+            try {
+                await msalInstance.loginRedirect(loginRequest);
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('Login failed: ' + error.message);
+            }
+        }
+
+        function handleResponse(response) {
+            if (response.account) {
+                msalInstance.setActiveAccount(response.account);
+                acquireTokenAndLoadData();
+            }
+        }
+
+        async function acquireTokenAndLoadData() {
+            const account = msalInstance.getActiveAccount();
+            if (!account) {
+                return;
+            }
+
+            document.getElementById('userName').textContent = account.name || account.username;
+            document.getElementById('loginBtn').textContent = 'Sign Out';
+            document.getElementById('loginBtn').onclick = handleLogout;
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('loadingScreen').style.display = 'block';
+
+            try {
+                const response = await msalInstance.acquireTokenSilent({
+                    ...loginRequest,
+                    account: account
+                });
+                accessToken = response.accessToken;
+                await loadData();
+            } catch (error) {
+                console.error('Token acquisition error:', error);
+                if (error instanceof msal.InteractionRequiredAuthError) {
+                    await msalInstance.acquireTokenRedirect(loginRequest);
+                }
+            }
+        }
+
+        function handleLogout() {
+            msalInstance.logoutRedirect();
+        }
+
+        async function loadData() {
+            try {
+                // Get list IDs
+                const listsResponse = await fetch(`https://graph.microsoft.com/v1.0/sites/${siteId}/lists`, {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+                const listsData = await listsResponse.json();
+
+                listsData.value.forEach(list => {
+                    if (list.displayName === 'Engineering Projects') {
+                        projectsListId = list.id;
+                    } else if (list.displayName === 'Engineering Tickets') {
+                        ticketsListId = list.id;
+                    }
+                });
+
+                // Load projects, tickets, and organization users
+                await Promise.all([loadProjects(), loadTickets(), fetchOrgUsers()]);
+
+                // Initialize people pickers for modal forms
+                const newProjectAssignedTo = document.getElementById('newProjectAssignedTo');
+                if (newProjectAssignedTo && !newProjectAssignedTo.dataset.pickerInitialized) {
+                    setupPeoplePicker(newProjectAssignedTo);
+                    newProjectAssignedTo.dataset.pickerInitialized = 'true';
+                }
+
+                const newTicketAssignedTo = document.getElementById('newTicketAssignedTo');
+                if (newTicketAssignedTo && !newTicketAssignedTo.dataset.pickerInitialized) {
+                    setupPeoplePicker(newTicketAssignedTo);
+                    newTicketAssignedTo.dataset.pickerInitialized = 'true';
+                }
+
+                document.getElementById('loadingScreen').style.display = 'none';
+                document.getElementById('dashboardContent').style.display = 'block';
+            } catch (error) {
+                console.error('Error loading data:', error);
+                alert('Failed to load data: ' + error.message);
+            }
+        }
+
+        // Fetch organization users for people picker with pagination
+        async function fetchOrgUsers() {
+            try {
+                let allUsers = [];
+                let url = 'https://graph.microsoft.com/v1.0/users?$select=displayName,mail,userPrincipalName&$top=999';
+
+                // Fetch all pages of users
+                while (url) {
+                    const response = await fetch(url, {
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    });
+                    const data = await response.json();
+
+                    if (data.value) {
+                        allUsers = allUsers.concat(data.value);
+                    }
+
+                    // Check for next page
+                    url = data['@odata.nextLink'] || null;
+                }
+
+                // Map users and filter out those without names
+                orgUsers = allUsers
+                    .filter(user => user.displayName)
+                    .map(user => ({
+                        name: user.displayName,
+                        email: user.mail || user.userPrincipalName
+                    }))
+                    .sort((a, b) => a.name.localeCompare(b.name));
+
+                console.log(`Loaded ${orgUsers.length} users for people picker`);
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        }
+
+        // Create autocomplete for AssignedTo fields
+        function setupPeoplePicker(inputElement) {
+            const container = document.createElement('div');
+            container.className = 'autocomplete-container';
+
+            const dropdown = document.createElement('div');
+            dropdown.className = 'autocomplete-dropdown';
+
+            inputElement.parentNode.insertBefore(container, inputElement);
+            container.appendChild(inputElement);
+            container.appendChild(dropdown);
+
+            inputElement.addEventListener('input', function() {
+                const value = this.value.toLowerCase();
+
+                if (value.length < 1) {
+                    dropdown.classList.remove('show');
+                    return;
+                }
+
+                const matches = orgUsers.filter(user =>
+                    user.name.toLowerCase().includes(value) ||
+                    user.email.toLowerCase().includes(value)
+                ).slice(0, 10); // Show max 10 results
+
+                if (matches.length === 0) {
+                    dropdown.classList.remove('show');
+                    return;
+                }
+
+                dropdown.innerHTML = matches.map(user => `
+                    <div class="autocomplete-item" data-name="${user.name}" data-email="${user.email}">
+                        <div class="autocomplete-item-name">${user.name}</div>
+                        <div class="autocomplete-item-email">${user.email}</div>
+                    </div>
+                `).join('');
+
+                dropdown.classList.add('show');
+
+                // Add click handlers to items
+                dropdown.querySelectorAll('.autocomplete-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        inputElement.value = this.getAttribute('data-name');
+                        dropdown.classList.remove('show');
+                    });
+                });
+            });
+
+            inputElement.addEventListener('focus', function() {
+                if (this.value.length >= 1) {
+                    this.dispatchEvent(new Event('input'));
+                }
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!container.contains(e.target)) {
+                    dropdown.classList.remove('show');
+                }
+            });
+        }
+
+        let projectsData = [];
+        let ticketsData = [];
+
+        async function loadProjects() {
+            const response = await fetch(`https://graph.microsoft.com/v1.0/sites/${siteId}/lists/${projectsListId}/items?expand=fields`, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+            const data = await response.json();
+            projectsData = data.value;
+
+            // Sort projects by priority (High > Medium > Low)
+            const priorityOrder = { 'High': 0, 'Medium': 1, 'Low': 2 };
+            projectsData.sort((a, b) => {
+                const priorityA = priorityOrder[a.fields.Priority] ?? 3;
+                const priorityB = priorityOrder[b.fields.Priority] ?? 3;
+                return priorityA - priorityB;
+            });
+
+            const tbody = document.getElementById('projectsBody');
+            tbody.innerHTML = '';
+
+            projectsData.forEach(item => {
+                const fields = item.fields;
+                const row = createProjectRow(item.id, fields);
+                tbody.appendChild(row);
+            });
+
+            document.getElementById('projectCount').textContent = projectsData.length;
+            updateSummary();
+        }
+
+        async function loadTickets() {
+            const response = await fetch(`https://graph.microsoft.com/v1.0/sites/${siteId}/lists/${ticketsListId}/items?expand=fields`, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+            const data = await response.json();
+            ticketsData = data.value;
+
+            // Sort tickets by priority (High > Medium > Low)
+            const priorityOrder = { 'High': 0, 'Medium': 1, 'Low': 2 };
+            ticketsData.sort((a, b) => {
+                const priorityA = priorityOrder[a.fields.Priority] ?? 3;
+                const priorityB = priorityOrder[b.fields.Priority] ?? 3;
+                return priorityA - priorityB;
+            });
+
+            const tbody = document.getElementById('ticketsBody');
+            tbody.innerHTML = '';
+
+            ticketsData.forEach(item => {
+                const fields = item.fields;
+                const row = createTicketRow(item.id, fields);
+                tbody.appendChild(row);
+            });
+
+            document.getElementById('ticketCount').textContent = ticketsData.length;
+            updateSummary();
+        }
+
+        function updateSummary() {
+            // Calculate project stats
+            const inProgressProjects = projectsData.filter(p => p.fields.Status === 'In Progress').length;
+            document.getElementById('summaryTotalProjects').textContent = projectsData.length;
+            document.getElementById('summaryProjectsStatus').textContent = `${inProgressProjects} in progress`;
+
+            // Calculate ticket stats
+            const openTickets = ticketsData.filter(t => t.fields.Status === 'Open' || t.fields.Status === 'In Progress').length;
+            const pendingTickets = ticketsData.filter(t => t.fields.Status === 'Pending').length;
+            document.getElementById('summaryOpenTickets').textContent = openTickets;
+            document.getElementById('summaryTicketsStatus').textContent = `${pendingTickets} pending`;
+
+            // Calculate high priority items (both projects and tickets)
+            const highPriorityProjects = projectsData.filter(p => p.fields.Priority === 'High').length;
+            const highPriorityTickets = ticketsData.filter(t => t.fields.Priority === 'High').length;
+            document.getElementById('summaryHighPriority').textContent = highPriorityProjects + highPriorityTickets;
+
+            // Calculate completed today (items modified/created today)
+            const today = new Date().toDateString();
+            const completedToday = [...projectsData, ...ticketsData].filter(item => {
+                const modified = new Date(item.fields.Modified || item.fields.Created);
+                return modified.toDateString() === today &&
+                       (item.fields.Status === 'Completed' || item.fields.Status === 'Resolved' || item.fields.Status === 'Closed');
+            }).length;
+            document.getElementById('summaryCompletedToday').textContent = completedToday;
+        }
+
+        function createProjectRow(itemId, fields) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td contenteditable="true" data-field="ProjectName">${fields.ProjectName || ''}</td>
+                <td contenteditable="true" data-field="Description">${fields.Description || ''}</td>
+                <td>
+                    <select data-field="Status" onchange="updateField(${itemId}, 'project', this)">
+                        <option value="Not Started" ${fields.Status === 'Not Started' ? 'selected' : ''}>Not Started</option>
+                        <option value="In Progress" ${fields.Status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+                        <option value="Completed" ${fields.Status === 'Completed' ? 'selected' : ''}>Completed</option>
+                        <option value="On Hold" ${fields.Status === 'On Hold' ? 'selected' : ''}>On Hold</option>
+                    </select>
+                </td>
+                <td>
+                    <select data-field="Priority" onchange="updateField(${itemId}, 'project', this)">
+                        <option value="Low" ${fields.Priority === 'Low' ? 'selected' : ''}>Low</option>
+                        <option value="Medium" ${fields.Priority === 'Medium' ? 'selected' : ''}>Medium</option>
+                        <option value="High" ${fields.Priority === 'High' ? 'selected' : ''}>High</option>
+                    </select>
+                </td>
+                <td><input type="text" class="assigned-to-input" data-field="AssignedTo" value="${fields.AssignedTo || ''}" style="width:100%; padding:5px; border:1px solid #ddd; border-radius:4px;"></td>
+                <td contenteditable="true" data-field="Team">${fields.Team || ''}</td>
+                <td><input type="text" data-field="RelatedLinks" value="${fields.RelatedLinks || ''}" placeholder="Add URL..." style="width:100%; padding:5px; border:1px solid #ddd; border-radius:4px;"></td>
+                <td style="text-align: center;">
+                    <button class="btn btn-sm" onclick="openAttachments(${itemId}, 'project')" title="View/Add Attachments">
+                        📎 <span class="attachment-count" data-item-id="${itemId}">-</span>
+                    </button>
+                </td>
+                <td class="actions">
+                    <button class="btn btn-sm btn-success" onclick="saveProjectRow(${itemId}, this)">Save</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteItem(${itemId}, 'project')">Delete</button>
+                </td>
+            `;
+
+            // Apply people picker to AssignedTo field after row is created
+            setTimeout(() => {
+                const assignedToInput = row.querySelector('.assigned-to-input');
+                if (assignedToInput && !assignedToInput.dataset.pickerInitialized) {
+                    setupPeoplePicker(assignedToInput);
+                    assignedToInput.dataset.pickerInitialized = 'true';
+                }
+            }, 0);
+
+            return row;
+        }
+
+        function createTicketRow(itemId, fields) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td style="background: #f3f4f6; font-family: monospace; font-weight: 600; color: #3b82f6;">${fields.TicketNumber || 'N/A'}</td>
+                <td contenteditable="true" data-field="TicketTitle">${fields.TicketTitle || ''}</td>
+                <td contenteditable="true" data-field="Description">${fields.Description || ''}</td>
+                <td>
+                    <select data-field="Status" onchange="updateField(${itemId}, 'ticket', this)">
+                        <option value="Open" ${fields.Status === 'Open' ? 'selected' : ''}>Open</option>
+                        <option value="In Progress" ${fields.Status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+                        <option value="Pending" ${fields.Status === 'Pending' ? 'selected' : ''}>Pending</option>
+                        <option value="Resolved" ${fields.Status === 'Resolved' ? 'selected' : ''}>Resolved</option>
+                        <option value="Closed" ${fields.Status === 'Closed' ? 'selected' : ''}>Closed</option>
+                    </select>
+                </td>
+                <td>
+                    <select data-field="Priority" onchange="updateField(${itemId}, 'ticket', this)">
+                        <option value="Low" ${fields.Priority === 'Low' ? 'selected' : ''}>Low</option>
+                        <option value="Medium" ${fields.Priority === 'Medium' ? 'selected' : ''}>Medium</option>
+                        <option value="High" ${fields.Priority === 'High' ? 'selected' : ''}>High</option>
+                    </select>
+                </td>
+                <td><input type="text" class="assigned-to-input" data-field="AssignedTo" value="${fields.AssignedTo || ''}" style="width:100%; padding:5px; border:1px solid #ddd; border-radius:4px;"></td>
+                <td contenteditable="true" data-field="Team">${fields.Team || ''}</td>
+                <td contenteditable="true" data-field="RelatedProject">${fields.RelatedProject || ''}</td>
+                <td contenteditable="true" data-field="Customer">${fields.Customer || ''}</td>
+                <td><input type="text" data-field="RelatedLinks" value="${fields.RelatedLinks || ''}" placeholder="Add URL..." style="width:100%; padding:5px; border:1px solid #ddd; border-radius:4px;"></td>
+                <td style="text-align: center;">
+                    <button class="btn btn-sm" onclick="openAttachments(${itemId}, 'ticket')" title="View/Add Attachments">
+                        📎 <span class="attachment-count" data-item-id="${itemId}">-</span>
+                    </button>
+                </td>
+                <td class="actions">
+                    <button class="btn btn-sm btn-success" onclick="saveTicketRow(${itemId}, this)">Save</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteItem(${itemId}, 'ticket')">Delete</button>
+                </td>
+            `;
+
+            // Apply people picker to AssignedTo field after row is created
+            setTimeout(() => {
+                const assignedToInput = row.querySelector('.assigned-to-input');
+                if (assignedToInput && !assignedToInput.dataset.pickerInitialized) {
+                    setupPeoplePicker(assignedToInput);
+                    assignedToInput.dataset.pickerInitialized = 'true';
+                }
+            }, 0);
+
+            return row;
+        }
+
+        async function saveProjectRow(itemId, button) {
+            const row = button.closest('tr');
+            const cells = row.querySelectorAll('[data-field]');
+            const updates = { Title: 'Project' };
+
+            cells.forEach(cell => {
+                const field = cell.getAttribute('data-field');
+                let value;
+                if (cell.tagName === 'SELECT') {
+                    value = cell.value;
+                } else if (cell.tagName === 'INPUT') {
+                    value = cell.value;
+                } else {
+                    value = cell.textContent.trim();
+                }
+                updates[field] = value;
+            });
+
+            try {
+                await fetch(`https://graph.microsoft.com/v1.0/sites/${siteId}/lists/${projectsListId}/items/${itemId}/fields`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updates)
+                });
+                alert('Project updated successfully!');
+            } catch (error) {
+                console.error('Error updating project:', error);
+                alert('Failed to update project: ' + error.message);
+            }
+        }
+
+        async function saveTicketRow(itemId, button) {
+            const row = button.closest('tr');
+            const cells = row.querySelectorAll('[data-field]');
+            const updates = { Title: 'Ticket' };
+
+            cells.forEach(cell => {
+                const field = cell.getAttribute('data-field');
+                let value;
+                if (cell.tagName === 'SELECT') {
+                    value = cell.value;
+                } else if (cell.tagName === 'INPUT') {
+                    value = cell.value;
+                } else {
+                    value = cell.textContent.trim();
+                }
+                updates[field] = value;
+            });
+
+            try {
+                await fetch(`https://graph.microsoft.com/v1.0/sites/${siteId}/lists/${ticketsListId}/items/${itemId}/fields`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updates)
+                });
+                alert('Ticket updated successfully!');
+            } catch (error) {
+                console.error('Error updating ticket:', error);
+                alert('Failed to update ticket: ' + error.message);
+            }
+        }
+
+        async function deleteItem(itemId, type) {
+            if (!confirm(`Are you sure you want to delete this ${type}?`)) {
+                return;
+            }
+
+            const listId = type === 'project' ? projectsListId : ticketsListId;
+
+            try {
+                await fetch(`https://graph.microsoft.com/v1.0/sites/${siteId}/lists/${listId}/items/${itemId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+
+                if (type === 'project') {
+                    await loadProjects();
+                } else {
+                    await loadTickets();
+                }
+
+                alert(`${type.charAt(0).toUpperCase() + type.slice(1)} deleted successfully!`);
+            } catch (error) {
+                console.error('Error deleting item:', error);
+                alert('Failed to delete: ' + error.message);
+            }
+        }
+
+        function openAttachments(itemId, type) {
+            // Create file input element
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.multiple = true;
+            fileInput.style.display = 'none';
+
+            fileInput.onchange = async (e) => {
+                const files = e.target.files;
+                if (files.length === 0) return;
+
+                const listId = type === 'project' ? projectsListId : ticketsListId;
+
+                try {
+                    for (let file of files) {
+                        await uploadAttachment(itemId, listId, file);
+                    }
+                    alert(`${files.length} file(s) uploaded successfully!`);
+                    // Reload to update attachment count
+                    if (type === 'project') {
+                        await loadProjects();
+                    } else {
+                        await loadTickets();
+                    }
+                } catch (error) {
+                    console.error('Upload error:', error);
+                    alert('Failed to upload files: ' + error.message);
+                }
+            };
+
+            document.body.appendChild(fileInput);
+            fileInput.click();
+            document.body.removeChild(fileInput);
+        }
+
+        async function uploadAttachment(itemId, listId, file) {
+            const fileName = file.name;
+            const reader = new FileReader();
+
+            return new Promise((resolve, reject) => {
+                reader.onload = async (e) => {
+                    const fileContent = e.target.result;
+
+                    try {
+                        const response = await fetch(
+                            `https://graph.microsoft.com/v1.0/sites/${siteId}/lists/${listId}/items/${itemId}/attachments`,
+                            {
+                                method: 'POST',
+                                headers: {
+                                    'Authorization': `Bearer ${accessToken}`,
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    name: fileName,
+                                    contentBytes: fileContent.split(',')[1] // Remove data URL prefix
+                                })
+                            }
+                        );
+
+                        if (response.ok) {
+                            console.log(`✅ Uploaded: ${fileName}`);
+                            resolve();
+                        } else {
+                            const error = await response.text();
+                            reject(new Error(error));
+                        }
+                    } catch (error) {
+                        reject(error);
+                    }
+                };
+
+                reader.onerror = () => reject(new Error('Failed to read file'));
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function showAddProjectModal() {
+            document.getElementById('addProjectModal').classList.add('active');
+        }
+
+        function showAddTicketModal() {
+            document.getElementById('addTicketModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        async function addProject() {
+            const projectData = {
+                fields: {
+                    Title: 'Project',
+                    ProjectName: document.getElementById('newProjectName').value,
+                    Description: document.getElementById('newProjectDescription').value,
+                    Status: document.getElementById('newProjectStatus').value,
+                    Priority: document.getElementById('newProjectPriority').value,
+                    AssignedTo: document.getElementById('newProjectAssignedTo').value,
+                    Team: document.getElementById('newProjectTeam').value
+                }
+            };
+
+            try {
+                // Create project in SharePoint list
+                await fetch(`https://graph.microsoft.com/v1.0/sites/${siteId}/lists/${projectsListId}/items`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(projectData)
+                });
+
+                // Create folder in Engineering/EE Projects
+                const projectName = projectData.fields.ProjectName;
+                if (projectName) {
+                    try {
+                        // Get Documents drive ID
+                        const drivesResponse = await fetch(`https://graph.microsoft.com/v1.0/sites/${siteId}/drives`, {
+                            headers: { 'Authorization': `Bearer ${accessToken}` }
+                        });
+                        const drives = await drivesResponse.json();
+                        const driveId = drives.value.find(d => d.name === 'Documents')?.id;
+
+                        if (driveId) {
+                            // Create folder
+                            const folderData = {
+                                name: projectName,
+                                folder: {},
+                                '@microsoft.graph.conflictBehavior': 'rename'
+                            };
+                            await fetch(`https://graph.microsoft.com/v1.0/sites/${siteId}/drives/${driveId}/root:/Engineering/EE Projects:/children`, {
+                                method: 'POST',
+                                headers: {
+                                    'Authorization': `Bearer ${accessToken}`,
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(folderData)
+                            });
+                            console.log(`✅ Created folder: Engineering/EE Projects/${projectName}`);
+
+                            // Create markdown file inside folder
+                            const mdContent = `# ${projectName}
+
+## Project Details
+
+**Description:** ${projectData.fields.Description || 'N/A'}
+**Status:** ${projectData.fields.Status}
+**Priority:** ${projectData.fields.Priority}
+**Assigned To:** ${projectData.fields.AssignedTo || 'Unassigned'}
+**Team:** ${projectData.fields.Team}
+**Created:** ${new Date().toLocaleDateString()}
+
+## Notes
+
+Add your project notes here...
+
+## Tasks
+
+- [ ] Task 1
+- [ ] Task 2
+- [ ] Task 3
+
+## Updates
+
+### ${new Date().toLocaleDateString()}
+- Project created
+`;
+
+                            await fetch(`https://graph.microsoft.com/v1.0/sites/${siteId}/drives/${driveId}/root:/Engineering/EE Projects/${projectName}/${projectName}.md:/content`, {
+                                method: 'PUT',
+                                headers: {
+                                    'Authorization': `Bearer ${accessToken}`,
+                                    'Content-Type': 'text/plain'
+                                },
+                                body: mdContent
+                            });
+                            console.log(`✅ Created file: Engineering/EE Projects/${projectName}/${projectName}.md`);
+                        }
+                    } catch (folderError) {
+                        console.warn('Folder creation failed:', folderError);
+                        // Don't fail the whole operation if folder creation fails
+                    }
+                }
+
+                closeModal('addProjectModal');
+                await loadProjects();
+                alert('Project added successfully!');
+
+                // Clear form
+                document.getElementById('newProjectName').value = '';
+                document.getElementById('newProjectDescription').value = '';
+                document.getElementById('newProjectAssignedTo').value = '';
+            } catch (error) {
+                console.error('Error adding project:', error);
+                alert('Failed to add project: ' + error.message);
+            }
+        }
+
+        async function addTicket() {
+            try {
+                // Generate ticket number (MM-DD-YY-NNNNN)
+                const today = new Date();
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
+                const dd = String(today.getDate()).padStart(2, '0');
+                const yy = String(today.getFullYear()).substring(2);
+                const datePrefix = `${mm}-${dd}-${yy}`;
+
+                // Query existing tickets for today to get the next sequence number
+                const ticketsResponse = await fetch(
+                    `https://graph.microsoft.com/v1.0/sites/${siteId}/lists/${ticketsListId}/items?$expand=fields&$filter=startswith(fields/TicketNumber, '${datePrefix}')&$select=fields`,
+                    {
+                        headers: { 'Authorization': `Bearer ${accessToken}` }
+                    }
+                );
+                const ticketsData = await ticketsResponse.json();
+
+                // Find the highest sequence number
+                let maxSequence = 0;
+                if (ticketsData.value && ticketsData.value.length > 0) {
+                    ticketsData.value.forEach(ticket => {
+                        if (ticket.fields.TicketNumber) {
+                            const parts = ticket.fields.TicketNumber.split('-');
+                            if (parts.length === 5) {
+                                const sequence = parseInt(parts[4], 10);
+                                if (sequence > maxSequence) {
+                                    maxSequence = sequence;
+                                }
+                            }
+                        }
+                    });
+                }
+
+                const nextSequence = String(maxSequence + 1).padStart(5, '0');
+                const ticketNumber = `${datePrefix}-${nextSequence}`;
+
+                const ticketData = {
+                    fields: {
+                        Title: 'Ticket',
+                        TicketNumber: ticketNumber,
+                        TicketTitle: document.getElementById('newTicketTitle').value,
+                        Description: document.getElementById('newTicketDescription').value,
+                        Status: document.getElementById('newTicketStatus').value,
+                        Priority: document.getElementById('newTicketPriority').value,
+                        Team: document.getElementById('newTicketTeam').value,
+                        RelatedProject: document.getElementById('newTicketProject').value,
+                        Customer: document.getElementById('newTicketCustomer').value,
+                        AssignedTo: document.getElementById('newTicketAssignedTo').value
+                    }
+                };
+
+                // Create ticket in SharePoint list
+                await fetch(`https://graph.microsoft.com/v1.0/sites/${siteId}/lists/${ticketsListId}/items`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(ticketData)
+                });
+
+                // Create folder in Engineering/EE Tickets
+                const ticketTitle = ticketData.fields.TicketTitle;
+                if (ticketTitle) {
+                    try {
+                        // Get Documents drive ID
+                        const drivesResponse = await fetch(`https://graph.microsoft.com/v1.0/sites/${siteId}/drives`, {
+                            headers: { 'Authorization': `Bearer ${accessToken}` }
+                        });
+                        const drives = await drivesResponse.json();
+                        const driveId = drives.value.find(d => d.name === 'Documents')?.id;
+
+                        if (driveId) {
+                            // Create folder
+                            const folderData = {
+                                name: ticketTitle,
+                                folder: {},
+                                '@microsoft.graph.conflictBehavior': 'rename'
+                            };
+                            await fetch(`https://graph.microsoft.com/v1.0/sites/${siteId}/drives/${driveId}/root:/Engineering/EE Tickets:/children`, {
+                                method: 'POST',
+                                headers: {
+                                    'Authorization': `Bearer ${accessToken}`,
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(folderData)
+                            });
+                            console.log(`✅ Created folder: Engineering/EE Tickets/${ticketTitle}`);
+
+                            // Create markdown file inside folder
+                            const mdContent = `# ${ticketTitle}
+
+**Ticket Number:** ${ticketNumber}
+
+## Ticket Details
+
+**Description:** ${ticketData.fields.Description || 'N/A'}
+**Status:** ${ticketData.fields.Status}
+**Priority:** ${ticketData.fields.Priority}
+**Assigned To:** ${ticketData.fields.AssignedTo || 'Unassigned'}
+**Team:** ${ticketData.fields.Team}
+**Customer:** ${ticketData.fields.Customer || 'N/A'}
+**Related Project:** ${ticketData.fields.RelatedProject || 'N/A'}
+**Created:** ${new Date().toLocaleDateString()}
+
+## Issue Description
+
+Describe the issue in detail here...
+
+## Steps to Reproduce
+
+1. Step 1
+2. Step 2
+3. Step 3
+
+## Resolution Notes
+
+Document the solution here...
+
+## Activity Log
+
+### ${new Date().toLocaleDateString()}
+- Ticket created
+`;
+
+                            await fetch(`https://graph.microsoft.com/v1.0/sites/${siteId}/drives/${driveId}/root:/Engineering/EE Tickets/${ticketTitle}/${ticketTitle}.md:/content`, {
+                                method: 'PUT',
+                                headers: {
+                                    'Authorization': `Bearer ${accessToken}`,
+                                    'Content-Type': 'text/plain'
+                                },
+                                body: mdContent
+                            });
+                            console.log(`✅ Created file: Engineering/EE Tickets/${ticketTitle}/${ticketTitle}.md`);
+                        }
+                    } catch (folderError) {
+                        console.warn('Folder creation failed:', folderError);
+                        // Don't fail the whole operation if folder creation fails
+                    }
+                }
+
+                closeModal('addTicketModal');
+                await loadTickets();
+                alert('Ticket added successfully!');
+
+                // Clear form
+                document.getElementById('newTicketTitle').value = '';
+                document.getElementById('newTicketDescription').value = '';
+                document.getElementById('newTicketProject').value = '';
+                document.getElementById('newTicketCustomer').value = '';
+                document.getElementById('newTicketAssignedTo').value = '';
+            } catch (error) {
+                console.error('Error adding ticket:', error);
+                alert('Failed to add ticket: ' + error.message);
+            }
+        }
+
+        async function updateField(itemId, type, element) {
+            // Auto-save when dropdown changes
+            if (type === 'project') {
+                await saveProjectRow(itemId, element.closest('tr').querySelector('.btn-success'));
+            } else {
+                await saveTicketRow(itemId, element.closest('tr').querySelector('.btn-success'));
+            }
+        }
+    </script>
+</body>
+</html>

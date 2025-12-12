@@ -1,0 +1,180 @@
+###############################################################################
+# CD Workflow - Deploy to Production
+# 
+# Purpose:
+# This workflow handles automatic deployment to production when code is merged
+# to the main branch. It integrates with Lovable's automatic deployment system.
+#
+# Triggers:
+# - Push to 'main' branch only
+# - Manual trigger via workflow_dispatch (for emergency deployments)
+#
+# What it does:
+# 1. Checks out the code from the repository
+# 2. Validates that the code builds successfully
+# 3. Triggers Lovable's automatic deployment
+# 4. Notifies team of deployment status
+#
+# How Lovable Deployment Works:
+# - Lovable automatically watches your GitHub repository
+# - When changes are pushed to the main branch, Lovable:
+#   1. Pulls the latest code
+#   2. Builds the React application
+#   3. Deploys edge functions to Supabase
+#   4. Updates the production environment
+#   5. Runs database migrations if needed
+#
+# Important Notes:
+# - Edge functions deploy automatically (department-assistant, workflow-executor, 
+#   workflow-webhook, mcp-server)
+# - Database changes require manual migration approval in Lovable
+# - Production uses the same Supabase project (can be separated later)
+# - SSL certificates are automatically managed by Lovable
+###############################################################################
+
+name: Deploy to Production
+
+# Trigger this workflow on push to main branch or manual trigger
+on:
+  push:
+    branches: 
+      - main
+      - 'feature/**'
+      - 'llm-mesh'  # Support all branches for preview deployments
+  workflow_dispatch:  # Allow manual triggering from GitHub Actions UI
+    inputs:
+      reason:
+        description: 'Reason for manual deployment'
+        required: false
+        default: 'Manual deployment'
+
+jobs:
+  # Job: deploy
+  # Validates the build and triggers deployment
+  deploy:
+    runs-on: ubuntu-latest
+    
+    # Only run if commit message doesn't contain [skip ci]
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    
+    # Required permissions for deployment actions
+    permissions:
+      contents: read
+      deployments: write
+    
+    steps:
+      # Step 1: Check out the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      # Step 2: Set up Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm ci
+      
+      # Step 4: Build the application
+      # This validates that the code builds successfully before deployment
+      # Lovable will do this again, but we check here to fail fast
+      - name: Build application
+        run: npm run build
+        env:
+          # These are public keys, safe to include
+          # Lovable automatically provides these in production
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+      
+      # Step 5: Set environment based on branch
+      - name: Set environment name
+        id: set-env
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "environment=production" >> $GITHUB_OUTPUT
+            echo "url=https://2e37e4cf-64eb-4e9a-8cf1-14b876d69899.lovableproject.com" >> $GITHUB_OUTPUT
+          else
+            BRANCH_NAME=$(echo "${{ github.ref }}" | sed 's/refs\/heads\///' | sed 's/\//-/g')
+            echo "environment=preview-${BRANCH_NAME}" >> $GITHUB_OUTPUT
+            echo "url=https://2e37e4cf-64eb-4e9a-8cf1-14b876d69899.lovableproject.com" >> $GITHUB_OUTPUT
+          fi
+      
+      # Step 6: Notify deployment start
+      # This creates a deployment event in GitHub
+      - name: Create deployment
+        uses: chrnorm/deployment-action@v2
+        id: deployment
+        with:
+          token: ${{ github.token }}
+          environment: ${{ steps.set-env.outputs.environment }}
+          initial-status: in_progress
+      
+      # Step 7: Lovable automatic deployment
+      # Lovable watches branches and deploys automatically
+      # This step just logs that we're waiting for Lovable
+      - name: Trigger Lovable deployment
+        run: |
+          echo "✅ Code pushed to ${{ github.ref }}"
+          echo "🚀 Lovable is automatically deploying..."
+          echo "📦 Deploying edge functions to ${{ steps.set-env.outputs.environment }}"
+          echo "🌐 Deployment URL: ${{ steps.set-env.outputs.url }}"
+          echo "⏱️  Deployment typically takes 2-3 minutes"
+      
+      # Step 8: Wait for deployment to complete
+      # In a production setup, you could ping a health endpoint here
+      # For now, we just wait a reasonable time
+      - name: Wait for deployment
+        run: |
+          echo "Waiting for Lovable deployment to complete..."
+          sleep 30
+      
+      # Step 9: Update deployment status
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: ${{ github.token }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          state: success
+          environment-url: ${{ steps.set-env.outputs.url }}
+      
+      # Step 10: Update deployment status on failure
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: ${{ github.token }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          state: failure
+
+###############################################################################
+# Post-Deployment Checklist (Manual)
+# After deployment completes, verify:
+# 
+# ✅ Frontend
+# - Homepage loads correctly
+# - Navigation works
+# - All dashboard pages accessible
+# - Authentication flow works
+# 
+# ✅ Backend
+# - Edge functions are responding
+# - Database queries working
+# - RLS policies enforced
+# - Webhooks receiving data
+# 
+# ✅ Security
+# - HTTPS certificate valid
+# - CORS headers correct
+# - API keys not exposed
+# - User data protected by RLS
+# 
+# ✅ Monitoring
+# - Check edge function logs for errors
+# - Verify database connection stable
+# - Monitor authentication metrics
+# - Review any new error reports
+###############################################################################

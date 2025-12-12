@@ -1,0 +1,15 @@
+{
+  "source_document": "Call Flow Information Template_C033B021-3B3E-4D8F-ACE5-FC7D76343FD52024-08-15T08-14-34.docx",
+  "processed_at": "2025-11-18T19:20:05.256297",
+  "numbers_to_port": "What numbers will we be porting over? (Please request customer for most recent phone bill with the number(s) on the bill from the losing carrier for porting) Let them know we will notify them when they are able to cancel all services. If they do so early they will lose their number. If Creating Numbers: How many and what area code do they need the numbers to be? (Ex: Creating Main number and DIDs?)",
+  "extension_list": "What do you want the phones named? Example: receptionist / cordless",
+  "blf_keys": "(We already program all Internal) Ask if they need external numbers programmed on phones",
+  "portal_access": "Which users need access?",
+  "mobile_app_users": "Which users? (Send welcome email)",
+  "texting_type": "($10/per user /month)",
+  "holiday_schedule": "holiday schedule if you would us to edit your holiday VM please email your script to support@oberaconnect.com and we will upload it for you.",
+  "fax_setup": ") If they have Efax ask what email they would like to receive the faxes to.",
+  "phone_training_needed": "(Phone Training is via Google Meets. If customer need in person training there will be a cost of $100.00)",
+  "integrations": "(Cost get with sales)",
+  "call_recording": "Be sure to go over installation process with client \u2013 Notate whether we are using their existing fiber and if they are getting new or updated fiber, be sure to let them know that it may not be installed with phones. Let them know we will notify then when they are able to cancel all services."
+}

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OberaConnect Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            background: #fff;
+        }
+
+        .header {
+            border-bottom: 3px solid #0066CC;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #666666;
+            font-style: italic;
+            margin-left: 2px;
+        }
+
+        .doc-meta {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .doc-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .doc-date {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0066CC;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .section-content {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .section-content p {
+            margin-bottom: 10px;
+        }
+
+        .section-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section-content li {
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 11px;
+            color: #999999;
+            text-align: center;
+        }
+
+        .highlight-box {
+            background: #f5f9ff;
+            border-left: 4px solid #0066CC;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .action-item {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
+        </div>
+        <div class="tagline">Technology Solutions for Modern Business</div>
+
+        <div class="doc-meta">
+            <div class="doc-title">SOP-NET-004 SonicWall Registration v1.0.0</div>
+            <div class="doc-date">Date: [MM/DD/YYYY]</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Executive Summary</div>
+        <div class="section-content">
+            <p>Title: Register Device in MySonicwall</p>
+<p>Version: 1.0</p>
+<p>Author: Gemini</p>
+<p>Date: 2025-12-02</p>
+<p>────────────────────────────────────────────────────────────</p>
+<h1 id="purpose">1.0 Purpose</h1>
+<p>To provide a standardized procedure for registering a new SonicWall
+device in the MySonicwall portal, ensuring it is correctly associated
+with a tenant and ready for management.</p>
+<h1 id="scope">2.0 Scope</h1>
+<p>This procedure applies to all IT personnel and network administrators
+responsible for the deployment and initial configuration of new
+SonicWall hardware.</p>
+<h1 id="prerequisites">3.0 Prerequisites</h1>
+<ul>
+<li><p>**Credentials:** You must have valid login credentials for the
+[MySonicwall portal](https://www.mysonicwall.com).</p></li>
+<li><p>**Device Information:** You must have the **Serial Number** and
+**Activation Code** for the SonicWall device. This information is
+typically found on the original packaging or on a sticker on the device
+itself.</p></li>
+<li><p>**Tenant Information:** You must know the name of the tenant the
+device will be assigned to.</p></li>
+</ul>
+<h1 id="procedure">4.0 Procedure</h1>
+<ol type="1">
+<li><p>**Log In to MySonicwall Portal:**</p></li>
+</ol>
+<ul>
+<li><p>Navigate to `https://www.mysonicwall.com`.</p></li>
+<li><p>Log in with your authorized credentials.</p></li>
+</ul>
+<ol start="2" type="1">
+<li><p>**Navigate to Product Registration:**</p></li>
+</ol>
+<ul>
+<li><p>Once logged in, locate and click on the **Register Products**
+option in the portal's main navigation menu.</p></li>
+</ul>
+<ol start="3" type="1">
+<li><p>**Select or Create Tenant:**</p></li>
+</ol>
+<ul>
+<li><p>You will be prompted to associate the device with a
+tenant.</p></li>
+<li><p>**If the tenant already exists,** select it from the
+list.</p></li>
+<li><p>**If the tenant does not exist,** select the **Create New
+Tenant** option and follow the on-screen instructions to create
+it.</p></li>
+</ul>
+<ol start="4" type="1">
+<li><p>**Enter Device Details:**</p></li>
+</ol>
+<ul>
+<li><p>Enter the **Serial Number** and **Activation Code** from the
+device or its packaging into the appropriate fields.</p></li>
+</ul>
+<ol start="5" type="1">
+<li><p>**Assign a Friendly Name:**</p></li>
+</ol>
+<ul>
+<li><p>In the "Friendly Name" field, provide a descriptive name for the
+device that easily identifies its location or purpose (e.g., `Obera
+Fairhope`).</p></li>
+</ul>
+<ol start="6" type="1">
+<li><p>**Set Management Options:**</p></li>
+</ol>
+<ul>
+<li><p>Under the "Management Options" section, select **On
+Box**.</p></li>
+</ul>
+<ol start="7" type="1">
+<li><p>**Complete Registration:**</p></li>
+</ol>
+<ul>
+<li><p>Click the **Done** or **Register** button to finalize the
+process.</p></li>
+</ul>
+<h1 id="verification">5.0 Verification</h1>
+<ul>
+<li><p>After completing the procedure, navigate to the **Products** list
+within the MySonicwall portal.</p></li>
+<li><p>Confirm that the newly registered device appears in the list,
+associated with the correct tenant and friendly name.</p></li>
+</ul>
+<h1 id="references">6.0 References</h1>
+<ul>
+<li><p>MySonicwall Portal: `https://www.mysonicwall.com`</p></li>
+</ul>
+<p>────────────────────────────────────────────────────────────</p>
+<p>End of Document</p>
+<p>────────────────────────────────────────────────────────────</p>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Details</div>
+        <div class="section-content">
+            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
+
+            <div class="highlight-box">
+                <strong>Key Point:</strong> [Important information to highlight]
+            </div>
+
+            <p>Supporting details:</p>
+            <ul>
+                <li>[Detail item 1]</li>
+                <li>[Detail item 2]</li>
+                <li>[Detail item 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Next Steps</div>
+        <div class="section-content">
+            <div class="action-item">
+                <strong>Action Required:</strong> [Specific action item with owner and deadline]
+            </div>
+
+            <ul>
+                <li>[Next step 1]</li>
+                <li>[Next step 2]</li>
+                <li>[Next step 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        OberaConnect LLC | www.oberaconnect.com | Confidential
+    </div>
+</body>
+</html>

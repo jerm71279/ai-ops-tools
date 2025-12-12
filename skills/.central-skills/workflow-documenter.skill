@@ -1,0 +1,453 @@
+---
+name: workflow-documenter
+description: Create structured step-by-step workflow documentation for business processes across departments. Use when (1) Documenting IT workflows and network configurations, (2) Creating SOPs for team onboarding and training, (3) Building client deliverables and handoff documentation, (4) Generating department-specific process guides, (5) Recording troubleshooting procedures, (6) Creating knowledge base articles, (7) Documenting automation scripts and tools, (8) Building installation and configuration guides, (9) Creating training materials with screenshots, (10) Standardizing procedures across teams
+---
+
+# Workflow Documenter Skill
+
+Comprehensive workflow documentation system for creating, organizing, and exporting step-by-step process guides with screenshot support, optimized for Obsidian, SharePoint, and NotebookLM integration.
+
+## Overview
+
+This skill helps MSPs and IT teams create professional workflow documentation that:
+- Uses Markdown format for easy editing and version control
+- Supports screenshot organization and embedding
+- Exports to multiple formats (PDF, HTML, Word)
+- Integrates with existing knowledge management tools
+- Provides department-specific templates
+
+## Core Capabilities
+
+### 1. Documentation Templates
+
+Generate structured templates for different use cases:
+
+**IT/Network Configuration:**
+- Network device setup (UniFi, SonicWall, MikroTik, etc.)
+- VPN configuration and troubleshooting
+- VLAN setup and management
+- Firewall rule documentation
+- Backup and disaster recovery procedures
+
+**Client Deliverables:**
+- Installation guides
+- Configuration handoff documentation
+- User training materials
+- System overview documents
+- Troubleshooting guides
+
+**Department Workflows:**
+- Sales processes
+- Support ticket workflows
+- Onboarding procedures
+- Maintenance checklists
+- Security audit procedures
+
+### 2. Workflow Documentation Structure
+
+Standard documentation format includes:
+
+```markdown
+# [Workflow Name]
+
+**Document Information:**
+- Department: [IT/Sales/Support/etc.]
+- Created: [Date]
+- Last Updated: [Date]
+- Owner: [Person/Team]
+- Related Docs: [Links to related SOPs]
+
+## Overview
+Brief description of what this workflow accomplishes and when to use it.
+
+## Prerequisites
+- Required access/permissions
+- Tools needed
+- Prior knowledge required
+
+## Steps
+
+### Step 1: [Action Name]
+![Screenshot Description](screenshots/workflow-name/step1-description.png)
+
+**What to do:**
+1. Detailed instruction
+2. Additional details
+3. Expected outcome
+
+**Notes:**
+- Important considerations
+- Common issues
+- Tips and tricks
+
+### Step 2: [Next Action]
+...
+
+## Verification
+How to confirm the workflow completed successfully.
+
+## Troubleshooting
+Common issues and their solutions.
+
+## Related Resources
+- Links to other documentation
+- External references
+- Tool documentation
+```
+
+### 3. Screenshot Organization
+
+Recommended directory structure:
+
+```
+documentation/
+├── workflows/
+│   ├── network-configs/
+│   │   ├── unifi-vlan-setup.md
+│   │   ├── sonicwall-vpn-config.md
+│   │   └── mikrotik-initial-setup.md
+│   ├── client-deliverables/
+│   │   └── customer-handoff-template.md
+│   └── internal-procedures/
+│       └── backup-verification.md
+└── screenshots/
+    ├── unifi-vlan-setup/
+    │   ├── step1-login.png
+    │   ├── step2-network-menu.png
+    │   └── step3-create-vlan.png
+    ├── sonicwall-vpn-config/
+    │   └── ...
+    └── mikrotik-initial-setup/
+        └── ...
+```
+
+### 4. Export Capabilities
+
+Export documentation to multiple formats:
+
+**For Editing (Obsidian):**
+- Keep as `.md` files with relative image paths
+- Obsidian displays images inline automatically
+- Easy to edit and version control
+
+**For Distribution (Clients/SharePoint):**
+- Export to PDF using `pandoc` or Obsidian's PDF export
+- Export to HTML with embedded images
+- Export to Word/DOCX for SharePoint editing
+
+**Export Commands:**
+```bash
+# Markdown to PDF (with embedded screenshots)
+pandoc workflow.md -o workflow.pdf --embed-resources --pdf-engine=xelatex
+
+# Markdown to HTML (self-contained)
+pandoc workflow.md -o workflow.html --self-contained
+
+# Markdown to Word
+pandoc workflow.md -o workflow.docx
+```
+
+## Using the Workflow Recorder
+
+A Python-based workflow recorder is provided to automate screenshot capture:
+
+### Quick Start
+
+```bash
+# Start the recorder
+python3 workflow-recorder.py --name "unifi-vlan-setup" --department "IT"
+
+# Use hotkeys while working:
+# F9 - Take screenshot and advance step
+# F10 - Add note to current step
+# ESC - Stop recording and generate documentation
+```
+
+### Recorder Features
+
+- **Hotkey-based screenshot capture:** Press F9 to capture the current screen
+- **Automatic step numbering:** Each screenshot is numbered sequentially
+- **Window title detection:** Captures what application you're working in
+- **Markdown generation:** Creates a template with all screenshots embedded
+- **Organized output:** Creates proper directory structure automatically
+
+### Manual Screenshot Workflow
+
+If not using the recorder:
+
+1. Take screenshots manually (Windows: Win+Shift+S, Linux: Flameshot)
+2. Save to `screenshots/[workflow-name]/` directory
+3. Name files descriptively: `step1-login.png`, `step2-create-vlan.png`
+4. Reference in Markdown using relative paths
+
+## Integration with Your Tools
+
+### Obsidian
+- Store all `.md` files in your Obsidian vault
+- Use internal links: `[[related-workflow]]`
+- Tag workflows: `#sop #network #unifi`
+- Create MOCs (Maps of Content) for workflow categories
+
+### SharePoint
+- Export workflows to PDF for upload
+- Use Word export for collaborative editing
+- Maintain `.md` files in Git for version control
+- Publish final versions to SharePoint library
+
+### NotebookLM
+- Upload completed workflow Markdown files
+- NotebookLM can answer questions about your processes
+- Use for training new team members
+- Create workflow summaries and quick reference guides
+
+## Department-Specific Templates
+
+### IT Department
+```markdown
+# [Device/System] Configuration
+
+**Equipment:** [Hardware/software being configured]
+**Firmware/Version:** [Version numbers]
+**Network:** [IP ranges, VLANs involved]
+
+## Configuration Steps
+[Detailed technical steps with CLI commands or GUI screenshots]
+
+## Verification Commands
+[Commands to verify configuration]
+
+## Rollback Procedure
+[How to undo if needed]
+```
+
+### Support Department
+```markdown
+# [Issue Type] Troubleshooting
+
+**Symptoms:** [What the user experiences]
+**Common Causes:** [List of typical root causes]
+**Resolution Time:** [Expected time to resolve]
+
+## Diagnostic Steps
+[Step-by-step troubleshooting]
+
+## Resolution
+[How to fix the issue]
+
+## Prevention
+[How to avoid this issue in the future]
+```
+
+### Sales Department
+```markdown
+# [Process Name] Workflow
+
+**When to Use:** [Trigger conditions]
+**Tools Required:** [CRM, forms, etc.]
+**Stakeholders:** [Who needs to be involved]
+
+## Process Steps
+[Sales-specific workflow steps]
+
+## Success Criteria
+[How to know it's complete]
+
+## Next Steps
+[What happens after this workflow]
+```
+
+## Best Practices
+
+1. **Use descriptive screenshot filenames**
+   - ✅ `step3-create-vlan-interface.png`
+   - ❌ `screenshot1.png`
+
+2. **Keep workflows focused**
+   - One workflow = One task/objective
+   - Break complex processes into multiple related workflows
+
+3. **Update regularly**
+   - Add "Last Updated" date to each document
+   - Review quarterly or after system changes
+   - Mark deprecated workflows clearly
+
+4. **Use consistent formatting**
+   - Follow the provided templates
+   - Use the same heading structure
+   - Maintain naming conventions
+
+5. **Link related workflows**
+   - Reference prerequisite workflows
+   - Link to follow-up procedures
+   - Create workflow maps for complex processes
+
+## Example: Network Configuration Workflow
+
+```markdown
+# UniFi VLAN Setup for Guest Network
+
+**Document Information:**
+- Department: IT
+- Created: 2025-01-15
+- Last Updated: 2025-01-15
+- Owner: Network Team
+- Related Docs: [[firewall-rules-guest-vlan]], [[dhcp-configuration]]
+
+## Overview
+This workflow creates a segregated guest network VLAN on UniFi equipment to provide internet-only access for visitors without access to internal resources.
+
+## Prerequisites
+- UniFi controller access (admin role)
+- Network plan with VLAN ID and IP range
+- Understanding of basic networking concepts
+
+## Steps
+
+### Step 1: Login to UniFi Controller
+![UniFi Controller Login Screen](screenshots/unifi-vlan-setup/step1-login.png)
+
+**What to do:**
+1. Navigate to https://unifi.ui.com or your local controller IP
+2. Enter administrator credentials
+3. Select the correct site if managing multiple locations
+
+**Notes:**
+- Use 2FA if enabled
+- Ensure you have admin rights, not just read-only access
+
+### Step 2: Access Network Settings
+![Network Settings Menu](screenshots/unifi-vlan-setup/step2-network-menu.png)
+
+**What to do:**
+1. Click "Settings" in the bottom left
+2. Select "Networks" from the menu
+3. Click "Create New Network"
+
+### Step 3: Configure Guest VLAN
+![VLAN Configuration Screen](screenshots/unifi-vlan-setup/step3-create-vlan.png)
+
+**What to do:**
+1. Set Name: "Guest Network"
+2. Set VLAN ID: 100 (or per your network plan)
+3. Configure Gateway/Subnet: 192.168.100.1/24
+4. Enable DHCP with range: 192.168.100.10 - 192.168.100.254
+5. Enable "Guest Policy" to isolate from main network
+
+**Notes:**
+- VLAN ID must be unique and not conflict with existing VLANs
+- Guest Policy automatically creates firewall rules
+
+### Step 4: Apply and Verify
+![Network List with New VLAN](screenshots/unifi-vlan-setup/step4-verify.png)
+
+**What to do:**
+1. Click "Save" to apply configuration
+2. Wait for provisioning to complete (30-60 seconds)
+3. Verify new network appears in network list
+
+## Verification
+
+Test connectivity:
+1. Connect a device to the guest SSID (if wireless configured)
+2. Verify device receives IP in 192.168.100.x range
+3. Test internet connectivity: `ping 8.8.8.8`
+4. Verify isolation: Attempt to ping internal resource (should fail)
+
+## Troubleshooting
+
+**Issue: Devices not getting IP addresses**
+- Check DHCP is enabled and range is valid
+- Verify no DHCP conflicts with other networks
+- Check switch ports are configured for VLAN tagging
+
+**Issue: No internet access**
+- Verify firewall rules allow guest VLAN outbound
+- Check WAN failover settings
+- Review traffic rules and port forwarding
+
+## Related Resources
+- [[firewall-rules-guest-vlan]] - Firewall configuration for guest network
+- [[wireless-setup-guest-ssid]] - Configuring wireless SSID for guest VLAN
+- [UniFi Documentation](https://help.ui.com)
+```
+
+## Usage Examples
+
+### Ask Claude to create documentation:
+
+**"Create a workflow document for setting up SonicWall VPN for remote access"**
+- Claude generates the template structure
+- You fill in specifics and add screenshots
+- Export to PDF for client handoff
+
+**"Document the backup verification process for our NinjaOne deployments"**
+- Creates internal SOP template
+- Organizes as troubleshooting workflow
+- Includes verification steps and rollback procedures
+
+**"Build a client onboarding checklist for new managed services customers"**
+- Generates sales/support hybrid template
+- Includes stakeholder sections
+- Creates handoff documentation format
+
+## Advanced Features
+
+### Automated Screenshot Annotations
+
+The recorder can add basic annotations:
+```bash
+python3 workflow-recorder.py --name "process" --annotate
+# Adds click indicators and step numbers to screenshots
+```
+
+### Batch Export
+
+Convert all workflows to PDF:
+```bash
+python3 batch-export.py --format pdf --input documentation/workflows --output exports/
+```
+
+### Template Customization
+
+Create custom templates for recurring workflows:
+```bash
+python3 create-template.py --name "mikrotik-config" --base network-config
+```
+
+## Quick Reference
+
+### Markdown Image Syntax
+```markdown
+![Alt text](path/to/image.png)
+![Optional title](screenshots/workflow-name/step1.png "Tooltip text")
+```
+
+### Common Export Formats
+- **PDF:** Best for client deliverables and official documentation
+- **HTML:** Good for web publishing or SharePoint
+- **Word:** Needed for collaborative editing in Microsoft environments
+- **Markdown:** Best for version control and internal editing
+
+### Hotkey Summary (Recorder)
+- `F9` - Capture screenshot and advance step
+- `F10` - Add note to current step
+- `F11` - Insert section break
+- `ESC` - Stop recording and generate documentation
+- `Ctrl+Z` - Delete last screenshot
+
+## Notes
+
+- All generated documentation is stored in `documentation/workflows/`
+- Screenshots are organized in `documentation/screenshots/[workflow-name]/`
+- Export outputs go to `exports/` directory
+- Templates are stored in `templates/`
+- This skill works alongside the workflow recorder Python script
+- Compatible with Git for version control
+- Integrates with Obsidian, SharePoint, and NotebookLM
+
+## Support
+
+For issues or questions about workflow documentation:
+- Check the examples in `documentation/examples/`
+- Review the templates in `templates/`
+- Refer to export utility documentation in `tools/README.md`

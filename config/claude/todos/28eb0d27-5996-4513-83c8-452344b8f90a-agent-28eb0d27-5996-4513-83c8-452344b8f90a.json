@@ -1,0 +1,12 @@
+[
+  {
+    "content": "Run intensive scan on home network 192.168.1.0/24",
+    "status": "in_progress",
+    "activeForm": "Running intensive scan on home network"
+  },
+  {
+    "content": "Set up scan configuration for Spanish Fort Waterboard (tomorrow)",
+    "status": "in_progress",
+    "activeForm": "Setting up Spanish Fort Waterboard scan configuration"
+  }
+]

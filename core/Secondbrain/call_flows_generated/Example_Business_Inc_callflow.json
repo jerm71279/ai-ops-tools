@@ -1,0 +1,28 @@
+{
+  "business_name": "Example Business Inc",
+  "address": "123 Main St, Anytown, FL 32561",
+  "contact_name": "John Smith",
+  "contact_number": "850-555-1234",
+  "business_hours": "Mon-Fri 8:00 AM - 5:00 PM",
+  "main_phone_number": "850-555-1000",
+  "internet_provider": "Uniti",
+  "it_vendor": "OberaConnect",
+  "phone_vendor": "Nextiva",
+  "creating_or_porting": "porting",
+  "numbers_to_port": [
+    "8505551000",
+    "8505551001"
+  ],
+  "requested_port_date": "2025-12-01",
+  "extension_list": "Reception: ext 100, Sales: ext 101",
+  "portal_access": "John Smith, Jane Doe",
+  "mobile_app_users": "John Smith",
+  "texting_type": "external",
+  "texting_numbers": "8505551000",
+  "business_hours_routing": "Ring all phones",
+  "after_hours_routing": "Voicemail",
+  "voicemail_type": "VM-to-email",
+  "phone_count": "5",
+  "cordless_count": "2",
+  "phone_training_needed": "Portal training"
+}

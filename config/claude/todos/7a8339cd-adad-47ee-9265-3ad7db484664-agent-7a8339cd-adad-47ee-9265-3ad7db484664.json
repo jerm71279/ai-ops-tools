@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Update DC Lawn config to 10.54.0.0/24 subnet scheme",
+    "status": "in_progress",
+    "activeForm": "Updating DC Lawn config to 10.54.0.0/24 subnet scheme"
+  },
+  {
+    "content": "Regenerate router.rsc with new subnet",
+    "status": "pending",
+    "activeForm": "Regenerating router.rsc with new subnet"
+  },
+  {
+    "content": "Update subnet tracker with 4-subnet allocation",
+    "status": "pending",
+    "activeForm": "Updating subnet tracker with 4-subnet allocation"
+  },
+  {
+    "content": "Create subnet allocation documentation",
+    "status": "pending",
+    "activeForm": "Creating subnet allocation documentation"
+  },
+  {
+    "content": "Update all customer documentation",
+    "status": "pending",
+    "activeForm": "Updating all customer documentation"
+  }
+]

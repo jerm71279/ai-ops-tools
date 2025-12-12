@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OberaConnect Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            background: #fff;
+        }
+
+        .header {
+            border-bottom: 3px solid #0066CC;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #666666;
+            font-style: italic;
+            margin-left: 2px;
+        }
+
+        .doc-meta {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .doc-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .doc-date {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0066CC;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .section-content {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .section-content p {
+            margin-bottom: 10px;
+        }
+
+        .section-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section-content li {
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 11px;
+            color: #999999;
+            text-align: center;
+        }
+
+        .highlight-box {
+            background: #f5f9ff;
+            border-left: 4px solid #0066CC;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .action-item {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
+        </div>
+        <div class="tagline">Technology Solutions for Modern Business</div>
+
+        <div class="doc-meta">
+            <div class="doc-title">SOP-SEC-001 Defender Training v1.0.0</div>
+            <div class="doc-date">Date: [MM/DD/YYYY]</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Executive Summary</div>
+        <div class="section-content">
+            <table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>**Document ID**</td>
+<td>SOP-SEC-001</td>
+</tr>
+<tr class="even">
+<td>**Version**</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td>**Status**</td>
+<td>Final</td>
+</tr>
+<tr class="even">
+<td>**Date**</td>
+<td>2025-12-02</td>
+</tr>
+<tr class="odd">
+<td>**Owner**</td>
+<td>IT Security Department</td>
+</tr>
+</tbody>
+</table>
+<p>────────────────────────────────────────────────────────────</p>
+<h1 id="purpose">1.0 Purpose</h1>
+<p>To establish a standardized process for conducting Microsoft Defender
+Attack Training Simulations for clients. The primary objectives of this
+procedure are:</p>
+<ul>
+<li><p>To educate client personnel on the identification and risks of
+phishing emails.</p></li>
+<li><p>To demonstrate the capabilities and operation of the Microsoft
+Defender Attack Simulation tool.</p></li>
+<li><p>To collaboratively plan, schedule, and execute attack
+simulations.</p></li>
+<li><p>To review simulation results and provide actionable
+recommendations for improving security posture.</p></li>
+</ul>
+<h1 id="scope">2.0 Scope</h1>
+<p>This SOP applies to all IT personnel involved in the planning and
+execution of client-facing security training initiatives. It
+specifically governs the Microsoft Defender Attack Training Simulation
+sessions conducted for clients and their designated security and
+technical teams.</p>
+<h1 id="responsibilities">3.0 Responsibilities</h1>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Role</strong></th>
+<th><strong>Responsibility</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>**Presenter (Phishing Identification)**</td>
+<td>Responsible for developing and delivering the educational
+presentation on identifying phishing attempts, including real-world
+examples and best practices.</td>
+</tr>
+<tr class="even">
+<td>**Presenter (Simulation Overview)**</td>
+<td>Responsible for presenting the overview, benefits, and demonstration
+of the Microsoft Defender Attack Simulation platform.</td>
+</tr>
+<tr class="odd">
+<td>**Moderator/Facilitator**</td>
+<td>Responsible for leading the training session, managing the agenda,
+facilitating discussions, and ensuring session objectives are met.</td>
+</tr>
+<tr class="even">
+<td>**Client Representative(s)**</td>
+<td>Responsible for collaborating on the scheduling and structure of
+simulations, providing relevant technical context, and participating in
+the training.</td>
+</tr>
+<tr class="odd">
+<td>**All Participants**</td>
+<td>Responsible for confirming availability for the scheduled session
+and reviewing any pre-shared materials.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="definitions">4.0 Definitions</h1>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Term</strong></th>
+<th><strong>Definition</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>**Phishing**</td>
+<td>A fraudulent attempt, usually made through email, to deceive
+individuals into revealing sensitive information such as usernames,
+passwords, and credit card details.</td>
+</tr>
+<tr class="even">
+<td>**Attack Simulation**</td>
+<td>A feature within Microsoft Defender used to run realistic, benign
+cyberattack scenarios (e.g., phishing campaigns) within an organization
+to test security policies and employee awareness.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="procedure">5.0 Procedure</h1>
+<h2 id="phase-1-preparation-and-scheduling">5.1 Phase 1: Preparation and
+Scheduling</h2>
+<ol type="1">
+<li><p>**Identify Participants:** The Moderator will identify and list
+the key participants from both the internal team and the client's
+team.</p></li>
+<li><p>**Propose Dates:** The Moderator will propose a minimum of three
+potential dates for the training session to the client.</p></li>
+<li><p>**Finalize Schedule:** Based on participant feedback and client
+convenience, the Moderator will finalize and confirm the session date
+and time.</p></li>
+<li><p>**Collaborate on Logistics:** The Moderator and Presenters will
+engage with the client's technical team to discuss the initial
+structure, focus areas, and goals for the attack simulation.</p></li>
+<li><p>**Prepare Materials:** The designated Presenters will prepare
+their respective presentation materials (Phishing Identification and
+Defender Simulation Overview).</p></li>
+<li><p>**Distribute Materials:** The Moderator will share the agenda and
+any relevant presentation materials with all participants ahead of the
+scheduled session.</p></li>
+</ol>
+<h2 id="phase-2-training-session-execution">5.2 Phase 2: Training
+Session Execution</h2>
+<p>The training session will follow the structured agenda below:</p>
+<p>Part 1: Welcome and Introductions (10 min)</p>
+<ul>
+<li><p>The Moderator officially starts the meeting and welcomes all
+attendees.</p></li>
+<li><p>Each participant briefly introduces themselves and their
+role.</p></li>
+<li><p>The Moderator reviews the objectives and agenda for the
+session.</p></li>
+</ul>
+<p>Part 2: Presentation on Identifying Phishing Emails (20 min)</p>
+<ul>
+<li><p>The designated Presenter conducts a detailed presentation
+covering:</p></li>
+<li><p>Key characteristics and red flags of phishing emails.</p></li>
+<li><p>Analysis of real-world phishing examples.</p></li>
+<li><p>Actionable tips and best practices for employees to recognize and
+report phishing attempts.</p></li>
+</ul>
+<p>Part 3: Presentation on Microsoft Defender Attack Simulation (20
+min)</p>
+<ul>
+<li><p>The designated Presenter conducts a presentation and
+demonstration covering:</p></li>
+<li><p>An overview of the attack simulation concept and its
+value.</p></li>
+<li><p>The operational mechanics and benefits of the Microsoft Defender
+tool.</p></li>
+<li><p>A live demonstration of how to configure and set up a new
+simulation.</p></li>
+</ul>
+<p>Part 4: Collaborative Simulation Workshop (60 min)</p>
+<ul>
+<li><p>The Moderator facilitates a collaborative working session with
+the client team.</p></li>
+<li><p>**Action:** Collaboratively schedule the first official attack
+simulation.</p></li>
+<li><p>**Action:** Define the structure, payloads, and target groups for
+the simulation.</p></li>
+<li><p>**Action:** Establish a timeline and cadence for future, ongoing
+training sessions.</p></li>
+</ul>
+<p>Part 5: Initial Simulation Results Review (20 min, if applicable)</p>
+<ul>
+<li><p>If a preliminary simulation has been conducted, the Presenter
+will share the initial results.</p></li>
+<li><p>The team will discuss the implications of the findings and
+potential areas for improvement.</p></li>
+<li><p>A Q&amp;A session is held to address any questions regarding the
+results.</p></li>
+</ul>
+<p>Part 6: Wrap-Up and Next Steps (10 min)</p>
+<ul>
+<li><p>The Moderator summarizes the key decisions and takeaways from the
+session.</p></li>
+<li><p>The Moderator confirms the schedule for the first simulation and
+any subsequent follow-up sessions.</p></li>
+</ul>
+<h1 id="references">6.0 References</h1>
+<ul>
+<li><p>Microsoft Defender for Office 365 Documentation</p></li>
+<li><p>`Microsoft Defender Attack Training Simulation Presentation
+Plan.docx`</p></li>
+</ul>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Details</div>
+        <div class="section-content">
+            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
+
+            <div class="highlight-box">
+                <strong>Key Point:</strong> [Important information to highlight]
+            </div>
+
+            <p>Supporting details:</p>
+            <ul>
+                <li>[Detail item 1]</li>
+                <li>[Detail item 2]</li>
+                <li>[Detail item 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Next Steps</div>
+        <div class="section-content">
+            <div class="action-item">
+                <strong>Action Required:</strong> [Specific action item with owner and deadline]
+            </div>
+
+            <ul>
+                <li>[Next step 1]</li>
+                <li>[Next step 2]</li>
+                <li>[Next step 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        OberaConnect LLC | www.oberaconnect.com | Confidential
+    </div>
+</body>
+</html>

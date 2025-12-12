@@ -1,0 +1,138 @@
+{
+  "snapshots": [
+    {
+      "timestamp": "2025-11-28T09:56:45.193070",
+      "shifts": {
+        "leverage_charts": {
+          "maturity": "not_started",
+          "score": 0,
+          "initiatives": []
+        },
+        "director_mindset": {
+          "maturity": "not_started",
+          "score": 0,
+          "initiatives": []
+        },
+        "data_moat": {
+          "maturity": "not_started",
+          "score": 0.0,
+          "initiatives": [],
+          "data_points_collected": 0,
+          "last_assessed": "2025-11-28T09:56:45.192782"
+        },
+        "autonomous_back_office": {
+          "maturity": "not_started",
+          "score": 0,
+          "initiatives": []
+        },
+        "distribution_advantage": {
+          "maturity": "not_started",
+          "score": 0,
+          "initiatives": []
+        }
+      },
+      "overall_score": 0.0
+    },
+    {
+      "timestamp": "2025-11-28T10:02:56.684278",
+      "shifts": {
+        "leverage_charts": {
+          "maturity": "not_started",
+          "score": 0,
+          "initiatives": []
+        },
+        "director_mindset": {
+          "maturity": "not_started",
+          "score": 0,
+          "initiatives": []
+        },
+        "data_moat": {
+          "maturity": "not_started",
+          "score": 0.0,
+          "initiatives": [],
+          "data_points_collected": 0,
+          "last_assessed": "2025-11-28T10:02:56.684007"
+        },
+        "autonomous_back_office": {
+          "maturity": "not_started",
+          "score": 0,
+          "initiatives": []
+        },
+        "distribution_advantage": {
+          "maturity": "not_started",
+          "score": 0,
+          "initiatives": []
+        }
+      },
+      "overall_score": 0.0
+    },
+    {
+      "timestamp": "2025-11-28T10:05:40.858675",
+      "shifts": {
+        "leverage_charts": {
+          "maturity": "not_started",
+          "score": 0,
+          "initiatives": []
+        },
+        "director_mindset": {
+          "maturity": "not_started",
+          "score": 0,
+          "initiatives": []
+        },
+        "data_moat": {
+          "maturity": "not_started",
+          "score": 0.0,
+          "initiatives": [],
+          "data_points_collected": 7,
+          "last_assessed": "2025-11-28T10:05:40.858562"
+        },
+        "autonomous_back_office": {
+          "maturity": "not_started",
+          "score": 0,
+          "initiatives": []
+        },
+        "distribution_advantage": {
+          "maturity": "not_started",
+          "score": 0,
+          "initiatives": []
+        }
+      },
+      "overall_score": 0.0
+    },
+    {
+      "timestamp": "2025-11-28T10:05:40.859724",
+      "shifts": {
+        "leverage_charts": {
+          "maturity": "not_started",
+          "score": 0,
+          "initiatives": []
+        },
+        "director_mindset": {
+          "maturity": "not_started",
+          "score": 0,
+          "initiatives": []
+        },
+        "data_moat": {
+          "maturity": "not_started",
+          "score": 0.7,
+          "initiatives": [],
+          "data_points_collected": 7,
+          "last_assessed": "2025-11-28T10:05:40.858881"
+        },
+        "autonomous_back_office": {
+          "maturity": "not_started",
+          "score": 0,
+          "initiatives": []
+        },
+        "distribution_advantage": {
+          "maturity": "not_started",
+          "score": 0,
+          "initiatives": []
+        }
+      },
+      "overall_score": 0.13999999999999999
+    }
+  ],
+  "trends": {},
+  "last_updated": "2025-11-28T10:05:40.859730"
+}

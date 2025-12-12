@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Add network configuration form to web interface",
+    "status": "completed",
+    "activeForm": "Adding network configuration form"
+  },
+  {
+    "content": "Integrate remaining network tools (discovery, scanning)",
+    "status": "completed",
+    "activeForm": "Integrating network tools"
+  },
+  {
+    "content": "Add Static IP Management tool",
+    "status": "in_progress",
+    "activeForm": "Adding Static IP Management tool"
+  }
+]

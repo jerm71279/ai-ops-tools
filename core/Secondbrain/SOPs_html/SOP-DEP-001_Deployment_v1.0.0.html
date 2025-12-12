@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OberaConnect Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            background: #fff;
+        }
+
+        .header {
+            border-bottom: 3px solid #0066CC;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #666666;
+            font-style: italic;
+            margin-left: 2px;
+        }
+
+        .doc-meta {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .doc-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .doc-date {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0066CC;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .section-content {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .section-content p {
+            margin-bottom: 10px;
+        }
+
+        .section-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section-content li {
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 11px;
+            color: #999999;
+            text-align: center;
+        }
+
+        .highlight-box {
+            background: #f5f9ff;
+            border-left: 4px solid #0066CC;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .action-item {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
+        </div>
+        <div class="tagline">Technology Solutions for Modern Business</div>
+
+        <div class="doc-meta">
+            <div class="doc-title">SOP-DEP-001 Deployment v1.0.0</div>
+            <div class="doc-date">Date: [MM/DD/YYYY]</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Executive Summary</div>
+        <div class="section-content">
+            <h1
+id="sop-dep-001---oberaconnect-tools-web-interface-deployment-procedure">SOP-DEP-001
+- OberaConnect Tools Web Interface Deployment Procedure</h1>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Field</strong></th>
+<th><strong>Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Document ID</td>
+<td>SOP-DEP-001</td>
+</tr>
+<tr class="even">
+<td>Version</td>
+<td>1.0.0</td>
+</tr>
+<tr class="odd">
+<td>Status</td>
+<td>DRAFT</td>
+</tr>
+<tr class="even">
+<td>Effective Date</td>
+<td>12/02/2025</td>
+</tr>
+<tr class="odd">
+<td>Next Review</td>
+<td>06/02/2026</td>
+</tr>
+<tr class="even">
+<td>Classification</td>
+<td>☐ Public ☑ Internal ☐ Confidential</td>
+</tr>
+<tr class="odd">
+<td>Review Cycle</td>
+<td>☐ Quarterly ☑ Semi-Annual ☐ Annual</td>
+</tr>
+<tr class="even">
+<td>Process Owner</td>
+<td>[TO BE COMPLETED]</td>
+</tr>
+<tr class="odd">
+<td>Author</td>
+<td>[TO BE COMPLETED]</td>
+</tr>
+<tr class="even">
+<td>Approved By</td>
+<td>[TO BE COMPLETED]</td>
+</tr>
+<tr class="odd">
+<td>Department/Team</td>
+<td>IT Operations</td>
+</tr>
+</tbody>
+</table>
+<p>────────────────────────────────────────────────────────────</p>
+<h1 id="table-of-contents">Table of Contents</h1>
+<ol type="1">
+<li><p>Purpose</p></li>
+<li><p>Scope</p></li>
+<li><p>Definitions &amp; Acronyms</p></li>
+<li><p>Roles &amp; Responsibilities</p></li>
+<li><p>Prerequisites &amp; Requirements</p></li>
+<li><p>Procedure</p></li>
+<li><p>Verification &amp; Quality Checks</p></li>
+<li><p>Troubleshooting</p></li>
+<li><p>Related Documents</p></li>
+<li><p>Revision History</p></li>
+<li><p>Approval</p></li>
+</ol>
+<p>────────────────────────────────────────────────────────────</p>
+<h1 id="purpose">1. Purpose</h1>
+<p>This document outlines the standard procedure for deploying,
+configuring, and managing the OberaConnect Tools web interface. The
+objective is to ensure a consistent and reliable deployment for internal
+team access.</p>
+<h1 id="scope">2. Scope</h1>
+<p>In Scope:</p>
+<ul>
+<li><p>Manual and automated (systemd) deployment of the web
+application.</p></li>
+<li><p>Configuration of the server, including port, workers, and
+logging.</p></li>
+<li><p>Firewall setup for network access.</p></li>
+<li><p>Optional SSL/HTTPS configuration.</p></li>
+<li><p>Basic troubleshooting and maintenance procedures.</p></li>
+<li><p>Instructions for end-user access and basic feature
+usage.</p></li>
+</ul>
+<p>Out of Scope:</p>
+<ul>
+<li><p>Application code development or modification.</p></li>
+<li><p>Database administration or schema changes.</p></li>
+<li><p>Operating system installation and hardening.</p></li>
+<li><p>Advanced network configuration beyond firewall port
+opening.</p></li>
+</ul>
+<p>Applies To:</p>
+<ul>
+<li><p>System Administrators, IT Operations personnel, and any team
+members responsible for deploying or maintaining the OberaConnect Tools
+application.</p></li>
+</ul>
+<h1 id="definitions-acronyms">3. Definitions &amp; Acronyms</h1>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Term</strong></th>
+<th><strong>Definition</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Gunicorn</td>
+<td>A Python Web Server Gateway Interface (WSGI) HTTP server.</td>
+</tr>
+<tr class="even">
+<td>systemd</td>
+<td>A system and service manager for Linux operating systems.</td>
+</tr>
+<tr class="odd">
+<td>UFW</td>
+<td>Uncomplicated Firewall, a frontend for `iptables` on Ubuntu.</td>
+</tr>
+<tr class="even">
+<td>firewalld</td>
+<td>The default firewall management tool on CentOS and RHEL.</td>
+</tr>
+<tr class="odd">
+<td>WSL</td>
+<td>Windows Subsystem for Linux.</td>
+</tr>
+<tr class="even">
+<td>SSL/HTTPS</td>
+<td>Secure Sockets Layer / Hypertext Transfer Protocol Secure, for
+encrypted web traffic.</td>
+</tr>
+<tr class="odd">
+<td>PID</td>
+<td>Process ID, a unique identifier for an active process.</td>
+</tr>
+<tr class="even">
+<td>SOP</td>
+<td>Standard Operating Procedure.</td>
+</tr>
+<tr class="odd">
+<td>IP</td>
+<td>Internet Protocol, a numerical label assigned to each device
+connected to a computer network.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="roles-responsibilities">4. Roles &amp; Responsibilities</h1>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Role</strong></th>
+<th><strong>Responsibility</strong></th>
+<th><strong>Authority Level</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>System Administrator</td>
+<td>Executes the deployment, configuration, and maintenance procedures
+outlined in this SOP.</td>
+<td>Execute</td>
+</tr>
+<tr class="even">
+<td>Process Owner</td>
+<td>Owns and approves this SOP, ensuring it remains accurate and
+relevant.</td>
+<td>Approve</td>
+</tr>
+<tr class="odd">
+<td>Team Member</td>
+<td>Accesses and utilizes the deployed OberaConnect Tools web interface
+as an end-user.</td>
+<td>Inform</td>
+</tr>
+</tbody>
+</table>
+<h1 id="prerequisites-requirements">5. Prerequisites &amp;
+Requirements</h1>
+<ul>
+<li><p>[ ] A server with a supported Linux distribution (e.g., Ubuntu,
+CentOS, RHEL).</p></li>
+<li><p>[ ] User account with `sudo` (administrative)
+privileges.</p></li>
+<li><p>[ ] The OberaConnect Tools project files must be present in
+`/home/mavrick/Projects/Secondbrain/`.</p></li>
+<li><p>[ ] A configured Python virtual environment within the project
+directory (`venv/`).</p></li>
+<li><p>[ ] Network connectivity between the server and end-user
+machines.</p></li>
+</ul>
+<h1 id="procedure">6. Procedure</h1>
+<h2 id="manual-application-startup">6.1 Manual Application Startup</h2>
+<p>This method is used for development or temporary instances.</p>
+<ol start="12" type="1">
+<li><p>**Navigate to the project directory:**</p></li>
+</ol>
+<p>`bash</p>
+<p>cd /home/mavrick/Projects/Secondbrain</p>
+<p>`</p>
+<ol start="13" type="1">
+<li><p>**Start the server in Development Mode:**</p></li>
+</ol>
+<p>For development, use the --dev flag. This typically enables debugging
+and auto-reloading.</p>
+<p>`bash</p>
+<p>./start_server.sh --dev</p>
+<p>`</p>
+<ol start="14" type="1">
+<li><p>**Start the server in Production Mode:**</p></li>
+</ol>
+<p>For standard operation, run the script without flags. This uses
+Gunicorn for better performance.</p>
+<p>`bash</p>
+<p>./start_server.sh</p>
+<p>`</p>
+<h2 id="systemd-service-configuration-auto-start">6.2 Systemd Service
+Configuration (Auto-Start)</h2>
+<p>This procedure configures the application to start automatically on
+server boot.</p>
+<ol start="15" type="1">
+<li><p>**Copy the service definition file** to the systemd
+directory.</p></li>
+</ol>
+<p>`bash</p>
+<p>sudo cp /home/mavrick/Projects/Secondbrain/oberaconnect-tools.service
+/etc/systemd/system/</p>
+<p>`</p>
+<ol start="16" type="1">
+<li><p>**Reload the systemd daemon** to recognize the new
+service.</p></li>
+</ol>
+<p>`bash</p>
+<p>sudo systemctl daemon-reload</p>
+<p>`</p>
+<ol start="17" type="1">
+<li><p>**Enable the service** to start on boot.</p></li>
+</ol>
+<p>`bash</p>
+<p>sudo systemctl enable oberaconnect-tools</p>
+<p>`</p>
+<ol start="18" type="1">
+<li><p>**Start the service** immediately.</p></li>
+</ol>
+<p>`bash</p>
+<p>sudo systemctl start oberaconnect-tools</p>
+<p>`</p>
+<ol start="19" type="1">
+<li><p>**Manage the service** using the following commands:</p></li>
+</ol>
+<ul>
+<li><p>Check status: `sudo systemctl status oberaconnect-tools`</p></li>
+<li><p>Stop service: `sudo systemctl stop oberaconnect-tools`</p></li>
+<li><p>Restart service: `sudo systemctl restart
+oberaconnect-tools`</p></li>
+</ul>
+<h2 id="application-configuration">6.3 Application Configuration</h2>
+<p>Modify the gunicorn_config.py file to adjust server settings.</p>
+<ol start="20" type="1">
+<li><p>**Change the listening port:** `bind = "0.0.0.0:5000"` (Change
+5000 to the desired port).</p></li>
+<li><p>**Adjust the request timeout:** `timeout = 120` (Change the
+request timeout in seconds).</p></li>
+<li><p>**Restart the service** to apply changes.</p></li>
+</ol>
+<p>`bash</p>
+<p>sudo systemctl restart oberaconnect-tools</p>
+<p>`</p>
+<h2 id="firewall-configuration">6.4 Firewall Configuration</h2>
+<p>Allow traffic on the application's port. The default is 5000.</p>
+<ul>
+<li><p>**For UFW (Ubuntu):**</p></li>
+</ul>
+<p>`bash</p>
+<p>sudo ufw allow 5000/tcp</p>
+<p>`</p>
+<ul>
+<li><p>**For firewalld (CentOS/RHEL):**</p></li>
+</ul>
+<p>`bash</p>
+<p>sudo firewall-cmd --add-port=5000/tcp --permanent</p>
+<p>sudo firewall-cmd --reload</p>
+<p>`</p>
+<ul>
+<li><p>**For Windows Firewall (with WSL):**</p></li>
+</ul>
+<p>Create a new inbound rule to allow TCP connections on the specified
+port for the WSL virtual network adapter.</p>
+<h2 id="sslhttps-configuration-optional">6.5 SSL/HTTPS Configuration
+(Optional)</h2>
+<p>Enable encrypted traffic to the web interface.</p>
+<ol start="23" type="1">
+<li><p>**Generate a self-signed certificate** (or obtain one from a
+Certificate Authority like Let's Encrypt).</p></li>
+</ol>
+<p>`bash</p>
+<p>openssl req -x509 -nodes -days 365 -newkey rsa:2048 \</p>
+<p>-keyout /home/mavrick/Projects/Secondbrain/ssl/server.key \</p>
+<p>-out /home/mavrick/Projects/Secondbrain/ssl/server.crt</p>
+<p>`</p>
+<ol start="24" type="1">
+<li><p>**Edit `gunicorn_config.py`** to point to the certificate
+files.</p></li>
+</ol>
+<p>`python</p>
+<p>keyfile = "/home/mavrick/Projects/Secondbrain/ssl/server.key"</p>
+<p>certfile = "/home/mavrick/Projects/Secondbrain/ssl/server.crt"</p>
+<p>`</p>
+<ol start="25" type="1">
+<li><p>**Update the bind address** to the standard HTTPS port.</p></li>
+</ol>
+<p>`python</p>
+<p>bind = "0.0.0.0:443"</p>
+<p>`</p>
+<ol start="26" type="1">
+<li><p>**Restart the service.**</p></li>
+</ol>
+<p>`bash</p>
+<p>sudo systemctl restart oberaconnect-tools</p>
+<p>`</p>
+<ol start="27" type="1">
+<li><p>**Update firewall rules** to allow traffic on port 443.</p></li>
+</ol>
+<h2 id="backup-procedure">6.6 Backup Procedure</h2>
+<p>Backup critical application data.</p>
+<ol start="28" type="1">
+<li><p>**Identify data files to backup:**</p></li>
+</ol>
+<ul>
+<li><p>`/home/mavrick/Projects/Secondbrain/contracts_tracking/contracts_data.json`</p></li>
+<li><p>`/home/mavrick/Projects/Secondbrain/call_flows_processed/`</p></li>
+<li><p>`/home/mavrick/Projects/Secondbrain/call_flows_generated/`</p></li>
+</ul>
+<ol start="29" type="1">
+<li><p>**Execute the backup command** to create a compressed
+archive.</p></li>
+</ol>
+<p>`bash</p>
+<p>cd /home/mavrick/Projects/Secondbrain/</p>
+<p>tar -czf oberaconnect-tools-backup-$(date +%Y%m%d).tar.gz \</p>
+<p>contracts_tracking/ \</p>
+<p>call_flows_processed/ \</p>
+<p>call_flows_generated/</p>
+<p>`</p>
+<ol start="30" type="1">
+<li><p>Move the resulting `.tar.gz` file to a secure backup
+location.</p></li>
+</ol>
+<h2 id="end-user-access-and-usage">6.7 End-User Access and Usage</h2>
+<p>Instructions for team members to use the deployed tools.</p>
+<ol start="31" type="1">
+<li><p>**Find the server's IP address:**</p></li>
+</ol>
+<p>`bash</p>
+<p>hostname -I</p>
+<p>`</p>
+<ol start="32" type="1">
+<li><p>**Access the web interface** by navigating a browser to
+`http://[SERVER-IP]:5000` (replace `[SERVER-IP]` with the address from
+the previous step and use the correct port if changed).</p></li>
+<li><p>Use the application features as described in the "Team Access
+Instructions" section of the source document.</p></li>
+</ol>
+<h1 id="verification-quality-checks">7. Verification &amp; Quality
+Checks</h1>
+<ul>
+<li><p>[ ] Verify the service is running without errors: `sudo systemctl
+status oberaconnect-tools` shows an "active (running)" state.</p></li>
+<li><p>[ ] The application is accessible from the server itself at
+`http://localhost:5000`.</p></li>
+<li><p>[ ] The application is accessible from another computer on the
+same network at `http://[SERVER-IP]:5000`.</p></li>
+<li><p>[ ] A call flow can be successfully generated and downloaded from
+the "Call Flow Generator" tab.</p></li>
+<li><p>[ ] Contract renewal data is visible and accurate on the
+"Contract Tracker" tab.</p></li>
+<li><p>[ ] Log files are being written to
+`/home/mavrick/Projects/Secondbrain/logs/`.</p></li>
+</ul>
+<h1 id="troubleshooting">8. Troubleshooting</h1>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Issue</strong></th>
+<th><strong>Cause</strong></th>
+<th><strong>Resolution</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>**Port Already in Use**</td>
+<td>Another application is listening on the same port.</td>
+<td>Find and stop the conflicting process: `lsof -i:5000` followed by
+`kill -9 &lt;PID&gt;`.</td>
+</tr>
+<tr class="even">
+<td>**Permission Denied**</td>
+<td>The user running the service does not have read/execute permissions
+for the project files.</td>
+<td>Check permissions with `ls -la`. Correct ownership with `sudo chown
+-R mavrick:mavrick /home/mavrick/Projects/Secondbrain/`.</td>
+</tr>
+<tr class="odd">
+<td>**Service Won't Start**</td>
+<td>Configuration error, code issue, or environment problem.</td>
+<td>Check detailed service logs: `sudo journalctl -u oberaconnect-tools
+--no-pager -n 50`. Test Gunicorn directly: `cd /path/to/project`,
+`source venv/bin/activate`, `gunicorn -c gunicorn_config.py
+call_flow_web:app`.</td>
+</tr>
+<tr class="even">
+<td>**Can't Access from Network**</td>
+<td>Firewall is blocking the port, server is not running, or incorrect
+IP is being used.</td>
+<td>1. Verify service is running locally (`curl http://localhost:5000`).
+2. Check server firewall rules. 3. Confirm the server IP address with
+`hostname -I`. 4. Ensure the client and server are on the same
+network.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="related-documents">9. Related Documents</h1>
+<ul>
+<li><p>`gunicorn_config.py` - Server worker and network
+configuration.</p></li>
+<li><p>`oberaconnect-tools.service` - Systemd service definition
+file.</p></li>
+<li><p>[SOP-BCK-001 - System Backup and Recovery Procedures]</p></li>
+</ul>
+<h1 id="revision-history">10. Revision History</h1>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Version</strong></th>
+<th><strong>Date</strong></th>
+<th><strong>Author</strong></th>
+<th><strong>Changes</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0.0</td>
+<td>12/02/2025</td>
+<td>[TO BE COMPLETED]</td>
+<td>Initial release based on `DEPLOYMENT_GUIDE.md` version 1.0.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="approval">11. Approval</h1>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Role</th>
+<th>Name</th>
+<th>Signature</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Author</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Technical Reviewer</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Approver</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Details</div>
+        <div class="section-content">
+            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
+
+            <div class="highlight-box">
+                <strong>Key Point:</strong> [Important information to highlight]
+            </div>
+
+            <p>Supporting details:</p>
+            <ul>
+                <li>[Detail item 1]</li>
+                <li>[Detail item 2]</li>
+                <li>[Detail item 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Next Steps</div>
+        <div class="section-content">
+            <div class="action-item">
+                <strong>Action Required:</strong> [Specific action item with owner and deadline]
+            </div>
+
+            <ul>
+                <li>[Next step 1]</li>
+                <li>[Next step 2]</li>
+                <li>[Next step 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        OberaConnect LLC | www.oberaconnect.com | Confidential
+    </div>
+</body>
+</html>

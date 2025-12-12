@@ -1,0 +1,17 @@
+# Data Processing Container Requirements
+python-dotenv==1.2.1
+requests==2.32.5
+beautifulsoup4==4.14.2
+lxml==6.0.2
+Flask==3.1.2
+gunicorn==21.2.0
+
+# SharePoint/Graph API
+msal==1.31.0
+
+# Document processing
+python-docx==1.2.0
+PyPDF2==3.0.1
+
+# Slack import
+slack-sdk==3.33.0

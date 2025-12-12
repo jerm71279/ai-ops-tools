@@ -1,0 +1,33 @@
+{
+  "schema": {
+    "base_network": "10.55.0.0/16",
+    "block_size": 4,
+    "gateway_offset": 1,
+    "description": "Each customer gets 4 x /24 blocks (1024 IPs) - first block is native VLAN, rest reserved for expansion"
+  },
+  "customers": [
+    {
+      "id": "spanish-fort-water-system",
+      "name": "Spanish Fort Water System",
+      "assigned_blocks": [
+        "10.55.0.0/24",
+        "10.55.1.0/24",
+        "10.55.2.0/24",
+        "10.55.3.0/24"
+      ],
+      "active_block": "10.55.0.0/24",
+      "default_gateway": "10.55.0.1",
+      "reserved_for_expansion": [
+        "10.55.1.0/24",
+        "10.55.2.0/24",
+        "10.55.3.0/24"
+      ],
+      "dns": ["8.8.8.8", "8.8.4.4"],
+      "status": "assigned",
+      "assigned_date": "2025-11-28",
+      "notes": "Network discovery scheduled 11/30/2025"
+    }
+  ],
+  "next_available_block": 4,
+  "last_updated": "2025-11-28T13:25:00"
+}

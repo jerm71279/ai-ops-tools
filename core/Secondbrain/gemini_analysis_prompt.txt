@@ -1,0 +1,56 @@
+Analyze this Engineering Dashboard application and provide detailed recommendations for improvements.
+
+CURRENT FEATURES:
+- Interactive web dashboard for managing engineering projects and tickets
+- Microsoft authentication (MSAL)
+- SharePoint integration for data storage
+- Real-time CRUD operations (Create, Read, Update, Delete)
+- Comment system on projects and tickets
+- Initial comments when creating items
+- Automatic markdown file logging of comments
+- Daily email summaries at 4 PM
+- Statistics dashboard (total projects, open tickets, high priority items)
+- Responsive design with tables
+- Status and priority dropdowns with auto-save
+
+TECH STACK:
+- Frontend: Pure HTML/JavaScript (no frameworks)
+- Backend: Python scripts
+- Storage: SharePoint Lists via Microsoft Graph API
+- Authentication: Azure AD / MSAL
+- Deployment: Azure Static Web Apps
+- Automation: Cron jobs for scheduled tasks
+
+TARGET USERS:
+- Engineering team members
+- Network engineers
+- Support staff
+- Team leads managing projects and tickets
+
+CURRENT PAIN POINTS TO ADDRESS:
+1. No search/filter functionality
+2. Limited reporting capabilities
+3. No file attachments support yet
+4. No notifications when comments are added
+5. No mobile optimization
+6. No dark mode
+7. Limited collaboration features
+
+Please provide:
+1. Top 10 feature improvements ranked by impact
+2. UX/UI enhancements
+3. Performance optimizations
+4. Security improvements
+5. Integration opportunities (tools, services)
+6. Data visualization suggestions
+7. Workflow automation ideas
+8. Mobile experience improvements
+9. Accessibility improvements
+10. Scalability considerations
+
+For each recommendation, include:
+- Description
+- Impact (High/Medium/Low)
+- Effort (High/Medium/Low)
+- Implementation approach
+- Benefits to users

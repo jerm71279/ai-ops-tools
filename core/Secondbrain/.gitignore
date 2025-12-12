@@ -1,0 +1,39 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# API keys and secrets
+*.key
+*.pem
+secrets/
+credentials.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules (if using Node.js)
+node_modules/
+
+# Python (if using Python)
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+.temp/

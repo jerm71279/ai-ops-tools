@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OberaConnect Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            background: #fff;
+        }
+
+        .header {
+            border-bottom: 3px solid #0066CC;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #666666;
+            font-style: italic;
+            margin-left: 2px;
+        }
+
+        .doc-meta {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .doc-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .doc-date {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0066CC;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .section-content {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .section-content p {
+            margin-bottom: 10px;
+        }
+
+        .section-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section-content li {
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 11px;
+            color: #999999;
+            text-align: center;
+        }
+
+        .highlight-box {
+            background: #f5f9ff;
+            border-left: 4px solid #0066CC;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .action-item {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
+        </div>
+        <div class="tagline">Technology Solutions for Modern Business</div>
+
+        <div class="doc-meta">
+            <div class="doc-title">SOP-M365-002 Outlook Permissions v1.0.0</div>
+            <div class="doc-date">Date: [MM/DD/YYYY]</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Executive Summary</div>
+        <div class="section-content">
+            <p>Title: Setting Permissions on Shared Mailboxes in Outlook</p>
+<p>Version: 1.0</p>
+<p>Date: 2025-12-02</p>
+<p>────────────────────────────────────────────────────────────</p>
+<h1 id="purpose">1.0 Purpose</h1>
+<p>This document provides standardized procedures for granting and
+managing user permissions for M365 Shared Mailboxes. Following these
+steps ensures that access is delegated consistently and securely.</p>
+<h1 id="scope">2.0 Scope</h1>
+<p>This SOP applies to all IT support personnel and system
+administrators responsible for managing Microsoft 365 resources at
+OberaConnect.</p>
+<h1 id="responsibilities">3.0 Responsibilities</h1>
+<ul>
+<li><p>**IT Support Staff:** Responsible for executing permission
+changes for standard user requests.</p></li>
+<li><p>**M365 Administrators:** Responsible for overseeing mailbox
+configurations and handling escalated or complex permission
+assignments.</p></li>
+</ul>
+<h1 id="procedure">4.0 Procedure</h1>
+<p>Two methods can be used to set permissions for shared mailboxes. The
+Exchange Admin Center (EAC) is the preferred and most comprehensive
+method for administrators.</p>
+<h2 id="method-a-using-the-microsoft-outlook-client">4.1 Method A: Using
+the Microsoft Outlook Client</h2>
+<p>This method is for users who have appropriate permissions to delegate
+access from within Outlook.</p>
+<ol type="1">
+<li><p>**Open Outlook** and navigate to the **File** menu in the
+top-left corner.</p></li>
+<li><p>Click on **Account Settings**, and then select **Delegate
+Access**.</p></li>
+<li><p>In the "Delegates" dialog box, click the **Add...**
+button.</p></li>
+<li><p>Search for and select the user(s) to whom you want to grant
+access and click **Add -&gt;**.</p></li>
+<li><p>Click **OK**.</p></li>
+<li><p>In the "Delegate Permissions" dialog box, specify the desired
+level of access for each folder (e.g., Calendar, Inbox). The primary
+permission levels are:</p></li>
+</ol>
+<ul>
+<li><p>**Reviewer:** Can read items.</p></li>
+<li><p>**Author:** Can read and create items.</p></li>
+<li><p>**Editor:** Can read, create, and modify items.</p></li>
+</ul>
+<ol start="7" type="1">
+<li><p>Click **OK** to apply the permissions.</p></li>
+</ol>
+<h2 id="method-b-using-the-exchange-admin-center-eac">4.2 Method B:
+Using the Exchange Admin Center (EAC)</h2>
+<p>This is the recommended method for administrators to manage Full
+Access and Send As permissions.</p>
+<ol start="8" type="1">
+<li><p>**Sign In:** Log in to the **Microsoft 365 Exchange Admin
+Center**.</p></li>
+<li><p>**Navigate to Shared Mailboxes:** From the left-hand menu,
+navigate to **Recipients &gt; Shared**.</p></li>
+<li><p>**Select Mailbox:** A list of shared mailboxes will appear.
+Select the mailbox you wish to manage.</p></li>
+<li><p>**Manage Delegation:** In the pane that opens on the right, click
+on **Mailbox delegation**.</p></li>
+<li><p>**Assign Permissions:**</p></li>
+</ol>
+<ul>
+<li><p>**Full Access:** Allows the delegate to open the mailbox and
+manage its content as the mailbox owner. Click **Edit**, then **+ Add
+members** to add users.</p></li>
+<li><p>**Send As:** Allows the delegate to send email that appears to
+come from the shared mailbox. Click **Edit**, then **+ Add members** to
+add users.</p></li>
+<li><p>**Send on Behalf:** Allows the delegate to send email on behalf
+of the shared mailbox (e.g., "John Doe on behalf of Support"). Click
+**Edit**, then **+ Add members** to add users.</p></li>
+</ul>
+<ol start="13" type="1">
+<li><p>**Save Changes:** After adding the desired members to each
+permission group, close the panes. The changes are saved
+automatically.</p></li>
+</ol>
+<h1 id="references">5.0 References</h1>
+<ul>
+<li><p>[Original Support
+Document](https://oberaconnect.sharepoint.com/:w:/s/support/ESrUdO18N4JElnoByGjp8REBipQPYTsAjT_9q2S0kZVXzw?e=1KwWbL)</p></li>
+</ul>
+<h1 id="revision-history">6.0 Revision History</h1>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Version</th>
+<th>Date</th>
+<th>Author</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0</td>
+<td>2025-12-02</td>
+<td>Gemini Assistant</td>
+<td>Initial document creation.</td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Details</div>
+        <div class="section-content">
+            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
+
+            <div class="highlight-box">
+                <strong>Key Point:</strong> [Important information to highlight]
+            </div>
+
+            <p>Supporting details:</p>
+            <ul>
+                <li>[Detail item 1]</li>
+                <li>[Detail item 2]</li>
+                <li>[Detail item 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Next Steps</div>
+        <div class="section-content">
+            <div class="action-item">
+                <strong>Action Required:</strong> [Specific action item with owner and deadline]
+            </div>
+
+            <ul>
+                <li>[Next step 1]</li>
+                <li>[Next step 2]</li>
+                <li>[Next step 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        OberaConnect LLC | www.oberaconnect.com | Confidential
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "initialized_at": "2025-11-28T09:56:37.495020",
+  "current_phase": "foundation",
+  "target_phase": "optimization",
+  "shifts": {
+    "leverage_charts": {
+      "maturity": "not_started",
+      "score": 0,
+      "initiatives": []
+    },
+    "director_mindset": {
+      "maturity": "not_started",
+      "score": 0,
+      "initiatives": []
+    },
+    "data_moat": {
+      "maturity": "not_started",
+      "score": 0.7,
+      "initiatives": [],
+      "data_points_collected": 7,
+      "last_assessed": "2025-11-28T10:05:40.858881"
+    },
+    "autonomous_back_office": {
+      "maturity": "not_started",
+      "score": 0,
+      "initiatives": []
+    },
+    "distribution_advantage": {
+      "maturity": "not_started",
+      "score": 0,
+      "initiatives": []
+    }
+  },
+  "milestones": [],
+  "blockers": []
+}

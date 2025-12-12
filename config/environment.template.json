@@ -1,0 +1,35 @@
+{
+  "organization": "OberaConnect",
+  "environment": "production",
+  "vm_name": "DevEnvironment",
+  "timezone": "America/Indiana/Indianapolis",
+  "paths": {
+    "secondbrain": "~/oberaconnect-ai-ops/core/Secondbrain",
+    "mai": "~/oberaconnect-ai-ops/core/multi-ai-orchestrator",
+    "skills": "~/oberaconnect-ai-ops/skills",
+    "templates": "~/oberaconnect-ai-ops/templates"
+  },
+  "services": {
+    "n8n": {
+      "host": "0.0.0.0",
+      "port": 5678
+    },
+    "claude_cli": {
+      "default_output_format": "text"
+    }
+  },
+  "integrations": {
+    "slack": {
+      "enabled": false,
+      "webhook_url": ""
+    },
+    "unifi": {
+      "enabled": false,
+      "controller_url": ""
+    },
+    "onebill": {
+      "enabled": false,
+      "api_endpoint": ""
+    }
+  }
+}

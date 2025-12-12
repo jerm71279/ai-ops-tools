@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Create credential management UI for integrations",
+    "status": "in_progress",
+    "activeForm": "Creating credential management UI for integrations"
+  },
+  {
+    "content": "Build Graph API webhook handler for M365 events",
+    "status": "pending",
+    "activeForm": "Building Graph API webhook handler for M365 events"
+  },
+  {
+    "content": "Build CIPP webhook handler for tenant events",
+    "status": "pending",
+    "activeForm": "Building CIPP webhook handler for tenant events"
+  },
+  {
+    "content": "Test NinjaOne integration with credential UI",
+    "status": "pending",
+    "activeForm": "Testing NinjaOne integration with credential UI"
+  },
+  {
+    "content": "Test Microsoft 365 webhook integration",
+    "status": "pending",
+    "activeForm": "Testing Microsoft 365 webhook integration"
+  },
+  {
+    "content": "Test CIPP webhook integration",
+    "status": "pending",
+    "activeForm": "Testing CIPP webhook integration"
+  }
+]

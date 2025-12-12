@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Create access control helper hook (useUserAccess)",
+    "status": "completed",
+    "activeForm": "Creating access control helper hook"
+  },
+  {
+    "content": "Add admin dashboard access protection",
+    "status": "completed",
+    "activeForm": "Adding admin dashboard access protection"
+  },
+  {
+    "content": "Add client portal access control",
+    "status": "completed",
+    "activeForm": "Adding client portal access control"
+  },
+  {
+    "content": "Create client user signup flow example",
+    "status": "in_progress",
+    "activeForm": "Creating client user signup flow example"
+  },
+  {
+    "content": "Create test scenarios for is_client_user enforcement",
+    "status": "pending",
+    "activeForm": "Creating test scenarios for is_client_user enforcement"
+  }
+]

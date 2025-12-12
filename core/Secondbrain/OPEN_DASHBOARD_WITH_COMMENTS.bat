@@ -1,0 +1,3 @@
+@echo off
+echo Opening Engineering Dashboard with Comments Feature...
+start "" "\\wsl.localhost\Ubuntu\home\mavrick\Projects\Secondbrain\engineering_tracker_WITH_COMMENTS.html"

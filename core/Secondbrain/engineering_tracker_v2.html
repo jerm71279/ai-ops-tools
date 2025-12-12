@@ -1,0 +1,2843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Command Center - OberaConnect</title>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #0ea5e9;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --surface: #ffffff;
+            --surface-dark: #f8fafc;
+            --surface-darker: #f1f5f9;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-time {
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            background: var(--surface-dark);
+            border-radius: var(--radius-md);
+        }
+
+        /* Envelope Tabs */
+        .envelope-container {
+            padding: 32px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .envelope-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: -2px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .envelope-tab {
+            padding: 16px 32px;
+            background: rgba(255,255,255,0.7);
+            border: none;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .envelope-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: transparent;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            transition: background 0.3s ease;
+        }
+
+        .envelope-tab:hover {
+            background: rgba(255,255,255,0.9);
+            transform: translateY(-2px);
+        }
+
+        .envelope-tab.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .envelope-tab.active::before {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .tab-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .tab-badge {
+            background: var(--primary);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 12px;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        /* Envelope Content */
+        .envelope-content {
+            background: white;
+            border-radius: 0 var(--radius-xl) var(--radius-xl) var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            min-height: 600px;
+            overflow: hidden;
+        }
+
+        .tab-panel {
+            display: none;
+            padding: 32px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--surface-dark) 0%, white 100%);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+        }
+
+        .stat-card.total::before { background: var(--primary); }
+        .stat-card.progress::before { background: var(--warning); }
+        .stat-card.priority::before { background: var(--danger); }
+        .stat-card.completed::before { background: var(--success); }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-card.total .stat-icon { background: rgba(99,102,241,0.1); color: var(--primary); }
+        .stat-card.progress .stat-icon { background: rgba(245,158,11,0.1); color: var(--warning); }
+        .stat-card.priority .stat-icon { background: rgba(239,68,68,0.1); color: var(--danger); }
+        .stat-card.completed .stat-icon { background: rgba(16,185,129,0.1); color: var(--success); }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stat-change {
+            font-size: 12px;
+            color: var(--success);
+            margin-top: 4px;
+        }
+
+        /* Toolbar */
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .search-box {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: var(--surface-dark);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+        }
+
+        .search-box .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-select {
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            background: var(--surface-dark);
+            cursor: pointer;
+            min-width: 140px;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .view-toggle {
+            display: flex;
+            background: var(--surface-dark);
+            border-radius: var(--radius-md);
+            padding: 4px;
+        }
+
+        .view-btn {
+            padding: 10px 16px;
+            border: none;
+            background: transparent;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .view-btn.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 14px rgba(99,102,241,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99,102,241,0.4);
+        }
+
+        .btn-secondary {
+            background: var(--surface-dark);
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            border-color: var(--primary);
+        }
+
+        /* Chat-style Cards */
+        .chat-cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .chat-card {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .chat-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+            transform: translateX(4px);
+        }
+
+        .chat-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .chat-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .chat-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-primary);
+        }
+
+        .chat-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-time {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .chat-preview {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .chat-footer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .chat-tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .tag-status {
+            background: rgba(99,102,241,0.1);
+            color: var(--primary);
+        }
+
+        .tag-priority-low { background: rgba(16,185,129,0.1); color: var(--success); }
+        .tag-priority-medium { background: rgba(245,158,11,0.1); color: var(--warning); }
+        .tag-priority-high { background: rgba(239,68,68,0.1); color: var(--danger); }
+        .tag-priority-critical { background: var(--danger); color: white; }
+
+        .tag-status-not-started { background: rgba(148,163,184,0.2); color: var(--text-secondary); }
+        .tag-status-open { background: rgba(14,165,233,0.1); color: var(--secondary); }
+        .tag-status-in-progress { background: rgba(245,158,11,0.1); color: var(--warning); }
+        .tag-status-on-hold { background: rgba(236,72,153,0.1); color: #ec4899; }
+        .tag-status-pending { background: rgba(139,92,246,0.1); color: #8b5cf6; }
+        .tag-status-completed { background: rgba(16,185,129,0.1); color: var(--success); }
+        .tag-status-resolved { background: rgba(16,185,129,0.1); color: var(--success); }
+        .tag-status-closed { background: rgba(100,116,139,0.1); color: var(--text-secondary); }
+
+        .chat-assignee {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .chat-assignee-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--surface-darker);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .chat-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .chat-card:hover .chat-actions {
+            opacity: 1;
+        }
+
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--surface-dark);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .action-btn.delete:hover {
+            background: var(--danger);
+        }
+
+        /* Kanban View */
+        .kanban-board {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+        }
+
+        .kanban-column {
+            min-width: 320px;
+            background: var(--surface-dark);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+        }
+
+        .kanban-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            margin-bottom: 16px;
+            border-radius: var(--radius-md);
+        }
+
+        .kanban-header.not-started { background: rgba(148,163,184,0.2); }
+        .kanban-header.open { background: rgba(14,165,233,0.2); }
+        .kanban-header.in-progress { background: rgba(245,158,11,0.2); }
+        .kanban-header.on-hold { background: rgba(236,72,153,0.2); }
+        .kanban-header.pending { background: rgba(139,92,246,0.2); }
+        .kanban-header.completed { background: rgba(16,185,129,0.2); }
+        .kanban-header.resolved { background: rgba(16,185,129,0.2); }
+        .kanban-header.closed { background: rgba(100,116,139,0.2); }
+
+        .kanban-title {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .kanban-count {
+            background: rgba(0,0,0,0.1);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .kanban-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .kanban-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .kanban-card-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .kanban-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Tools Index */
+        .tools-categories {
+            display: grid;
+            gap: 24px;
+        }
+
+        .tool-category {
+            background: var(--surface-dark);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .category-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .category-icon.data { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+        .category-icon.network { background: linear-gradient(135deg, #0ea5e9, #06b6d4); }
+        .category-icon.document { background: linear-gradient(135deg, #10b981, #34d399); }
+        .category-icon.automation { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+        .category-icon.agent { background: linear-gradient(135deg, #ec4899, #f472b6); }
+        .category-icon.config { background: linear-gradient(135deg, #64748b, #94a3b8); }
+
+        .category-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .category-count {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .tool-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .tool-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tool-name .file-icon {
+            color: var(--primary);
+        }
+
+        .tool-description {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .tool-type {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--surface-dark);
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        /* Todo List by Assignee */
+        .assignee-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .assignee-section {
+            background: var(--surface-dark);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .assignee-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .assignee-avatar-lg {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .assignee-info {
+            flex: 1;
+        }
+
+        .assignee-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .assignee-stats {
+            display: flex;
+            gap: 16px;
+            margin-top: 4px;
+        }
+
+        .assignee-stat {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .assignee-stat strong {
+            color: var(--text-secondary);
+        }
+
+        .todo-list {
+            padding: 16px;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: white;
+            border-radius: var(--radius-md);
+            margin-bottom: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .todo-item:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .todo-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .todo-checkbox:hover {
+            border-color: var(--primary);
+        }
+
+        .todo-checkbox.checked {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .todo-content {
+            flex: 1;
+        }
+
+        .todo-title {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .todo-item.completed .todo-title {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .todo-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .todo-due {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .todo-due.overdue {
+            color: var(--danger);
+        }
+
+        .todo-due.soon {
+            color: var(--warning);
+        }
+
+        /* Planner Section */
+        .planner-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .planner-date {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .planner-nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .planner-nav-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--border);
+            background: white;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .planner-nav-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .planner-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .day-column {
+            background: var(--surface-dark);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            min-height: 300px;
+        }
+
+        .day-header {
+            text-align: center;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 12px;
+        }
+
+        .day-name {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .day-date {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .day-column.today .day-date {
+            background: var(--primary);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .day-tasks {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .day-task {
+            padding: 10px;
+            background: white;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            border-left: 3px solid var(--primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .day-task:hover {
+            box-shadow: var(--shadow-sm);
+            transform: translateX(2px);
+        }
+
+        .day-task.priority-high {
+            border-left-color: var(--danger);
+        }
+
+        .day-task.priority-medium {
+            border-left-color: var(--warning);
+        }
+
+        /* Quick Add */
+        .quick-add {
+            background: linear-gradient(135deg, var(--surface-dark) 0%, white 100%);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 2px dashed var(--border);
+        }
+
+        .quick-add-title {
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .quick-add-form {
+            display: flex;
+            gap: 12px;
+        }
+
+        .quick-add-input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 15px;
+        }
+
+        .quick-add-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15,23,42,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 640px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-header {
+            padding: 24px 28px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--surface-dark);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        .modal-body {
+            padding: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .form-label .required {
+            color: var(--danger);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .modal-footer {
+            padding: 20px 28px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        /* Task Item in Modal */
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--surface-dark);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+
+        .task-item-title {
+            flex: 1;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .task-item-badges {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .task-item-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .task-item-badge.status { background: rgba(99,102,241,0.1); color: var(--primary); }
+        .task-item-badge.priority-low { background: rgba(16,185,129,0.1); color: var(--success); }
+        .task-item-badge.priority-medium { background: rgba(245,158,11,0.1); color: var(--warning); }
+        .task-item-badge.priority-high { background: rgba(239,68,68,0.1); color: var(--danger); }
+
+        .task-item-remove {
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: transparent;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+        }
+
+        .task-item-remove:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Loading State */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            color: var(--text-muted);
+        }
+
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 40px;
+        }
+
+        .empty-state-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: var(--surface-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .planner-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .envelope-container {
+                padding: 16px;
+            }
+            .envelope-tabs {
+                flex-wrap: wrap;
+            }
+            .envelope-tab {
+                padding: 12px 16px;
+                font-size: 13px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .toolbar {
+                flex-direction: column;
+            }
+            .search-container {
+                max-width: 100%;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .planner-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i data-lucide="cpu" style="width:28px;height:28px;"></i>
+                </div>
+                <div>
+                    <h1>Engineering Command Center</h1>
+                    <span class="header-subtitle">OberaConnect Second Brain</span>
+                </div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-time" id="currentTime"></div>
+            <button class="btn btn-secondary" onclick="exportDailySummary()">
+                <i data-lucide="file-down" style="width:16px;height:16px;"></i>
+                Daily Summary
+            </button>
+            <button class="btn btn-secondary" onclick="refreshData()">
+                <i data-lucide="refresh-cw" style="width:16px;height:16px;"></i>
+                Refresh
+            </button>
+        </div>
+    </header>
+
+    <div class="envelope-container">
+        <div class="envelope-tabs">
+            <button class="envelope-tab active" data-tab="projects" onclick="switchTab('projects')">
+                <i data-lucide="folder-kanban" class="tab-icon"></i>
+                Projects
+                <span class="tab-badge" id="projects-count">0</span>
+            </button>
+            <button class="envelope-tab" data-tab="tickets" onclick="switchTab('tickets')">
+                <i data-lucide="ticket" class="tab-icon"></i>
+                Engineering Tickets
+                <span class="tab-badge" id="tickets-count">0</span>
+            </button>
+            <button class="envelope-tab" data-tab="tools" onclick="switchTab('tools')">
+                <i data-lucide="wrench" class="tab-icon"></i>
+                Tools Index
+                <span class="tab-badge" id="tools-count">0</span>
+            </button>
+            <button class="envelope-tab" data-tab="todos" onclick="switchTab('todos')">
+                <i data-lucide="list-checks" class="tab-icon"></i>
+                To-Do List
+                <span class="tab-badge" id="todos-count">0</span>
+            </button>
+        </div>
+
+        <div class="envelope-content">
+            <!-- Projects Tab -->
+            <div class="tab-panel active" id="projects-panel">
+                <div class="stats-grid">
+                    <div class="stat-card total">
+                        <div class="stat-header">
+                            <span class="stat-label">Total Projects</span>
+                            <div class="stat-icon"><i data-lucide="layers"></i></div>
+                        </div>
+                        <div class="stat-value" id="stat-projects-total">0</div>
+                    </div>
+                    <div class="stat-card progress">
+                        <div class="stat-header">
+                            <span class="stat-label">In Progress</span>
+                            <div class="stat-icon"><i data-lucide="loader"></i></div>
+                        </div>
+                        <div class="stat-value" id="stat-projects-progress">0</div>
+                    </div>
+                    <div class="stat-card priority">
+                        <div class="stat-header">
+                            <span class="stat-label">High Priority</span>
+                            <div class="stat-icon"><i data-lucide="alert-triangle"></i></div>
+                        </div>
+                        <div class="stat-value" id="stat-projects-high">0</div>
+                    </div>
+                    <div class="stat-card completed">
+                        <div class="stat-header">
+                            <span class="stat-label">Completed</span>
+                            <div class="stat-icon"><i data-lucide="check-circle-2"></i></div>
+                        </div>
+                        <div class="stat-value" id="stat-projects-completed">0</div>
+                    </div>
+                </div>
+
+                <div class="toolbar">
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i data-lucide="search" class="search-icon" style="width:18px;height:18px;"></i>
+                            <input type="text" placeholder="Search projects..." id="projectSearchInput" oninput="filterItems('projects')">
+                        </div>
+                        <div class="filter-group">
+                            <select class="filter-select" id="projectStatusFilter" onchange="filterItems('projects')">
+                                <option value="">All Statuses</option>
+                                <option value="Not Started">Not Started</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="On Hold">On Hold</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                            <select class="filter-select" id="projectPriorityFilter" onchange="filterItems('projects')">
+                                <option value="">All Priorities</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <div class="view-toggle">
+                            <button class="view-btn active" onclick="switchView('projects', 'chat')">
+                                <i data-lucide="message-square" style="width:16px;height:16px;"></i>
+                                Cards
+                            </button>
+                            <button class="view-btn" onclick="switchView('projects', 'kanban')">
+                                <i data-lucide="kanban" style="width:16px;height:16px;"></i>
+                                Kanban
+                            </button>
+                        </div>
+                        <button class="btn btn-primary" onclick="showModal('add', 'projects')">
+                            <i data-lucide="plus" style="width:18px;height:18px;"></i>
+                            New Project
+                        </button>
+                    </div>
+                </div>
+
+                <div class="scrollable-content">
+                    <div id="projects-chat-view" class="chat-cards-container"></div>
+                    <div id="projects-kanban-view" class="kanban-board" style="display:none;"></div>
+                </div>
+            </div>
+
+            <!-- Tickets Tab -->
+            <div class="tab-panel" id="tickets-panel">
+                <div class="stats-grid">
+                    <div class="stat-card total">
+                        <div class="stat-header">
+                            <span class="stat-label">Total Tickets</span>
+                            <div class="stat-icon"><i data-lucide="ticket"></i></div>
+                        </div>
+                        <div class="stat-value" id="stat-tickets-total">0</div>
+                    </div>
+                    <div class="stat-card progress">
+                        <div class="stat-header">
+                            <span class="stat-label">Open</span>
+                            <div class="stat-icon"><i data-lucide="circle-dot"></i></div>
+                        </div>
+                        <div class="stat-value" id="stat-tickets-open">0</div>
+                    </div>
+                    <div class="stat-card priority">
+                        <div class="stat-header">
+                            <span class="stat-label">High Priority</span>
+                            <div class="stat-icon"><i data-lucide="flame"></i></div>
+                        </div>
+                        <div class="stat-value" id="stat-tickets-high">0</div>
+                    </div>
+                    <div class="stat-card completed">
+                        <div class="stat-header">
+                            <span class="stat-label">Resolved</span>
+                            <div class="stat-icon"><i data-lucide="check-check"></i></div>
+                        </div>
+                        <div class="stat-value" id="stat-tickets-resolved">0</div>
+                    </div>
+                </div>
+
+                <div class="toolbar">
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i data-lucide="search" class="search-icon" style="width:18px;height:18px;"></i>
+                            <input type="text" placeholder="Search tickets..." id="ticketSearchInput" oninput="filterItems('tickets')">
+                        </div>
+                        <div class="filter-group">
+                            <select class="filter-select" id="ticketStatusFilter" onchange="filterItems('tickets')">
+                                <option value="">All Statuses</option>
+                                <option value="Open">Open</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Resolved">Resolved</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+                            <select class="filter-select" id="ticketPriorityFilter" onchange="filterItems('tickets')">
+                                <option value="">All Priorities</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <div class="view-toggle">
+                            <button class="view-btn active" onclick="switchView('tickets', 'chat')">
+                                <i data-lucide="message-square" style="width:16px;height:16px;"></i>
+                                Cards
+                            </button>
+                            <button class="view-btn" onclick="switchView('tickets', 'kanban')">
+                                <i data-lucide="kanban" style="width:16px;height:16px;"></i>
+                                Kanban
+                            </button>
+                        </div>
+                        <button class="btn btn-primary" onclick="showModal('add', 'tickets')">
+                            <i data-lucide="plus" style="width:18px;height:18px;"></i>
+                            New Ticket
+                        </button>
+                    </div>
+                </div>
+
+                <div id="tickets-chat-view" class="chat-cards-container">
+                    <div class="loading-container">
+                        <div class="loading-spinner"></div>
+                        <span>Loading tickets...</span>
+                    </div>
+                </div>
+
+                <div id="tickets-kanban-view" class="kanban-board" style="display:none;">
+                </div>
+            </div>
+
+            <!-- Tools Index Tab -->
+            <div class="tab-panel" id="tools-panel">
+                <div class="toolbar" style="margin-bottom:24px;">
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i data-lucide="search" class="search-icon" style="width:18px;height:18px;"></i>
+                            <input type="text" placeholder="Search tools..." id="toolSearchInput" oninput="filterTools()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tools-categories" id="tools-container">
+                    <!-- Tools will be rendered here -->
+                </div>
+            </div>
+
+            <!-- To-Do List Tab -->
+            <div class="tab-panel" id="todos-panel">
+                <!-- Planner Section -->
+                <div class="planner-header">
+                    <div class="planner-date" id="planner-date"></div>
+                    <div class="planner-nav">
+                        <button class="planner-nav-btn" onclick="navigateWeek(-1)">
+                            <i data-lucide="chevron-left" style="width:20px;height:20px;"></i>
+                        </button>
+                        <button class="btn btn-secondary" onclick="goToToday()">Today</button>
+                        <button class="planner-nav-btn" onclick="navigateWeek(1)">
+                            <i data-lucide="chevron-right" style="width:20px;height:20px;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="planner-grid" id="planner-grid">
+                    <!-- Week days will be rendered here -->
+                </div>
+
+                <!-- Quick Add -->
+                <div class="quick-add">
+                    <div class="quick-add-title">Quick Add Task</div>
+                    <div class="quick-add-form">
+                        <input type="text" class="quick-add-input" id="quickAddInput" placeholder="What needs to be done?">
+                        <select class="filter-select" id="quickAddAssignee">
+                            <option value="">Assign to...</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="quickAddTask()">
+                            <i data-lucide="plus" style="width:18px;height:18px;"></i>
+                            Add
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Assignee Sections -->
+                <div class="assignee-sections" id="assignee-sections">
+                    <!-- Will be populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">New Item</h2>
+                <button class="modal-close" onclick="closeModal()">
+                    <i data-lucide="x" style="width:20px;height:20px;"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="itemId">
+                <input type="hidden" id="itemType">
+
+                <div class="form-group">
+                    <label class="form-label">Title <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="itemName" placeholder="Enter title...">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-textarea" id="itemDescription" placeholder="Describe the item..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Status</label>
+                        <select class="form-select" id="itemStatus">
+                            <option value="Not Started">Not Started</option>
+                            <option value="Open">Open</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="On Hold">On Hold</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Resolved">Resolved</option>
+                            <option value="Closed">Closed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Priority</label>
+                        <select class="form-select" id="itemPriority">
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                            <option value="Critical">Critical</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Assigned To</label>
+                        <input type="text" class="form-input" id="itemAssignee" placeholder="Name...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Team</label>
+                        <select class="form-select" id="itemTeam">
+                            <option value="Engineering">Engineering</option>
+                            <option value="Network">Network</option>
+                            <option value="Security">Security</option>
+                            <option value="Support">Support</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Customer</label>
+                        <input type="text" class="form-input" id="itemCustomer" placeholder="Customer name...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Due Date</label>
+                        <input type="date" class="form-input" id="itemDueDate">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Notes</label>
+                    <textarea class="form-textarea" id="itemNotes" placeholder="Additional notes..."></textarea>
+                </div>
+
+                <!-- Tasks Section (only for Projects) -->
+                <div class="form-group" id="tasksSection" style="display: none;">
+                    <label class="form-label">Tasks <span class="required">*</span></label>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Projects require at least one task. Tasks appear on the Kanban board.</p>
+                    <div id="tasksList" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px;"></div>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" class="form-input" id="newTaskTitle" placeholder="Enter task title..." style="flex: 1;">
+                        <select class="form-select" id="newTaskStatus" style="width: 140px;">
+                            <option value="Not Started">Not Started</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="On Hold">On Hold</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                        <select class="form-select" id="newTaskPriority" style="width: 120px;">
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                        <button type="button" class="btn btn-secondary" onclick="addTaskToList()" style="white-space: nowrap;">
+                            <i data-lucide="plus" style="width:16px;height:16px;"></i>
+                            Add Task
+                        </button>
+                    </div>
+                    <div id="taskValidationError" style="color: var(--danger); font-size: 12px; margin-top: 8px; display: none;">
+                        Please add at least one task before saving the project.
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveItem()">
+                    <i data-lucide="save" style="width:16px;height:16px;"></i>
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const CONFIG = {
+            siteId: '{{SITE_ID}}',
+            projectsListId: '{{PROJECTS_LIST_ID}}',
+            ticketsListId: '{{TICKETS_LIST_ID}}',
+            accessToken: '{{ACCESS_TOKEN}}'
+        };
+
+        const GRAPH_API = 'https://graph.microsoft.com/v1.0';
+
+        // State
+        let currentTab = 'projects';
+        let currentViews = { projects: 'chat', tickets: 'chat' };
+        let projectsData = [];
+        let ticketsData = [];
+        let tasksData = [];  // Tasks for Kanban board - belong to projects
+        let pendingTasks = [];  // Tasks being added in the modal before save
+        let currentWeekStart = getWeekStart(new Date());
+
+        // Tools Index - Categorized by function
+        const TOOLS_INDEX = {
+            'Data Processing & Import': {
+                icon: 'data',
+                tools: [
+                    { name: 'sharepoint_importer.py', desc: 'Import documents from SharePoint' },
+                    { name: 'download_sharepoint.py', desc: 'Download files from SharePoint sites' },
+                    { name: 'download_all_sharepoint.py', desc: 'Bulk download all SharePoint content' },
+                    { name: 'download_key_sites.py', desc: 'Download from priority SharePoint sites' },
+                    { name: 'slack_importer.py', desc: 'Import Slack channel exports' },
+                    { name: 'slab_importer.py', desc: 'Import documentation from Slab' },
+                    { name: 'slab_scraper.py', desc: 'Scrape Slab documentation pages' },
+                    { name: 'process_sharepoint.py', desc: 'Process downloaded SharePoint docs' },
+                    { name: 'process_sharepoint_all_simple.py', desc: 'Simple SharePoint batch processor' },
+                    { name: 'process_sharepoint_structured.py', desc: 'Structured SharePoint processing' },
+                    { name: 'process_batch.py', desc: 'Batch document processing pipeline' },
+                    { name: 'process_slab.py', desc: 'Process Slab documentation' },
+                    { name: 'process_slab_export.py', desc: 'Process Slab export files' },
+                    { name: 'process_all_sharepoint.py', desc: 'Full SharePoint processing pipeline' }
+                ]
+            },
+            'Network & Call Flow Tools': {
+                icon: 'network',
+                tools: [
+                    { name: 'call_flow_processor.py', desc: 'Process customer call flow documents' },
+                    { name: 'call_flow_generator.py', desc: 'Generate call flow templates' },
+                    { name: 'call_flow_web.py', desc: 'Web interface for call flows' },
+                    { name: 'call_flow_web_auth.py', desc: 'Authenticated call flow web interface' },
+                    { name: 'network_checklist.py', desc: 'Network installation checklist tool' },
+                    { name: 'network_checklist_filler.py', desc: 'Auto-fill network checklists' },
+                    { name: 'fill_spanish_fort_checklist.py', desc: 'Spanish Fort site checklist' }
+                ]
+            },
+            'Document & Content Management': {
+                icon: 'document',
+                tools: [
+                    { name: 'document_processor.py', desc: 'Core document processing engine' },
+                    { name: 'claude_processor.py', desc: 'AI-powered document analysis' },
+                    { name: 'html_generator.py', desc: 'Generate HTML from documents' },
+                    { name: 'metadata_extractor.py', desc: 'Extract document metadata' },
+                    { name: 'suggest_links.py', desc: 'AI-suggested document links' },
+                    { name: 'add_links_for_graph.py', desc: 'Add links for knowledge graph' },
+                    { name: 'team_link_clusters.py', desc: 'Cluster team document links' },
+                    { name: 'rename_with_tags.py', desc: 'Rename files with metadata tags' },
+                    { name: 'sync_comments_to_md.py', desc: 'Sync comments to markdown' },
+                    { name: 'add_comments_column.py', desc: 'Add comments column to docs' }
+                ]
+            },
+            'Automation & Scheduling': {
+                icon: 'automation',
+                tools: [
+                    { name: 'daily_engineering_summary.py', desc: 'Generate daily email summaries' },
+                    { name: 'engineering_tracker.py', desc: 'Engineering projects/tickets API' },
+                    { name: 'contract_tracker.py', desc: 'Customer contract management' },
+                    { name: 'ee_team_dashboard.py', desc: 'EE Team dashboard backend' },
+                    { name: 'update_ee_dashboard.py', desc: 'Update EE dashboard data' },
+                    { name: 'list_employees.py', desc: 'List and manage employees' }
+                ]
+            },
+            'AI Agents & MCP Servers': {
+                icon: 'agent',
+                tools: [
+                    { name: 'agent_orchestrator.py', desc: 'Multi-agent orchestration system' },
+                    { name: 'agent_notebooklm_analyst.py', desc: 'NotebookLM analysis agent' },
+                    { name: 'agent_obsidian_manager.py', desc: 'Obsidian vault management agent' },
+                    { name: 'mcp_obsidian_server.py', desc: 'MCP server for Obsidian' },
+                    { name: 'mcp_notebooklm_server.py', desc: 'MCP server for NotebookLM' },
+                    { name: 'query_brain.py', desc: 'RAG query engine' },
+                    { name: 'query_brain_html.py', desc: 'HTML interface for RAG queries' },
+                    { name: 'query_brain_enhanced.py', desc: 'Enhanced RAG with context' },
+                    { name: 'rag_web.py', desc: 'Web interface for RAG system' }
+                ]
+            },
+            'Configuration & Utilities': {
+                icon: 'config',
+                tools: [
+                    { name: 'config.py', desc: 'Application configuration' },
+                    { name: 'vector_store.py', desc: 'ChromaDB vector storage' },
+                    { name: 'obsidian_vault.py', desc: 'Obsidian vault utilities' },
+                    { name: 'comment_utils.py', desc: 'Comment handling utilities' },
+                    { name: 'rebuild_index.py', desc: 'Rebuild search index' },
+                    { name: 'cleanup_vault.py', desc: 'Clean up Obsidian vault' },
+                    { name: 'remove_copilot_content.py', desc: 'Remove Copilot-generated content' },
+                    { name: 'remove_oberaconnect.py', desc: 'Remove OberaConnect prefixes' },
+                    { name: 'remove_platform_dev.py', desc: 'Remove platform-dev content' },
+                    { name: 'organize_sharepoint_structure.py', desc: 'Organize SharePoint folder structure' },
+                    { name: 'reorganize_sharepoint_notes.py', desc: 'Reorganize SharePoint notes' },
+                    { name: 'move_sharepoint_to_subfolder.py', desc: 'Move SharePoint to subfolders' },
+                    { name: 'create_master_canvas.py', desc: 'Create Obsidian master canvas' },
+                    { name: 'create_team_canvases.py', desc: 'Create team-specific canvases' },
+                    { name: 'search_celebration.py', desc: 'Search celebration utility' },
+                    { name: 'test_chromadb.py', desc: 'Test ChromaDB connection' },
+                    { name: 'test_persistence.py', desc: 'Test data persistence' },
+                    { name: 'gunicorn_config.py', desc: 'Gunicorn server config' },
+                    { name: 'gunicorn_config_ssl.py', desc: 'Gunicorn SSL config' }
+                ]
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            updateTime();
+            setInterval(updateTime, 1000);
+            renderToolsIndex();
+            renderPlanner();
+            loadData();
+        });
+
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = now.toLocaleString('en-US', {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Tab switching
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.envelope-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById(`${tab}-panel`).classList.add('active');
+            lucide.createIcons();
+        }
+
+        // View switching
+        function switchView(type, view) {
+            currentViews[type] = view;
+            const container = document.getElementById(`${type}-panel`);
+            container.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+            event.target.closest('.view-btn').classList.add('active');
+
+            document.getElementById(`${type}-chat-view`).style.display = view === 'chat' ? 'flex' : 'none';
+            document.getElementById(`${type}-kanban-view`).style.display = view === 'kanban' ? 'flex' : 'none';
+
+            renderItems(type);
+        }
+
+        // Load data from SharePoint
+        async function loadData() {
+            await Promise.all([loadProjects(), loadTickets()]);
+            renderTodosByAssignee();
+        }
+
+        async function loadProjects() {
+            if (CONFIG.projectsListId.includes('{{')) {
+                showDemoData('projects');
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `${GRAPH_API}/sites/${CONFIG.siteId}/lists/${CONFIG.projectsListId}/items?expand=fields`,
+                    { headers: { 'Authorization': `Bearer ${CONFIG.accessToken}` } }
+                );
+                const data = await response.json();
+                projectsData = data.value || [];
+                updateProjectStats();
+                renderItems('projects');
+            } catch (error) {
+                console.error('Error loading projects:', error);
+                showDemoData('projects');
+            }
+        }
+
+        async function loadTickets() {
+            if (CONFIG.ticketsListId.includes('{{')) {
+                showDemoData('tickets');
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `${GRAPH_API}/sites/${CONFIG.siteId}/lists/${CONFIG.ticketsListId}/items?expand=fields`,
+                    { headers: { 'Authorization': `Bearer ${CONFIG.accessToken}` } }
+                );
+                const data = await response.json();
+                ticketsData = data.value || [];
+                updateTicketStats();
+                renderItems('tickets');
+            } catch (error) {
+                console.error('Error loading tickets:', error);
+                showDemoData('tickets');
+            }
+        }
+
+        // Demo data for development
+        function showDemoData(type) {
+            const demoProjects = [
+                { id: '1', fields: { ProjectName: 'Network Infrastructure Upgrade', Description: 'Complete overhaul of core network infrastructure including switches and routers', Status: 'In Progress', Priority: 'High', AssignedTo: 'Jeremy Smith', Team: 'Network', Customer: 'OberaConnect', DueDate: '2025-12-15' }},
+                { id: '2', fields: { ProjectName: 'Security Audit Implementation', Description: 'Implement findings from Q3 security audit', Status: 'Not Started', Priority: 'Critical', AssignedTo: 'Security Team', Team: 'Security', Customer: 'Internal', DueDate: '2025-12-01' }},
+                { id: '3', fields: { ProjectName: 'VoIP System Migration', Description: 'Migrate legacy PBX to cloud-based VoIP solution', Status: 'In Progress', Priority: 'Medium', AssignedTo: 'Network Team', Team: 'Engineering', Customer: 'Dunlap PCB', DueDate: '2025-12-20' }},
+                { id: '4', fields: { ProjectName: 'Documentation Portal', Description: 'Build internal documentation portal with search', Status: 'Completed', Priority: 'Low', AssignedTo: 'Jeremy Smith', Team: 'Engineering', Customer: 'Internal', DueDate: '2025-11-15' }},
+                { id: '5', fields: { ProjectName: 'Client Dashboard Development', Description: 'Develop customer-facing dashboard for service monitoring', Status: 'On Hold', Priority: 'Medium', AssignedTo: 'Dev Team', Team: 'Engineering', Customer: 'Multiple', DueDate: '2025-01-15' }}
+            ];
+
+            const demoTickets = [
+                { id: '1', fields: { TicketTitle: 'VPN Connection Issues - Spanish Fort', Description: 'Users reporting intermittent VPN disconnections', Status: 'Open', Priority: 'High', AssignedTo: 'Jeremy Smith', Team: 'Network', Customer: 'Spanish Fort', DueDate: '2025-11-26' }},
+                { id: '2', fields: { TicketTitle: 'Email Delivery Delays', Description: 'Outbound emails delayed by 10+ minutes', Status: 'In Progress', Priority: 'Critical', AssignedTo: 'Support Team', Team: 'Support', Customer: 'Parabalus', DueDate: '2025-11-25' }},
+                { id: '3', fields: { TicketTitle: 'Firewall Rule Update Request', Description: 'Add new rules for remote access', Status: 'Pending', Priority: 'Medium', AssignedTo: 'Security Team', Team: 'Security', Customer: 'Setco', DueDate: '2025-11-28' }},
+                { id: '4', fields: { TicketTitle: 'Backup Verification Failed', Description: 'Weekly backup verification showing errors', Status: 'Resolved', Priority: 'High', AssignedTo: 'Jeremy Smith', Team: 'Engineering', Customer: 'Setco', DueDate: '2025-11-20' }},
+                { id: '5', fields: { TicketTitle: 'New User Onboarding - 3 Users', Description: 'Setup accounts for new employees', Status: 'Closed', Priority: 'Low', AssignedTo: 'Support Team', Team: 'Support', Customer: 'Dunlap PCB', DueDate: '2025-11-22' }}
+            ];
+
+            if (type === 'projects') {
+                projectsData = demoProjects;
+                updateProjectStats();
+                renderItems('projects');
+            } else {
+                ticketsData = demoTickets;
+                updateTicketStats();
+                renderItems('tickets');
+            }
+        }
+
+        // Update stats
+        function updateProjectStats() {
+            const total = projectsData.length;
+            const inProgress = projectsData.filter(i => i.fields.Status === 'In Progress').length;
+            const highPriority = projectsData.filter(i => ['High', 'Critical'].includes(i.fields.Priority)).length;
+            const completed = projectsData.filter(i => i.fields.Status === 'Completed').length;
+
+            document.getElementById('stat-projects-total').textContent = total;
+            document.getElementById('stat-projects-progress').textContent = inProgress;
+            document.getElementById('stat-projects-high').textContent = highPriority;
+            document.getElementById('stat-projects-completed').textContent = completed;
+            document.getElementById('projects-count').textContent = total;
+        }
+
+        function updateTicketStats() {
+            const total = ticketsData.length;
+            const open = ticketsData.filter(i => ['Open', 'In Progress'].includes(i.fields.Status)).length;
+            const highPriority = ticketsData.filter(i => ['High', 'Critical'].includes(i.fields.Priority)).length;
+            const resolved = ticketsData.filter(i => ['Resolved', 'Closed'].includes(i.fields.Status)).length;
+
+            document.getElementById('stat-tickets-total').textContent = total;
+            document.getElementById('stat-tickets-open').textContent = open;
+            document.getElementById('stat-tickets-high').textContent = highPriority;
+            document.getElementById('stat-tickets-resolved').textContent = resolved;
+            document.getElementById('tickets-count').textContent = total;
+        }
+
+        // Render items
+        function renderItems(type) {
+            const view = currentViews[type];
+            if (view === 'chat') {
+                renderChatView(type);
+            } else {
+                renderKanbanView(type);
+            }
+        }
+
+        function renderChatView(type) {
+            const container = document.getElementById(`${type}-chat-view`);
+            const items = type === 'projects' ? getFilteredProjects() : getFilteredTickets();
+
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <i data-lucide="${type === 'projects' ? 'folder-kanban' : 'ticket'}" style="width:40px;height:40px;"></i>
+                        </div>
+                        <h3>No ${type} found</h3>
+                        <p>Create a new ${type === 'projects' ? 'project' : 'ticket'} to get started</p>
+                        <button class="btn btn-primary" onclick="showModal('add', '${type}')">
+                            <i data-lucide="plus" style="width:18px;height:18px;"></i>
+                            Add ${type === 'projects' ? 'Project' : 'Ticket'}
+                        </button>
+                    </div>`;
+                lucide.createIcons();
+                return;
+            }
+
+            container.innerHTML = items.map(item => {
+                const fields = item.fields;
+                const title = fields.ProjectName || fields.TicketTitle || 'Untitled';
+                const desc = fields.Description || 'No description';
+                const status = fields.Status || 'Not Started';
+                const priority = fields.Priority || 'Medium';
+                const assignee = fields.AssignedTo || 'Unassigned';
+                const dueDate = fields.DueDate ? formatDate(fields.DueDate) : '';
+                const initials = getInitials(assignee);
+
+                return `
+                    <div class="chat-card" onclick="showModal('edit', '${type}', '${item.id}')">
+                        <div class="chat-avatar">${initials}</div>
+                        <div class="chat-body">
+                            <div class="chat-header">
+                                <span class="chat-title">${title}</span>
+                                <div class="chat-meta">
+                                    ${dueDate ? `<span class="chat-time">${dueDate}</span>` : ''}
+                                </div>
+                            </div>
+                            <div class="chat-preview">${desc}</div>
+                            <div class="chat-footer">
+                                <span class="chat-tag tag-status-${status.toLowerCase().replace(/\s+/g, '-')}">${status}</span>
+                                <span class="chat-tag tag-priority-${priority.toLowerCase()}">${priority}</span>
+                                <span class="chat-assignee">
+                                    <span class="chat-assignee-avatar">${initials}</span>
+                                    ${assignee}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="action-btn" onclick="event.stopPropagation(); showModal('edit', '${type}', '${item.id}')">
+                                <i data-lucide="pencil" style="width:16px;height:16px;"></i>
+                            </button>
+                            <button class="action-btn delete" onclick="event.stopPropagation(); deleteItem('${type}', '${item.id}')">
+                                <i data-lucide="trash-2" style="width:16px;height:16px;"></i>
+                            </button>
+                        </div>
+                    </div>`;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        function renderKanbanView(type) {
+            const container = document.getElementById(`${type}-kanban-view`);
+            const items = type === 'projects' ? getFilteredProjects() : getFilteredTickets();
+            const statuses = type === 'projects'
+                ? ['Not Started', 'In Progress', 'On Hold', 'Completed']
+                : ['Open', 'In Progress', 'Pending', 'Resolved', 'Closed'];
+
+            container.innerHTML = statuses.map(status => {
+                const statusItems = items.filter(i => (i.fields.Status || 'Not Started') === status);
+                const statusClass = status.toLowerCase().replace(/\s+/g, '-');
+
+                return `
+                    <div class="kanban-column">
+                        <div class="kanban-header ${statusClass}">
+                            <span class="kanban-title">${status}</span>
+                            <span class="kanban-count">${statusItems.length}</span>
+                        </div>
+                        ${statusItems.map(item => {
+                            const fields = item.fields;
+                            const title = fields.ProjectName || fields.TicketTitle || 'Untitled';
+                            const priority = fields.Priority || 'Medium';
+                            const assignee = fields.AssignedTo || 'Unassigned';
+                            const initials = getInitials(assignee);
+
+                            return `
+                                <div class="kanban-card" onclick="showModal('edit', '${type}', '${item.id}')">
+                                    <div class="kanban-card-title">${title}</div>
+                                    <div class="kanban-card-meta">
+                                        <span class="chat-tag tag-priority-${priority.toLowerCase()}">${priority}</span>
+                                        <span class="chat-assignee">
+                                            <span class="chat-assignee-avatar">${initials}</span>
+                                        </span>
+                                    </div>
+                                </div>`;
+                        }).join('')}
+                    </div>`;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        // Filter functions
+        function getFilteredProjects() {
+            const search = document.getElementById('projectSearchInput').value.toLowerCase();
+            const status = document.getElementById('projectStatusFilter').value;
+            const priority = document.getElementById('projectPriorityFilter').value;
+
+            return projectsData.filter(item => {
+                const fields = item.fields;
+                const title = (fields.ProjectName || '').toLowerCase();
+                const desc = (fields.Description || '').toLowerCase();
+
+                if (search && !title.includes(search) && !desc.includes(search)) return false;
+                if (status && fields.Status !== status) return false;
+                if (priority && fields.Priority !== priority) return false;
+                return true;
+            });
+        }
+
+        function getFilteredTickets() {
+            const search = document.getElementById('ticketSearchInput').value.toLowerCase();
+            const status = document.getElementById('ticketStatusFilter').value;
+            const priority = document.getElementById('ticketPriorityFilter').value;
+
+            return ticketsData.filter(item => {
+                const fields = item.fields;
+                const title = (fields.TicketTitle || '').toLowerCase();
+                const desc = (fields.Description || '').toLowerCase();
+
+                if (search && !title.includes(search) && !desc.includes(search)) return false;
+                if (status && fields.Status !== status) return false;
+                if (priority && fields.Priority !== priority) return false;
+                return true;
+            });
+        }
+
+        function filterItems(type) {
+            renderItems(type);
+        }
+
+        // Render Tools Index
+        function renderToolsIndex() {
+            const container = document.getElementById('tools-container');
+            let totalTools = 0;
+
+            container.innerHTML = Object.entries(TOOLS_INDEX).map(([category, data]) => {
+                totalTools += data.tools.length;
+                return `
+                    <div class="tool-category">
+                        <div class="category-header">
+                            <div class="category-icon ${data.icon}">
+                                <i data-lucide="${getCategoryIcon(data.icon)}" style="width:24px;height:24px;"></i>
+                            </div>
+                            <div>
+                                <div class="category-title">${category}</div>
+                                <div class="category-count">${data.tools.length} tools</div>
+                            </div>
+                        </div>
+                        <div class="tools-grid">
+                            ${data.tools.map(tool => `
+                                <div class="tool-card" onclick="openTool('${tool.name}')">
+                                    <div class="tool-name">
+                                        <i data-lucide="file-code" class="file-icon" style="width:16px;height:16px;"></i>
+                                        ${tool.name}
+                                    </div>
+                                    <div class="tool-description">${tool.desc}</div>
+                                    <span class="tool-type">${tool.name.endsWith('.py') ? 'Python' : 'Script'}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>`;
+            }).join('');
+
+            document.getElementById('tools-count').textContent = totalTools;
+            lucide.createIcons();
+        }
+
+        function getCategoryIcon(type) {
+            const icons = {
+                data: 'database',
+                network: 'network',
+                document: 'file-text',
+                automation: 'zap',
+                agent: 'bot',
+                config: 'settings'
+            };
+            return icons[type] || 'file';
+        }
+
+        function filterTools() {
+            const search = document.getElementById('toolSearchInput').value.toLowerCase();
+            document.querySelectorAll('.tool-card').forEach(card => {
+                const name = card.querySelector('.tool-name').textContent.toLowerCase();
+                const desc = card.querySelector('.tool-description').textContent.toLowerCase();
+                card.style.display = (name.includes(search) || desc.includes(search)) ? 'block' : 'none';
+            });
+        }
+
+        function openTool(toolName) {
+            alert(`Opening ${toolName}...\n\nIn production, this would open the tool in your editor or run it.`);
+        }
+
+        // Render To-Do by Assignee
+        function renderTodosByAssignee() {
+            const allItems = [...projectsData, ...ticketsData];
+            const assigneeMap = {};
+
+            allItems.forEach(item => {
+                const fields = item.fields;
+                const assignee = fields.AssignedTo || 'Unassigned';
+                if (!assigneeMap[assignee]) {
+                    assigneeMap[assignee] = { todos: [], completed: 0, high: 0 };
+                }
+                assigneeMap[assignee].todos.push({
+                    id: item.id,
+                    title: fields.ProjectName || fields.TicketTitle || 'Untitled',
+                    status: fields.Status || 'Not Started',
+                    priority: fields.Priority || 'Medium',
+                    dueDate: fields.DueDate,
+                    type: fields.ProjectName ? 'project' : 'ticket'
+                });
+                if (['Completed', 'Resolved', 'Closed'].includes(fields.Status)) {
+                    assigneeMap[assignee].completed++;
+                }
+                if (['High', 'Critical'].includes(fields.Priority)) {
+                    assigneeMap[assignee].high++;
+                }
+            });
+
+            // Update quick add dropdown
+            const dropdown = document.getElementById('quickAddAssignee');
+            dropdown.innerHTML = '<option value="">Assign to...</option>' +
+                Object.keys(assigneeMap).map(a => `<option value="${a}">${a}</option>`).join('');
+
+            // Render sections
+            const container = document.getElementById('assignee-sections');
+            const totalTodos = allItems.filter(i => !['Completed', 'Resolved', 'Closed'].includes(i.fields.Status)).length;
+            document.getElementById('todos-count').textContent = totalTodos;
+
+            container.innerHTML = Object.entries(assigneeMap)
+                .sort((a, b) => b[1].todos.length - a[1].todos.length)
+                .map(([assignee, data]) => {
+                    const initials = getInitials(assignee);
+                    const activeTodos = data.todos.filter(t => !['Completed', 'Resolved', 'Closed'].includes(t.status));
+
+                    return `
+                        <div class="assignee-section">
+                            <div class="assignee-header">
+                                <div class="assignee-avatar-lg">${initials}</div>
+                                <div class="assignee-info">
+                                    <div class="assignee-name">${assignee}</div>
+                                    <div class="assignee-stats">
+                                        <span class="assignee-stat"><strong>${activeTodos.length}</strong> active</span>
+                                        <span class="assignee-stat"><strong>${data.completed}</strong> completed</span>
+                                        <span class="assignee-stat"><strong>${data.high}</strong> high priority</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="todo-list">
+                                ${data.todos.map(todo => {
+                                    const isCompleted = ['Completed', 'Resolved', 'Closed'].includes(todo.status);
+                                    const dueClass = getDueClass(todo.dueDate);
+
+                                    return `
+                                        <div class="todo-item ${isCompleted ? 'completed' : ''}" onclick="showModal('edit', '${todo.type}s', '${todo.id}')">
+                                            <div class="todo-checkbox ${isCompleted ? 'checked' : ''}" onclick="event.stopPropagation(); toggleTodo('${todo.type}s', '${todo.id}')">
+                                                ${isCompleted ? '<i data-lucide="check" style="width:14px;height:14px;"></i>' : ''}
+                                            </div>
+                                            <div class="todo-content">
+                                                <div class="todo-title">${todo.title}</div>
+                                                <div class="todo-meta">
+                                                    <span class="chat-tag tag-priority-${todo.priority.toLowerCase()}">${todo.priority}</span>
+                                                    <span class="chat-tag tag-status-${todo.status.toLowerCase().replace(/\s+/g, '-')}">${todo.status}</span>
+                                                    ${todo.dueDate ? `
+                                                        <span class="todo-due ${dueClass}">
+                                                            <i data-lucide="calendar" style="width:12px;height:12px;"></i>
+                                                            ${formatDate(todo.dueDate)}
+                                                        </span>
+                                                    ` : ''}
+                                                </div>
+                                            </div>
+                                        </div>`;
+                                }).join('')}
+                            </div>
+                        </div>`;
+                }).join('');
+
+            lucide.createIcons();
+        }
+
+        // Planner functions
+        function getWeekStart(date) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+            return new Date(d.setDate(diff));
+        }
+
+        function renderPlanner() {
+            const plannerDate = document.getElementById('planner-date');
+            const endOfWeek = new Date(currentWeekStart);
+            endOfWeek.setDate(endOfWeek.getDate() + 6);
+
+            plannerDate.textContent = `${currentWeekStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${endOfWeek.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+
+            const grid = document.getElementById('planner-grid');
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            grid.innerHTML = days.map((day, i) => {
+                const date = new Date(currentWeekStart);
+                date.setDate(date.getDate() + i);
+                const isToday = date.getTime() === today.getTime();
+                const dateStr = date.toISOString().split('T')[0];
+
+                // Get tasks for this day
+                const dayTasks = [...projectsData, ...ticketsData].filter(item => {
+                    const dueDate = item.fields.DueDate;
+                    return dueDate && dueDate.startsWith(dateStr);
+                });
+
+                return `
+                    <div class="day-column ${isToday ? 'today' : ''}">
+                        <div class="day-header">
+                            <div class="day-name">${day}</div>
+                            <div class="day-date">${date.getDate()}</div>
+                        </div>
+                        <div class="day-tasks">
+                            ${dayTasks.map(task => {
+                                const title = task.fields.ProjectName || task.fields.TicketTitle || 'Untitled';
+                                const priority = (task.fields.Priority || 'medium').toLowerCase();
+                                return `<div class="day-task priority-${priority}">${title}</div>`;
+                            }).join('')}
+                        </div>
+                    </div>`;
+            }).join('');
+        }
+
+        function navigateWeek(direction) {
+            currentWeekStart.setDate(currentWeekStart.getDate() + (direction * 7));
+            renderPlanner();
+        }
+
+        function goToToday() {
+            currentWeekStart = getWeekStart(new Date());
+            renderPlanner();
+        }
+
+        function quickAddTask() {
+            const title = document.getElementById('quickAddInput').value.trim();
+            const assignee = document.getElementById('quickAddAssignee').value;
+
+            if (!title) {
+                alert('Please enter a task title');
+                return;
+            }
+
+            // For demo, add to tickets
+            ticketsData.push({
+                id: 'new-' + Date.now(),
+                fields: {
+                    TicketTitle: title,
+                    Status: 'Open',
+                    Priority: 'Medium',
+                    AssignedTo: assignee || 'Unassigned',
+                    DueDate: new Date().toISOString().split('T')[0]
+                }
+            });
+
+            document.getElementById('quickAddInput').value = '';
+            updateTicketStats();
+            renderTodosByAssignee();
+            renderPlanner();
+        }
+
+        // Modal functions
+        function showModal(mode, type, itemId = null) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modalTitle');
+            const tasksSection = document.getElementById('tasksSection');
+
+            document.getElementById('itemType').value = type;
+
+            // Show/hide tasks section based on type (only for projects)
+            tasksSection.style.display = type === 'projects' ? 'block' : 'none';
+
+            if (mode === 'add') {
+                title.textContent = `New ${type === 'projects' ? 'Project' : 'Ticket'}`;
+                clearForm();
+                pendingTasks = [];
+                renderPendingTasks();
+            } else {
+                title.textContent = `Edit ${type === 'projects' ? 'Project' : 'Ticket'}`;
+                const items = type === 'projects' ? projectsData : ticketsData;
+                const item = items.find(i => i.id === itemId);
+                if (item) {
+                    populateForm(item);
+                    // Load existing tasks for this project
+                    if (type === 'projects') {
+                        pendingTasks = tasksData
+                            .filter(t => t.fields.ProjectId === itemId)
+                            .map(t => ({
+                                id: t.id,
+                                title: t.fields.TaskTitle,
+                                status: t.fields.Status,
+                                priority: t.fields.Priority
+                            }));
+                        renderPendingTasks();
+                    }
+                }
+            }
+
+            // Hide validation error
+            document.getElementById('taskValidationError').style.display = 'none';
+
+            modal.style.display = 'flex';
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            pendingTasks = [];
+        }
+
+        function clearForm() {
+            document.getElementById('itemId').value = '';
+            document.getElementById('itemName').value = '';
+            document.getElementById('itemDescription').value = '';
+            document.getElementById('itemStatus').value = 'Not Started';
+            document.getElementById('itemPriority').value = 'Medium';
+            document.getElementById('itemAssignee').value = '';
+            document.getElementById('itemTeam').value = 'Engineering';
+            document.getElementById('itemCustomer').value = '';
+            document.getElementById('itemDueDate').value = '';
+            document.getElementById('itemNotes').value = '';
+            document.getElementById('newTaskTitle').value = '';
+            pendingTasks = [];
+        }
+
+        function populateForm(item) {
+            const fields = item.fields;
+            document.getElementById('itemId').value = item.id;
+            document.getElementById('itemName').value = fields.ProjectName || fields.TicketTitle || '';
+            document.getElementById('itemDescription').value = fields.Description || '';
+            document.getElementById('itemStatus').value = fields.Status || 'Not Started';
+            document.getElementById('itemPriority').value = fields.Priority || 'Medium';
+            document.getElementById('itemAssignee').value = fields.AssignedTo || '';
+            document.getElementById('itemTeam').value = fields.Team || 'Engineering';
+            document.getElementById('itemCustomer').value = fields.Customer || '';
+            document.getElementById('itemDueDate').value = fields.DueDate ? fields.DueDate.split('T')[0] : '';
+            document.getElementById('itemNotes').value = fields.Notes || fields.Resolution || '';
+        }
+
+        // Task management functions
+        function addTaskToList() {
+            const titleInput = document.getElementById('newTaskTitle');
+            const statusSelect = document.getElementById('newTaskStatus');
+            const prioritySelect = document.getElementById('newTaskPriority');
+
+            const title = titleInput.value.trim();
+            if (!title) {
+                titleInput.focus();
+                return;
+            }
+
+            pendingTasks.push({
+                id: 'task-' + Date.now(),
+                title: title,
+                status: statusSelect.value,
+                priority: prioritySelect.value
+            });
+
+            titleInput.value = '';
+            titleInput.focus();
+            document.getElementById('taskValidationError').style.display = 'none';
+            renderPendingTasks();
+        }
+
+        function removeTaskFromList(taskId) {
+            pendingTasks = pendingTasks.filter(t => t.id !== taskId);
+            renderPendingTasks();
+        }
+
+        function renderPendingTasks() {
+            const container = document.getElementById('tasksList');
+            if (pendingTasks.length === 0) {
+                container.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 16px; font-size: 13px;">No tasks added yet. Add at least one task to create the project.</div>';
+                return;
+            }
+
+            container.innerHTML = pendingTasks.map(task => `
+                <div class="task-item">
+                    <span class="task-item-title">${task.title}</span>
+                    <div class="task-item-badges">
+                        <span class="task-item-badge status">${task.status}</span>
+                        <span class="task-item-badge priority-${task.priority.toLowerCase()}">${task.priority}</span>
+                    </div>
+                    <button type="button" class="task-item-remove" onclick="removeTaskFromList('${task.id}')">
+                        <i data-lucide="x" style="width:14px;height:14px;"></i>
+                    </button>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        async function saveItem() {
+            const itemId = document.getElementById('itemId').value;
+            const type = document.getElementById('itemType').value;
+            const titleField = type === 'projects' ? 'ProjectName' : 'TicketTitle';
+
+            // Validate: Projects require at least one task
+            if (type === 'projects' && pendingTasks.length === 0) {
+                document.getElementById('taskValidationError').style.display = 'block';
+                document.getElementById('newTaskTitle').focus();
+                return;
+            }
+
+            const newItem = {
+                id: itemId || 'new-' + Date.now(),
+                fields: {
+                    [titleField]: document.getElementById('itemName').value,
+                    Description: document.getElementById('itemDescription').value,
+                    Status: document.getElementById('itemStatus').value,
+                    Priority: document.getElementById('itemPriority').value,
+                    AssignedTo: document.getElementById('itemAssignee').value,
+                    Team: document.getElementById('itemTeam').value,
+                    Customer: document.getElementById('itemCustomer').value,
+                    DueDate: document.getElementById('itemDueDate').value,
+                    Notes: document.getElementById('itemNotes').value
+                }
+            };
+
+            // For demo, update local data
+            const items = type === 'projects' ? projectsData : ticketsData;
+            const existingIndex = items.findIndex(i => i.id === itemId);
+
+            if (existingIndex >= 0) {
+                items[existingIndex] = newItem;
+            } else {
+                items.push(newItem);
+            }
+
+            // Handle tasks for projects
+            if (type === 'projects') {
+                const projectId = newItem.id;
+
+                // Remove old tasks for this project
+                tasksData = tasksData.filter(t => t.fields.ProjectId !== projectId);
+
+                // Add new tasks
+                pendingTasks.forEach(task => {
+                    tasksData.push({
+                        id: task.id.startsWith('task-') ? task.id : 'task-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9),
+                        fields: {
+                            TaskTitle: task.title,
+                            Status: task.status,
+                            Priority: task.priority,
+                            ProjectId: projectId,
+                            ProjectName: newItem.fields.ProjectName,
+                            AssignedTo: newItem.fields.AssignedTo,
+                            Team: newItem.fields.Team
+                        }
+                    });
+                });
+            }
+
+            closeModal();
+
+            if (type === 'projects') {
+                updateProjectStats();
+                renderKanbanView('projects');  // Refresh kanban with tasks
+            } else {
+                updateTicketStats();
+            }
+
+            renderItems(type);
+            renderTodosByAssignee();
+            renderPlanner();
+        }
+
+        async function deleteItem(type, itemId) {
+            if (!confirm('Are you sure you want to delete this item?')) return;
+
+            const items = type === 'projects' ? projectsData : ticketsData;
+            const index = items.findIndex(i => i.id === itemId);
+            if (index >= 0) {
+                items.splice(index, 1);
+            }
+
+            if (type === 'projects') {
+                updateProjectStats();
+            } else {
+                updateTicketStats();
+            }
+
+            renderItems(type);
+            renderTodosByAssignee();
+            renderPlanner();
+        }
+
+        function toggleTodo(type, itemId) {
+            const items = type === 'projects' ? projectsData : ticketsData;
+            const item = items.find(i => i.id === itemId);
+            if (item) {
+                const completed = ['Completed', 'Resolved', 'Closed'].includes(item.fields.Status);
+                item.fields.Status = completed ? 'In Progress' : (type === 'projects' ? 'Completed' : 'Resolved');
+            }
+
+            if (type === 'projects') {
+                updateProjectStats();
+            } else {
+                updateTicketStats();
+            }
+
+            renderItems(type);
+            renderTodosByAssignee();
+        }
+
+        function refreshData() {
+            loadData();
+        }
+
+        // Daily Summary Export
+        function exportDailySummary() {
+            const today = new Date();
+            const todayStr = today.toISOString().split('T')[0];
+            const formattedDate = today.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Collect all items
+            const allProjects = projectsData || [];
+            const allTickets = ticketsData || [];
+            const allTasks = tasksData || [];
+
+            // Categorize items
+            const inProgress = {
+                projects: allProjects.filter(i => i.fields.Status === 'In Progress'),
+                tickets: allTickets.filter(i => i.fields.Status === 'In Progress' || i.fields.Status === 'Open'),
+                tasks: allTasks.filter(i => i.fields.Status === 'In Progress')
+            };
+
+            const completedToday = {
+                projects: allProjects.filter(i =>
+                    ['Completed'].includes(i.fields.Status) &&
+                    i.fields.CompletedDate?.startsWith(todayStr)
+                ),
+                tickets: allTickets.filter(i =>
+                    ['Resolved', 'Closed'].includes(i.fields.Status)
+                ),
+                tasks: allTasks.filter(i =>
+                    i.fields.Status === 'Completed'
+                )
+            };
+
+            const dueToday = {
+                projects: allProjects.filter(i => i.fields.DueDate?.startsWith(todayStr)),
+                tickets: allTickets.filter(i => i.fields.DueDate?.startsWith(todayStr)),
+                tasks: allTasks.filter(i => i.fields.DueDate?.startsWith(todayStr))
+            };
+
+            const highPriority = {
+                projects: allProjects.filter(i =>
+                    ['High', 'Critical'].includes(i.fields.Priority) &&
+                    !['Completed'].includes(i.fields.Status)
+                ),
+                tickets: allTickets.filter(i =>
+                    ['High', 'Critical'].includes(i.fields.Priority) &&
+                    !['Resolved', 'Closed'].includes(i.fields.Status)
+                ),
+                tasks: allTasks.filter(i =>
+                    ['High', 'Critical'].includes(i.fields.Priority) &&
+                    i.fields.Status !== 'Completed'
+                )
+            };
+
+            // Build summary report
+            let summary = `# Daily Engineering Summary\n`;
+            summary += `## ${formattedDate}\n\n`;
+            summary += `Generated: ${today.toLocaleTimeString('en-US')}\n\n`;
+            summary += `---\n\n`;
+
+            // Summary stats
+            summary += `## Overview\n\n`;
+            summary += `| Category | Total | In Progress | High Priority |\n`;
+            summary += `|----------|-------|-------------|---------------|\n`;
+            summary += `| Projects | ${allProjects.length} | ${inProgress.projects.length} | ${highPriority.projects.length} |\n`;
+            summary += `| Tickets | ${allTickets.length} | ${inProgress.tickets.length} | ${highPriority.tickets.length} |\n`;
+            summary += `| Tasks | ${allTasks.length} | ${inProgress.tasks.length} | ${highPriority.tasks.length} |\n\n`;
+
+            // In Progress Section
+            summary += `## Currently In Progress\n\n`;
+
+            if (inProgress.projects.length > 0) {
+                summary += `### Projects (${inProgress.projects.length})\n\n`;
+                inProgress.projects.forEach(p => {
+                    const f = p.fields;
+                    summary += `- **${f.ProjectName || 'Untitled'}**\n`;
+                    summary += `  - Assignee: ${f.AssignedTo || 'Unassigned'}\n`;
+                    summary += `  - Priority: ${f.Priority || 'Medium'}\n`;
+                    summary += `  - Customer: ${f.Customer || 'N/A'}\n`;
+                    if (f.DueDate) summary += `  - Due: ${formatDate(f.DueDate)}\n`;
+                    if (f.Description) summary += `  - Description: ${f.Description.substring(0, 100)}${f.Description.length > 100 ? '...' : ''}\n`;
+                    summary += `\n`;
+                });
+            }
+
+            if (inProgress.tickets.length > 0) {
+                summary += `### Tickets (${inProgress.tickets.length})\n\n`;
+                inProgress.tickets.forEach(t => {
+                    const f = t.fields;
+                    summary += `- **${f.TicketTitle || 'Untitled'}** [${f.Status}]\n`;
+                    summary += `  - Assignee: ${f.AssignedTo || 'Unassigned'}\n`;
+                    summary += `  - Priority: ${f.Priority || 'Medium'}\n`;
+                    summary += `  - Customer: ${f.Customer || 'N/A'}\n`;
+                    if (f.DueDate) summary += `  - Due: ${formatDate(f.DueDate)}\n`;
+                    summary += `\n`;
+                });
+            }
+
+            if (inProgress.tasks.length > 0) {
+                summary += `### Tasks (${inProgress.tasks.length})\n\n`;
+                inProgress.tasks.forEach(t => {
+                    const f = t.fields;
+                    summary += `- **${f.TaskTitle || f.Title || 'Untitled'}**\n`;
+                    summary += `  - Project: ${f.ProjectName || 'N/A'}\n`;
+                    summary += `  - Assignee: ${f.AssignedTo || 'Unassigned'}\n`;
+                    summary += `  - Priority: ${f.Priority || 'Medium'}\n`;
+                    summary += `\n`;
+                });
+            }
+
+            if (inProgress.projects.length === 0 && inProgress.tickets.length === 0 && inProgress.tasks.length === 0) {
+                summary += `*No items currently in progress.*\n\n`;
+            }
+
+            // Due Today Section
+            const dueTodayCount = dueToday.projects.length + dueToday.tickets.length + dueToday.tasks.length;
+            summary += `## Due Today (${dueTodayCount})\n\n`;
+
+            if (dueTodayCount > 0) {
+                [...dueToday.projects, ...dueToday.tickets, ...dueToday.tasks].forEach(item => {
+                    const f = item.fields;
+                    const title = f.ProjectName || f.TicketTitle || f.TaskTitle || f.Title || 'Untitled';
+                    summary += `- **${title}** - ${f.Status} (${f.Priority || 'Medium'}) - ${f.AssignedTo || 'Unassigned'}\n`;
+                });
+                summary += `\n`;
+            } else {
+                summary += `*No items due today.*\n\n`;
+            }
+
+            // High Priority Section
+            const highPriorityCount = highPriority.projects.length + highPriority.tickets.length + highPriority.tasks.length;
+            summary += `## High Priority Items (${highPriorityCount})\n\n`;
+
+            if (highPriorityCount > 0) {
+                [...highPriority.projects, ...highPriority.tickets, ...highPriority.tasks].forEach(item => {
+                    const f = item.fields;
+                    const title = f.ProjectName || f.TicketTitle || f.TaskTitle || f.Title || 'Untitled';
+                    const priority = f.Priority === 'Critical' ? '!!! CRITICAL' : '!! HIGH';
+                    summary += `- ${priority}: **${title}**\n`;
+                    summary += `  - Status: ${f.Status || 'Not Started'}\n`;
+                    summary += `  - Assignee: ${f.AssignedTo || 'Unassigned'}\n`;
+                    if (f.DueDate) summary += `  - Due: ${formatDate(f.DueDate)}\n`;
+                    summary += `\n`;
+                });
+            } else {
+                summary += `*No high priority items outstanding.*\n\n`;
+            }
+
+            // By Assignee Summary
+            summary += `## Tasks by Assignee\n\n`;
+            const assigneeMap = {};
+            [...allProjects, ...allTickets, ...allTasks].forEach(item => {
+                const assignee = item.fields.AssignedTo || 'Unassigned';
+                const status = item.fields.Status || 'Not Started';
+                if (!assigneeMap[assignee]) {
+                    assigneeMap[assignee] = { active: 0, total: 0 };
+                }
+                assigneeMap[assignee].total++;
+                if (!['Completed', 'Resolved', 'Closed'].includes(status)) {
+                    assigneeMap[assignee].active++;
+                }
+            });
+
+            Object.entries(assigneeMap)
+                .sort((a, b) => b[1].active - a[1].active)
+                .forEach(([assignee, counts]) => {
+                    summary += `- **${assignee}**: ${counts.active} active / ${counts.total} total\n`;
+                });
+            summary += `\n`;
+
+            // Footer
+            summary += `---\n\n`;
+            summary += `*Report generated by Engineering Command Center*\n`;
+
+            // Download the file
+            const blob = new Blob([summary], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `daily_summary_${todayStr}.md`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Utility functions
+        function getInitials(name) {
+            if (!name || name === 'Unassigned') return '?';
+            return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        function getDueClass(dateStr) {
+            if (!dateStr) return '';
+            const due = new Date(dateStr);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            due.setHours(0, 0, 0, 0);
+
+            const diffDays = Math.ceil((due - today) / (1000 * 60 * 60 * 24));
+            if (diffDays < 0) return 'overdue';
+            if (diffDays <= 3) return 'soon';
+            return '';
+        }
+
+        // Close modal on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Close modal on overlay click
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) closeModal();
+        });
+    </script>
+</body>
+</html>

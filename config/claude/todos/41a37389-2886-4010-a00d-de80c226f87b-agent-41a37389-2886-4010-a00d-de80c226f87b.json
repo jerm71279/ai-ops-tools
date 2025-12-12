@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Analyze project structure and files",
+    "status": "completed",
+    "activeForm": "Analyzing project structure and files"
+  },
+  {
+    "content": "Check git repository status",
+    "status": "completed",
+    "activeForm": "Checking git repository status"
+  },
+  {
+    "content": "Review dependencies and configuration",
+    "status": "completed",
+    "activeForm": "Reviewing dependencies and configuration"
+  },
+  {
+    "content": "Assess code quality and organization",
+    "status": "completed",
+    "activeForm": "Assessing code quality and organization"
+  },
+  {
+    "content": "Generate health report summary",
+    "status": "in_progress",
+    "activeForm": "Generating health report summary"
+  }
+]

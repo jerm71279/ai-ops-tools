@@ -1,0 +1,79 @@
+###############################################################################
+# CI Workflow - Test & Lint
+# 
+# Purpose:
+# This workflow runs automated checks on every push and pull request to ensure
+# code quality, type safety, and maintain consistent code standards across the
+# ComplianceOS platform.
+#
+# Triggers:
+# - Push to any branch
+# - Pull request to any branch
+#
+# What it does:
+# 1. Checks out the code from the repository
+# 2. Sets up Node.js environment (v18)
+# 3. Installs all dependencies (using npm ci for clean install)
+# 4. Runs ESLint to check for code quality issues
+# 5. Runs TypeScript type checking to catch type errors
+#
+# Benefits:
+# - Catches bugs early before they reach production
+# - Ensures all code follows the same style guidelines
+# - Validates TypeScript types are correct
+# - Prevents broken code from being merged
+###############################################################################
+
+name: Test & Lint
+
+# Trigger this workflow on push or pull request events
+on: 
+  push:
+    branches: ['**']  # Run on all branches
+  pull_request:
+    branches: ['**']  # Run on PRs to all branches
+
+jobs:
+  # Job: test
+  # Runs linting and type checking to validate code quality
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: Check out the repository code
+      # This makes the code available to the workflow
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      # Step 2: Set up Node.js environment
+      # ComplianceOS uses Node.js 18 for consistency with Lovable Cloud
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'  # Cache npm dependencies for faster runs
+      
+      # Step 3: Install dependencies
+      # npm ci does a clean install from package-lock.json
+      # This is faster and more reliable than npm install for CI
+      - name: Install dependencies
+        run: npm ci
+      
+      # Step 4: Run ESLint
+      # Checks code for potential errors and style violations
+      # Configuration is in eslint.config.js
+      - name: Run ESLint
+        run: npm run lint
+        continue-on-error: false  # Fail the workflow if linting fails
+      
+      # Step 5: Run TypeScript type checking
+      # Validates that all TypeScript types are correct
+      # This catches type errors that could cause runtime issues
+      - name: Run TypeScript type check
+        run: npx tsc --noEmit
+        continue-on-error: false  # Fail the workflow if type checking fails
+      
+      # Optional Step 6: Run tests (if you add them later)
+      # Uncomment when you add unit/integration tests
+      # - name: Run tests
+      #   run: npm test

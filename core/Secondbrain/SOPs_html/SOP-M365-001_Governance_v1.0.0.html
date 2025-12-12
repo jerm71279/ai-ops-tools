@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OberaConnect Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            background: #fff;
+        }
+
+        .header {
+            border-bottom: 3px solid #0066CC;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #666666;
+            font-style: italic;
+            margin-left: 2px;
+        }
+
+        .doc-meta {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .doc-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .doc-date {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0066CC;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .section-content {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .section-content p {
+            margin-bottom: 10px;
+        }
+
+        .section-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section-content li {
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 11px;
+            color: #999999;
+            text-align: center;
+        }
+
+        .highlight-box {
+            background: #f5f9ff;
+            border-left: 4px solid #0066CC;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .action-item {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
+        </div>
+        <div class="tagline">Technology Solutions for Modern Business</div>
+
+        <div class="doc-meta">
+            <div class="doc-title">SOP-M365-001 Governance v1.0.0</div>
+            <div class="doc-date">Date: [MM/DD/YYYY]</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Executive Summary</div>
+        <div class="section-content">
+            <table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>**Document ID**</strong></th>
+<th><strong>**SOP-M365-001**</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>**Version**</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td>**Effective Date**</td>
+<td>2025-12-02</td>
+</tr>
+<tr class="odd">
+<td>**Author**</td>
+<td>M365 System Administrator</td>
+</tr>
+<tr class="even">
+<td>**Approver**</td>
+<td>Director, IT Operations</td>
+</tr>
+</tbody>
+</table>
+<p>────────────────────────────────────────────────────────────</p>
+<h1 id="purpose">1.0 Purpose</h1>
+<p>This Standard Operating Procedure (SOP) establishes the policies and
+operational procedures for the governance and administration of the
+Microsoft 365 ecosystem. The primary objective is to ensure compliance,
+data security, operational continuity, and standardized management
+across all M365 services.</p>
+<h1 id="scope">2.0 Scope</h1>
+<p>This SOP applies to all Microsoft 365 services, including but not
+limited to:</p>
+<ul>
+<li><p>Identity and Access Management (Microsoft Entra ID)</p></li>
+<li><p>Data Governance (SharePoint Online, Exchange Online,
+OneDrive)</p></li>
+<li><p>Information Governance (Microsoft Purview)</p></li>
+<li><p>Device Governance (Microsoft Intune)</p></li>
+<li><p>Automation and Application Governance (Power Platform)</p></li>
+<li><p>Hybrid Cloud Configurations</p></li>
+</ul>
+<p>This document is intended for M365 Administrators, Security &amp;
+Compliance Officers, and IT support personnel responsible for managing
+the M365 environment.</p>
+<h1 id="core-governance-domains-procedures">3.0 Core Governance Domains
+&amp; Procedures</h1>
+<p>This section outlines the standard procedures for key governance
+tasks, categorized by domain.</p>
+<h2 id="identity-access-governance-entra-id">3.1 Identity &amp; Access
+Governance (Entra ID)</h2>
+<p>Objective: Manage user identities, control access to resources, and
+enforce security policies.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Task</strong></th>
+<th><strong>Procedure / Portal Path</strong></th>
+<th><strong>PowerShell Cmdlet</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>**Connect to M365**</td>
+<td>N/A</td>
+<td>`Connect-MgGraph -Scopes "RoleManagement.Read.All"`</td>
+</tr>
+<tr class="even">
+<td>**Review Admin Roles**</td>
+<td>Entra ID &gt; Roles &amp; Admins &gt; Roles</td>
+<td>`Get-MgRoleDefinition`</td>
+</tr>
+<tr class="odd">
+<td>**Enable MFA**</td>
+<td>Entra ID &gt; Protection &gt; Multi-Factor Authentication</td>
+<td>Use Conditional Access Policies</td>
+</tr>
+<tr class="even">
+<td>**Conduct Access Reviews**</td>
+<td>Entra ID &gt; Identity Governance &gt; Access Reviews</td>
+<td>`New-MgIdentityGovernanceAccessReviewScheduleDefinition`</td>
+</tr>
+<tr class="odd">
+<td>**Assign PIM Role**</td>
+<td>Entra ID &gt; Privileged Identity Management &gt; Assign
+eligibility</td>
+<td>`New-MgRoleManagementDirectoryRoleEligibilityScheduleRequest`</td>
+</tr>
+</tbody>
+</table>
+<h2 id="data-information-governance-purview-sharepoint-exchange">3.2
+Data &amp; Information Governance (Purview, SharePoint, Exchange)</h2>
+<p>Objective: Manage the data lifecycle, apply protection policies, and
+ensure compliance with retention requirements.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Task</strong></th>
+<th><strong>Procedure / Portal Path</strong></th>
+<th><strong>PowerShell Cmdlet</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>**Create Retention Policy**</td>
+<td>Microsoft Purview &gt; Data Lifecycle Management &gt; Retention
+Policies</td>
+<td>`New-RetentionCompliancePolicy`</td>
+</tr>
+<tr class="even">
+<td>**Apply Sensitivity Label**</td>
+<td>Microsoft Purview &gt; Information Protection &gt; Labels</td>
+<td>`Set-Label`</td>
+</tr>
+<tr class="odd">
+<td>**Enable Audit Logging**</td>
+<td>Microsoft Purview &gt; Audit &gt; Start Recording user and admin
+activity</td>
+<td>`Set-AdminAuditLogConfig -AdminAuditLogEnabled $true`</td>
+</tr>
+<tr class="even">
+<td>**Create eDiscovery Case**</td>
+<td>Microsoft Purview &gt; eDiscovery (Standard or Premium) &gt; Create
+a case</td>
+<td>`New-ComplianceSearch`</td>
+</tr>
+<tr class="odd">
+<td>**Create Mail Retention Tag**</td>
+<td>Exchange Admin Center &gt; Compliance Management &gt; Retention
+Tags</td>
+<td>`New-RetentionPolicyTag`</td>
+</tr>
+</tbody>
+</table>
+<h2 id="device-governance-intune">3.3 Device Governance (Intune)</h2>
+<p>Objective: Enforce security and compliance policies on all corporate
+and personal devices accessing M365 resources.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Task</strong></th>
+<th><strong>Procedure / Portal Path</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>**Create Compliance Policy**</td>
+<td>Intune Admin Center &gt; Devices &gt; Compliance Policies &gt;
+Create Policy</td>
+</tr>
+<tr class="even">
+<td>**Enroll Devices (Autopilot)**</td>
+<td>Intune Admin Center &gt; Devices &gt; Enrollment &gt; Windows
+Autopilot Deployment Program</td>
+</tr>
+<tr class="odd">
+<td>**Deploy Disk Encryption**</td>
+<td>Intune Admin Center &gt; Endpoint Security &gt; Disk Encryption &gt;
+Create Policy</td>
+</tr>
+<tr class="even">
+<td>**Assign App Protection**</td>
+<td>Intune Admin Center &gt; Apps &gt; App Protection Policies &gt;
+Create Policy</td>
+</tr>
+</tbody>
+</table>
+<h2 id="automation-governance-power-platform">3.4 Automation Governance
+(Power Platform)</h2>
+<p>Objective: Control and monitor the use of Power Automate and Power
+Apps to prevent data leakage and ensure operational stability.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Task</strong></th>
+<th><strong>Procedure / Portal Path</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>**Enforce DLP Policy**</td>
+<td>Power Platform Admin Center &gt; Policies &gt; Data Policies &gt;
+New Policy</td>
+</tr>
+<tr class="even">
+<td>**Review Flow Ownership**</td>
+<td>Power Automate &gt; Solutions &gt; Select Solution &gt; Review
+Owners</td>
+</tr>
+<tr class="odd">
+<td>**Audit Flow Activity**</td>
+<td>Power Platform Admin Center &gt; Analytics &gt; Power Automate &gt;
+View (Runs, Usage, Created)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="hybrid-integration-governance">3.5 Hybrid &amp; Integration
+Governance</h2>
+<p>Objective: Manage the secure integration between on-premises
+infrastructure and Microsoft 365 cloud services.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Tool / Technology</strong></th>
+<th><strong>Procedure</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>**Hybrid Identity Sync**</td>
+<td>Use **Azure AD Connect** to synchronize on-premises Active Directory
+with Entra ID. Monitor sync status via the AAD Connect Health
+portal.</td>
+</tr>
+<tr class="even">
+<td>**Hybrid Mail Flow**</td>
+<td>Run the **Exchange Hybrid Configuration Wizard (HCW)** to establish
+and verify mail flow. Regularly review transport rules and
+connectors.</td>
+</tr>
+<tr class="odd">
+<td>**SharePoint Hybrid**</td>
+<td>Use the **SharePoint Hybrid Configuration Wizard** in SharePoint
+Central Administration to configure hybrid search, profiles, and
+taxonomy.</td>
+</tr>
+</tbody>
+</table>
+<p>────────────────────────────────────────────────────────────</p>
+<h1 id="roles-and-responsibilities">4.0 Roles and Responsibilities</h1>
+<ul>
+<li><p>**M365 Administrator:** Responsible for the overall
+configuration, maintenance, and day-to-day administration of the M365
+tenant as outlined in this SOP.</p></li>
+<li><p>**Identity &amp; Access Administrator:** Specializes in managing
+Entra ID, PIM, Conditional Access, and identity lifecycle.</p></li>
+<li><p>**Information Protection Administrator:** Manages data
+classification, retention policies, sensitivity labels, and DLP within
+Microsoft Purview.</p></li>
+<li><p>**Endpoint Administrator:** Manages device compliance,
+enrollment, and application protection policies via Microsoft
+Intune.</p></li>
+</ul>
+<h1 id="appendix">5.0 Appendix</h1>
+<h2 id="training-and-certification-path">5.1 Training and Certification
+Path</h2>
+<p>Personnel are encouraged to pursue the following certifications to
+ensure proficiency in M365 governance:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Tier</strong></th>
+<th><strong>Certification</strong></th>
+<th><strong>Focus Area</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>**Foundational**</td>
+<td>MS-102: Microsoft 365 Administrator</td>
+<td>Centralized administration, identity, security, and compliance.</td>
+</tr>
+<tr class="even">
+<td>**Foundational**</td>
+<td>SC-900: Security, Compliance, and Identity Fundamentals</td>
+<td>Core concepts of Microsoft's security and compliance suite.</td>
+</tr>
+<tr class="odd">
+<td>**Associate**</td>
+<td>SC-300: Identity &amp; Access Administrator</td>
+<td>Entra ID, PIM, Conditional Access, Access Reviews.</td>
+</tr>
+<tr class="even">
+<td>**Associate**</td>
+<td>MD-102: Endpoint Administrator</td>
+<td>Intune, Autopilot, Device Compliance, Application Management.</td>
+</tr>
+<tr class="odd">
+<td>**Associate**</td>
+<td>MS-740: Troubleshooting Microsoft Teams</td>
+<td>SharePoint Admin Center, retention, hybrid setup</td>
+</tr>
+<tr class="even">
+<td>**Expert**</td>
+<td>SC-100: Cybersecurity Architect Expert</td>
+<td>Enterprise-wide security framework design and implementation.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="key-resources">5.2 Key Resources</h2>
+<ul>
+<li><p>**Microsoft Learn (Official Training):**</p></li>
+<li><p>[M365 Administrator
+Path](https://learn.microsoft.com/en-us/certifications/m365/)</p></li>
+<li><p>[SC-300 Identity &amp; Access
+Path](https://learn.microsoft.com/en-us/training/paths/identity-access-microsoft-entra/)</p></li>
+<li><p>[MD-102 Endpoint Administrator
+Path](https://learn.microsoft.com/en-us/training/courses/md-102t00)</p></li>
+<li><p>**Hands-on Labs:**</p></li>
+<li><p>**M365 Developer Sandbox:**
+[developer.microsoft.com/en-us/microsoft-365/dev-program](https://developer.microsoft.com/en-us/microsoft-365/dev-program)</p></li>
+<li><p>**Official Microsoft Labs:**
+[microsoftlearning.github.io/Labs/](https://microsoftlearning.github.io/Labs/)</p></li>
+</ul>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Details</div>
+        <div class="section-content">
+            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
+
+            <div class="highlight-box">
+                <strong>Key Point:</strong> [Important information to highlight]
+            </div>
+
+            <p>Supporting details:</p>
+            <ul>
+                <li>[Detail item 1]</li>
+                <li>[Detail item 2]</li>
+                <li>[Detail item 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Next Steps</div>
+        <div class="section-content">
+            <div class="action-item">
+                <strong>Action Required:</strong> [Specific action item with owner and deadline]
+            </div>
+
+            <ul>
+                <li>[Next step 1]</li>
+                <li>[Next step 2]</li>
+                <li>[Next step 3]</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        OberaConnect LLC | www.oberaconnect.com | Confidential
+    </div>
+</body>
+</html>

@@ -1,0 +1,149 @@
+input_documents/sharepoint_all/company_portal/preservation_hold_library/CASE STUDY City of Freeport_2BE1B979-988E-4B21-833D-99366DF2BFA92025-05-06T13-03-49.docx
+input_documents/sharepoint_all/company_portal/preservation_hold_library/Pain Points - Copy_7C5757EC-C7FE-444A-AE4D-F63AB96907CC2025-06-04T05-44-10.docx
+input_documents/sharepoint_all/company_portal/preservation_hold_library/Service Offering Messaging_CBE15B99-65C1-426C-BB78-BE7D445901452025-06-06T10-41-49.docx
+input_documents/sharepoint_all/company_portal/preservation_hold_library/Company Values Campaign 2025Q3-2026Q2_1401502C-AD8A-415B-8CE3-9348DD18746D2025-06-18T07-47-05.docx
+input_documents/sharepoint_all/company_portal/preservation_hold_library/Municipalities One Sheet_680EEE28-1C4A-4BC8-B7B5-1C38D44A6CA12025-05-06T12-51-58.docx
+input_documents/sharepoint_all/company_portal/preservation_hold_library/Company Values Card_6E7178BE-5A66-44A7-BCA0-E0F667F11A762025-04-17T13-07-04.docx
+input_documents/sharepoint_all/company_portal/preservation_hold_library/OC Letterhead 2025_9FF8974A-3BC3-4AD0-A450-B0352D9613E32025-04-29T11-29-35.docx
+input_documents/sharepoint_all/company_portal/preservation_hold_library/LV Contractor Flyer_14317451-2450-47B6-ABBA-F437979C1FFE2025-05-01T08-57-40.docx
+input_documents/sharepoint_all/it/preservation_hold_library/OberaConnect_Cybersecurity_Policy_394E9C5E-979B-4953-A5D6-FDAC3E0AA0802025-07-09T08-19-07.docx
+input_documents/sharepoint_all/it/documents/Obera Connect New Employee Setup.docx
+input_documents/sharepoint_all/obera_connect_managed_service_device_configurations/sexton/Document.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Engel & Volker W County Hwy Call Flow_84D98283-ACE1-4D82-BB32-09CC160078892024-05-24T10-20-19.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Sexton Lawn 10DLC Form_2024-0605_84D7CBC5-31FA-4499-881C-02AD135AA3292024-11-04T08-12-54.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Jubilee ATT Information_CBE540CF-580A-4ADA-98CD-69C7D465028A2023-02-10T10-58-12.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Engel 30A E Call Flow_3E6EACDA-0408-4B85-8F0E-B5506B8BE3272024-05-22T08-31-18.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Dunlap SRB Call Flow_9F696D73-9EF8-43CC-B435-D30190EEE9F02024-04-08T07-00-28.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Dunlap Freeport Call Flow_2764639E-E4CC-4C30-9878-05CE124858E42024-08-15T13-58-26.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Juban Apartments Call Flow_518B767C-2CD3-4960-8BD0-BF8CB59EDEC32024-05-13T08-11-22.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/O365 Upgrade Marketing PlanSecure More with Premium_35A43748-5988-466C-B3FE-57A694BD3B542025-05-21T08-53-53.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Saint Anne Terrace Testimonial_E6C11F54-FFF8-4E11-A72F-9A45235A08842025-05-21T08-53-47.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Raleigh Exchange Call Info_0DA86114-9086-4575-878A-EF4BB1D725C62024-05-07T08-20-35.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Fortified Inspections (Add On) Call Flow_6F3CABC1-18DC-4951-A64A-21A5456486022024-10-04T10-20-54.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/OberaConnect LLC Agent Agreement_C73B46EF-FF55-40AF-A3C8-85F908D41D302024-03-04T07-42-03.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Jubilee Pool and Patio Call Flow_033607BC-E304-47E5-89A7-991DAD293FAA2024-03-01T08-42-03.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/LV Contractor Flyer_3953D34A-D291-4E08-9175-60D4782D75732025-05-21T08-53-47.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Yealink Cordless - How to_7E710F5B-4B6B-4590-BCF9-BD8F760449E82023-08-31T07-38-47.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Sales OneBill How to Guides _CE369F62-1096-44B9-A9F9-C4C9DD06B03A2025-07-21T12-24-16.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Scorecard KPIs_06CB8715-F8AF-45F0-B48E-AFC187F3007D2025-05-21T08-53-38.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Gafford Construction ATT Information_8C49ED28-4249-48D3-A2E9-08E55216397E2024-03-21T08-39-17.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Fortified Inspections Call Flow_E16CB5E9-D67B-4234-9DBA-CE7580B0D1A52024-04-11T11-53-22.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Roger's Electrical Call Flow_0E87A107-F27D-42FB-965B-4BC793C2849E2024-09-30T08-05-48.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Municipalities One Sheet_13450AB1-6138-4176-9458-10A76BBF87E22025-05-21T08-53-51.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Tracery Interiors Call Flow_85A46E77-419F-4544-85F6-4F8891BBF36F2024-10-18T08-46-22.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/R&R Seafood Call Flow_2B8A07FC-021D-4913-8988-00733DDDBA1A2024-07-17T13-35-56.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Phone system menu Scrub Shop_9C58B5BC-4381-47EB-901B-04E387572B352023-09-22T07-43-07.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Fulcrum Construction Call Flow_69543148-9205-4B48-AA03-6832F020323E2024-10-07T07-16-57.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Obera Connect AFC Production Migration Approval_A39A8A12-82B4-4E17-9D98-5D97E2F98AF72023-02-10T10-54-10.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Elite Real Estate Call Flow_2024-0903_D82AA3E1-72A5-4FA0-B5D9-9A743248B96C2024-09-03T13-39-28.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Document_6035F686-32F1-41E8-BB85-E06D7106A5132025-03-11T07-04-22.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/FG Fairhope Call Flow_2024-1114_961B73F4-FDA2-4118-B3AC-E7CF56077A492024-11-19T11-33-01.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/OberaConnect New Hire Onboarding Template_A285D189-13A2-4885-98ED-242D7FBA6DF32024-02-13T08-05-08.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/OberaConnect Check In Review Template_B5773C8C-5A39-4F29-902D-9F9F1692E8B52025-05-09T11-56-41.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/OberaConnect Operating Agreement_C103EFBA-2F81-4F8D-8252-9A364FC97F342023-02-10T10-55-26.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Tracery Interiors Phone Menu_401EF026-1B92-4A2D-8021-A1D8632615BA2024-10-07T12-47-08.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Dunlap PCB Call Flow_13BF187C-668E-4137-A85C-B51B14761EA32024-04-29T07-53-30.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Document_9C287C84-10AF-46A2-9E4C-ADD6D1701E922024-10-09T12-33-20.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Sales New Hire Onboarding Outline_54108513-1371-4837-A43A-26FC048163CD2025-04-22T14-35-37.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Numbers_7D71E172-D52C-4E53-8488-CC706C78498D2024-10-15T07-22-48.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Platinum Vacations Call Flow_2024-1024_C0BE06E3-E4A2-4D31-9996-43FCCB3B42BD2024-12-03T13-56-24.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Formal Submission for marketing events and swag_D63CB474-BFC5-468E-BC03-018F2507A07F2025-05-21T08-52-11.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/2025 OC Social Strategy_792CBEBD-14C0-46D6-A6F4-FAC6C7E184522025-05-21T08-53-52.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Exchange at Daphne Call Flow_FE838978-6BA8-406F-8607-AC291DAF6C632023-02-10T10-58-09.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Sales Questionnaire - Rough Draft_CCB31A69-8509-4098-B505-F0EE101CF3842025-03-17T11-14-34.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Call Flow Information Template_C033B021-3B3E-4D8F-ACE5-FC7D76343FD52024-08-15T08-14-34.docx
+input_documents/sharepoint_all/oberaconnect_shared_directory/preservation_hold_library/Sway Fairhope Call Flow_2024-1107_9574F124-527F-47B7-81C7-B7EE8F102B052024-11-13T08-32-27.docx
+input_documents/sharepoint_all/marketing/preservation_hold_library/Document_47557CB3-9B71-4F9A-A295-8A2F10C31A672025-08-12T11-04-00.docx
+input_documents/sharepoint_all/marketing/preservation_hold_library/Company Values Campaign 2025Q3-2026Q2_251F1156-25D7-4DF6-B6E6-07C71CEC84E12025-06-18T07-47-05.docx
+input_documents/sharepoint_all/marketing/preservation_hold_library/Company Values Card_7A61EDE3-F1F5-4566-B463-96E0F72C861E2025-04-17T13-07-04.docx
+input_documents/sharepoint_all/marketing/preservation_hold_library/Pain Points - Copy_71559034-905C-45A5-BD1C-A62A99C46BA32025-06-04T05-44-10.docx
+input_documents/sharepoint_all/marketing/preservation_hold_library/OC Letterhead 2025_8A647353-BACA-4DD7-9DAB-BDA44E69C8BA2025-04-29T11-29-35.docx
+input_documents/sharepoint_all/marketing/preservation_hold_library/Company Values Card_E6E94086-704A-4F76-B6B2-A834F97944282025-04-17T13-07-04.docx
+input_documents/sharepoint_all/marketing/preservation_hold_library/Final - Privacy Policy - Approved by JC_2DDA5C59-208D-4752-81BA-5922F9B3CA942025-05-20T09-34-14.docx
+input_documents/sharepoint_all/marketing/preservation_hold_library/Service Offering Messaging_462D8880-EF2D-4C56-87FB-3FCDB17510162025-06-06T10-41-49.docx
+input_documents/sharepoint_all/marketing/preservation_hold_library/Municipalities One Sheet_11886254-9CD7-40D8-B46F-CB6232160C652025-05-06T12-51-58.docx
+input_documents/sharepoint_all/marketing/preservation_hold_library/CASE STUDY City of Freeport_225C2849-9597-4F94-9B0F-05AC36F84D8E2025-05-06T13-03-49.docx
+input_documents/sharepoint_all/marketing/preservation_hold_library/Here's a comprehensive external communication strategy desig_964610E1-4433-46D7-B27C-3D46F665DE422025-07-28T07-57-23.docx
+input_documents/sharepoint_all/marketing/preservation_hold_library/LV Contractor Flyer_D0745418-F6EA-45A9-B394-B0E8AF02C69D2025-05-01T08-57-40.docx
+input_documents/sharepoint_all/marketing/preservation_hold_library/Marketing Requests_FEE68681-78F6-44E7-9CF6-767C411433C42025-05-21T08-50-32.docx
+input_documents/sharepoint_all/marketing/preservation_hold_library/Saint Anne Terrace Testimonial_3057A498-C4DC-4354-822A-11F67563B5D02025-05-19T11-52-41.docx
+input_documents/sharepoint_all/marketing/preservation_hold_library/Company Values Campaign 2025Q3-2026Q2_982BA20A-07F9-4F25-B387-B09C5AFF50AA2025-06-18T07-47-05.docx
+input_documents/sharepoint_all/marketing/documents/What's Working & Not Working Template - Copy.docx
+input_documents/sharepoint_all/oberaconnect_admin/preservation_hold_library/Offer Letter - Ally Wilson Internship_9D032D55-817C-4BF5-A917-0029189807B62025-09-23T10-15-47.docx
+input_documents/sharepoint_all/oberaconnect_admin/preservation_hold_library/OberaConnect LLC Agent Agreement_D6AFAC49-34CE-4ACF-991F-BF01F0094E122023-02-10T10-55-35.docx
+input_documents/sharepoint_all/oberaconnect_admin/preservation_hold_library/Obera Connect AFC Production Migration Approval_1C968583-226A-449B-B5A0-15C31821E38E2023-02-10T10-54-10.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Security Awareness and Training Policy DRAFT_F7993628-B3ED-49C8-8E24-A8AC527BBD5E2025-07-17T16-03-56.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/IBS Builders Conference_987A81FD-F6C9-4992-8D70-7C16BB89AC8E2025-03-13T10-48-50.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_1C33AC10-F417-4889-BABC-D8B37E3524462025-08-06T12-23-32.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Audit and Accountability Policy DRAFT_2B6DB81F-AFAD-42AB-9D2E-FF0F3D1E09022025-07-17T16-03-52.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_497F2ED6-6176-44FF-9F6A-80AB4A05123B2025-08-07T10-00-00.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Encryption and Key Management Policy DRAFT_DC89A2C9-2D6F-4AB1-B409-D94E911589F02025-07-17T16-03-53.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Third-Party Risk Management Policy DRAFT_489F56FB-4DE5-45FE-8AC6-D1993B24A2242025-07-17T16-03-55.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Harris Vacations Initial Request_B013941C-5429-4084-8132-F98728C616242024-10-08T08-03-23.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_CBD37405-8D75-43C1-A961-A574972FAFFE2025-09-15T09-05-12.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Patch Management Policy DRAFT_574DF83A-3AE6-43D9-89BE-7C104AE5EBEE2025-07-17T16-03-54.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Physical Security Policy DRAFT_CAE4D696-06C4-4387-947C-D5CBB0DB3A332025-07-17T16-03-54.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Data Retention and Archiving Policy DRAFT_316C38FD-0D99-4945-8987-8CE4C93ACA642025-07-17T16-03-53.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Current IT services_D4D05386-F970-4E0C-981D-B11B816D26232025-02-11T08-42-35.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Business Continuity Policy DRAFT_DEF3B3C0-DB29-4134-AF56-74E31B11BA5B2025-07-17T16-03-51.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Privileged Access Management (PAM) Policy DRAFT_70225D43-0274-4237-BFA9-886B59AF3F752025-07-17T16-03-54.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Roles & Responsibilities Matrix (RACI) Policy DRAFT_E78F040A-BEBE-45F5-B61F-A97B921A14F32025-07-17T16-03-56.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_45CDD204-CD39-4E5A-B68B-1246DBD6471A2025-08-19T09-54-31.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Saint Anne Terrace Testimonial_F4AAF656-7FA5-4820-B451-1F9106A695ED2025-03-13T11-16-36.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Remote Troubleshooting and Access Policy DRAFT_BD75D4DC-2F2F-4DE9-8461-723BAD34467E2025-07-17T16-03-54.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Acceptable Use Policy (AUP) DRAFT_FCD3BAEE-E9DB-4514-91B1-3A48A4B021532025-07-17T16-03-50.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_5113434B-C9C4-4CA6-8F25-C8A912B7BB1D2025-08-06T10-52-49.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_9CC0751B-39C0-4E0F-88EB-28AFE8B0E2242025-06-19T09-52-04.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_46204058-6AB3-468F-8C6D-E5633B2236692025-08-19T09-34-15.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Change Management Policy DRAFT_6A55FEA0-2852-40E9-B239-70C2BC6AA3A32025-07-17T16-03-51.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/OberaConnect_Cybersecurity_Policy_3DC00D0A-7A73-42B4-8CC3-DF976B441CBE2025-06-05T08-59-02.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Knowledge Management and Self-Service Policy DRAFT_313AB65A-F2D3-4D05-9B74-E4D96EBC9E932025-07-17T16-03-54.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document1_46E436E5-3C19-496D-A754-C9C2BF9B4E672025-07-30T05-40-57.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_70180051-AE97-4F19-B4CA-62CE2F281B1B2025-10-31T08-42-12.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Continuous Monitoring Policy DRAFT_0DF2B040-B7F3-435B-BF9B-FB7E713062742025-07-17T16-03-53.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Asset Management Policy DRAFT_CC897150-FAB9-4C29-8BF0-0DE28AE621A32025-07-17T16-03-50.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Business Application Governance Policy DRAFT_44B8F3D5-6688-4746-A141-E166DCD81B8C2025-07-17T16-03-51.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Data Loss Prevention (DLP) Policy DRAFT_C04DDEB9-BCFE-4CF0-9433-441C5CF78A162025-07-17T16-03-52.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_C1675FFE-0D4F-4AE5-B7CE-043FB85F29FF2025-08-19T06-45-26.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/seaside Wifi Survey preparation_9B52849E-9F6B-499A-A6EB-F791CE9F57FC2025-02-11T08-49-42.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/IT Operations Policy DRAFT_62BB4E75-3064-45F9-9A10-628C252354432025-07-17T16-03-53.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Vulnerability Management Policy DRAFT_A3595A1B-6C0B-4DB2-8DD3-F8A62A7034FB2025-07-17T16-03-55.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Proposal_F0CCD1C5-89C6-4DDE-B46B-8B90D90E35CD2025-02-11T08-53-13.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Information Security Policy DRAFT_F225A205-4D4A-4E2D-83CB-6EED2035F2102025-07-17T16-03-53.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_572E08DE-CD72-4B85-97F9-C4698DF75AEE2025-10-01T08-04-05.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Seaside First Survey - Copy_F42C68EC-CBC3-4810-B5B5-F37859AD8FAF2025-02-11T08-47-15.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Sample hiring post captions_C546FACB-7188-4C4B-8512-7899ED5BE0932025-03-13T10-48-50.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Remote Access Policy DRAFT_21C4E76B-E17C-4A0A-8BCF-F070879013A52025-07-17T16-03-54.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/IT Service Management (ITSM) Policy DRAFT_81102DBF-D904-45F0-AF07-D1D7B6EA41F22025-07-17T16-03-54.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/OberaConnect 2024 Poster Board_E9F40A20-371E-4AD4-BF4C-FE5042A1F3042025-03-07T15-09-52.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_0FC51221-FF46-4A81-A518-1C59012E32292025-08-07T13-38-00.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Shadow IT Monitoring Policy DRAFT_BC0C98D1-1BF0-4A36-A03E-D211F54251072025-07-17T16-03-55.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_778AEA0B-E253-45FA-9B7F-389DFD401EB52025-07-30T05-31-58.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_49E7AA96-9F3B-4C6D-AC43-189FD97B24862025-08-21T10-50-38.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_5E9BEB16-415E-4D0A-9BC2-ADDA24BA98B02025-08-21T09-20-53.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/How to Get Command Prompt Within Atera_1D2D2D26-4351-4E66-827F-6F7FAE44A32D2024-12-17T11-35-20.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_06BD76CC-FA07-4613-B60F-A01525E3641C2025-08-07T10-16-06.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/pport Call Process for IT Services For Customers_ECF_TrackedChanges_0E1A43C4-D6E5-4AD7-A4CE-A166D59874B72025-04-28T18-43-33.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_23FA9F63-6D6C-43FC-B830-87473004CE022025-08-19T07-25-03.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_734ADA7E-3C7E-43A8-9416-D8573750CEA92025-08-21T10-37-53.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_4626FEE4-2C2C-43A4-9641-E3B960870CF02025-03-20T08-05-34.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Enterprise Risk Management Policy DRAFT_3DE8C651-F316-4EC3-AED0-F55705E8A0212025-07-17T16-03-54.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Customer Support & SLA Policy DRAFT_9AFB38B7-5D4D-487F-B89C-3E1443702D1B2025-07-17T16-03-52.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_5610B2FE-951C-4CE9-9BA7-F8EF8C1697312025-08-21T09-17-24.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Customer Onboarding & Offboarding Policy DRAFT_608189E7-4D86-44D0-B53B-8FD599006CDE2025-07-17T16-03-53.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Notes for Tug & Barge_4B24843A-7BB6-47DC-8606-EA6ABF64E5212024-12-18T10-05-59.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_AFD3A397-6D17-4511-9904-7012001A7BE22025-02-11T08-48-43.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_79761141-DB80-42F0-9AF6-D0D5EFBA3A7B2025-06-30T07-45-51.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/GCU Inital Notes_F710B796-AF97-4AD9-A759-B475688C9CD22024-12-16T10-22-50.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Configuration Management Policy DRAFT_5AB0558C-218D-4C2B-A4DE-D3E76F9667372025-07-17T16-03-52.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Data Classification and Handling Policy DRAFT_B9BACD45-830F-4E1C-BDCD-EC3915517A6F2025-07-17T16-03-52.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Authentication and Identity Management Policy DRAFT_77ADC832-D9FB-481A-BE0B-3A7416A38A832025-08-10T10-01-44.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_80573189-F365-42C1-B976-088A10FDB70B2025-08-07T10-24-58.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_069BB31B-61E1-4E09-A7B5-09BCF90EEB312025-08-19T07-22-06.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/City of Bonifay_689FA8B7-C291-4FFF-9006-1139427D1FB62024-12-24T09-25-05.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Computer clients_2959D831-95EC-41A4-AFDC-895CA1320FE92025-01-29T13-29-39.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Access Control Policy DRAFT_C987E7BE-0FC2-49A1-98BA-C9F092F4B0182025-07-17T16-03-50.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Document_2E7423B5-FFB9-408C-8D7B-1A8BF7C71D662025-08-07T11-01-52.docx
+input_documents/sharepoint_all/oberaconnect_technical/preservation_hold_library/Incident Response Policy DRAFT_C7D98453-0232-467B-906F-4B426EF5E4F82025-07-17T16-03-53.docx
+input_documents/sharepoint_all/1_program_management_governance/preservation_hold_library/Checklist- Define Vision, Scope, and Strategic Objectives_F15AB7FE-7793-4F14-8381-26664B357B402025-08-13T04-41-13.docx
+input_documents/sharepoint_all/1_program_management_governance/preservation_hold_library/Checklist- Define Vision, Scope, and Strategic Objectives_F15AB7FE-7793-4F14-8381-26664B357B402025-08-07T12-03-09.docx

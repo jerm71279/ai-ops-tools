@@ -1,0 +1,42 @@
+[
+  {
+    "content": "Create new home page with 4 envelope-style tabs",
+    "status": "in_progress",
+    "activeForm": "Creating new home page with 4 envelope-style tabs"
+  },
+  {
+    "content": "Build Projects tab with enhanced visual design",
+    "status": "pending",
+    "activeForm": "Building Projects tab with enhanced visual design"
+  },
+  {
+    "content": "Build Engineering Tickets tab with chat-style cards",
+    "status": "pending",
+    "activeForm": "Building Engineering Tickets tab with chat-style cards"
+  },
+  {
+    "content": "Build Tools Index tab (indexed by function)",
+    "status": "pending",
+    "activeForm": "Building Tools Index tab"
+  },
+  {
+    "content": "Build To-Do List tab (indexed by assignee)",
+    "status": "pending",
+    "activeForm": "Building To-Do List tab"
+  },
+  {
+    "content": "Implement chat-style comment/card system",
+    "status": "pending",
+    "activeForm": "Implementing chat-style comment/card system"
+  },
+  {
+    "content": "Add action item planner functionality",
+    "status": "pending",
+    "activeForm": "Adding action item planner functionality"
+  },
+  {
+    "content": "Index all tools in Projects folder by function",
+    "status": "pending",
+    "activeForm": "Indexing all tools in Projects folder"
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "navigationFallback": {
+    "rewrite": "/engineering_command_center.html"
+  },
+  "globalHeaders": {
+    "Cache-Control": "no-cache, no-store, must-revalidate",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-Content-Type-Options": "nosniff",
+    "X-XSS-Protection": "1; mode=block",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "geolocation=(), microphone=(), camera=()",
+    "Content-Security-Policy": "frame-ancestors 'self' https://teams.microsoft.com https://*.teams.microsoft.com https://*.sharepoint.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdn.socket.io https://alcdn.msauth.net; connect-src 'self' https://graph.microsoft.com https://*.sharepoint.com https://login.microsoftonline.com https://*.msauth.net https://cdn.jsdelivr.net wss://* ws://*; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.sharepoint.com https://graph.microsoft.com; font-src 'self' data:; default-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://login.microsoftonline.com"
+  }
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Create Basic verification solution (counts match)",
+    "status": "in_progress",
+    "activeForm": "Creating Basic verification solution"
+  },
+  {
+    "content": "Create Standard verification solution (counts + spot checks)",
+    "status": "pending",
+    "activeForm": "Creating Standard verification solution"
+  },
+  {
+    "content": "Create Full Audit verification solution (hash every file)",
+    "status": "pending",
+    "activeForm": "Creating Full Audit verification solution"
+  }
+]

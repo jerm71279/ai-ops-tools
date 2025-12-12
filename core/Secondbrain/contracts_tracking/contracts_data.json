@@ -1,0 +1,98 @@
+[
+  {
+    "id": "city_of_freeport_20251118191958",
+    "customer_name": "City of Freeport",
+    "contract_type": "Managed Services",
+    "start_date": "2025-04-10",
+    "end_date": "2026-04-10",
+    "services": [
+      "IT Support",
+      "Network Monitoring",
+      "Help Desk"
+    ],
+    "monthly_value": "$3,500",
+    "renewal_terms": "annual",
+    "key_contacts": [],
+    "notes": "",
+    "source_document": "City of Freeport Managed Services Obera Contract_2025-0410.pdf",
+    "status": "active",
+    "created_at": "2025-11-18T19:19:58.973162",
+    "updated_at": "2025-11-18T19:19:58.973172"
+  },
+  {
+    "id": "city_of_freeport_20251118191958",
+    "customer_name": "City of Freeport",
+    "contract_type": "Voice Services",
+    "start_date": "2025-04-10",
+    "end_date": "2026-04-10",
+    "services": [
+      "VoIP",
+      "Phone System",
+      "SIP Trunks"
+    ],
+    "monthly_value": "$1,200",
+    "renewal_terms": "annual",
+    "key_contacts": [],
+    "notes": "",
+    "source_document": "City of Freeport Voice Obera Contract_2025-0410.pdf",
+    "status": "active",
+    "created_at": "2025-11-18T19:19:58.973388",
+    "updated_at": "2025-11-18T19:19:58.973390"
+  },
+  {
+    "id": "7_brew_daphne_20251118191958",
+    "customer_name": "7 Brew Daphne",
+    "contract_type": "Managed Services",
+    "start_date": "2024-01-30",
+    "end_date": "2025-01-30",
+    "services": [
+      "IT Support",
+      "Network"
+    ],
+    "monthly_value": "$800",
+    "renewal_terms": "annual",
+    "key_contacts": [],
+    "notes": "",
+    "source_document": "7 Brew Daphne Obera Signed Contract_2024-0130.pdf",
+    "status": "active",
+    "created_at": "2025-11-18T19:19:58.973609",
+    "updated_at": "2025-11-18T19:19:58.973612"
+  },
+  {
+    "id": "firstfour_staffing_20251118191958",
+    "customer_name": "FirstFour Staffing",
+    "contract_type": "Managed Services",
+    "start_date": "2024-06-27",
+    "end_date": "2025-06-27",
+    "services": [
+      "IT Support",
+      "Cloud Services"
+    ],
+    "monthly_value": "$2,000",
+    "renewal_terms": "annual",
+    "key_contacts": [],
+    "notes": "",
+    "source_document": "FirstFour Staffing Obera Signed Contract_2024-0627.pdf",
+    "status": "active",
+    "created_at": "2025-11-18T19:19:58.974452",
+    "updated_at": "2025-11-18T19:19:58.974460"
+  },
+  {
+    "id": "dc_lawn_20251118191958",
+    "customer_name": "DC Lawn",
+    "contract_type": "Managed Services",
+    "start_date": "2024-10-17",
+    "end_date": "2025-10-17",
+    "services": [
+      "IT Support"
+    ],
+    "monthly_value": "$500",
+    "renewal_terms": "annual",
+    "key_contacts": [],
+    "notes": "",
+    "source_document": "DC Lawn Obera Signed Contract_2024-1017.pdf",
+    "status": "active",
+    "created_at": "2025-11-18T19:19:58.975152",
+    "updated_at": "2025-11-18T19:19:58.975158"
+  }
+]

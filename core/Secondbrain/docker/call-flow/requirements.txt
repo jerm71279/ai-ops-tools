@@ -1,0 +1,15 @@
+# Call Flow Container Requirements
+python-dotenv==1.2.1
+requests==2.32.5
+Flask==3.1.2
+gunicorn==21.2.0
+
+# Document processing
+python-docx==1.2.0
+lxml==6.0.2
+
+# AI for call flow generation
+anthropic==0.72.0
+
+# Microsoft Graph API (for SharePoint integration)
+msal==1.31.0
