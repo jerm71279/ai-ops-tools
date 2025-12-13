@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniFi Fleet Manager - OberaConnect</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-tertiary: #1a1a25;
+            --accent: #00d4ff;
+            --accent-dim: #00d4ff40;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --danger: #ff4466;
+            --text: #e0e0e0;
+            --text-dim: #888;
+            --border: #2a2a35;
+        }
+        body {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            background: var(--bg-primary);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { display: flex; align-items: center; gap: 1rem; }
+        .logo-icon {
+            width: 40px; height: 40px;
+            background: linear-gradient(135deg, var(--accent), #0088ff);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+        }
+        .logo-text h1 { font-size: 1.2rem; font-weight: 600; }
+        .logo-text span { font-size: 0.75rem; color: var(--text-dim); }
+
+        /* Navigation tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-tertiary);
+            padding: 4px;
+            border-radius: 8px;
+        }
+        .nav-tab {
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .nav-tab:hover { color: var(--text); background: var(--bg-secondary); }
+        .nav-tab.active {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .status-bar { display: flex; gap: 2rem; font-size: 0.85rem; }
+        .status-item { display: flex; align-items: center; gap: 0.5rem; }
+        .status-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--success);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .main { display: flex; flex: 1; overflow: hidden; }
+        .stats-panel {
+            width: 280px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        .stat-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .stat-card h3 {
+            font-size: 0.7rem; color: var(--text-dim);
+            text-transform: uppercase; letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        .stat-value { font-size: 1.8rem; font-weight: 700; color: var(--accent); }
+        .stat-value.success { color: var(--success); }
+        .stat-value.warning { color: var(--warning); }
+        .stat-value.danger { color: var(--danger); }
+        .stat-breakdown {
+            margin-top: 0.75rem; padding-top: 0.75rem;
+            border-top: 1px solid var(--border); font-size: 0.8rem;
+        }
+        .stat-row { display: flex; justify-content: space-between; margin-bottom: 0.25rem; }
+        .chat-panel { flex: 1; display: flex; flex-direction: column; }
+        .chat-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+        .chat-header h2 { font-size: 1rem; font-weight: 500; }
+        .chat-messages {
+            flex: 1; overflow-y: auto; padding: 1.5rem;
+            display: flex; flex-direction: column; gap: 1rem;
+        }
+        .message { display: flex; gap: 1rem; max-width: 85%; }
+        .message.user { align-self: flex-end; flex-direction: row-reverse; }
+        .message-avatar {
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; flex-shrink: 0;
+        }
+        .message.ai .message-avatar { background: var(--accent-dim); }
+        .message.user .message-avatar { background: var(--bg-tertiary); }
+        .message-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+        .message.user .message-content {
+            background: var(--accent-dim);
+            border-color: var(--accent);
+        }
+        .message-content .highlight { color: var(--accent); font-weight: 600; }
+        .quick-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+        .quick-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.75rem;
+            color: var(--text);
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .quick-btn:hover { background: var(--accent-dim); border-color: var(--accent); }
+        .chat-input-container {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+        .chat-input-wrapper { display: flex; gap: 0.75rem; }
+        .chat-input {
+            flex: 1;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            color: var(--text);
+            font-family: inherit;
+            outline: none;
+        }
+        .chat-input:focus { border-color: var(--accent); }
+        .chat-input::placeholder { color: var(--text-dim); }
+        .send-btn {
+            background: var(--accent);
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            color: var(--bg-primary);
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .send-btn:hover { opacity: 0.9; }
+        .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .modal {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.8);
+            align-items: center; justify-content: center; z-index: 1000;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px; width: 90%;
+        }
+        .modal-content h2 { margin-bottom: 1rem; }
+        .modal-content p { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 1.5rem; line-height: 1.5; }
+        .modal-content textarea {
+            width: 100%; height: 120px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 0.8rem;
+            color: var(--text);
+            font-family: inherit;
+            resize: vertical;
+            margin-bottom: 1rem;
+        }
+        .modal-content textarea:focus { outline: none; border-color: var(--accent); }
+        .modal-buttons { display: flex; gap: 1rem; justify-content: flex-end; }
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">📡</div>
+            <div class="logo-text">
+                <h1>UniFi Fleet Manager</h1>
+                <span>OberaConnect NOC</span>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <a href="unifi-expert.html" class="nav-tab">Expert Chat</a>
+            <a href="fleet-dashboard.html" class="nav-tab active">Fleet Dashboard</a>
+        </nav>
+
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-dot" id="status-dot"></div>
+                <span id="connection-status">Connecting...</span>
+            </div>
+            <div class="status-item">
+                <span id="last-update">--</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <aside class="stats-panel">
+            <div class="stat-card">
+                <h3>Total Sites</h3>
+                <div class="stat-value" id="stat-sites">--</div>
+            </div>
+            <div class="stat-card">
+                <h3>Devices</h3>
+                <div class="stat-value" id="stat-devices">--</div>
+                <div class="stat-breakdown">
+                    <div class="stat-row"><span>Online</span><span id="stat-online">--</span></div>
+                    <div class="stat-row"><span>Offline</span><span id="stat-offline" style="color:var(--danger)">--</span></div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Clients</h3>
+                <div class="stat-value" id="stat-clients">--</div>
+                <div class="stat-breakdown">
+                    <div class="stat-row"><span>WiFi</span><span id="stat-wifi">--</span></div>
+                    <div class="stat-row"><span>Wired</span><span id="stat-wired">--</span></div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Health Status</h3>
+                <div class="stat-breakdown">
+                    <div class="stat-row"><span>Healthy</span><span id="stat-healthy">--</span></div>
+                    <div class="stat-row"><span>Warning</span><span id="stat-warning">--</span></div>
+                    <div class="stat-row"><span>Critical</span><span id="stat-critical">--</span></div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Avg Health Score</h3>
+                <div class="stat-value success" id="stat-score">--%</div>
+            </div>
+        </aside>
+
+        <section class="chat-panel">
+            <div class="chat-header"><h2>Fleet Query Assistant (Fast Local)</h2></div>
+            <div class="chat-messages" id="chat-messages"></div>
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+                    <input type="text" class="chat-input" id="chat-input"
+                           placeholder="Ask about your fleet... (e.g., 'what's offline?' or 'top 10 by clients')">
+                    <button class="send-btn" id="send-btn">Send</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal" id="token-modal">
+        <div class="modal-content">
+            <h2>API Credentials</h2>
+            <p>Paste UniFi API headers from browser DevTools (Network tab -> cloudaccess.svc.ui.com request -> Headers)</p>
+            <textarea id="token-input" placeholder='{"x-amz-date":"...","x-amz-security-token":"...","authorization":"..."}'></textarea>
+            <div class="modal-buttons">
+                <button class="btn-secondary" onclick="useDemoData()">Use Demo Data</button>
+                <button class="send-btn" onclick="submitTokens()">Connect</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+// ============================================
+// UniFi Analyzer Engine
+// ============================================
+class UniFiAnalyzer {
+    constructor() { this.sites = []; this.lastUpdate = null; }
+
+    loadData(rawSites) {
+        this.sites = rawSites.map(s => this.normalize(s));
+        this.lastUpdate = new Date();
+        return this.sites.length;
+    }
+
+    normalize(site) {
+        const m = site.meta || {}, st = site.statistics || {}, c = st.counts || {}, p = st.percentages || {};
+        const wans = Object.entries(st.wans || {}).map(([n, d]) => ({
+            name: n, uptime: d.wanUptime || 0, ip: d.externalIp || '',
+            isp: d.ispInfo?.name || d.ispInfo?.organization || ''
+        }));
+        const isp = wans.find(w => w.isp)?.isp || '';
+        const uptime = wans[0]?.uptime || 0;
+        const total = c.totalDevice || 0, offline = c.offlineDevice || 0, online = total - offline;
+        const wifiC = c.wifiClient || 0, wiredC = c.wiredClient || 0;
+        const crit = c.criticalNotification || 0, warn = c.warningNotification || 0;
+        const tx = p.txRetry || 0;
+        const pct = total > 0 ? (online / total) * 100 : 100;
+        const health = Math.round((pct * 0.4) + (uptime * 0.3) + ((100 - tx) * 0.15) + ((crit === 0 ? 100 : 0) * 0.15));
+
+        return {
+            id: site.siteId, name: m.desc || m.name || 'Unknown', internalName: m.name || '',
+            totalDevices: total, offlineDevices: offline, onlineDevices: online,
+            wifiDevices: c.wifiDevice || 0, wiredDevices: c.wiredDevice || 0, gatewayDevices: c.gatewayDevice || 0,
+            offlineWifi: c.offlineWifiDevice || 0, offlineWired: c.offlineWiredDevice || 0, offlineGateway: c.offlineGatewayDevice || 0,
+            wifiClients: wifiC, wiredClients: wiredC, totalClients: wifiC + wiredC, guestClients: c.guestClient || 0,
+            criticalAlerts: crit, warningAlerts: warn, isp, wanUptime: uptime, externalIp: wans[0]?.ip || '',
+            txRetry: tx, healthScore: health, deviceOnlinePercent: Math.round(pct),
+            isHealthy: offline === 0 && crit === 0 && uptime >= 99,
+            hasIssues: offline > 0 || crit > 0 || uptime < 95
+        };
+    }
+
+    filter(fn) { return this.sites.filter(fn); }
+    sort(f, o = 'desc') { return [...this.sites].sort((a, b) => o === 'asc' ? (a[f]||0) - (b[f]||0) : (b[f]||0) - (a[f]||0)); }
+    top(n, f) { return this.sort(f, 'desc').slice(0, n); }
+    bottom(n, f) { return this.sort(f, 'asc').slice(0, n); }
+    sum(f) { return this.sites.reduce((a, s) => a + (s[f] || 0), 0); }
+    avg(f) { return this.sites.length ? Math.round(this.sum(f) / this.sites.length * 10) / 10 : 0; }
+
+    findByName(n) {
+        const q = n.toLowerCase();
+        return this.sites.find(s => s.name.toLowerCase().includes(q) || s.internalName.toLowerCase().includes(q));
+    }
+
+    search(q) {
+        const l = q.toLowerCase();
+        return this.sites.filter(s => s.name.toLowerCase().includes(l) || s.isp.toLowerCase().includes(l));
+    }
+
+    summary() {
+        const healthy = this.filter(s => s.isHealthy).length;
+        const issues = this.filter(s => s.hasIssues).length;
+        const critical = this.filter(s => s.offlineGateway > 0 || s.criticalAlerts > 0).length;
+        return {
+            totalSites: this.sites.length, totalDevices: this.sum('totalDevices'),
+            totalClients: this.sum('totalClients'), wifiClients: this.sum('wifiClients'),
+            wiredClients: this.sum('wiredClients'), offlineDevices: this.sum('offlineDevices'),
+            onlineDevices: this.sum('onlineDevices'), healthySites: healthy,
+            warningSites: issues - critical, criticalSites: critical,
+            avgHealthScore: this.avg('healthScore'),
+            topIssues: this.filter(s => s.hasIssues).sort((a, b) => b.offlineDevices - a.offlineDevices).slice(0, 5)
+        };
+    }
+
+    analyze(query) {
+        const q = query.toLowerCase().trim();
+        const pred = this.buildPredicate(q);
+
+        if (/^(help|\?)/.test(q)) return { type: 'help' };
+
+        const rank = q.match(/(?:top|best|worst|bottom|lowest|highest)\s*(\d+)?/);
+        if (rank) {
+            const n = parseInt(rank[1]) || 10;
+            const f = this.detectField(q);
+            const worst = /worst|bottom|lowest/.test(q);
+            return { type: 'ranking', order: worst ? 'asc' : 'desc', field: f, sites: worst ? this.bottom(n, f) : this.top(n, f), count: n };
+        }
+
+        if (/^(?:total|sum|average|avg)\s+/.test(q) || /how many/.test(q)) {
+            const f = this.detectField(q);
+            if (/average|avg/.test(q)) return { type: 'aggregate', op: 'avg', field: f, value: this.avg(f) };
+            if (/how many sites/.test(q)) return { type: 'aggregate', op: 'count', field: 'sites', value: pred ? this.filter(pred).length : this.sites.length };
+            return { type: 'aggregate', op: 'sum', field: f, value: this.sum(f) };
+        }
+
+        if (/(?:status|detail|show me|how is|check)\s+(?:of\s+|for\s+)?/i.test(q)) {
+            const name = this.extractName(q);
+            if (name) {
+                const site = this.findByName(name);
+                if (site) return { type: 'detail', site };
+                return { type: 'notfound', query: name, suggestions: this.search(name.split(/\s/)[0]).slice(0, 3) };
+            }
+        }
+
+        if (/summary|overview|fleet|dashboard/.test(q)) return { type: 'summary', data: this.summary() };
+        if (/what.*(offline|down|issue|problem)/.test(q) || q === 'offline') {
+            const sites = this.filter(s => s.hasIssues);
+            return { type: 'filter', sites, count: sites.length, query: 'sites with issues' };
+        }
+
+        if (pred) {
+            const sites = this.filter(pred);
+            return { type: 'filter', sites, count: sites.length, query: q };
+        }
+
+        const results = this.search(q);
+        if (results.length) return { type: 'search', sites: results, count: results.length, query: q };
+
+        return { type: 'unknown', query: q };
+    }
+
+    detectField(q) {
+        if (/offline\s*device|devices?\s*offline/.test(q)) return 'offlineDevices';
+        if (/total\s*device/.test(q)) return 'totalDevices';
+        if (/wifi\s*client|wireless/.test(q)) return 'wifiClients';
+        if (/client|user|connected/.test(q)) return 'totalClients';
+        if (/uptime|wan/.test(q)) return 'wanUptime';
+        if (/health|score/.test(q)) return 'healthScore';
+        if (/alert|critical/.test(q)) return 'criticalAlerts';
+        return 'totalClients';
+    }
+
+    buildPredicate(q) {
+        const preds = [];
+        const ops = [[/more than (\d+)/i,'>'], [/over (\d+)/i,'>'], [/above (\d+)/i,'>'],
+            [/at least (\d+)/i,'>='], [/(\d+)\+/i,'>='], [/less than (\d+)/i,'<'],
+            [/under (\d+)/i,'<'], [/below (\d+)/i,'<'], [/at most (\d+)/i,'<='], [/exactly (\d+)/i,'===']];
+
+        for (const [re, op] of ops) {
+            const m = q.match(re);
+            if (m) {
+                const n = parseInt(m[1]), f = this.detectField(q);
+                preds.push(s => { const v = s[f] || 0; return op==='>'?v>n : op==='>='?v>=n : op==='<'?v<n : op==='<='?v<=n : v===n; });
+                break;
+            }
+        }
+
+        if (/(?:^|\s)(offline|down|issue|problem)/.test(q) && !/not\s/.test(q)) preds.push(s => s.hasIssues);
+        if (/(?:^|\s)(healthy|online|good)(?:\s|$)/.test(q)) preds.push(s => s.isHealthy);
+
+        const isps = [[/verizon/i,/verizon/i], [/lumen|centurylink/i,/lumen|centurylink/i], [/at&?t/i,/at&?t/i], [/spectrum/i,/spectrum/i]];
+        for (const [qp, ip] of isps) if (qp.test(q)) { preds.push(s => s.isp && ip.test(s.isp)); break; }
+
+        const names = ['setco','hoods','kinder','celebration','jubilee','coastal','fairhope','panama','destin','pensacola','obera'];
+        for (const n of names) if (q.includes(n)) { preds.push(s => s.name.toLowerCase().includes(n)); break; }
+
+        return preds.length ? s => preds.every(p => p(s)) : null;
+    }
+
+    extractName(q) {
+        const quoted = q.match(/["']([^"']+)["']/);
+        if (quoted) return quoted[1];
+        const m = q.match(/(?:status of|details? for|show me|how is|check)\s+(.+?)(?:\?|$)/i);
+        return m ? m[1].trim().replace(/\s+(site|location)$/i, '') : null;
+    }
+}
+
+// ============================================
+// UI Controller
+// ============================================
+const analyzer = new UniFiAnalyzer();
+const chatEl = document.getElementById('chat-messages');
+const inputEl = document.getElementById('chat-input');
+const sendBtn = document.getElementById('send-btn');
+const modal = document.getElementById('token-modal');
+
+let apiHeaders = null;
+
+function addMsg(text, isUser = false, actions = []) {
+    const div = document.createElement('div');
+    div.className = `message ${isUser ? 'user' : 'ai'}`;
+    let html = `<div class="message-avatar">${isUser ? 'U' : 'AI'}</div><div class="message-content">${text}`;
+    if (actions.length) {
+        html += `<div class="quick-actions">`;
+        actions.forEach(a => html += `<button class="quick-btn" onclick="sendQuery('${a}')">${a}</button>`);
+        html += `</div>`;
+    }
+    div.innerHTML = html + `</div>`;
+    chatEl.appendChild(div);
+    chatEl.scrollTop = chatEl.scrollHeight;
+}
+
+function formatResult(r) {
+    const labels = { totalClients:'clients', offlineDevices:'offline', healthScore:'health', wanUptime:'uptime', totalDevices:'devices' };
+
+    switch (r.type) {
+        case 'detail': {
+            const s = r.site, e = s.healthScore >= 90 ? '[OK]' : s.healthScore >= 70 ? '[WARN]' : '[CRIT]';
+            return {
+                text: `<strong>${s.name}</strong>\n--------------------\nHealth: <span class="highlight">${s.healthScore}%</span> ${e}\nISP: ${s.isp || 'N/A'} | Uptime: ${s.wanUptime}%\n\n<strong>Devices:</strong> ${s.onlineDevices}/${s.totalDevices} online\n- APs: ${s.wifiDevices} (${s.offlineWifi} offline)\n- Switches: ${s.wiredDevices} (${s.offlineWired} offline)\n- Gateways: ${s.gatewayDevices} (${s.offlineGateway} offline)\n\n<strong>Clients:</strong> ${s.totalClients}\n- WiFi: ${s.wifiClients} | Wired: ${s.wiredClients}`,
+                actions: ["What's offline?", 'Summary']
+            };
+        }
+        case 'summary': {
+            const d = r.data, pct = Math.round(d.healthySites / d.totalSites * 100);
+            let t = `<strong>Fleet Status</strong>\n--------------------\nSites: <span class="highlight">${d.totalSites}</span> | Devices: <span class="highlight">${d.totalDevices}</span> | Clients: <span class="highlight">${d.totalClients.toLocaleString()}</span>\n\n<strong>Health:</strong>\n[OK] Healthy: ${d.healthySites} (${pct}%)\n[WARN] Warning: ${d.warningSites}\n[CRIT] Critical: ${d.criticalSites}\n\nAvg Score: ${d.avgHealthScore}%`;
+            if (d.topIssues.length) {
+                t += `\n\n<strong>Top Issues:</strong>`;
+                d.topIssues.slice(0,3).forEach((s,i) => t += `\n${i+1}. ${s.name} - ${s.offlineDevices} offline`);
+            }
+            return { text: t, actions: ["What's offline?", 'Top 10 by clients'] };
+        }
+        case 'filter':
+        case 'search': {
+            if (!r.sites.length) return { text: `No sites found for "${r.query}"`, actions: ['Summary', 'Help'] };
+            let t = `Found <span class="highlight">${r.count}</span> sites:\n`;
+            r.sites.slice(0,10).forEach((s,i) => {
+                t += `\n${i+1}. ${s.hasIssues?'[!]':'[OK]'} ${s.name}`;
+                t += s.offlineDevices > 0 ? ` (${s.offlineDevices} offline)` : ` (${s.totalClients} clients)`;
+            });
+            if (r.count > 10) t += `\n\n...and ${r.count - 10} more`;
+            return { text: t, actions: ['Summary', 'Top 10 by clients'] };
+        }
+        case 'ranking': {
+            const lbl = labels[r.field] || r.field;
+            const title = r.order === 'asc' ? `[!] Lowest ${lbl}` : `Top ${r.count} by ${lbl}`;
+            let t = `${title}:\n`;
+            r.sites.forEach((s,i) => {
+                const suf = ['wanUptime','healthScore'].includes(r.field) ? '%' : '';
+                t += `\n${i+1}. ${s.name}: ${s[r.field]}${suf}`;
+            });
+            return { text: t, actions: ['Summary', "What's offline?"] };
+        }
+        case 'aggregate': {
+            const lbl = labels[r.field] || r.field;
+            const suf = ['wanUptime','healthScore'].includes(r.field) ? '%' : '';
+            const t = r.op === 'avg' ? `Average ${lbl}: <span class="highlight">${r.value}${suf}</span>`
+                : r.op === 'count' ? `<span class="highlight">${r.value}</span> ${lbl}`
+                : `Total ${lbl}: <span class="highlight">${r.value.toLocaleString()}</span>`;
+            return { text: t, actions: ['Summary'] };
+        }
+        case 'help':
+            return {
+                text: `<strong>Query Commands</strong>\n\n<strong>Status:</strong> "what's offline?" "summary"\n<strong>Filters:</strong> "more than 5 offline" "under 95% uptime"\n<strong>Rankings:</strong> "top 10 by clients" "worst health"\n<strong>Aggregates:</strong> "total clients" "average health"\n<strong>Details:</strong> "status of [site name]"`,
+                actions: ['Summary', "What's offline?", 'Top 10 by clients']
+            };
+        case 'notfound':
+            let t = `Site "${r.query}" not found`;
+            if (r.suggestions.length) { t += `\n\nDid you mean:`; r.suggestions.forEach(s => t += `\n- ${s.name}`); }
+            return { text: t, actions: ['Summary'] };
+        default:
+            return { text: `Didn't understand "${r.query}"\n\nTry: "summary", "what's offline?", "top 10 by clients"`, actions: ['Help'] };
+    }
+}
+
+function sendQuery(q) {
+    if (!q.trim()) return;
+    addMsg(q, true);
+    inputEl.value = '';
+
+    setTimeout(() => {
+        const result = analyzer.analyze(q);
+        const formatted = formatResult(result);
+        addMsg(formatted.text, false, formatted.actions);
+    }, 100);
+}
+
+function updateStats() {
+    const s = analyzer.summary();
+    document.getElementById('stat-sites').textContent = s.totalSites;
+    document.getElementById('stat-devices').textContent = s.totalDevices;
+    document.getElementById('stat-online').textContent = s.onlineDevices;
+    document.getElementById('stat-offline').textContent = s.offlineDevices;
+    document.getElementById('stat-clients').textContent = s.totalClients.toLocaleString();
+    document.getElementById('stat-wifi').textContent = s.wifiClients.toLocaleString();
+    document.getElementById('stat-wired').textContent = s.wiredClients.toLocaleString();
+    document.getElementById('stat-healthy').textContent = s.healthySites;
+    document.getElementById('stat-warning').textContent = s.warningSites;
+    document.getElementById('stat-critical').textContent = s.criticalSites;
+    document.getElementById('stat-score').textContent = s.avgHealthScore + '%';
+    document.getElementById('connection-status').textContent = 'Connected';
+    document.getElementById('last-update').textContent = 'Updated: ' + new Date().toLocaleTimeString();
+}
+
+async function fetchData() {
+    if (!apiHeaders) { modal.classList.add('active'); return; }
+
+    try {
+        document.getElementById('connection-status').textContent = 'Fetching...';
+        const resp = await fetch('https://cloudaccess.svc.ui.com/api/cloud-access/sites', {
+            headers: apiHeaders, credentials: 'include'
+        });
+        const data = await resp.json();
+        analyzer.loadData(data.data || data);
+        updateStats();
+        addMsg(`Loaded <span class="highlight">${analyzer.sites.length}</span> sites. Ask me anything!`, false, ['Summary', "What's offline?", 'Top 10 by clients']);
+    } catch (e) {
+        console.error(e);
+        document.getElementById('connection-status').textContent = 'Error';
+        addMsg(`Failed to fetch data: ${e.message}\n\nTry refreshing your API tokens.`, false);
+    }
+}
+
+function submitTokens() {
+    try {
+        const input = document.getElementById('token-input').value.trim();
+        apiHeaders = JSON.parse(input);
+        modal.classList.remove('active');
+        fetchData();
+    } catch (e) {
+        alert('Invalid JSON. Paste the headers as a JSON object.');
+    }
+}
+
+function useDemoData() {
+    modal.classList.remove('active');
+    const demo = generateDemoData();
+    analyzer.loadData(demo);
+    updateStats();
+    addMsg(`Loaded <span class="highlight">${demo.length}</span> demo sites. Try asking questions!`, false, ['Summary', "What's offline?", 'Top 10 by clients']);
+}
+
+function generateDemoData() {
+    const names = ['Setco Corporate','Setco Warehouse','Celebration Church Main','Celebration Church South',
+        'Hoods Discount HQ','Jubilee Medical Center','Coastal Realty','Fairhope Office Park',
+        'Panama City Branch','Destin Beach Resort','Pensacola Industrial','Kinder Morgan Terminal',
+        'Fulcrum Engineering','Clauger HVAC','OberaConnect NOC','Tracery Interiors'];
+    const isps = ['Verizon','AT&T','Spectrum','Lumen','Comcast','Mediacom'];
+
+    return names.map((name, i) => {
+        const offline = Math.random() > 0.8 ? Math.floor(Math.random() * 3) + 1 : 0;
+        const total = Math.floor(Math.random() * 15) + 5;
+        const clients = Math.floor(Math.random() * 200) + 20;
+        return {
+            siteId: `site-${i}`,
+            meta: { desc: name, name: name.toLowerCase().replace(/\s+/g, '-') },
+            statistics: {
+                counts: {
+                    totalDevice: total, offlineDevice: offline,
+                    wifiDevice: Math.floor(total * 0.6), wiredDevice: Math.floor(total * 0.3),
+                    gatewayDevice: 1, offlineWifiDevice: Math.floor(offline * 0.5),
+                    offlineWiredDevice: Math.floor(offline * 0.3), offlineGatewayDevice: offline > 2 ? 1 : 0,
+                    wifiClient: Math.floor(clients * 0.7), wiredClient: Math.floor(clients * 0.3),
+                    guestClient: Math.floor(Math.random() * 10),
+                    criticalNotification: offline > 1 ? 1 : 0, warningNotification: Math.floor(Math.random() * 3)
+                },
+                percentages: { txRetry: Math.random() * 10 },
+                wans: { WAN1: { wanUptime: 95 + Math.random() * 5, externalIp: `203.0.113.${i+1}`,
+                    ispInfo: { name: isps[i % isps.length] } } }
+            }
+        };
+    });
+}
+
+// Event listeners
+sendBtn.addEventListener('click', () => sendQuery(inputEl.value));
+inputEl.addEventListener('keypress', e => { if (e.key === 'Enter') sendQuery(inputEl.value); });
+
+// Initialize
+addMsg('Welcome to UniFi Fleet Manager!\n\nConnect with your API credentials or use demo data to explore.', false, ['Use Demo Data']);
+modal.classList.add('active');
+</script>
+</body>
+</html>

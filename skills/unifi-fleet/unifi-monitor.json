@@ -1,0 +1,193 @@
+{
+  "name": "UniFi Fleet Monitor",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 5
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Every 5 Minutes",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "command": "cd ~/oberaconnect-ai-ops && python tools/unifi/unifi_client.py --headers ~/.unifi-headers.json -q 'summary' --json"
+      },
+      "id": "fetch-summary",
+      "name": "Fetch Fleet Summary",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const output = $input.first().json.stdout;\nconst result = JSON.parse(output);\nconst data = result.data;\n\nreturn [{\n  json: {\n    totalSites: data.total_sites,\n    totalDevices: data.total_devices,\n    totalClients: data.total_clients,\n    offlineDevices: data.offline_devices,\n    healthySites: data.healthy_sites,\n    warningSites: data.warning_sites,\n    criticalSites: data.critical_sites,\n    avgHealthScore: data.avg_health_score,\n    topIssues: data.top_issues,\n    hasIssues: data.critical_sites > 0 || data.offline_devices > 0,\n    timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "parse-summary",
+      "name": "Parse Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.hasIssues }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "check-issues",
+      "name": "Has Issues?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "command": "cd ~/oberaconnect-ai-ops && python tools/unifi/unifi_client.py --headers ~/.unifi-headers.json -q \"what's offline\" --json"
+      },
+      "id": "fetch-offline",
+      "name": "Fetch Offline Sites",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1120, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "const summary = $('Parse Summary').first().json;\nconst offlineOutput = $input.first().json.stdout;\nconst offlineResult = JSON.parse(offlineOutput);\nconst offlineSites = offlineResult.data.sites || [];\n\nlet message = `🚨 UniFi Fleet Alert\\n`;\nmessage += `━━━━━━━━━━━━━━━━━━━━\\n`;\nmessage += `Critical Sites: ${summary.criticalSites}\\n`;\nmessage += `Offline Devices: ${summary.offlineDevices}\\n`;\nmessage += `Avg Health: ${summary.avgHealthScore}%\\n\\n`;\n\nif (offlineSites.length > 0) {\n  message += `Sites with Issues:\\n`;\n  offlineSites.slice(0, 5).forEach((site, i) => {\n    message += `${i+1}. ${site.name} - ${site.offline_devices} offline\\n`;\n  });\n}\n\nreturn [{ json: { message, summary, offlineSites } }];"
+      },
+      "id": "format-alert",
+      "name": "Format Alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1340, 200]
+    },
+    {
+      "parameters": {
+        "channel": "#noc-alerts",
+        "text": "={{ $json.message }}",
+        "otherOptions": {}
+      },
+      "id": "slack-alert",
+      "name": "Slack Alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.1,
+      "position": [1560, 200],
+      "credentials": {
+        "slackApi": {
+          "id": "SLACK_CREDENTIAL_ID",
+          "name": "Slack NOC"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const summary = $input.first().json;\n\nconsole.log(`[${summary.timestamp}] Fleet OK - ${summary.totalSites} sites, ${summary.healthySites} healthy, ${summary.offlineDevices} offline devices`);\n\nreturn [{ json: { status: 'ok', ...summary } }];"
+      },
+      "id": "log-ok",
+      "name": "Log OK Status",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 400]
+    }
+  ],
+  "connections": {
+    "Every 5 Minutes": {
+      "main": [
+        [
+          {
+            "node": "Fetch Fleet Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Fleet Summary": {
+      "main": [
+        [
+          {
+            "node": "Parse Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Summary": {
+      "main": [
+        [
+          {
+            "node": "Has Issues?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Issues?": {
+      "main": [
+        [
+          {
+            "node": "Fetch Offline Sites",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log OK Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Offline Sites": {
+      "main": [
+        [
+          {
+            "node": "Format Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Alert": {
+      "main": [
+        [
+          {
+            "node": "Slack Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "name": "unifi"
+    },
+    {
+      "name": "monitoring"
+    }
+  ]
+}
