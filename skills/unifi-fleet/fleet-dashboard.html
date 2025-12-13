@@ -485,9 +485,6 @@ const analyzer = new UniFiAnalyzer();
 const chatEl = document.getElementById('chat-messages');
 const inputEl = document.getElementById('chat-input');
 const sendBtn = document.getElementById('send-btn');
-const modal = document.getElementById('token-modal');
-
-let apiHeaders = null;
 
 function addMsg(text, isUser = false, actions = []) {
     const div = document.createElement('div');
@@ -596,37 +593,51 @@ function updateStats() {
 }
 
 async function fetchData() {
-    if (!apiHeaders) { modal.classList.add('active'); return; }
-
     try {
         document.getElementById('connection-status').textContent = 'Fetching...';
-        const resp = await fetch('https://cloudaccess.svc.ui.com/api/cloud-access/sites', {
-            headers: apiHeaders, credentials: 'include'
-        });
+        const resp = await fetch('http://20.42.62.9:5678/webhook/unifi-expert?query=json');
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const data = await resp.json();
-        analyzer.loadData(data.data || data);
+
+        // Transform from unifi-expert.py format to analyzer format
+        const sites = (data.sites_detail || []).map(s => ({
+            siteId: s.site_id,
+            meta: { desc: s.name, name: s.name.toLowerCase().replace(/\s+/g, '-') },
+            statistics: {
+                counts: {
+                    totalDevice: s.devices?.total || 0,
+                    offlineDevice: s.devices?.offline || 0,
+                    wifiDevice: 0,
+                    wiredDevice: 0,
+                    gatewayDevice: 1,
+                    offlineWifiDevice: 0,
+                    offlineWiredDevice: 0,
+                    offlineGatewayDevice: s.devices?.offline > 0 ? 1 : 0,
+                    wifiClient: s.clients?.wifi || 0,
+                    wiredClient: s.clients?.wired || 0,
+                    guestClient: 0,
+                    criticalNotification: s.alerts?.critical || 0,
+                    warningNotification: s.alerts?.warning || 0
+                },
+                percentages: { txRetry: 0 },
+                wans: s.wan && Object.keys(s.wan).length ? s.wan : {
+                    WAN1: { wanUptime: 99, externalIp: '', ispInfo: { name: s.isp || '' } }
+                }
+            }
+        }));
+
+        analyzer.loadData(sites);
         updateStats();
-        addMsg(`Loaded <span class="highlight">${analyzer.sites.length}</span> sites. Ask me anything!`, false, ['Summary', "What's offline?", 'Top 10 by clients']);
+        addMsg(`Loaded <span class="highlight">${analyzer.sites.length}</span> live sites from OberaConnect fleet.`, false, ['Summary', "What's offline?", 'Top 10 by clients']);
     } catch (e) {
         console.error(e);
         document.getElementById('connection-status').textContent = 'Error';
-        addMsg(`Failed to fetch data: ${e.message}\n\nTry refreshing your API tokens.`, false);
-    }
-}
-
-function submitTokens() {
-    try {
-        const input = document.getElementById('token-input').value.trim();
-        apiHeaders = JSON.parse(input);
-        modal.classList.remove('active');
-        fetchData();
-    } catch (e) {
-        alert('Invalid JSON. Paste the headers as a JSON object.');
+        addMsg(`Failed to fetch live data: ${e.message}\n\nUsing demo data instead.`, false);
+        useDemoData();
     }
 }
 
 function useDemoData() {
-    modal.classList.remove('active');
     const demo = generateDemoData();
     analyzer.loadData(demo);
     updateStats();
@@ -669,9 +680,9 @@ function generateDemoData() {
 sendBtn.addEventListener('click', () => sendQuery(inputEl.value));
 inputEl.addEventListener('keypress', e => { if (e.key === 'Enter') sendQuery(inputEl.value); });
 
-// Initialize
-addMsg('Welcome to UniFi Fleet Manager!\n\nConnect with your API credentials or use demo data to explore.', false, ['Use Demo Data']);
-modal.classList.add('active');
+// Initialize - auto-fetch live data
+addMsg('Welcome to UniFi Fleet Manager!\n\nLoading live fleet data...', false);
+fetchData();
 </script>
 </body>
 </html>
