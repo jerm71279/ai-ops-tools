@@ -65,20 +65,13 @@ class NinjaOneClient:
     Supports regional endpoints and OAuth client_credentials flow.
     """
 
-    # Regional API endpoints (for API calls)
+    # Regional endpoints (both API and OAuth use same base URL with /ws/oauth/token)
     REGIONS = {
         "us": "https://app.ninjarmm.com",
+        "us2": "https://us2.ninjarmm.com",
         "eu": "https://eu.ninjarmm.com",
         "oc": "https://oc.ninjarmm.com",
         "ca": "https://ca.ninjarmm.com"
-    }
-
-    # Regional OAuth endpoints (for token requests)
-    OAUTH_REGIONS = {
-        "us": "https://api.ninjarmm.com",
-        "eu": "https://eu-api.ninjarmm.com",
-        "oc": "https://oc-api.ninjarmm.com",
-        "ca": "https://ca-api.ninjarmm.com"
     }
 
     # Rate limits (approximate - adjust based on your tier)
@@ -106,7 +99,6 @@ class NinjaOneClient:
         self.region = (region or os.getenv("NINJAONE_REGION", "us")).lower()
 
         self.base_url = self.REGIONS.get(self.region, self.REGIONS["us"])
-        self.oauth_base_url = self.OAUTH_REGIONS.get(self.region, self.OAUTH_REGIONS["us"])
         self.api_url = f"{self.base_url}/api/v2"
 
         self._access_token: Optional[str] = None
@@ -132,7 +124,7 @@ class NinjaOneClient:
 
     def get_endpoint_summary(self) -> str:
         """Get summary of configured endpoint."""
-        return f"API: {self.base_url}, OAuth: {self.oauth_base_url} ({self.region.upper()})"
+        return f"{self.base_url} ({self.region.upper()})"
 
     async def _get_access_token(self) -> str:
         """Get or refresh OAuth access token."""
@@ -143,8 +135,8 @@ class NinjaOneClient:
 
         self.require_configured()
 
-        # Request new token (NinjaOne uses api.ninjarmm.com for OAuth)
-        token_url = f"{self.oauth_base_url}/oauth/token"
+        # Request new token
+        token_url = f"{self.base_url}/ws/oauth/token"
 
         async with httpx.AsyncClient(timeout=30.0) as client:
             try:
