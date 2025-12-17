@@ -134,8 +134,8 @@ class NinjaOneClient:
 
         self.require_configured()
 
-        # Request new token
-        token_url = f"{self.base_url}/oauth/token"
+        # Request new token (NinjaOne uses /ws/oauth/token endpoint)
+        token_url = f"{self.base_url}/ws/oauth/token"
 
         async with httpx.AsyncClient(timeout=30.0) as client:
             try:
