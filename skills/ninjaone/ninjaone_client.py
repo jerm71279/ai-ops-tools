@@ -277,8 +277,8 @@ class NinjaOneClient:
             org_id = org.get("id")
             devices = await self.get_devices(org_id=org_id)
 
-            online = sum(1 for d in devices if d.get("status") == "ONLINE")
-            offline = sum(1 for d in devices if d.get("status") == "OFFLINE")
+            online = sum(1 for d in devices if d.get("offline") == False)
+            offline = sum(1 for d in devices if d.get("offline") == True)
 
             counts[org_id] = {
                 "name": org.get("name"),
@@ -434,8 +434,9 @@ class NinjaOneClient:
         devices = await self.get_devices()
         alerts = await self.get_alerts(status="ACTIVE")
 
-        online = sum(1 for d in devices if d.get("status") == "ONLINE")
-        offline = sum(1 for d in devices if d.get("status") == "OFFLINE")
+        # NinjaOne uses 'offline' boolean field, not 'status'
+        online = sum(1 for d in devices if d.get("offline") == False)
+        offline = sum(1 for d in devices if d.get("offline") == True)
 
         critical_alerts = sum(1 for a in alerts if a.get("severity") == "CRITICAL")
         major_alerts = sum(1 for a in alerts if a.get("severity") == "MAJOR")
