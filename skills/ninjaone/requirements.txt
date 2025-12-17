@@ -1,0 +1,4 @@
+# NinjaOne Skill Dependencies
+# Pinned versions for stability
+
+httpx==0.27.0
