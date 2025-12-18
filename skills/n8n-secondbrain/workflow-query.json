@@ -1,0 +1,367 @@
+{
+  "name": "Secondbrain - RAG Query System",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "query",
+        "responseMode": "responseNode",
+        "authentication": "headerAuth",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "webhook-query",
+      "name": "Query Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "secondbrain-query",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CREDENTIAL_ID",
+          "name": "Secondbrain API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "chat-trigger",
+      "name": "Chat Trigger",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [0, 200],
+      "webhookId": "secondbrain-chat"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "extract-query",
+              "name": "query",
+              "value": "={{ $json.body?.query || $json.chatInput || $json.message }}",
+              "type": "string"
+            },
+            {
+              "id": "extract-filter",
+              "name": "customer_filter",
+              "value": "={{ $json.body?.customer || $json.customer || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "extract-session",
+              "name": "session_id",
+              "value": "={{ $json.body?.session_id || $json.sessionId || $execution.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "extract-input",
+      "name": "Extract Query Input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [250, 100]
+    },
+    {
+      "parameters": {
+        "mode": "retrieve",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "={{ $env.QDRANT_COLLECTION || 'oberaconnect-docs' }}",
+          "mode": "raw"
+        },
+        "topK": 5,
+        "options": {}
+      },
+      "id": "qdrant-retrieve",
+      "name": "Qdrant Retrieval",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [650, 100],
+      "credentials": {
+        "qdrantApi": {
+          "id": "CREDENTIAL_ID",
+          "name": "Qdrant API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": "claude-3-haiku-20240307",
+        "options": {}
+      },
+      "id": "anthropic-embeddings-query",
+      "name": "Query Embeddings",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsAnthropic",
+      "typeVersion": 1,
+      "position": [450, 200],
+      "credentials": {
+        "anthropicApi": {
+          "id": "CREDENTIAL_ID",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "secondbrain-agent",
+        "description": "An AI assistant that answers questions about OberaConnect documentation, network configurations, customer setups, and MSP operations.",
+        "systemMessage": "You are an expert assistant for OberaConnect, a Managed Service Provider specializing in network infrastructure and cloud services.\n\n## Your Role\nAnswer questions using ONLY the provided context from the knowledge base. You help with:\n- Network configuration (UniFi, MikroTik, SonicWall)\n- Customer documentation and procedures\n- Azure cloud services\n- MSP operations and best practices\n\n## Response Guidelines\n1. Base your answers ONLY on the retrieved context\n2. If the context doesn't contain relevant information, say so clearly\n3. Always cite your sources using the document names\n4. Be concise but thorough\n5. Use technical terminology appropriate for network engineers\n\n## Response Format\nProvide your answer, then list sources:\n\n[Your answer here]\n\n---\n**Sources:**\n- [Document Name] - Section/Page",
+        "options": {
+          "maxIterations": 5,
+          "returnIntermediateSteps": false
+        }
+      },
+      "id": "ai-agent",
+      "name": "Secondbrain AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [850, 100]
+    },
+    {
+      "parameters": {
+        "modelId": "claude-3-5-sonnet-20241022",
+        "options": {
+          "maxTokensToSample": 2048,
+          "temperature": 0.3
+        }
+      },
+      "id": "anthropic-chat",
+      "name": "Claude Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.2,
+      "position": [850, 300],
+      "credentials": {
+        "anthropicApi": {
+          "id": "CREDENTIAL_ID",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionKey": "={{ $json.session_id }}",
+        "contextWindowLength": 10
+      },
+      "id": "memory",
+      "name": "Session Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.2,
+      "position": [850, 450]
+    },
+    {
+      "parameters": {
+        "name": "knowledge_base",
+        "description": "Search the OberaConnect knowledge base for documentation about network configurations, customer setups, procedures, and technical information.",
+        "topK": 5,
+        "options": {}
+      },
+      "id": "vector-store-tool",
+      "name": "Knowledge Base Tool",
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "format-response",
+              "name": "response",
+              "value": "={{ { answer: $json.output, sources: $json.intermediateSteps?.map(s => s.observation) || [], session_id: $('Extract Query Input').item.json.session_id, timestamp: new Date().toISOString() } }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "format-output",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1100, 100]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json.response }}",
+        "options": {}
+      },
+      "id": "respond-webhook",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1300, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Log query for analytics\nconst query = $input.item.json.query;\nconst timestamp = new Date().toISOString();\nconsole.log(`[${timestamp}] Query: ${query}`);\nreturn $input.item;"
+      },
+      "id": "log-query",
+      "name": "Log Query",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 100]
+    },
+    {
+      "parameters": {
+        "content": "## RAG Query System (SECURED)\n\n**Authentication**: API Key required in X-API-Key header\n\n### Endpoints:\n- **Webhook**: POST `/webhook/query`\n- **Chat**: `/webhook/chat`\n\n### Request Format:\n```json\n{\n  \"query\": \"What are the UniFi WiFi best practices?\",\n  \"customer\": \"optional-filter\",\n  \"session_id\": \"optional-for-memory\"\n}\n```\n\n### Headers Required:\n```\nX-API-Key: your-api-key-here\nContent-Type: application/json\n```",
+        "height": 400,
+        "width": 340,
+        "color": 5
+      },
+      "id": "sticky-note",
+      "name": "Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-300, -100]
+    }
+  ],
+  "connections": {
+    "Query Webhook": {
+      "main": [
+        [
+          {
+            "node": "Extract Query Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Query Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Query Input": {
+      "main": [
+        [
+          {
+            "node": "Log Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Query": {
+      "main": [
+        [
+          {
+            "node": "Qdrant Retrieval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Retrieval": {
+      "main": [
+        [
+          {
+            "node": "Secondbrain AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Embeddings": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Retrieval",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Secondbrain AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Session Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Secondbrain AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Knowledge Base Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "Secondbrain AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Secondbrain AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Format Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Response": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {"name": "secondbrain"},
+    {"name": "query"},
+    {"name": "rag"},
+    {"name": "secured"}
+  ]
+}

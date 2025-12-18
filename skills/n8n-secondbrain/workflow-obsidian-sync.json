@@ -1,0 +1,344 @@
+{
+  "name": "Secondbrain - Obsidian Sync",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "obsidian-ingest",
+        "responseMode": "responseNode",
+        "options": {
+          "rawBody": true
+        }
+      },
+      "id": "webhook-obsidian",
+      "name": "Obsidian Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "obsidian-ingest"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 6
+            }
+          ]
+        }
+      },
+      "id": "schedule-export",
+      "name": "Export Schedule (6h)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse Obsidian Post Webhook payload\nconst body = $input.item.json.body;\n\n// Extract frontmatter and content\nlet frontmatter = {};\nlet content = body.content || body.text || '';\nlet fileName = body.fileName || body.file?.name || 'untitled.md';\n\n// Parse YAML frontmatter if present\nif (content.startsWith('---')) {\n  const endIndex = content.indexOf('---', 3);\n  if (endIndex > 0) {\n    const yamlStr = content.substring(3, endIndex).trim();\n    // Simple YAML parsing for common fields\n    yamlStr.split('\\n').forEach(line => {\n      const [key, ...valueParts] = line.split(':');\n      if (key && valueParts.length) {\n        frontmatter[key.trim()] = valueParts.join(':').trim();\n      }\n    });\n    content = content.substring(endIndex + 3).trim();\n  }\n}\n\n// Extract customer from path or frontmatter\nconst customer = frontmatter.customer || \n                 body.path?.split('/')[1] || \n                 '';\n\n// Extract tags\nconst tags = frontmatter.tags || \n             (content.match(/#[\\w-]+/g) || []).join(', ');\n\nreturn {\n  json: {\n    fileName,\n    content,\n    frontmatter,\n    customer,\n    tags,\n    vaultPath: body.path || '',\n    lastModified: body.lastModified || new Date().toISOString(),\n    source: 'obsidian'\n  }\n};"
+      },
+      "id": "parse-obsidian",
+      "name": "Parse Obsidian Note",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [250, 0]
+    },
+    {
+      "parameters": {
+        "chunkSize": 500,
+        "chunkOverlap": 50,
+        "options": {
+          "chunkingMode": "advancedSplitter"
+        }
+      },
+      "id": "text-splitter-obsidian",
+      "name": "Split Note Content",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [450, 0]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "set-metadata",
+              "name": "metadata",
+              "value": "={{ { source_file: $json.fileName, obsidian_path: $json.vaultPath, modified_date: $json.lastModified, chunk_index: $itemIndex, customer: $json.customer, tags: $json.tags, source: 'obsidian' } }}",
+              "type": "object"
+            },
+            {
+              "id": "set-content",
+              "name": "content",
+              "value": "={{ $json.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "prepare-obsidian-chunks",
+      "name": "Prepare Metadata",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [650, 0]
+    },
+    {
+      "parameters": {
+        "modelId": "claude-3-haiku-20240307",
+        "options": {}
+      },
+      "id": "anthropic-embeddings-obsidian",
+      "name": "Generate Embeddings",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsAnthropic",
+      "typeVersion": 1,
+      "position": [850, 100],
+      "credentials": {
+        "anthropicApi": {
+          "id": "CREDENTIAL_ID",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "={{ $env.QDRANT_COLLECTION || 'oberaconnect-docs' }}",
+          "mode": "raw"
+        },
+        "options": {}
+      },
+      "id": "qdrant-insert-obsidian",
+      "name": "Store in Qdrant",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [850, 0],
+      "credentials": {
+        "qdrantApi": {
+          "id": "CREDENTIAL_ID",
+          "name": "Qdrant API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { status: 'success', file: $('Parse Obsidian Note').item.json.fileName, chunks: $items.length } }}",
+        "options": {}
+      },
+      "id": "respond-obsidian",
+      "name": "Confirm Ingestion",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1050, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Query Qdrant for recent updates to export to Obsidian\n// This would typically call a sub-workflow or HTTP request\n// For now, we'll prepare the export structure\n\nconst exportConfig = {\n  targetFolder: 'AI-Generated',\n  format: 'markdown',\n  includeMetadata: true,\n  lastExport: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString() // 6 hours ago\n};\n\nreturn {\n  json: exportConfig\n};"
+      },
+      "id": "prepare-export",
+      "name": "Prepare Export Config",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [250, 400]
+    },
+    {
+      "parameters": {
+        "url": "http://qdrant:6333/collections/{{ $env.QDRANT_COLLECTION || 'oberaconnect-docs' }}/points/scroll",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"limit\": 100,\n  \"filter\": {\n    \"must\": [\n      {\n        \"key\": \"source\",\n        \"match\": {\n          \"value\": \"sharepoint\"\n        }\n      }\n    ]\n  },\n  \"with_payload\": true,\n  \"with_vector\": false\n}",
+        "options": {}
+      },
+      "id": "query-recent-updates",
+      "name": "Get Recent SharePoint Docs",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [450, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Convert Qdrant results to Obsidian markdown format\nconst points = $input.item.json.result?.points || [];\nconst notes = [];\n\n// Group by source file\nconst fileGroups = {};\npoints.forEach(point => {\n  const payload = point.payload;\n  const sourceFile = payload.source_file || 'unknown';\n  \n  if (!fileGroups[sourceFile]) {\n    fileGroups[sourceFile] = {\n      content: [],\n      metadata: payload\n    };\n  }\n  fileGroups[sourceFile].content.push(payload.content);\n});\n\n// Generate markdown notes\nfor (const [fileName, data] of Object.entries(fileGroups)) {\n  const frontmatter = [\n    '---',\n    `source: ${fileName}`,\n    `synced_from: sharepoint`,\n    `sync_date: ${new Date().toISOString()}`,\n    `customer: ${data.metadata.customer || ''}`,\n    '---',\n    ''\n  ].join('\\n');\n  \n  const content = data.content.join('\\n\\n---\\n\\n');\n  const noteName = fileName.replace(/\\.[^.]+$/, '') + '_synced.md';\n  \n  notes.push({\n    fileName: noteName,\n    content: frontmatter + content,\n    folder: 'AI-Generated/SharePoint-Sync'\n  });\n}\n\nreturn notes.map(note => ({ json: note }));"
+      },
+      "id": "format-for-obsidian",
+      "name": "Format as Markdown",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 400]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "upload",
+        "folderId": "={{ $env.GOOGLE_DRIVE_FOLDER_ID }}",
+        "name": "={{ $json.folder }}/{{ $json.fileName }}",
+        "binaryPropertyName": "data",
+        "options": {}
+      },
+      "id": "google-drive-upload",
+      "name": "Upload to Google Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [850, 400],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "CREDENTIAL_ID",
+          "name": "Google Drive OAuth2"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## Obsidian Sync Workflow\n\n**Workflow ID**: `secondbrain-obsidian`\n\n### Inbound (Obsidian → Vector Store)\n1. Receives notes via Post Webhook plugin\n2. Parses YAML frontmatter and content\n3. Extracts customer/tags metadata\n4. Chunks and embeds content\n5. Stores in Qdrant\n\n### Outbound (Vector Store → Obsidian)\n1. Scheduled every 6 hours\n2. Queries Qdrant for SharePoint docs\n3. Formats as Markdown with frontmatter\n4. Uploads to Google Drive (sync folder)\n\n### Obsidian Setup:\n1. Install Post Webhook plugin\n2. Configure webhook URL: `/webhook/obsidian-ingest`\n3. Add to note frontmatter:\n   ```yaml\n   post-webhook: true\n   customer: CustomerName\n   ```\n4. Set up Google Drive sync for vault",
+        "height": 480,
+        "width": 340,
+        "color": 6
+      },
+      "id": "sticky-note",
+      "name": "Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-300, -50]
+    }
+  ],
+  "connections": {
+    "Obsidian Webhook": {
+      "main": [
+        [
+          {
+            "node": "Parse Obsidian Note",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Obsidian Note": {
+      "main": [
+        [
+          {
+            "node": "Split Note Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Note Content": {
+      "main": [
+        [
+          {
+            "node": "Prepare Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Metadata": {
+      "main": [
+        [
+          {
+            "node": "Store in Qdrant",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Embeddings": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Store in Qdrant",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store in Qdrant": {
+      "main": [
+        [
+          {
+            "node": "Confirm Ingestion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Export Schedule (6h)": {
+      "main": [
+        [
+          {
+            "node": "Prepare Export Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Export Config": {
+      "main": [
+        [
+          {
+            "node": "Get Recent SharePoint Docs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Recent SharePoint Docs": {
+      "main": [
+        [
+          {
+            "node": "Format as Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format as Markdown": {
+      "main": [
+        [
+          {
+            "node": "Upload to Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "secondbrain",
+      "createdAt": "2024-12-01T00:00:00.000Z",
+      "updatedAt": "2024-12-01T00:00:00.000Z"
+    },
+    {
+      "name": "obsidian",
+      "createdAt": "2024-12-01T00:00:00.000Z",
+      "updatedAt": "2024-12-01T00:00:00.000Z"
+    },
+    {
+      "name": "sync",
+      "createdAt": "2024-12-01T00:00:00.000Z",
+      "updatedAt": "2024-12-01T00:00:00.000Z"
+    }
+  ],
+  "triggerCount": 2,
+  "updatedAt": "2024-12-18T00:00:00.000Z",
+  "versionId": "1"
+}

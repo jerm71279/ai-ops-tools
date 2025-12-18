@@ -1,0 +1,360 @@
+{
+  "name": "Secondbrain - Document Ingestion Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 2 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily Schedule (2 AM)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 200]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ingest",
+        "authentication": "headerAuth",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger (Secured)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 400],
+      "webhookId": "secondbrain-ingest",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CREDENTIAL_ID",
+          "name": "Secondbrain API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "siteId": "={{ $env.SHAREPOINT_SITE_ID }}",
+        "driveId": "={{ $env.SHAREPOINT_DRIVE_ID }}",
+        "folderPath": "={{ $env.SHAREPOINT_FOLDER_PATH || '/Shared Documents' }}",
+        "options": {
+          "recursive": true
+        }
+      },
+      "id": "sharepoint-list",
+      "name": "List SharePoint Files",
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [250, 100],
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "CREDENTIAL_ID",
+          "name": "Microsoft SharePoint OAuth2"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "filter-file-types",
+              "leftValue": "={{ $json.name }}",
+              "rightValue": "\\.(pdf|docx|md|txt)$",
+              "operator": {
+                "type": "string",
+                "operation": "regex"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "filter-files",
+      "name": "Filter Supported Files",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [450, 100]
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": "={{ $json.id }}",
+        "siteId": "={{ $env.SHAREPOINT_SITE_ID }}",
+        "driveId": "={{ $env.SHAREPOINT_DRIVE_ID }}"
+      },
+      "id": "sharepoint-download",
+      "name": "Download File",
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [650, 100],
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "CREDENTIAL_ID",
+          "name": "Microsoft SharePoint OAuth2"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "id": "extract-pdf",
+      "name": "Extract PDF Text",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [850, 0]
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "id": "extract-text",
+      "name": "Extract Text/Markdown",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [850, 200]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-pdf",
+              "leftValue": "={{ $json.name }}",
+              "rightValue": "\\.pdf$",
+              "operator": {
+                "type": "string",
+                "operation": "regex"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "route-by-type",
+      "name": "Route by File Type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [750, 100]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "merge-extracted",
+      "name": "Merge Extracted Text",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [1050, 100]
+    },
+    {
+      "parameters": {
+        "chunkSize": 500,
+        "chunkOverlap": 50,
+        "options": {
+          "chunkingMode": "advancedSplitter"
+        }
+      },
+      "id": "text-splitter",
+      "name": "Recursive Text Splitter",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [1250, 100]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "set-metadata",
+              "name": "metadata",
+              "value": "={{ { source_file: $json.fileName, sharepoint_path: $json.webUrl, modified_date: $json.lastModifiedDateTime, chunk_index: $itemIndex, content_type: $json.file?.mimeType || 'text/plain' } }}",
+              "type": "object"
+            },
+            {
+              "id": "set-content",
+              "name": "content",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "prepare-chunks",
+      "name": "Prepare Chunk Metadata",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1450, 100]
+    },
+    {
+      "parameters": {
+        "modelId": "claude-3-haiku-20240307",
+        "options": {}
+      },
+      "id": "anthropic-embeddings",
+      "name": "Anthropic Embeddings",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsAnthropic",
+      "typeVersion": 1,
+      "position": [1650, 200],
+      "credentials": {
+        "anthropicApi": {
+          "id": "CREDENTIAL_ID",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "={{ $env.QDRANT_COLLECTION || 'oberaconnect-docs' }}",
+          "mode": "raw"
+        },
+        "options": {
+          "clearCollection": false
+        }
+      },
+      "id": "qdrant-upsert",
+      "name": "Qdrant Vector Store",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [1650, 100],
+      "credentials": {
+        "qdrantApi": {
+          "id": "CREDENTIAL_ID",
+          "name": "Qdrant API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "count-processed",
+              "name": "summary",
+              "value": "={{ { processed_files: $items.length, timestamp: new Date().toISOString(), status: 'complete' } }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "summary",
+      "name": "Generate Summary",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1850, 100]
+    },
+    {
+      "parameters": {
+        "errorMessage": "={{ 'Ingestion failed: ' + $json.error?.message || 'Unknown error' }}"
+      },
+      "id": "error-handler",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "content": "## Document Ingestion Pipeline (SECURED)\n\n**Authentication**: Webhook requires API Key in X-API-Key header\n\n### Triggers:\n- **Scheduled**: Daily at 2 AM\n- **Manual**: Click 'Execute Workflow'\n- **Webhook**: POST to `/webhook/ingest` (API key required)\n\n### Security:\n- SharePoint OAuth2 credentials stored in n8n\n- Webhook protected by header auth\n- Qdrant requires API key",
+        "height": 360,
+        "width": 340,
+        "color": 4
+      },
+      "id": "sticky-note",
+      "name": "Documentation",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-300, -100]
+    }
+  ],
+  "connections": {
+    "Daily Schedule (2 AM)": {
+      "main": [[{"node": "List SharePoint Files", "type": "main", "index": 0}]]
+    },
+    "Manual Trigger": {
+      "main": [[{"node": "List SharePoint Files", "type": "main", "index": 0}]]
+    },
+    "Webhook Trigger (Secured)": {
+      "main": [[{"node": "List SharePoint Files", "type": "main", "index": 0}]]
+    },
+    "List SharePoint Files": {
+      "main": [[{"node": "Filter Supported Files", "type": "main", "index": 0}]],
+      "error": [[{"node": "Error Handler", "type": "main", "index": 0}]]
+    },
+    "Filter Supported Files": {
+      "main": [[{"node": "Download File", "type": "main", "index": 0}]]
+    },
+    "Download File": {
+      "main": [[{"node": "Route by File Type", "type": "main", "index": 0}]],
+      "error": [[{"node": "Error Handler", "type": "main", "index": 0}]]
+    },
+    "Route by File Type": {
+      "main": [
+        [{"node": "Extract PDF Text", "type": "main", "index": 0}],
+        [{"node": "Extract Text/Markdown", "type": "main", "index": 0}]
+      ]
+    },
+    "Extract PDF Text": {
+      "main": [[{"node": "Merge Extracted Text", "type": "main", "index": 0}]]
+    },
+    "Extract Text/Markdown": {
+      "main": [[{"node": "Merge Extracted Text", "type": "main", "index": 1}]]
+    },
+    "Merge Extracted Text": {
+      "main": [[{"node": "Recursive Text Splitter", "type": "main", "index": 0}]]
+    },
+    "Recursive Text Splitter": {
+      "main": [[{"node": "Prepare Chunk Metadata", "type": "main", "index": 0}]]
+    },
+    "Prepare Chunk Metadata": {
+      "main": [[{"node": "Qdrant Vector Store", "type": "main", "index": 0}]]
+    },
+    "Qdrant Vector Store": {
+      "main": [[{"node": "Generate Summary", "type": "main", "index": 0}]]
+    },
+    "Anthropic Embeddings": {
+      "ai_embedding": [[{"node": "Qdrant Vector Store", "type": "ai_embedding", "index": 0}]]
+    }
+  },
+  "settings": {"executionOrder": "v1"},
+  "tags": [{"name": "secondbrain"}, {"name": "ingestion"}, {"name": "secured"}]
+}
