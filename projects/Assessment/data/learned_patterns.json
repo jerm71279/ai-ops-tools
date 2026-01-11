@@ -1,0 +1,83 @@
+{
+  "finding_correlations": {
+    "No MFA on privileged accounts": {
+      "count": 1,
+      "severity": "critical",
+      "category": "Identity",
+      "avg_score_impact": 15.0,
+      "total_score_impact": 15
+    },
+    "Stale user accounts present": {
+      "count": 1,
+      "severity": "medium",
+      "category": "Identity",
+      "avg_score_impact": 5.0,
+      "total_score_impact": 5
+    },
+    "Outdated antivirus definitions": {
+      "count": 1,
+      "severity": "high",
+      "category": "Endpoint",
+      "avg_score_impact": 10.0,
+      "total_score_impact": 10
+    },
+    "No offsite backup verification": {
+      "count": 1,
+      "severity": "high",
+      "category": "Backup",
+      "avg_score_impact": 12.0,
+      "total_score_impact": 12
+    },
+    "Default credentials on network devices": {
+      "count": 1,
+      "severity": "critical",
+      "category": "Network",
+      "avg_score_impact": 15.0,
+      "total_score_impact": 15
+    },
+    "No DMARC policy configured": {
+      "count": 1,
+      "severity": "medium",
+      "category": "Email",
+      "avg_score_impact": 8.0,
+      "total_score_impact": 8
+    }
+  },
+  "industry_patterns": {
+    "manufacturing": {
+      "assessments": 1,
+      "avg_score": 35.0,
+      "total_score": 35.0
+    }
+  },
+  "technology_patterns": {
+    "Microsoft 365": {
+      "assessments": 1,
+      "common_findings": []
+    },
+    "Azure AD": {
+      "assessments": 1,
+      "common_findings": []
+    },
+    "Windows Server": {
+      "assessments": 1,
+      "common_findings": []
+    },
+    "Sophos": {
+      "assessments": 1,
+      "common_findings": []
+    }
+  },
+  "severity_distributions": {
+    "critical": 2,
+    "medium": 2,
+    "high": 2
+  },
+  "remediation_success_rates": {},
+  "data_moat_metrics": {
+    "total_patterns": 6,
+    "unique_industries": 1,
+    "unique_technologies": 4
+  },
+  "last_updated": "2025-11-28T10:05:36.009298"
+}

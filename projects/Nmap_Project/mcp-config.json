@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "nmap-network-discovery": {
+      "command": "docker",
+      "args": [
+        "exec",
+        "-i",
+        "kali-network-discovery",
+        "python3",
+        "/usr/local/bin/mcp-nmap-server"
+      ],
+      "description": "Nmap network discovery server running in Kali Linux Docker container"
+    }
+  }
+}

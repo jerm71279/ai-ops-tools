@@ -1,0 +1,12 @@
+{
+  "scans": [],
+  "aggregates": {
+    "total_scans": 0,
+    "successful_scans": 0,
+    "failed_scans": 0,
+    "avg_duration_seconds": 0,
+    "avg_hosts_per_scan": 0
+  },
+  "performance_trends": {},
+  "last_updated": null
+}

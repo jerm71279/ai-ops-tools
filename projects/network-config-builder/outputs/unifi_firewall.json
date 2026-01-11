@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "generator": "Multi-Vendor Network Config Builder"
+  },
+  "firewall_rules": [
+    {
+      "name": "Allow LAN to WAN",
+      "enabled": true,
+      "action": "accept",
+      "protocol_match_excepted": false,
+      "src_networkconf_id": "LAN",
+      "dst_networkconf_id": "WAN",
+      "logging": false,
+      "state_new": true,
+      "state_established": true,
+      "state_related": true
+    },
+    {
+      "name": "Allow Guest to WAN",
+      "enabled": true,
+      "action": "accept",
+      "src_networkconf_id": "Guest",
+      "dst_networkconf_id": "WAN"
+    },
+    {
+      "name": "Deny Guest to LAN",
+      "enabled": true,
+      "action": "drop",
+      "src_networkconf_id": "Guest",
+      "dst_networkconf_id": "LAN",
+      "logging": true
+    }
+  ]
+}

@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Installation Detailed Task List</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .controls {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #764ba2;
+        }
+
+        .phase {
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+        .phase-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .phase-title {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .phase-subtitle {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        .section {
+            margin: 25px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            color: #764ba2;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #764ba2;
+        }
+
+        .task {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+
+        .task-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .task-details {
+            margin-left: 20px;
+        }
+
+        .task-details ul {
+            list-style: none;
+            margin: 10px 0;
+        }
+
+        .task-details li {
+            padding: 5px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .task-details li:before {
+            content: "▸";
+            position: absolute;
+            left: 5px;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .tech-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .badge-sonicwall {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .badge-mikrotik {
+            background: #4ecdc4;
+            color: white;
+        }
+
+        .badge-unifi {
+            background: #45b7d1;
+            color: white;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .toc h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            padding: 5px 0;
+        }
+
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .toc a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .controls {
+                display: none;
+            }
+            .phase {
+                page-break-inside: avoid;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            .phase-title {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Network Installation Detailed Task List</h1>
+        <div class="subtitle">Complete Technical Guide for SonicWall, MikroTik & UniFi Deployments</div>
+
+        <div class="controls">
+            <button onclick="window.print()">🖨️ Print Task List</button>
+            <button onclick="location.href='network_install_workflow_interactive.html'">📋 Interactive Checklist</button>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h2>📑 Table of Contents</h2>
+            <ul>
+                <li><a href="#phase1">Phase 1: Network Discovery & Assessment (Onsite Pre-sales)</a></li>
+                <li><a href="#phase2">Phase 2: Recommendation & Design (Before SOW Quote)</a></li>
+                <li><a href="#phase3">Phase 3: Pre-Configuration & Preparation (After Quote Signed)</a></li>
+                <li><a href="#phase4">Phase 4: Installation Day (On-site Install)</a></li>
+                <li><a href="#phase5">Phase 5: Post-Installation & Handoff</a></li>
+                <li><a href="#ongoing">Ongoing Maintenance</a></li>
+            </ul>
+        </div>
+
+        <!-- PHASE 1 -->
+        <div class="phase" id="phase1">
+            <div class="phase-header">
+                <div>
+                    <div class="phase-title">PHASE 1</div>
+                    <div class="phase-subtitle">Network Discovery & Assessment → Onsite Pre-sales</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Initial Site Survey</div>
+
+                <div class="task">
+                    <div class="task-title">1. Schedule On-site Discovery Session</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Contact customer to schedule discovery session</li>
+                            <li>Prepare site survey checklist and tools</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">2. Document Current Network Topology</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li><strong>Identify existing network devices:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>SonicWall firewalls (model, firmware, licenses)</li>
+                                    <li>MikroTik routers (model, RouterOS version)</li>
+                                    <li>UniFi gateways, switches, APs (model numbers)</li>
+                                    <li>Note serial numbers for warranty/support</li>
+                                </ul>
+                            </li>
+                            <li><strong>Map IP addressing scheme and VLAN structure:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Current IP addressing scheme</li>
+                                    <li>VLAN IDs and purposes</li>
+                                    <li>DHCP scopes and ranges</li>
+                                    <li>Static IP assignments</li>
+                                </ul>
+                            </li>
+                            <li><strong>Document internet connection type and bandwidth:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>ISP provider and circuit type</li>
+                                    <li>Bandwidth (upload/download)</li>
+                                    <li>Static IPs available</li>
+                                    <li>Gateway/DNS information</li>
+                                </ul>
+                            </li>
+                            <li><strong>Identify critical systems and devices:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Servers and their network requirements</li>
+                                    <li>VoIP systems</li>
+                                    <li>Security systems (cameras, access control)</li>
+                                    <li>IoT devices</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">3. Assess Physical Infrastructure</div>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li><strong>Evaluate existing cabling (Cat5e/6, fiber):</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Test existing Cat5e/6 runs</li>
+                                    <li>Identify fiber connections</li>
+                                    <li>Note cable lengths and patch panel organization</li>
+                                    <li>Document any cable management needs</li>
+                                </ul>
+                            </li>
+                            <li><strong>Check rack space availability:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Available rack units (RU)</li>
+                                    <li>Rack dimensions and depth</li>
+                                    <li>Cable management space</li>
+                                    <li>Ventilation and cooling</li>
+                                </ul>
+                            </li>
+                            <li><strong>Identify mounting locations for access points:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Ceiling height and material</li>
+                                    <li>Wall mount feasibility</li>
+                                    <li>Coverage requirements per area</li>
+                                    <li>Aesthetic considerations</li>
+                                </ul>
+                            </li>
+                            <li><strong>Verify power availability (PoE requirements, UPS):</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>PoE switch capacity needed</li>
+                                    <li>PoE+ for UniFi APs (802.3at/bt)</li>
+                                    <li>UPS capacity and runtime</li>
+                                    <li>Power outlet availability</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">4. Gather Business Requirements</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li><strong>Number of users and devices:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Employees per department</li>
+                                    <li>Workstations, laptops, mobile devices</li>
+                                    <li>Printers and peripherals</li>
+                                    <li>Growth projections (1-3 years)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Bandwidth requirements per department/function:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Per-user bandwidth needs</li>
+                                    <li>Department-specific requirements</li>
+                                    <li>Application bandwidth (VoIP, video, cloud)</li>
+                                    <li>Peak usage times</li>
+                                </ul>
+                            </li>
+                            <li><strong>Guest network requirements:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Guest access method (portal, vouchers, password)</li>
+                                    <li>UniFi guest portal customization needs</li>
+                                    <li>Bandwidth limitations</li>
+                                    <li>Access duration/time limits</li>
+                                </ul>
+                            </li>
+                            <li><strong>Security and compliance requirements:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Industry compliance (HIPAA, PCI-DSS, etc.)</li>
+                                    <li>SonicWall security services needed (IPS, GAV, CF)</li>
+                                    <li>Content filtering requirements</li>
+                                    <li>VPN access requirements</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Network Analysis</div>
+
+                <div class="task">
+                    <div class="task-title">5. Conduct Wireless Site Survey (if applicable)</div>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li><strong>Identify RF interference sources:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Use UniFi WiFiman app for site survey</li>
+                                    <li>Identify 2.4GHz/5GHz/6GHz interference</li>
+                                    <li>Check for neighboring APs</li>
+                                    <li>Note RF-blocking materials</li>
+                                </ul>
+                            </li>
+                            <li><strong>Determine AP placement and quantity:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Coverage area per AP type (U6/U7 Lite/LR/Pro)</li>
+                                    <li>High-density area requirements</li>
+                                    <li>Outdoor AP needs</li>
+                                    <li>Channel planning for minimal interference</li>
+                                </ul>
+                            </li>
+                            <li><strong>Plan channel allocation:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>2.4GHz channel selection (1, 6, 11)</li>
+                                    <li>5GHz channel width (20/40/80/160MHz)</li>
+                                    <li>DFS channels consideration</li>
+                                    <li>Channel bonding strategy</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">6. Analyze Traffic Patterns and Bottlenecks</div>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Current bandwidth utilization</li>
+                            <li>Top talkers and applications</li>
+                            <li>Identify bottlenecks</li>
+                            <li>QoS requirements for MikroTik/UniFi</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">7. Document Security Gaps and Vulnerabilities</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Audit current SonicWall firewall rules</li>
+                            <li>Review existing security policies</li>
+                            <li>Identify vulnerabilities</li>
+                            <li>Document security incidents</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">8. Identify Single Points of Failure</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Single points of failure</li>
+                            <li>Backup internet connection needs</li>
+                            <li>Redundant gateway requirements</li>
+                            <li>Switch stacking/failover options</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">9. Review Backup and Redundancy Needs</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Configuration backup procedures</li>
+                            <li>Failover mechanisms (SonicWall HA, MikroTik VRRP)</li>
+                            <li>UniFi controller backup strategy</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Documentation Deliverables</div>
+
+                <div class="task">
+                    <div class="task-title">10. Create Network Diagram (Current State)</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Current state topology</li>
+                            <li>All SonicWall, MikroTik, UniFi devices</li>
+                            <li>VLAN layout</li>
+                            <li>IP addressing scheme</li>
+                            <li>Use draw.io, Visio, or Lucidchart</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">11. Document Findings Report</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Site survey summary</li>
+                            <li>Current state assessment</li>
+                            <li>Identified issues and risks</li>
+                            <li>Recommendations overview</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PHASE 2 -->
+        <div class="phase" id="phase2">
+            <div class="phase-header">
+                <div>
+                    <div class="phase-title">PHASE 2</div>
+                    <div class="phase-subtitle">Recommendation & Design → After Phase 1 before SOW Quote</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Device Recommendations</div>
+
+                <div class="task">
+                    <div class="task-title">12. Core Router/Firewall Selection</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li><strong>SonicWall Firewall Options:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>TZ series (small office): TZ270, TZ370, TZ470, TZ570</li>
+                                    <li>NSa series (mid-size): NSa 2700, NSa 3700, NSa 4700</li>
+                                    <li>NSsp series (large/enterprise): NSsp 10700, NSsp 11700</li>
+                                    <li>Best for: Advanced security features, IPS, content filtering</li>
+                                </ul>
+                            </li>
+                            <li><strong>MikroTik Router Options:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Small office: hEX S, RB5009</li>
+                                    <li>Mid-size: CCR1009, CCR1036, CCR2004</li>
+                                    <li>Enterprise: CCR2116, CCR2216</li>
+                                    <li>Consider RouterOS license level and throughput needs</li>
+                                    <li>Best for: Advanced routing, MPLS, BGP requirements</li>
+                                </ul>
+                            </li>
+                            <li><strong>UniFi Gateway Options:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Small office: Dream Machine (UDM), Dream Machine SE</li>
+                                    <li>Mid-size: Dream Machine Pro (UDM-Pro)</li>
+                                    <li>Enterprise: UXG-Pro, UXG-Max</li>
+                                    <li>Consider IPS/IDS throughput and DPI requirements</li>
+                                    <li>Best for: Unified management, simplified deployments</li>
+                                </ul>
+                            </li>
+                            <li><strong>Selection criteria:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Throughput requirements and user count</li>
+                                    <li>Feature needs (VPN, IPS, content filtering)</li>
+                                    <li>Management preferences (cloud vs local)</li>
+                                    <li>Budget and licensing considerations</li>
+                                </ul>
+                            </li>
+                            <li><strong>Throughput requirements:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Firewall throughput (Mbps)</li>
+                                    <li>IPS/GAV throughput</li>
+                                    <li>VPN throughput</li>
+                                    <li>SSL inspection throughput</li>
+                                    <li>Concurrent connections needed</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Design Documentation</div>
+
+                <div class="task">
+                    <div class="task-title">13. Create Proposed Network Topology Diagram</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Include all recommended SonicWall, MikroTik, UniFi devices</li>
+                            <li>Show VLAN segmentation</li>
+                            <li>Indicate redundancy paths</li>
+                            <li>Label all connections and ports</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">14. Define IP Addressing and VLAN Scheme</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li><strong>Management VLAN:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Dedicated VLAN for network equipment</li>
+                                    <li>Recommended: VLAN 10, 10.x.10.0/24</li>
+                                    <li>Access restricted to IT staff</li>
+                                    <li>SonicWall, MikroTik, UniFi management IPs</li>
+                                </ul>
+                            </li>
+                            <li><strong>User/Data VLANs:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Department-based VLANs</li>
+                                    <li>Example: VLAN 20 (10.x.20.0/24) - Staff</li>
+                                    <li>Appropriate firewall rules between VLANs</li>
+                                    <li>Configure in UniFi Networks</li>
+                                </ul>
+                            </li>
+                            <li><strong>Voice VLAN:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Dedicated VLAN for VoIP phones</li>
+                                    <li>QoS priority on UniFi switches</li>
+                                    <li>Recommended: VLAN 30, 10.x.30.0/24</li>
+                                    <li>DSCP tagging for voice traffic</li>
+                                </ul>
+                            </li>
+                            <li><strong>Guest VLAN:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Isolated network for guests</li>
+                                    <li>Internet-only access (no local network)</li>
+                                    <li>Recommended: VLAN 40, 10.x.40.0/24</li>
+                                    <li>UniFi guest portal integration</li>
+                                    <li>Bandwidth limitations</li>
+                                </ul>
+                            </li>
+                            <li><strong>IoT/Security VLAN:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Isolated VLAN for IoT devices</li>
+                                    <li>Security cameras, access control</li>
+                                    <li>Recommended: VLAN 50, 10.x.50.0/24</li>
+                                    <li>Restricted internet access via SonicWall</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">15. Plan Wireless Network Architecture</div>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li><strong>SSID naming and security:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Corporate SSID (WPA3-Enterprise or WPA2/3)</li>
+                                    <li>Guest SSID with captive portal</li>
+                                    <li>IoT SSID (separate from corporate)</li>
+                                    <li>Hidden SSIDs if required</li>
+                                </ul>
+                            </li>
+                            <li><strong>AP coverage map:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>AP placement on floor plan</li>
+                                    <li>Coverage overlap for roaming</li>
+                                    <li>Minimum -67dBm signal strength</li>
+                                    <li>High-density areas (conference rooms)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">16. Design Security Policies</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li><strong>Firewall rules:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Zone-based security policies</li>
+                                    <li>Allow/deny rules between VLANs</li>
+                                    <li>Application control rules</li>
+                                    <li>Geo-IP filtering</li>
+                                    <li>Schedule-based rules</li>
+                                </ul>
+                            </li>
+                            <li><strong>Access control lists:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>MikroTik firewall filter rules</li>
+                                    <li>UniFi firewall groups and rules</li>
+                                    <li>Port-based access control</li>
+                                    <li>MAC filtering if required</li>
+                                </ul>
+                            </li>
+                            <li><strong>Guest portal requirements:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>UniFi guest portal customization</li>
+                                    <li>Landing page branding</li>
+                                    <li>Authentication method (voucher, password, social)</li>
+                                    <li>Terms of service acceptance</li>
+                                    <li>Usage time limits</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">17. Plan Redundancy and Failover</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Dual WAN failover (SonicWall/MikroTik)</li>
+                            <li>Switch stacking (UniFi switch redundancy)</li>
+                            <li>Power redundancy (dual PSU, UPS)</li>
+                            <li>UniFi controller backup</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">18. Develop Naming Conventions for Devices</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Location-Type-Number format</li>
+                            <li>Example: HQ-SW-01, HQ-AP-02</li>
+                            <li>Consistent across all platforms</li>
+                            <li>Document in spreadsheet</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PHASE 3 -->
+        <div class="phase" id="phase3">
+            <div class="phase-header">
+                <div>
+                    <div class="phase-title">PHASE 3</div>
+                    <div class="phase-subtitle">Pre-Configuration & Preparation → After Quote is Signed</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Pre-Configuration</div>
+
+                <div class="task">
+                    <div class="task-title">19. Create Configuration Templates</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li><strong>SonicWall base configuration:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Zone configuration (WAN, LAN, DMZ)</li>
+                                    <li>Basic security policies</li>
+                                    <li>NAT policies</li>
+                                    <li>VPN settings</li>
+                                    <li>IPS/GAV/Content Filtering</li>
+                                    <li>Admin access restrictions</li>
+                                </ul>
+                            </li>
+                            <li><strong>MikroTik base configuration:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>IP addressing</li>
+                                    <li>Firewall filter rules</li>
+                                    <li>NAT rules</li>
+                                    <li>DHCP server</li>
+                                    <li>DNS settings</li>
+                                    <li>User management</li>
+                                </ul>
+                            </li>
+                            <li><strong>UniFi configuration template:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Network (VLAN) definitions</li>
+                                    <li>WiFi network profiles</li>
+                                    <li>Switch port profiles</li>
+                                    <li>Firewall rules</li>
+                                    <li>Traffic management rules</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">20. Configure Devices in Lab/Staging Environment</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li><strong>Set management IPs:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Assign static IPs to all devices</li>
+                                    <li>SonicWall management IP (LAN interface)</li>
+                                    <li>MikroTik management IP</li>
+                                    <li>UniFi gateway, switches, APs</li>
+                                    <li>Document in IP spreadsheet</li>
+                                </ul>
+                            </li>
+                            <li><strong>Configure VLANs and trunking:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Configure VLANs on UniFi gateway</li>
+                                    <li>Set trunk ports on UniFi switches</li>
+                                    <li>Configure MikroTik VLAN interfaces if used</li>
+                                    <li>Test inter-VLAN routing</li>
+                                </ul>
+                            </li>
+                            <li><strong>Apply security policies:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Apply SonicWall security rules</li>
+                                    <li>Configure MikroTik firewall filters</li>
+                                    <li>Set UniFi firewall groups and rules</li>
+                                    <li>Enable IPS on SonicWall</li>
+                                    <li>Test rule effectiveness</li>
+                                </ul>
+                            </li>
+                            <li><strong>Set up wireless controller and SSIDs:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Create WiFi networks in controller</li>
+                                    <li>Configure WPA2/3 Enterprise (RADIUS) if needed</li>
+                                    <li>Set channel width and power levels</li>
+                                    <li>Enable band steering and fast roaming</li>
+                                    <li>Configure guest portal</li>
+                                </ul>
+                            </li>
+                            <li><strong>Configure monitoring/management access:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Configure SNMP on all devices</li>
+                                    <li>Set up syslog forwarding</li>
+                                    <li>Enable remote management (secure)</li>
+                                    <li>Configure email alerts</li>
+                                    <li>Test access from management workstation</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">21. Test Configurations</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li><strong>Verify connectivity:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Test internet connectivity through SonicWall/MikroTik</li>
+                                    <li>Verify DHCP on all VLANs</li>
+                                    <li>Test DNS resolution</li>
+                                    <li>Confirm gateway redundancy</li>
+                                </ul>
+                            </li>
+                            <li><strong>Test VLAN routing:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Test communication between allowed VLANs</li>
+                                    <li>Verify blocked traffic between isolated VLANs</li>
+                                    <li>Test guest network isolation</li>
+                                    <li>Confirm IoT VLAN restrictions</li>
+                                </ul>
+                            </li>
+                            <li><strong>Validate security rules:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Test SonicWall IPS/GAV/Content Filtering</li>
+                                    <li>Verify firewall rule order and effectiveness</li>
+                                    <li>Test VPN connectivity</li>
+                                    <li>Check application control rules</li>
+                                </ul>
+                            </li>
+                            <li><strong>Check wireless functionality:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Connect devices to all SSIDs</li>
+                                    <li>Test UniFi guest portal</li>
+                                    <li>Verify roaming between APs</li>
+                                    <li>Check band steering</li>
+                                    <li>Test WiFi speeds</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">22. Document All Configurations</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Export SonicWall configuration</li>
+                            <li>Save MikroTik .rsc backup</li>
+                            <li>Backup UniFi site</li>
+                            <li>Document all settings in spreadsheet</li>
+                            <li>Create network diagram with IPs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">23. Create Device Labels with IP Addresses</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Print labels with device name and management IP</li>
+                            <li>Label physical ports (WAN, LAN, etc.)</li>
+                            <li>Cable labels for identification</li>
+                            <li>QR codes for quick access (optional)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Installation Planning</div>
+
+                <div class="task">
+                    <div class="task-title">24. Schedule Installation Date/Time with Customer</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Coordinate date/time</li>
+                            <li>Confirm key personnel availability</li>
+                            <li>Plan for after-hours if needed</li>
+                            <li>Send calendar invites</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">25. Coordinate Downtime Window (if required)</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Identify acceptable downtime window</li>
+                            <li>Plan cutover strategy</li>
+                            <li>Notify users of outage</li>
+                            <li>Prepare rollback plan</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">26. Assign Installation Team Roles</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Lead technician (overall coordination)</li>
+                            <li>Network engineer (config/troubleshooting)</li>
+                            <li>Cabling technician</li>
+                            <li>Support staff (user assistance)</li>
+                            <li>Assign backup resources</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">27. Brief Team on Installation Plan</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Review installation sequence</li>
+                            <li>Discuss potential issues</li>
+                            <li>Review rollback procedures</li>
+                            <li>Confirm tool/equipment checklist</li>
+                            <li>Q&A session</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PHASE 4 -->
+        <div class="phase" id="phase4">
+            <div class="phase-header">
+                <div>
+                    <div class="phase-title">PHASE 4</div>
+                    <div class="phase-subtitle">Installation Day → On-site Install</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Configuration & Cutover</div>
+
+                <div class="task">
+                    <div class="task-title">28. Connect to Each Device and Verify Config</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Console into each device</li>
+                            <li>Verify running configuration</li>
+                            <li>Check firmware versions</li>
+                            <li>Confirm management IP accessibility</li>
+                            <li>Test initial connectivity</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">29. Upload Final Configurations</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Restore SonicWall configuration backup</li>
+                            <li>Apply MikroTik .rsc configuration</li>
+                            <li>Push UniFi settings from controller</li>
+                            <li>Verify all services enabled</li>
+                            <li>Check device synchronization</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">30. Establish Internet Connectivity</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Connect WAN to ISP equipment</li>
+                            <li>Verify SonicWall/MikroTik WAN IP</li>
+                            <li>Test internet connectivity</li>
+                            <li>Configure DNS (primary/secondary)</li>
+                            <li>Test external connectivity</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">31. Configure and Test Inter-VLAN Routing</div>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Verify UniFi VLAN routing</li>
+                            <li>Test connectivity between VLANs</li>
+                            <li>Confirm firewall rules applied</li>
+                            <li>Check routing tables on MikroTik (if used)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">32. Verify Wireless Network Operation</div>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Verify all UniFi APs online in controller</li>
+                            <li>Check SSID broadcasting</li>
+                            <li>Test WiFi authentication</li>
+                            <li>Verify guest portal functionality</li>
+                            <li>Check signal strength coverage</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">33. Test Connectivity from Each VLAN</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Test connectivity from Management VLAN</li>
+                            <li>Test from User/Data VLANs</li>
+                            <li>Test Voice VLAN (VoIP phones)</li>
+                            <li>Test Guest VLAN (internet-only)</li>
+                            <li>Test IoT/Security VLAN</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">34. Migrate Devices to New Network (if applicable)</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Migrate workstations to new network</li>
+                            <li>Reconnect printers to VLANs</li>
+                            <li>Migrate VoIP phones</li>
+                            <li>Update static IP devices</li>
+                            <li>Test application connectivity</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">35. Update DHCP Scopes and DNS Settings</div>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Configure DHCP scopes on UniFi/MikroTik</li>
+                            <li>Set DHCP reservations for servers/printers</li>
+                            <li>Configure DNS forwarding</li>
+                            <li>Set custom DNS entries if needed</li>
+                            <li>Test DHCP assignments</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Testing & Validation</div>
+
+                <div class="task">
+                    <div class="task-title">36. Test Internet Connectivity from All VLANs</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Test from each VLAN</li>
+                            <li>Verify SonicWall security services active</li>
+                            <li>Test website access (HTTP/HTTPS)</li>
+                            <li>Verify content filtering</li>
+                            <li>Check DNS resolution</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">37. Verify Wireless Coverage and Performance</div>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Walk site with UniFi WiFiman app</li>
+                            <li>Test coverage in all areas</li>
+                            <li>Verify -67dBm or better signal</li>
+                            <li>Test roaming between UniFi APs</li>
+                            <li>Check for dead zones</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">38. Test Guest Network Isolation</div>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Connect to guest WiFi</li>
+                            <li>Verify internet access works</li>
+                            <li>Confirm no local network access</li>
+                            <li>Test UniFi guest portal</li>
+                            <li>Verify bandwidth limits applied</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">39. Validate Firewall Rules</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Test firewall rules (allow/deny)</li>
+                            <li>Verify IPS detection and blocking</li>
+                            <li>Test GAV/Content Filtering</li>
+                            <li>Check application control</li>
+                            <li>Review security logs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">40. Check VPN Connectivity (if applicable)</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Test SonicWall SSL-VPN or IPSec</li>
+                            <li>Test MikroTik L2TP/IPSec VPN</li>
+                            <li>Verify remote access functionality</li>
+                            <li>Test split-tunnel vs full-tunnel</li>
+                            <li>Check VPN performance</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">41. Test Failover/Redundancy Mechanisms</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Test dual-WAN failover (if configured)</li>
+                            <li>Verify backup internet cutover</li>
+                            <li>Test switch redundancy</li>
+                            <li>Power failure simulation (UPS)</li>
+                            <li>Document failover times</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">42. Verify Critical Applications are Accessible</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Test LOB applications</li>
+                            <li>Verify file server access</li>
+                            <li>Test email connectivity</li>
+                            <li>Check VoIP call quality</li>
+                            <li>Test printer functionality</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">43. Run Speed Tests from Multiple Locations</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Run speed tests from multiple locations</li>
+                            <li>Test from each VLAN</li>
+                            <li>Verify speeds meet ISP plan</li>
+                            <li>Test WiFi speeds vs wired</li>
+                            <li>Document results</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">44. Test Roaming Between APs</div>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Walk site while connected to WiFi</li>
+                            <li>Monitor UniFi controller for roaming events</li>
+                            <li>Verify seamless handoff between APs</li>
+                            <li>Test VoIP during roaming</li>
+                            <li>Check for connection drops</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PHASE 5 -->
+        <div class="phase" id="phase5">
+            <div class="phase-header">
+                <div>
+                    <div class="phase-title">PHASE 5</div>
+                    <div class="phase-subtitle">Post-Installation & Handoff</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Monitoring & Optimization</div>
+
+                <div class="task">
+                    <div class="task-title">45. Configure Network Monitoring</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li><strong>Set up SNMP monitoring:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Enable SNMP v2c/v3 on all devices</li>
+                                    <li>Configure community strings (secure)</li>
+                                    <li>Set up monitoring in NinjaOne RMM</li>
+                                    <li>Test SNMP polling</li>
+                                </ul>
+                            </li>
+                            <li><strong>Configure alerts and notifications:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>SonicWall email alerts (high CPU, attacks, failures)</li>
+                                    <li>UniFi notification settings (device offline, high clients)</li>
+                                    <li>MikroTik email alerts</li>
+                                    <li>Configure alert recipients</li>
+                                    <li>Test alert delivery</li>
+                                </ul>
+                            </li>
+                            <li><strong>Enable logging:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Enable SonicWall syslog forwarding</li>
+                                    <li>Configure MikroTik logging</li>
+                                    <li>Enable UniFi remote logging</li>
+                                    <li>Set log retention periods</li>
+                                    <li>Configure log analysis tools</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">46. Add Devices to Management Platform</div>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li><strong>NinjaOne/RMM integration:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Add all network devices</li>
+                                    <li>Configure SNMP monitoring</li>
+                                    <li>Set up device health checks</li>
+                                    <li>Configure automated alerts</li>
+                                    <li>Create device documentation</li>
+                                </ul>
+                            </li>
+                            <li><strong>Network management controller:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Ensure UniFi controller accessible</li>
+                                    <li>Configure remote access (if cloud)</li>
+                                    <li>Set up automatic backups</li>
+                                    <li>Configure UniFi mobile app access</li>
+                                    <li>Test remote management</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">47. Monitor for First 24-48 Hours</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li><strong>Check for errors or warnings:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Review SonicWall logs daily</li>
+                                    <li>Check UniFi insights and alerts</li>
+                                    <li>Monitor MikroTik logs</li>
+                                    <li>Review RMM alerts</li>
+                                    <li>Document any issues</li>
+                                </ul>
+                            </li>
+                            <li><strong>Optimize wireless channels if needed:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Review UniFi RF environment</li>
+                                    <li>Adjust channel assignments if needed</li>
+                                    <li>Optimize AP power levels</li>
+                                    <li>Address any coverage gaps</li>
+                                    <li>Fine-tune band steering</li>
+                                </ul>
+                            </li>
+                            <li><strong>Adjust QoS policies:</strong>
+                                <ul style="margin-left: 20px; list-style: disc;">
+                                    <li>Review traffic statistics</li>
+                                    <li>Adjust UniFi traffic management rules</li>
+                                    <li>Fine-tune MikroTik queue trees</li>
+                                    <li>Optimize VoIP QoS</li>
+                                    <li>Monitor bandwidth usage</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Project Closeout</div>
+
+                <div class="task">
+                    <div class="task-title">48. Conduct Final Walkthrough with Customer</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Review installation completion</li>
+                            <li>Demonstrate network functionality</li>
+                            <li>Walk through WiFi coverage</li>
+                            <li>Review security features</li>
+                            <li>Address any questions</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">49. Obtain Customer Sign-off</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Complete installation checklist</li>
+                            <li>Obtain signature on completion form</li>
+                            <li>Document any punch-list items</li>
+                            <li>Schedule follow-up for open items</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">50. Document Lessons Learned</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Document challenges encountered</li>
+                            <li>Note solutions implemented</li>
+                            <li>Record time spent per phase</li>
+                            <li>Identify process improvements</li>
+                            <li>Update installation procedures</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">51. Schedule 30-day Follow-up Review</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Schedule review meeting</li>
+                            <li>Address any outstanding issues</li>
+                            <li>Review network performance</li>
+                            <li>Gather customer feedback</li>
+                            <li>Make any necessary adjustments</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">52. Package All Documentation for Handoff</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Network diagrams (as-built)</li>
+                            <li>SonicWall configuration backup and policy export</li>
+                            <li>MikroTik .rsc configuration file</li>
+                            <li>UniFi site backup file</li>
+                            <li>IP address spreadsheet</li>
+                            <li>VLAN documentation</li>
+                            <li>WiFi network details</li>
+                            <li>Admin credentials (password vault)</li>
+                            <li>Support contact information</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">53. Update Customer Records in PSA/CRM</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Update customer asset inventory</li>
+                            <li>Add all device serial numbers</li>
+                            <li>Document warranty/license expiration</li>
+                            <li>Update network diagram in CRM</li>
+                            <li>Create maintenance schedule</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">54. Close Project in Project Management System</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Close project in PM system</li>
+                            <li>Archive project documentation</li>
+                            <li>Complete time/expense reporting</li>
+                            <li>Invoice customer</li>
+                            <li>Transfer to ongoing support team</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ONGOING MAINTENANCE -->
+        <div class="phase" id="ongoing">
+            <div class="phase-header">
+                <div>
+                    <div class="phase-title">ONGOING MAINTENANCE</div>
+                    <div class="phase-subtitle">Post-Install Maintenance</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Regular Tasks</div>
+
+                <div class="task">
+                    <div class="task-title">55. Schedule Firmware Updates</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>SonicWall firmware updates (test → production)</li>
+                            <li>MikroTik RouterOS updates (stable branch)</li>
+                            <li>UniFi firmware updates (staged rollout)</li>
+                            <li>Test updates in off-hours</li>
+                            <li>Maintain firmware version documentation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">56. Review Monitoring Alerts Weekly</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Review NinjaOne RMM alerts</li>
+                            <li>Check SonicWall security logs</li>
+                            <li>Review UniFi insights and anomalies</li>
+                            <li>Monitor bandwidth utilization</li>
+                            <li>Address any warnings proactively</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">57. Conduct Quarterly Network Health Checks</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Review network performance metrics</li>
+                            <li>Check device health and uptime</li>
+                            <li>Review security logs and incidents</li>
+                            <li>Test backup/restore procedures</li>
+                            <li>Update documentation as needed</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">58. Update Documentation as Changes Occur</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Update network diagrams for changes</li>
+                            <li>Document configuration changes</li>
+                            <li>Update IP address spreadsheet</li>
+                            <li>Maintain device inventory</li>
+                            <li>Keep firmware versions current</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">59. Review Security Policies Quarterly</div>
+                    <span class="tech-badge badge-sonicwall">SonicWall</span>
+                    <span class="tech-badge badge-mikrotik">MikroTik</span>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Review SonicWall firewall rules</li>
+                            <li>Audit MikroTik access control</li>
+                            <li>Review UniFi firewall groups</li>
+                            <li>Update security policies</li>
+                            <li>Review user access rights</li>
+                            <li>Check for security vulnerabilities</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Support & Optimization</div>
+
+                <div class="task">
+                    <div class="task-title">60. Monitor Network Growth and Capacity</div>
+                    <span class="tech-badge badge-unifi">UniFi</span>
+                    <div class="task-details">
+                        <ul>
+                            <li>Monitor bandwidth trends</li>
+                            <li>Track user/device growth</li>
+                            <li>Review UniFi insights for capacity</li>
+                            <li>Identify bottlenecks</li>
+                            <li>Plan for expansion</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">61. Adjust Configurations as Needed</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Optimize based on usage patterns</li>
+                            <li>Adjust QoS policies</li>
+                            <li>Fine-tune security rules</li>
+                            <li>Update access control</li>
+                            <li>Implement requested changes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">62. Plan for Future Expansion</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Review growth projections</li>
+                            <li>Plan for additional sites</li>
+                            <li>Evaluate technology upgrades</li>
+                            <li>Budget for equipment refresh</li>
+                            <li>Plan for increased bandwidth</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task">
+                    <div class="task-title">63. Schedule Annual Network Review with Customer</div>
+                    <div class="task-details">
+                        <ul>
+                            <li>Schedule review meeting</li>
+                            <li>Present performance report</li>
+                            <li>Review incidents and resolutions</li>
+                            <li>Discuss improvement opportunities</li>
+                            <li>Plan for next year</li>
+                            <li>Recommend upgrades/enhancements</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "errors": [],
+  "error_categories": {},
+  "recovery_success": {},
+  "auto_retry_stats": {
+    "total_retries": 0,
+    "successful_retries": 0,
+    "retry_success_rate": 0
+  },
+  "last_updated": null
+}

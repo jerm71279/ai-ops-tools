@@ -1,0 +1,33 @@
+{
+  "customers": {
+    "acme-corp-001": {
+      "name": "Acme Manufacturing",
+      "assessments": [
+        {
+          "id": "e291c20b70c9",
+          "type": "security",
+          "timestamp": "2025-11-28T10:05:36.008949",
+          "score": 35.0,
+          "finding_count": 6
+        }
+      ],
+      "initial_score": 35.0,
+      "current_score": 35.0,
+      "trend": "baseline"
+    }
+  },
+  "score_history": [
+    {
+      "timestamp": "2025-11-28T10:05:36.008965",
+      "customer": "acme-corp-001",
+      "score": 35.0
+    }
+  ],
+  "aggregates": {
+    "total_assessments": 1,
+    "avg_initial_score": 35.0,
+    "avg_final_score": 35.0,
+    "avg_improvement": 0
+  },
+  "last_updated": "2025-11-28T10:05:36.008967"
+}

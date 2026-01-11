@@ -1,0 +1,51 @@
+# Ubiquiti UniFi Basic Network Configuration
+#
+# This example demonstrates:
+# - Basic UniFi network setup
+# - WAN/LAN configuration
+# - DHCP server
+# - WiFi network
+
+vendor: unifi
+device_model: UniFi Dream Machine
+
+customer:
+  name: Modern Office Inc
+  site: Downtown Branch
+  contact: admin@modernoffice.com
+
+deployment_type: router_and_ap
+
+wan:
+  interface: eth0
+  mode: dhcp
+
+lan:
+  interface: eth1
+  ip: 192.168.1.1
+  netmask: 24
+  dhcp:
+    enabled: true
+    pool_start: 192.168.1.100
+    pool_end: 192.168.1.250
+    lease_time: 24h
+    dns_servers:
+      - 8.8.8.8
+      - 8.8.4.4
+
+wireless:
+  - ssid: ModernOffice
+    password: SecureWiFi2024!
+    mode: wifi6
+    band: both
+    channel_width: 40mhz
+    country: us
+    vlan: 1
+    guest_mode: false
+
+security:
+  admin_username: unifiadmin
+  admin_password: AdminPass123!
+  allowed_management_ips:
+    - 192.168.1.0/24
+  disable_unused_services: true

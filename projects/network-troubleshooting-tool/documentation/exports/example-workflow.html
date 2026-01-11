@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>example-workflow</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<h1 id="example-workflow-basic-network-troubleshooting">Example
+Workflow: Basic Network Troubleshooting</h1>
+<p><strong>Document Information:</strong> - Department: IT - Created:
+2025-01-15 - Last Updated: 2025-01-15 - Owner: Network Team - Related
+Docs: [[network-discovery]], [[connectivity-testing]]</p>
+<h2 id="overview">Overview</h2>
+<p>This workflow demonstrates the basic structure for documenting
+troubleshooting procedures. Use this as a template for creating your own
+workflow documentation.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Network access to target device</li>
+<li>Administrative credentials</li>
+<li>Basic understanding of TCP/IP networking</li>
+<li>Tools: ping, traceroute, nslookup</li>
+</ul>
+<h2 id="steps">Steps</h2>
+<h3 id="step-1-verify-physical-connectivity">Step 1: Verify Physical
+Connectivity</h3>
+<figure>
+<img src="../screenshots/example-workflow/step1-physical.png" alt="Check physical connection" />
+<figcaption aria-hidden="true">Check physical connection</figcaption>
+</figure>
+<p><strong>What to do:</strong> 1. Check that network cables are
+properly connected 2. Verify link lights are active on network interface
+3. Check that device is powered on 4. Confirm no obvious physical damage
+to cables</p>
+<p><strong>Notes:</strong> - Green link light = good connection -
+Amber/orange light may indicate speed/duplex mismatch - No light = check
+cable, port, or power</p>
+<h3 id="step-2-test-local-network-connectivity">Step 2: Test Local
+Network Connectivity</h3>
+<figure>
+<img src="../screenshots/example-workflow/step2-ping-gateway.png" alt="Ping local gateway" />
+<figcaption aria-hidden="true">Ping local gateway</figcaption>
+</figure>
+<p><strong>What to do:</strong> 1. Open command prompt or terminal 2.
+Identify default gateway: <code>ip route</code> (Linux) or
+<code>ipconfig</code> (Windows) 3. Ping the gateway:
+<code>ping 192.168.1.1</code> 4. Verify successful responses with low
+latency (&lt;5ms typical)</p>
+<p><strong>Notes:</strong> - 100% packet loss = no local connectivity -
+High latency (&gt;50ms) may indicate network congestion - “Destination
+Host Unreachable” = routing issue</p>
+<h3 id="step-3-test-internet-connectivity">Step 3: Test Internet
+Connectivity</h3>
+<figure>
+<img src="../screenshots/example-workflow/step3-internet.png" alt="Test external connectivity" />
+<figcaption aria-hidden="true">Test external connectivity</figcaption>
+</figure>
+<p><strong>What to do:</strong> 1. Ping reliable external host:
+<code>ping 8.8.8.8</code> 2. Verify DNS resolution:
+<code>nslookup google.com</code> 3. Test HTTP/HTTPS: Open web browser
+and navigate to https://google.com</p>
+<p><strong>Notes:</strong> - Can ping IP but not resolve names = DNS
+issue - Can’t ping external IPs = gateway/firewall issue - Can resolve
+DNS but web doesn’t load = proxy/firewall blocking HTTP/HTTPS</p>
+<h3 id="step-4-perform-traceroute-analysis">Step 4: Perform Traceroute
+Analysis</h3>
+<figure>
+<img src="../screenshots/example-workflow/step4-traceroute.png" alt="Traceroute to destination" />
+<figcaption aria-hidden="true">Traceroute to destination</figcaption>
+</figure>
+<p><strong>What to do:</strong> 1. Run traceroute to problem
+destination: <code>traceroute google.com</code> 2. Identify where
+packets are failing (timeout or high latency) 3. Note the last
+successful hop 4. Check if failure is internal network or ISP</p>
+<p><strong>Notes:</strong> - Failure at hop 1-3 = local network issue -
+Failure after ISP gateway = provider issue - Gradual latency increase =
+congestion</p>
+<h2 id="verification">Verification</h2>
+<p>Successful troubleshooting results in: - ✅ Physical connectivity
+confirmed (link lights active) - ✅ Local gateway pingable with &lt;5ms
+latency - ✅ External IPs reachable (8.8.8.8, 1.1.1.1) - ✅ DNS
+resolution working - ✅ Web browsing functional</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p><strong>Issue: Can’t ping gateway</strong> - Check IP configuration:
+<code>ip addr</code> or <code>ipconfig</code> - Verify correct subnet -
+Check for DHCP issues (no IP address assigned) - Test with static IP
+configuration</p>
+<p><strong>Issue: Can reach gateway but not internet</strong> - Verify
+gateway configuration - Check firewall rules - Confirm ISP connection
+active - Test from different device to isolate problem</p>
+<p><strong>Issue: DNS not resolving</strong> - Check DNS server
+configuration: <code>cat /etc/resolv.conf</code> - Try alternate DNS:
+<code>nslookup google.com 8.8.8.8</code> - Flush DNS cache:
+<code>ipconfig /flushdns</code> (Windows) - Verify firewall allows DNS
+(port 53)</p>
+<h2 id="related-resources">Related Resources</h2>
+<ul>
+<li>[[network-discovery]] - Full network discovery procedures</li>
+<li>[[connectivity-test]] - Advanced connectivity testing</li>
+<li><a href="https://example.com">TCP/IP Fundamentals</a></li>
+<li><a href="https://example.com">Network Troubleshooting Guide</a></li>
+</ul>
+<hr />
+<h2 id="about-this-example">About This Example</h2>
+<p>This is a demonstration workflow showing the standard documentation
+format. When you use the workflow recorder:</p>
+<ol type="1">
+<li><strong>Screenshots</strong> are automatically captured and
+numbered</li>
+<li><strong>Directory structure</strong> is created automatically</li>
+<li><strong>Markdown template</strong> is generated with your steps</li>
+</ol>
+<p>You’ll then: 1. Edit the generated Markdown to add descriptions 2.
+Fill in the Overview, Prerequisites, and Troubleshooting sections 3.
+Export to PDF/HTML for distribution</p>
+<h3 id="to-create-your-own-workflow">To Create Your Own Workflow:</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Start the recorder</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> tools</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> workflow-recorder.py <span class="at">--name</span> <span class="st">&quot;your-workflow-name&quot;</span> <span class="at">--department</span> <span class="st">&quot;IT&quot;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># During your process:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># - Press F9 when you complete each step</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># - Add step title and description when prompted</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># - Press F10 to add notes</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># - Press ESC when done</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Edit the generated file</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">vim</span> documentation/workflows/your-workflow-name.md</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Export to PDF</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> export-workflow.py <span class="at">--input</span> documentation/workflows/your-workflow-name.md <span class="at">--format</span> pdf</span></code></pre></div>
+<p><strong>Note:</strong> Since this is an example, the screenshot paths
+reference non-existent images. When you record a real workflow, the
+recorder will create actual screenshots in the correct locations.</p>
+</body>
+</html>

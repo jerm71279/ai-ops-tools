@@ -1,0 +1,14 @@
+{
+  "operations": {},
+  "error_patterns": {},
+  "benchmarks": {
+    "avg_speed_bytes_sec": 0,
+    "avg_files_per_sec": 0,
+    "success_rate": 0
+  },
+  "auto_recovery": {
+    "patterns_detected": 0,
+    "auto_resolved": 0
+  },
+  "last_updated": null
+}

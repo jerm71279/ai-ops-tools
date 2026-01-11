@@ -70,6 +70,10 @@ local_sharepoint/
 # Scan output (keep templates, ignore raw output)
 **/scans/raw/
 **/scan_results/
+**/scans/*.gnmap
+**/scans/*.nmap
+**/scans/*.xml
+**/scans/*_*/
 
 # Database files
 *.db
@@ -79,5 +83,11 @@ chroma/
 
 # Large files (exceed GitHub limits)
 *.msi
+*.iso
+*.img
+*.vmdk
+*.ova
+*.vhd
+**/bootable/
 core/Secondbrain/input_documents/
 core/Secondbrain/ai_os_cache/ml_models/

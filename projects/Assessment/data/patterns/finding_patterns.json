@@ -1,0 +1,111 @@
+{
+  "by_category": {
+    "Identity": {
+      "count": 2,
+      "titles": {
+        "No MFA on privileged accounts": 1,
+        "Stale user accounts present": 1
+      }
+    },
+    "Endpoint": {
+      "count": 1,
+      "titles": {
+        "Outdated antivirus definitions": 1
+      }
+    },
+    "Backup": {
+      "count": 1,
+      "titles": {
+        "No offsite backup verification": 1
+      }
+    },
+    "Network": {
+      "count": 1,
+      "titles": {
+        "Default credentials on network devices": 1
+      }
+    },
+    "Email": {
+      "count": 1,
+      "titles": {
+        "No DMARC policy configured": 1
+      }
+    }
+  },
+  "by_severity": {
+    "critical": 2,
+    "medium": 2,
+    "high": 2
+  },
+  "by_industry": {
+    "manufacturing": {
+      "assessments": 1,
+      "avg_score": 35.0,
+      "total_score": 35.0
+    }
+  },
+  "by_technology": {
+    "Microsoft 365": {
+      "assessments": 1,
+      "common_findings": []
+    },
+    "Azure AD": {
+      "assessments": 1,
+      "common_findings": []
+    },
+    "Windows Server": {
+      "assessments": 1,
+      "common_findings": []
+    },
+    "Sophos": {
+      "assessments": 1,
+      "common_findings": []
+    }
+  },
+  "common_findings": {
+    "No MFA on privileged accounts": {
+      "count": 1,
+      "severity": "critical",
+      "category": "Identity",
+      "avg_score_impact": 15.0,
+      "total_score_impact": 15
+    },
+    "Stale user accounts present": {
+      "count": 1,
+      "severity": "medium",
+      "category": "Identity",
+      "avg_score_impact": 5.0,
+      "total_score_impact": 5
+    },
+    "Outdated antivirus definitions": {
+      "count": 1,
+      "severity": "high",
+      "category": "Endpoint",
+      "avg_score_impact": 10.0,
+      "total_score_impact": 10
+    },
+    "No offsite backup verification": {
+      "count": 1,
+      "severity": "high",
+      "category": "Backup",
+      "avg_score_impact": 12.0,
+      "total_score_impact": 12
+    },
+    "Default credentials on network devices": {
+      "count": 1,
+      "severity": "critical",
+      "category": "Network",
+      "avg_score_impact": 15.0,
+      "total_score_impact": 15
+    },
+    "No DMARC policy configured": {
+      "count": 1,
+      "severity": "medium",
+      "category": "Email",
+      "avg_score_impact": 8.0,
+      "total_score_impact": 8
+    }
+  },
+  "remediation_success_rate": {},
+  "last_updated": "2025-11-28T10:05:05.928630"
+}

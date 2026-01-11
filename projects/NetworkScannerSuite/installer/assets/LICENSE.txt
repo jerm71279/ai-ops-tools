@@ -1,0 +1,38 @@
+OBERA NETWORK SCANNER SOFTWARE LICENSE AGREEMENT
+
+Copyright (c) 2024 Obera Technologies. All rights reserved.
+
+TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+1. License Grant
+   Subject to the terms and conditions of this License, Obera Technologies
+   hereby grants you a non-exclusive, non-transferable license to use, copy,
+   and distribute the Software solely for internal business purposes.
+
+2. Restrictions
+   You may not:
+   - Modify, reverse engineer, decompile, or disassemble the Software
+   - Rent, lease, or lend the Software to third parties
+   - Use the Software for any unlawful purpose
+   - Remove or alter any proprietary notices on the Software
+
+3. Third-Party Components
+   This Software includes Nmap, which is subject to its own license:
+   https://nmap.org/book/man-legal.html
+
+4. Warranty Disclaimer
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+5. Limitation of Liability
+   IN NO EVENT SHALL OBERA TECHNOLOGIES BE LIABLE FOR ANY CLAIM, DAMAGES OR
+   OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+   ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE.
+
+6. Governing Law
+   This License shall be governed by and construed in accordance with the
+   laws of the jurisdiction in which Obera Technologies is established.
+
+By installing or using this Software, you acknowledge that you have read,
+understood, and agree to be bound by the terms and conditions of this License.

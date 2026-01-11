@@ -1,0 +1,31 @@
+{
+  "customer": {
+    "name": "Professional Power",
+    "id": null,
+    "contact": {
+      "name": "Stephanie",
+      "email": "stephaniepropower@gmail.com"
+    },
+    "authorization": {
+      "received": true,
+      "reference": null,
+      "date": "2025-11-10T15:56:22.126962"
+    }
+  },
+  "network": {
+    "primary": "192.168.1.0/24",
+    "additional": [],
+    "vlans": []
+  },
+  "exclusions": [],
+  "scan_config": {
+    "type": "custom",
+    "timing": "T4",
+    "scheduled_time": null
+  },
+  "metadata": {
+    "created_date": "2025-11-10T15:56:22.130065",
+    "created_by": "unknown",
+    "version": "1.0"
+  }
+}

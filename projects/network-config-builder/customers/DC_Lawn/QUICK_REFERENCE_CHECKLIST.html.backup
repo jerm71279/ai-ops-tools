@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DC Lawn - Quick Reference Checklist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header {
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .header-info strong {
+            color: #2c3e50;
+        }
+
+        h2 {
+            background: #3498db;
+            color: white;
+            padding: 10px 15px;
+            margin: 25px 0 15px 0;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+
+        h3 {
+            color: #2c3e50;
+            font-size: 18px;
+            margin: 20px 0 10px 0;
+            padding-left: 10px;
+            border-left: 4px solid #3498db;
+        }
+
+        .checklist {
+            margin: 15px 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .checklist-item:hover {
+            background: #e9ecef;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin: 4px 12px 0 0;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .checklist-item label {
+            cursor: pointer;
+            flex-grow: 1;
+        }
+
+        .expected {
+            color: #27ae60;
+            font-weight: 600;
+            margin-left: 30px;
+            display: block;
+            font-size: 13px;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+        }
+
+        .info-table th,
+        .info-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .info-table th {
+            background: #34495e;
+            color: white;
+            font-weight: 600;
+        }
+
+        .info-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            display: block;
+            margin: 3px 0;
+        }
+
+        .alert {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 5px solid;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border-color: #f39c12;
+            color: #856404;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            border-color: #3498db;
+            color: #0c5460;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            border-color: #e74c3c;
+            color: #721c24;
+        }
+
+        .troubleshooting {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .troubleshooting strong {
+            color: #856404;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .contact-info {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .notes-section {
+            border: 2px dashed #bdc3c7;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 150px;
+            background: #fafafa;
+        }
+
+        .notes-section input,
+        .notes-section textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        .notes-section textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        footer {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 2px solid #ecf0f1;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+
+        .status-boxes {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .status-box {
+            border: 2px solid #3498db;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-box input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 10px;
+            }
+
+            h2 {
+                background: #333 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .info-table th {
+                background: #333 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .code-block {
+                background: #333 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .checklist-item {
+                page-break-inside: avoid;
+            }
+
+            @page {
+                margin: 1cm;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>DC Lawn - Quick Reference Checklist</h1>
+            <div class="header-info">
+                <span><strong>Customer:</strong> DC Lawn</span>
+                <span><strong>Circuit:</strong> 205922</span>
+                <span><strong>Date:</strong> <input type="text" style="border:none;border-bottom:1px solid #333;width:150px;"></span>
+            </div>
+        </header>
+
+        <div class="alert alert-info">
+            <strong>📋 Print this page and check off each step during bench testing and deployment.</strong>
+        </div>
+
+        <!-- PRE-DEPLOYMENT BENCH TESTING -->
+        <h2>Pre-Deployment Bench Testing</h2>
+
+        <h3>Initial Setup (15 min)</h3>
+        <div class="checklist">
+            <div class="checklist-item">
+                <input type="checkbox" id="step1">
+                <label for="step1">1. Connect computer to ether2, power on MikroTik</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step2">
+                <label for="step2">2. WinBox → Connect to 192.168.88.1 (admin/blank password)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step3">
+                <label for="step3">3. Record device info: Model <input type="text" style="width:100px;border:none;border-bottom:1px solid #333;"> Serial <input type="text" style="width:120px;border:none;border-bottom:1px solid #333;"> RouterOS <input type="text" style="width:80px;border:none;border-bottom:1px solid #333;"></label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step4">
+                <label for="step4">4. Backup factory config (Files → Backup)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step5">
+                <label for="step5">5. Download factory backup to computer</label>
+            </div>
+        </div>
+
+        <h3>Configuration Upload (10 min)</h3>
+        <div class="checklist">
+            <div class="checklist-item">
+                <input type="checkbox" id="step6">
+                <label for="step6">6. Upload <code>router.rsc</code> to MikroTik (Files → Upload)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step7">
+                <label for="step7">7. Terminal: <code>/import file-name=router.rsc</code></label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step8">
+                <label for="step8">8. Reconnect WinBox to 10.54.0.1 (admin/ChangeMe@205922!)</label>
+            </div>
+        </div>
+
+        <h3>Verification (10 min)</h3>
+        <div class="checklist">
+            <div class="checklist-item">
+                <input type="checkbox" id="step9">
+                <label for="step9">9. Check IPs: <code>/ip address print</code>
+                    <span class="expected">Expected: 142.190.216.66/30 on ether1 ✓</span>
+                    <span class="expected">Expected: 10.54.0.1/24 on bridge-lan ✓</span>
+                </label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step10">
+                <label for="step10">10. Check route: <code>/ip route print</code>
+                    <span class="expected">Expected: gateway 142.190.216.65 ✓</span>
+                </label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step11">
+                <label for="step11">11. Check DHCP: <code>/ip dhcp-server print</code>
+                    <span class="expected">Expected: lan-dhcp enabled ✓</span>
+                </label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step12">
+                <label for="step12">12. Check NAT: <code>/ip firewall nat print</code>
+                    <span class="expected">Expected: masquerade rule present ✓</span>
+                </label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step13">
+                <label for="step13">13. Check security: <code>/ip service print</code>
+                    <span class="expected">Expected: Only WinBox & SSH enabled ✓</span>
+                </label>
+            </div>
+        </div>
+
+        <h3>LAN Testing (10 min)</h3>
+        <div class="checklist">
+            <div class="checklist-item">
+                <input type="checkbox" id="step14">
+                <label for="step14">14. Connect test device to ether2-5</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step15">
+                <label for="step15">15. Test device gets IP 10.54.0.100-200 ✓</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step16">
+                <label for="step16">16. Ping 10.54.0.1 from test device ✓</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step17">
+                <label for="step17">17. WinBox works from test device ✓</label>
+            </div>
+        </div>
+
+        <h3>Final Preparation (5 min)</h3>
+        <div class="checklist">
+            <div class="checklist-item">
+                <input type="checkbox" id="step18">
+                <label for="step18">18. Change password: <code>/user set admin password=<input type="text" style="width:150px;border:none;border-bottom:1px solid #333;"></code></label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step19">
+                <label for="step19">19. Document new password in password manager</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step20">
+                <label for="step20">20. Create backup: <code>/system backup save name=DC_Lawn_PreDeploy</code></label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step21">
+                <label for="step21">21. Download backup files</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step22">
+                <label for="step22">22. Label router: "DC Lawn | 142.190.216.66 | LAN: 10.54.0.1"</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step23">
+                <label for="step23">23. Power off and pack for transport</label>
+            </div>
+        </div>
+
+        <!-- ON-SITE DEPLOYMENT -->
+        <h2>On-Site Deployment</h2>
+
+        <h3>Physical Installation</h3>
+        <div class="checklist">
+            <div class="checklist-item">
+                <input type="checkbox" id="step24">
+                <label for="step24">24. Unpack router and verify labels</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step25">
+                <label for="step25">25. Connect ether1 to Calix port (Circuit 205922)
+                    <span class="expected">Port speed: Auto | Duplex: Auto</span>
+                </label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step26">
+                <label for="step26">26. Connect ether2-5 to customer LAN/switch</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step27">
+                <label for="step27">27. Power on router, wait 60 seconds</label>
+            </div>
+        </div>
+
+        <h3>WAN Verification</h3>
+        <div class="checklist">
+            <div class="checklist-item">
+                <input type="checkbox" id="step28">
+                <label for="step28">28. WinBox → Connect 10.54.0.1 (from LAN device)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step29">
+                <label for="step29">29. Check WAN link: <code>/interface print</code>
+                    <span class="expected">Expected: ether1 shows "running" ✓</span>
+                </label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step30">
+                <label for="step30">30. Ping gateway: <code>/ping 142.190.216.65 count=5</code>
+                    <span class="expected">Expected: 0% packet loss ✓</span>
+                </label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step31">
+                <label for="step31">31. Ping internet: <code>/ping 8.8.8.8 count=5</code>
+                    <span class="expected">Expected: 0% packet loss ✓</span>
+                </label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step32">
+                <label for="step32">32. Test DNS: <code>/ping google.com count=5</code>
+                    <span class="expected">Expected: Resolves and pings ✓</span>
+                </label>
+            </div>
+        </div>
+
+        <h3>LAN Verification</h3>
+        <div class="checklist">
+            <div class="checklist-item">
+                <input type="checkbox" id="step33">
+                <label for="step33">33. Connect customer device to LAN</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step34">
+                <label for="step34">34. Device gets DHCP IP: 10.54.0.<input type="text" style="width:50px;border:none;border-bottom:1px solid #333;"> ✓</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step35">
+                <label for="step35">35. Device can browse internet ✓</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step36">
+                <label for="step36">36. Test website: google.com ✓</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step37">
+                <label for="step37">37. Test email/apps (if applicable) ✓</label>
+            </div>
+        </div>
+
+        <h3>Final Documentation</h3>
+        <div class="checklist">
+            <div class="checklist-item">
+                <input type="checkbox" id="step38">
+                <label for="step38">38. Record install date/time: <input type="text" style="width:150px;border:none;border-bottom:1px solid #333;"></label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step39">
+                <label for="step39">39. Technician name: <input type="text" style="width:200px;border:none;border-bottom:1px solid #333;"></label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step40">
+                <label for="step40">40. Customer signature: <input type="text" style="width:200px;border:none;border-bottom:1px solid #333;"></label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step41">
+                <label for="step41">41. Take photos of installation</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step42">
+                <label for="step42">42. Create post-install backup</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="step43">
+                <label for="step43">43. Update customer documentation</label>
+            </div>
+        </div>
+
+        <!-- QUICK REFERENCE -->
+        <h2>Quick Reference Information</h2>
+
+        <h3>Network Configuration</h3>
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>WAN Interface</strong></td>
+                    <td>ether1</td>
+                </tr>
+                <tr>
+                    <td><strong>WAN IP</strong></td>
+                    <td>142.190.216.66/30</td>
+                </tr>
+                <tr>
+                    <td><strong>Gateway</strong></td>
+                    <td>142.190.216.65</td>
+                </tr>
+                <tr>
+                    <td><strong>Subnet Mask</strong></td>
+                    <td>255.255.255.252</td>
+                </tr>
+                <tr>
+                    <td><strong>DNS Primary</strong></td>
+                    <td>142.190.111.111</td>
+                </tr>
+                <tr>
+                    <td><strong>DNS Secondary</strong></td>
+                    <td>142.190.222.222</td>
+                </tr>
+                <tr>
+                    <td><strong>LAN Interface</strong></td>
+                    <td>bridge-lan</td>
+                </tr>
+                <tr>
+                    <td><strong>LAN IP</strong></td>
+                    <td>10.54.0.1/24</td>
+                </tr>
+                <tr>
+                    <td><strong>DHCP Range</strong></td>
+                    <td>10.54.0.100-200</td>
+                </tr>
+                <tr>
+                    <td><strong>Admin User</strong></td>
+                    <td>admin</td>
+                </tr>
+                <tr>
+                    <td><strong>Admin Password</strong></td>
+                    <td>(See password manager)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Emergency Commands</h3>
+        <div class="code-block">
+            <code># Check connectivity</code>
+            <code>/ping 8.8.8.8</code>
+            <code></code>
+            <code># View IP addresses</code>
+            <code>/ip address print</code>
+            <code></code>
+            <code># View routes</code>
+            <code>/ip route print</code>
+            <code></code>
+            <code># Check DHCP leases</code>
+            <code>/ip dhcp-server lease print</code>
+            <code></code>
+            <code># View NAT rules</code>
+            <code>/ip firewall nat print</code>
+            <code></code>
+            <code># Create backup</code>
+            <code>/system backup save name=emergency_backup</code>
+        </div>
+
+        <!-- TROUBLESHOOTING -->
+        <h2>Troubleshooting Quick Fixes</h2>
+
+        <div class="troubleshooting">
+            <strong>Can't ping gateway?</strong>
+            <ol style="margin-left: 20px;">
+                <li>Check cable: <code>/interface print</code> (ether1 should be "running")</li>
+                <li>Verify WAN IP: <code>/ip address print</code></li>
+                <li>Contact ISP/Unifi to verify circuit active</li>
+            </ol>
+        </div>
+
+        <div class="troubleshooting">
+            <strong>LAN devices no DHCP?</strong>
+            <ol style="margin-left: 20px;">
+                <li>Check server: <code>/ip dhcp-server print</code> (should be enabled)</li>
+                <li>Check pool: <code>/ip pool print</code> (verify range)</li>
+                <li>Clear leases: <code>/ip dhcp-server lease remove [find dynamic]</code></li>
+            </ol>
+        </div>
+
+        <div class="troubleshooting">
+            <strong>No internet from LAN?</strong>
+            <ol style="margin-left: 20px;">
+                <li>Test from router: <code>/ping 8.8.8.8</code></li>
+                <li>Check NAT: <code>/ip firewall nat print</code> (masquerade rule present?)</li>
+                <li>Check DNS: <code>/ping google.com</code></li>
+            </ol>
+        </div>
+
+        <div class="alert alert-danger">
+            <strong>⚠️ Factory Reset (EMERGENCY ONLY)</strong><br>
+            Hold reset button 10 seconds while powered, then restore from backup file
+        </div>
+
+        <!-- SUPPORT CONTACTS -->
+        <h2>Support Contacts</h2>
+
+        <div class="contact-info">
+            <strong>Obera Connect:</strong><br>
+            Support: <input type="text" style="width:200px;border:none;border-bottom:1px solid #333;"><br>
+            After Hours: <input type="text" style="width:200px;border:none;border-bottom:1px solid #333;">
+        </div>
+
+        <div class="contact-info">
+            <strong>ISP/Unifi Circuit 205922:</strong><br>
+            Support: <input type="text" style="width:200px;border:none;border-bottom:1px solid #333;"><br>
+            Circuit Contact: <input type="text" style="width:200px;border:none;border-bottom:1px solid #333;">
+        </div>
+
+        <div class="contact-info">
+            <strong>MikroTik:</strong><br>
+            Wiki: wiki.mikrotik.com<br>
+            Forum: forum.mikrotik.com
+        </div>
+
+        <!-- INSTALLATION NOTES -->
+        <h2>Installation Notes</h2>
+
+        <div class="notes-section">
+            <label><strong>Site Contact:</strong></label>
+            <input type="text" placeholder="Name">
+
+            <label><strong>Phone:</strong></label>
+            <input type="text" placeholder="Phone number">
+
+            <label><strong>Special Instructions:</strong></label>
+            <textarea placeholder="Enter any special instructions or notes..."></textarea>
+
+            <label><strong>Issues/Resolutions:</strong></label>
+            <textarea placeholder="Document any issues encountered and how they were resolved..."></textarea>
+
+            <label><strong>Additional Equipment Installed:</strong></label>
+            <textarea placeholder="List any additional equipment..."></textarea>
+        </div>
+
+        <!-- STATUS -->
+        <h2>Installation Status</h2>
+
+        <div class="status-boxes">
+            <div class="status-box">
+                <input type="checkbox" id="status-bench">
+                <label for="status-bench">Bench Tested</label>
+            </div>
+            <div class="status-box">
+                <input type="checkbox" id="status-deployed">
+                <label for="status-deployed">Deployed</label>
+            </div>
+            <div class="status-box">
+                <input type="checkbox" id="status-verified">
+                <label for="status-verified">Verified</label>
+            </div>
+            <div class="status-box">
+                <input type="checkbox" id="status-complete">
+                <label for="status-complete">Complete</label>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <strong>Completed By:</strong> <input type="text" style="width:200px;border:none;border-bottom:1px solid #333;">
+            <strong style="margin-left: 30px;">Date:</strong> <input type="text" style="width:150px;border:none;border-bottom:1px solid #333;">
+            <strong style="margin-left: 30px;">Time:</strong> <input type="text" style="width:100px;border:none;border-bottom:1px solid #333;">
+        </div>
+
+        <footer>
+            <p><em>Generated by Multi-Vendor Network Config Builder</em></p>
+            <p>Customer: DC Lawn | Circuit ID: 205922 | Location: Fairhope, AL</p>
+        </footer>
+    </div>
+</body>
+</html>

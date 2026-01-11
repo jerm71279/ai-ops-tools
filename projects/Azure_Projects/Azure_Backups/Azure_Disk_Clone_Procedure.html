@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure Disk Clone - Direct Copy Procedure</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .header {
+            background: linear-gradient(135deg, #0078d4 0%, #00bcf2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            margin-top: 10px;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .time-estimate {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .time-estimate h2 {
+            margin-top: 0;
+            color: #856404;
+        }
+        .time-estimate ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        .time-estimate li {
+            margin: 8px 0;
+            font-size: 1.1em;
+        }
+        .section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #0078d4;
+            border-bottom: 3px solid #0078d4;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .step {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 5px solid #0078d4;
+            border-radius: 4px;
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #555;
+            font-size: 1.4em;
+        }
+        .step-number {
+            display: inline-block;
+            background: #0078d4;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            display: block;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            margin: 10px 0;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+        .inline-code {
+            background: #e8e8e8;
+            color: #c7254e;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            display: inline;
+        }
+        .important {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .important strong {
+            color: #155724;
+        }
+        .warning {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .warning strong {
+            color: #721c24;
+        }
+        .info {
+            background: #d1ecf1;
+            border-left: 5px solid #17a2b8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .info strong {
+            color: #0c5460;
+        }
+        .cost-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .cost-box h3 {
+            margin-top: 0;
+        }
+        .result-box {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .result-box h3 {
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+        .result-box ul {
+            font-size: 1.1em;
+            line-height: 2;
+        }
+        .prerequisites {
+            background: #e7f3ff;
+            border-left: 5px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .prerequisites ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .badge-time {
+            background: #ffc107;
+            color: #333;
+        }
+        .badge-success {
+            background: #28a745;
+            color: white;
+        }
+        .badge-info {
+            background: #17a2b8;
+            color: white;
+        }
+        .script-box {
+            background: #1e1e1e;
+            border: 2px solid #0078d4;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .script-box h4 {
+            color: #00bcf2;
+            margin-top: 0;
+        }
+        .script-box code {
+            background: transparent;
+            padding: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th {
+            background: #0078d4;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        tr:hover {
+            background: #f5f5f5;
+        }
+        .command-note {
+            background: #fff9e6;
+            border-left: 4px solid #ff9800;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Azure Disk Clone Procedure</h1>
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
+    <div class="subtitle">Create exact copy of F: drive from FS server to attach to new VM</div>
+</div>
+
+<div class="time-estimate">
+    <h2>⏱️ TOTAL TIME ESTIMATE: 45-90 minutes</h2>
+    <ul>
+        <li><strong>Step 1-2:</strong> Get disk info <span class="badge badge-time">2 minutes</span></li>
+        <li><strong>Step 3:</strong> Create disk copy <span class="badge badge-time">30-60 minutes</span> (depends on disk size)</li>
+        <li><strong>Step 4:</strong> Attach to VM <span class="badge badge-time">5 minutes</span></li>
+        <li><strong>Step 5:</strong> Configure in Windows <span class="badge badge-time">5 minutes</span></li>
+    </ul>
+</div>
+
+<div class="section prerequisites">
+    <h3>📋 Prerequisites:</h3>
+    <ul>
+        <li>Azure CLI installed (<span class="inline-code">az --version</span> to check)</li>
+        <li>Logged into Azure (<span class="inline-code">az login</span>)</li>
+        <li>Know your resource group name</li>
+        <li>Know FS disk name (or find it in steps below)</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>STEP 1: Find Source Disk Information</h2>
+
+    <div class="step">
+        <h3><span class="step-number">1</span>List All Disks in Resource Group</h3>
+        <p><strong>Azure CLI Command:</strong></p>
+        <code># List all disks in resource group
+az disk list --resource-group YourResourceGroup --output table</code>
+
+        <p><strong>Look for the F: data disk on SETCO-FS01-VM</strong></p>
+
+        <p><strong>Alternative - Find disk attached to FS VM:</strong></p>
+        <code>az vm show --resource-group YourResourceGroup --name SETCO-FS01-VM --query "storageProfile.dataDisks[].name" --output table</code>
+
+        <div class="important">
+            <strong>📝 Note the disk name</strong> (e.g., <span class="inline-code">SETCO-FS01_DataDisk_0</span>)
+        </div>
+
+        <p><span class="badge badge-time">⏱️ Time: 2 minutes</span></p>
+    </div>
+</div>
+
+<div class="section">
+    <h2>STEP 2: Get Source Disk ID</h2>
+
+    <div class="step">
+        <h3><span class="step-number">2</span>Retrieve Full Disk Resource ID</h3>
+        <code>az disk show \
+  --resource-group YourResourceGroup \
+  --name SETCO-FS01_DataDisk_0 \
+  --query id \
+  --output tsv</code>
+
+        <div class="info">
+            <strong>📋 Copy the full ID</strong> - looks like:<br>
+            <span class="inline-code">/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/YourRG/providers/Microsoft.Compute/disks/SETCO-FS01_DataDisk_0</span>
+        </div>
+
+        <p><span class="badge badge-time">⏱️ Time: 1 minute</span></p>
+    </div>
+</div>
+
+<div class="section">
+    <h2>STEP 3: Create Disk Copy</h2>
+
+    <div class="step">
+        <h3><span class="step-number">3</span>Clone Disk Using Azure CLI</h3>
+
+        <div class="command-note">
+            <strong>⚙️ Replace these values:</strong>
+            <ul style="margin: 10px 0;">
+                <li><span class="inline-code">YourResourceGroup</span> = Your resource group name</li>
+                <li><span class="inline-code">NewVM-DataDisk</span> = Name for the new disk copy</li>
+                <li><span class="inline-code">SOURCE_DISK_ID</span> = The ID from Step 2</li>
+                <li><span class="inline-code">eastus</span> = Your Azure region</li>
+            </ul>
+        </div>
+
+        <code>az disk create \
+  --resource-group YourResourceGroup \
+  --name NewVM-DataDisk \
+  --source /subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/YourRG/providers/Microsoft.Compute/disks/SETCO-FS01_DataDisk_0 \
+  --location eastus \
+  --sku Premium_LRS</code>
+
+        <h4>Disk Type Options (<span class="inline-code">--sku</span>):</h4>
+        <table>
+            <tr>
+                <th>SKU Value</th>
+                <th>Type</th>
+                <th>Performance</th>
+                <th>Cost</th>
+            </tr>
+            <tr>
+                <td><span class="inline-code">Premium_LRS</span></td>
+                <td>Premium SSD</td>
+                <td>Fastest</td>
+                <td>Most Expensive</td>
+            </tr>
+            <tr>
+                <td><span class="inline-code">StandardSSD_LRS</span></td>
+                <td>Standard SSD</td>
+                <td>Balanced</td>
+                <td>Medium</td>
+            </tr>
+            <tr>
+                <td><span class="inline-code">Standard_LRS</span></td>
+                <td>Standard HDD</td>
+                <td>Slowest</td>
+                <td>Cheapest</td>
+            </tr>
+        </table>
+
+        <p><span class="badge badge-time">⏱️ Time: 30-60 minutes</span> (Azure copies data in background)</p>
+    </div>
+
+    <div class="step">
+        <h3>Monitor Copy Progress</h3>
+
+        <p><strong>Check status:</strong></p>
+        <code>az disk show \
+  --resource-group YourResourceGroup \
+  --name NewVM-DataDisk \
+  --query provisioningState \
+  --output tsv</code>
+
+        <div class="important">
+            <strong>✅ Wait for:</strong> <span class="inline-code">Succeeded</span>
+        </div>
+
+        <p><strong>Or watch it continuously (Linux/Mac):</strong></p>
+        <code>watch -n 30 'az disk show --resource-group YourResourceGroup --name NewVM-DataDisk --query provisioningState --output tsv'</code>
+    </div>
+</div>
+
+<div class="section">
+    <h2>STEP 4: Attach Disk to New VM</h2>
+
+    <div class="step">
+        <h3><span class="step-number">4</span>Attach Cloned Disk to Target VM</h3>
+        <code>az vm disk attach \
+  --resource-group YourResourceGroup \
+  --vm-name YourNewVMName \
+  --name NewVM-DataDisk</code>
+
+        <p><span class="badge badge-time">⏱️ Time: 2-3 minutes</span></p>
+
+        <div class="important">
+            <strong>✅ Success!</strong> Disk is now attached to your new VM.
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>STEP 5: Configure Disk in Windows</h2>
+
+    <div class="step">
+        <h3><span class="step-number">5</span>Initialize and Assign Drive Letter</h3>
+        <p><strong>RDP to New VM, open PowerShell as Administrator:</strong></p>
+
+        <h4>Check Disk Status:</h4>
+        <code>Get-Disk</code>
+        <p>Look for the new disk (usually Disk 2 or 3)</p>
+
+        <h4>If Disk Shows "Offline":</h4>
+        <code># Replace 2 with actual disk number
+Set-Disk -Number 2 -IsOffline $false</code>
+
+        <h4>Assign Drive Letter:</h4>
+        <code># Check if partition exists
+Get-Partition -DiskNumber 2
+
+# Assign E: drive letter
+Get-Partition -DiskNumber 2 | Set-Partition -NewDriveLetter E</code>
+
+        <h4>Verify Data:</h4>
+        <code>Get-ChildItem E:\Backup</code>
+
+        <div class="important">
+            <strong>✅ You should see:</strong> SetcoDocs, HomeDirs, PostClosing, etc.
+        </div>
+
+        <p><span class="badge badge-time">⏱️ Time: 5 minutes</span></p>
+    </div>
+</div>
+
+<div class="section">
+    <h2>🚀 COMPLETE AUTOMATED SCRIPT</h2>
+
+    <div class="script-box">
+        <h4>Copy & Run (After Replacing Variables)</h4>
+        <div class="command-note">
+            <strong>Replace these values first:</strong>
+            <ul style="margin: 10px 0;">
+                <li><span class="inline-code">YOUR_RG</span> = Your resource group</li>
+                <li><span class="inline-code">YOUR_LOCATION</span> = Azure region (e.g., eastus)</li>
+                <li><span class="inline-code">YOUR_NEW_VM</span> = New VM name</li>
+                <li><span class="inline-code">SOURCE_DISK_NAME</span> = FS disk name</li>
+            </ul>
+        </div>
+        <code>#!/bin/bash
+
+# Set variables
+RG="YOUR_RG"
+LOCATION="YOUR_LOCATION"
+SOURCE_DISK="SETCO-FS01_DataDisk_0"
+NEW_DISK="NewVM-DataDisk"
+NEW_VM="YOUR_NEW_VM"
+
+# Get source disk ID
+SOURCE_ID=$(az disk show --resource-group $RG --name $SOURCE_DISK --query id --output tsv)
+
+echo "📋 Source Disk ID: $SOURCE_ID"
+echo ""
+
+# Create disk copy
+echo "🔄 Creating disk copy (this will take 30-60 minutes)..."
+az disk create \
+  --resource-group $RG \
+  --name $NEW_DISK \
+  --source $SOURCE_ID \
+  --location $LOCATION \
+  --sku Premium_LRS
+
+# Wait for completion
+echo "⏳ Waiting for disk creation..."
+az disk wait --resource-group $RG --name $NEW_DISK --created
+
+# Attach to VM
+echo "🔗 Attaching disk to VM..."
+az vm disk attach \
+  --resource-group $RG \
+  --vm-name $NEW_VM \
+  --name $NEW_DISK
+
+echo ""
+echo "✅ Disk attached successfully!"
+echo "👉 Now RDP to your VM and configure the drive letter in Windows."</code>
+
+        <p><span class="badge badge-time">⏱️ Total Script Time: 35-65 minutes</span></p>
+    </div>
+</div>
+
+<div class="result-box">
+    <h3>✅ FINAL RESULT</h3>
+    <ul>
+        <li><strong>FS Server:</strong> Still has F: drive with all data ✅</li>
+        <li><strong>New VM:</strong> Has exact copy of data on E: drive ✅</li>
+        <li><strong>Both Independent:</strong> Changes on one don't affect the other ✅</li>
+        <li><strong>No Downtime:</strong> FS server stayed online during entire process ✅</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>⚠️ IMPORTANT NOTES</h2>
+
+    <div class="warning">
+        <strong>🔄 Data Divergence:</strong> After cloning, the two disks are independent. Changes made to one disk will NOT sync to the other. If you need ongoing sync, consider using Azure File Sync or scheduled robocopy instead.
+    </div>
+
+    <div class="info">
+        <strong>📸 Point-in-Time Copy:</strong> The new disk contains data from the exact moment the copy operation started. Any changes made to the source disk during the copy process may not be reflected.
+    </div>
+
+    <div class="important">
+        <strong>💾 No Data Transfer Over Network:</strong> Azure handles the disk copy internally within the datacenter. This is much faster than downloading and re-uploading, and there are no data transfer charges.
+    </div>
+
+    <div class="info">
+        <strong>🔒 Permissions Preserved:</strong> All NTFS permissions, file attributes, and security settings are preserved in the cloned disk.
+    </div>
+
+    </div>
+</div>
+
+<div class="section">
+    <h2>🔄 NEXT STEPS AFTER DISK CLONE</h2>
+
+    <ol style="font-size: 1.1em; line-height: 2;">
+        <li>Verify all data is accessible on new VM's E: drive</li>
+        <li>Recreate file shares on new VM (use your HTML share guide)</li>
+        <li>Test file access from client computers</li>
+        <li>If this is a DC, verify AD replication with other DCs</li>
+        <li>Update DNS records if needed</li>
+        <li>Consider deleting source disk if no longer needed (after full verification)</li>
+    </ol>
+</div>
+
+<div style="background: linear-gradient(135deg, #0078d4 0%, #00bcf2 100%); color: white; padding: 25px; border-radius: 8px; text-align: center; margin-top: 30px;">
+    <h2 style="margin: 0;">Disk Clone Complete! 🎉</h2>
+    <p style="margin-top: 10px; font-size: 1.1em;">Your data is now available on both servers</p>
+</div>
+
+<div style="text-align: center; padding: 20px; color: #666; margin-top: 20px;">
+    <p>Generated: November 15, 2025 | Version 1.0</p>
+</div>
+
+</body>
+</html>

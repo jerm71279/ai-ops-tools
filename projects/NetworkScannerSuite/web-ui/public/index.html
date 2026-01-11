@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obera Network Scanner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .scan-output {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            background: #1a1a2e;
+            color: #0f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 border-b border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-xl font-bold text-blue-400">Obera Network Scanner</span>
+                    </div>
+                    <div class="hidden md:block ml-10">
+                        <div class="flex items-baseline space-x-4">
+                            <a href="#" onclick="showPage('dashboard')" class="nav-link bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
+                            <a href="#" onclick="showPage('scan')" class="nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">New Scan</a>
+                            <a href="#" onclick="showPage('results')" class="nav-link text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Results</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <span id="connection-status" class="flex items-center text-sm">
+                        <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                        Connected
+                    </span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <!-- Dashboard Page -->
+        <div id="page-dashboard" class="page">
+            <div class="mb-6">
+                <h1 class="text-2xl font-bold">Dashboard</h1>
+                <p class="text-gray-400">Network scanning overview and quick actions</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-blue-500 bg-opacity-20 rounded-lg">
+                            <i data-lucide="scan" class="w-6 h-6 text-blue-400"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm text-gray-400">Total Scans</p>
+                            <p id="stat-total-scans" class="text-2xl font-bold">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-green-500 bg-opacity-20 rounded-lg">
+                            <i data-lucide="monitor" class="w-6 h-6 text-green-400"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm text-gray-400">Hosts Found</p>
+                            <p id="stat-hosts-found" class="text-2xl font-bold">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-yellow-500 bg-opacity-20 rounded-lg">
+                            <i data-lucide="activity" class="w-6 h-6 text-yellow-400"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm text-gray-400">Active Scans</p>
+                            <p id="stat-active-scans" class="text-2xl font-bold">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-purple-500 bg-opacity-20 rounded-lg">
+                            <i data-lucide="server" class="w-6 h-6 text-purple-400"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm text-gray-400">Services</p>
+                            <p id="stat-services" class="text-2xl font-bold">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Scan -->
+            <div class="bg-gray-800 rounded-lg p-6 border border-gray-700 mb-6">
+                <h2 class="text-lg font-semibold mb-4">Quick Scan</h2>
+                <div class="flex gap-4">
+                    <input type="text" id="quick-target" placeholder="Enter network (e.g., 192.168.1.0/24)"
+                           class="flex-1 bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
+                    <button onclick="startQuickScan()" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-medium flex items-center">
+                        <i data-lucide="play" class="w-4 h-4 mr-2"></i>
+                        Scan
+                    </button>
+                </div>
+            </div>
+
+            <!-- Recent Scans -->
+            <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                <h2 class="text-lg font-semibold mb-4">Recent Scans</h2>
+                <div id="recent-scans-list" class="space-y-3">
+                    <p class="text-gray-400">Loading scans...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Scan Page -->
+        <div id="page-scan" class="page hidden">
+            <div class="mb-6">
+                <h1 class="text-2xl font-bold">New Network Scan</h1>
+                <p class="text-gray-400">Configure and start a network discovery scan</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Scan Configuration -->
+                <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                    <h2 class="text-lg font-semibold mb-4">Scan Configuration</h2>
+                    <form id="scan-form" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">Target Network</label>
+                            <input type="text" id="scan-target" placeholder="e.g., 192.168.1.0/24" required
+                                   class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">Scan Name (optional)</label>
+                            <input type="text" id="scan-name" placeholder="e.g., Customer_Office"
+                                   class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">Scan Type</label>
+                            <select id="scan-type" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
+                                <option value="quick">Quick Discovery (ping sweep only)</option>
+                                <option value="standard" selected>Standard (ports + services)</option>
+                                <option value="intense">Intense (full scan + OS detection)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">Exclusions (one per line)</label>
+                            <textarea id="scan-exclusions" rows="3" placeholder="IPs to exclude from scan"
+                                      class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium flex items-center justify-center">
+                            <i data-lucide="play" class="w-5 h-5 mr-2"></i>
+                            Start Scan
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Scan Progress -->
+                <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                    <h2 class="text-lg font-semibold mb-4">Scan Progress</h2>
+                    <div id="scan-progress-container" class="hidden">
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm mb-2">
+                                <span id="progress-phase">Initializing...</span>
+                                <span id="progress-percent">0%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div id="progress-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div id="scan-output" class="scan-output">
+                            Waiting for scan output...
+                        </div>
+                        <button onclick="cancelCurrentScan()" class="mt-4 bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm">
+                            Cancel Scan
+                        </button>
+                    </div>
+                    <div id="scan-idle-message" class="text-gray-400">
+                        Configure and start a scan to see progress here.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Page -->
+        <div id="page-results" class="page hidden">
+            <div class="mb-6">
+                <h1 class="text-2xl font-bold">Scan Results</h1>
+                <p class="text-gray-400">View and export scan results</p>
+            </div>
+
+            <!-- Scan Selector -->
+            <div class="bg-gray-800 rounded-lg p-4 border border-gray-700 mb-6">
+                <select id="result-selector" onchange="loadScanResults(this.value)"
+                        class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
+                    <option value="">Select a scan to view results...</option>
+                </select>
+            </div>
+
+            <!-- Results Display -->
+            <div id="results-container" class="hidden">
+                <!-- Summary -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                        <p class="text-sm text-gray-400">Target</p>
+                        <p id="result-target" class="text-lg font-semibold">-</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                        <p class="text-sm text-gray-400">Hosts Found</p>
+                        <p id="result-hosts" class="text-lg font-semibold">-</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                        <p class="text-sm text-gray-400">Scan Type</p>
+                        <p id="result-type" class="text-lg font-semibold">-</p>
+                    </div>
+                </div>
+
+                <!-- Host Table -->
+                <div class="bg-gray-800 rounded-lg p-6 border border-gray-700 mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold">Discovered Hosts</h2>
+                        <button onclick="exportResults()" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg text-sm flex items-center">
+                            <i data-lucide="download" class="w-4 h-4 mr-2"></i>
+                            Export
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="text-left text-gray-400 text-sm border-b border-gray-700">
+                                    <th class="pb-3">IP Address</th>
+                                    <th class="pb-3">Hostname</th>
+                                    <th class="pb-3">Open Ports</th>
+                                    <th class="pb-3">Services</th>
+                                    <th class="pb-3">OS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="hosts-table-body">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Download Files -->
+                <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                    <h2 class="text-lg font-semibold mb-4">Scan Files</h2>
+                    <div id="scan-files-list" class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="no-results-message" class="text-gray-400 text-center py-10">
+                Select a scan from the dropdown to view results.
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Global state
+        let currentScanId = null;
+        let ws = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            connectWebSocket();
+            loadDashboard();
+            loadScansDropdown();
+
+            // Handle scan form submission
+            document.getElementById('scan-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                startScan();
+            });
+        });
+
+        // WebSocket connection
+        function connectWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
+
+            ws.onopen = () => {
+                document.getElementById('connection-status').innerHTML =
+                    '<span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>Connected';
+            };
+
+            ws.onclose = () => {
+                document.getElementById('connection-status').innerHTML =
+                    '<span class="w-2 h-2 bg-red-500 rounded-full mr-2"></span>Disconnected';
+                setTimeout(connectWebSocket, 3000);
+            };
+
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                handleWebSocketMessage(data);
+            };
+        }
+
+        function handleWebSocketMessage(data) {
+            switch (data.type) {
+                case 'scan_progress':
+                    updateProgress(data.progress, data.phase);
+                    break;
+                case 'scan_output':
+                    appendOutput(data.output);
+                    break;
+                case 'scan_completed':
+                    handleScanCompleted(data);
+                    break;
+                case 'scan_failed':
+                    handleScanFailed(data);
+                    break;
+                case 'scan_cancelled':
+                    handleScanCancelled(data);
+                    break;
+            }
+        }
+
+        // Page navigation
+        function showPage(pageName) {
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            document.getElementById(`page-${pageName}`).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-link').forEach(l => {
+                l.classList.remove('bg-gray-900', 'text-white');
+                l.classList.add('text-gray-300');
+            });
+            event.target.classList.add('bg-gray-900', 'text-white');
+            event.target.classList.remove('text-gray-300');
+
+            if (pageName === 'dashboard') loadDashboard();
+            if (pageName === 'results') loadScansDropdown();
+        }
+
+        // Dashboard
+        async function loadDashboard() {
+            try {
+                const response = await fetch('/api/scans');
+                const scans = await response.json();
+
+                // Update stats
+                document.getElementById('stat-total-scans').textContent = scans.length;
+                document.getElementById('stat-active-scans').textContent =
+                    scans.filter(s => s.status === 'running').length;
+
+                let totalHosts = 0;
+                scans.forEach(s => totalHosts += s.hosts_found || 0);
+                document.getElementById('stat-hosts-found').textContent = totalHosts;
+
+                // Recent scans list
+                const recentList = document.getElementById('recent-scans-list');
+                if (scans.length === 0) {
+                    recentList.innerHTML = '<p class="text-gray-400">No scans yet. Start your first scan!</p>';
+                } else {
+                    recentList.innerHTML = scans.slice(0, 5).map(scan => `
+                        <div class="flex items-center justify-between p-3 bg-gray-700 rounded-lg">
+                            <div>
+                                <p class="font-medium">${scan.target}</p>
+                                <p class="text-sm text-gray-400">${scan.scan_type} - ${scan.hosts_found} hosts</p>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="px-2 py-1 text-xs rounded ${
+                                    scan.status === 'completed' ? 'bg-green-600' :
+                                    scan.status === 'running' ? 'bg-yellow-600 pulse' :
+                                    'bg-red-600'
+                                }">${scan.status}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Failed to load dashboard:', error);
+            }
+        }
+
+        // Quick scan
+        function startQuickScan() {
+            const target = document.getElementById('quick-target').value;
+            if (!target) {
+                alert('Please enter a target network');
+                return;
+            }
+            document.getElementById('scan-target').value = target;
+            document.getElementById('scan-type').value = 'quick';
+            showPage('scan');
+            startScan();
+        }
+
+        // Start scan
+        async function startScan() {
+            const target = document.getElementById('scan-target').value;
+            const name = document.getElementById('scan-name').value;
+            const scanType = document.getElementById('scan-type').value;
+            const exclusions = document.getElementById('scan-exclusions').value
+                .split('\n').filter(e => e.trim());
+
+            try {
+                const response = await fetch('/api/scans', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        target,
+                        name: name || null,
+                        scan_type: scanType,
+                        exclusions
+                    })
+                });
+
+                if (!response.ok) throw new Error('Failed to start scan');
+
+                const scan = await response.json();
+                currentScanId = scan.scan_id;
+
+                // Show progress
+                document.getElementById('scan-idle-message').classList.add('hidden');
+                document.getElementById('scan-progress-container').classList.remove('hidden');
+                document.getElementById('scan-output').textContent = 'Starting scan...\n';
+                updateProgress(0, 'Initializing');
+
+            } catch (error) {
+                alert('Failed to start scan: ' + error.message);
+            }
+        }
+
+        // Update progress
+        function updateProgress(percent, phase) {
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+            document.getElementById('progress-percent').textContent = `${percent}%`;
+            document.getElementById('progress-phase').textContent = phase;
+        }
+
+        // Append output
+        function appendOutput(text) {
+            const output = document.getElementById('scan-output');
+            output.textContent += text + '\n';
+            output.scrollTop = output.scrollHeight;
+        }
+
+        // Handle scan completed
+        function handleScanCompleted(data) {
+            updateProgress(100, 'Complete');
+            appendOutput('\n=== SCAN COMPLETED ===');
+            appendOutput(`Hosts found: ${data.hosts_found}`);
+            loadDashboard();
+            loadScansDropdown();
+        }
+
+        // Handle scan failed
+        function handleScanFailed(data) {
+            appendOutput('\n=== SCAN FAILED ===');
+            appendOutput(`Error: ${data.error}`);
+        }
+
+        // Handle scan cancelled
+        function handleScanCancelled(data) {
+            appendOutput('\n=== SCAN CANCELLED ===');
+        }
+
+        // Cancel scan
+        async function cancelCurrentScan() {
+            if (!currentScanId) return;
+            try {
+                await fetch(`/api/scans/${currentScanId}`, { method: 'DELETE' });
+            } catch (error) {
+                console.error('Failed to cancel scan:', error);
+            }
+        }
+
+        // Load scans dropdown
+        async function loadScansDropdown() {
+            try {
+                const response = await fetch('/api/scans');
+                const scans = await response.json();
+
+                const selector = document.getElementById('result-selector');
+                selector.innerHTML = '<option value="">Select a scan to view results...</option>' +
+                    scans.filter(s => s.status === 'completed').map(scan =>
+                        `<option value="${scan.scan_id}">${scan.target} - ${scan.started_at?.split('T')[0] || 'Unknown'} (${scan.hosts_found} hosts)</option>`
+                    ).join('');
+            } catch (error) {
+                console.error('Failed to load scans:', error);
+            }
+        }
+
+        // Load scan results
+        async function loadScanResults(scanId) {
+            if (!scanId) {
+                document.getElementById('results-container').classList.add('hidden');
+                document.getElementById('no-results-message').classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/scans/${scanId}`);
+                const data = await response.json();
+
+                // Show container
+                document.getElementById('results-container').classList.remove('hidden');
+                document.getElementById('no-results-message').classList.add('hidden');
+
+                // Update summary
+                document.getElementById('result-target').textContent = data.target || data.status?.target;
+                document.getElementById('result-hosts').textContent = data.hosts_found || data.results?.hosts?.length || 0;
+                document.getElementById('result-type').textContent = data.scan_type || data.status?.scan_type;
+
+                // Update hosts table
+                const hosts = data.results?.hosts || [];
+                const tbody = document.getElementById('hosts-table-body');
+                tbody.innerHTML = hosts.map(host => `
+                    <tr class="border-b border-gray-700">
+                        <td class="py-3 font-mono">${host.ip}</td>
+                        <td class="py-3">${host.hostname || '-'}</td>
+                        <td class="py-3">${host.ports?.map(p => p.port).join(', ') || '-'}</td>
+                        <td class="py-3">${host.ports?.map(p => p.service).join(', ') || '-'}</td>
+                        <td class="py-3">${host.os || '-'}</td>
+                    </tr>
+                `).join('') || '<tr><td colspan="5" class="py-3 text-gray-400">No hosts found</td></tr>';
+
+                // Load files
+                const filesResponse = await fetch(`/api/scans/${scanId}/files`);
+                const files = await filesResponse.json();
+                const filesList = document.getElementById('scan-files-list');
+                filesList.innerHTML = files.map(file => `
+                    <a href="/api/scans/${scanId}/files/${file.name}"
+                       class="p-3 bg-gray-700 rounded-lg hover:bg-gray-600 flex items-center">
+                        <i data-lucide="file-text" class="w-4 h-4 mr-2"></i>
+                        <span class="text-sm truncate">${file.name}</span>
+                    </a>
+                `).join('');
+                lucide.createIcons();
+
+            } catch (error) {
+                console.error('Failed to load results:', error);
+            }
+        }
+
+        // Export results
+        function exportResults() {
+            const scanId = document.getElementById('result-selector').value;
+            if (scanId) {
+                window.open(`/api/scans/${scanId}/files/SUMMARY.json`, '_blank');
+            }
+        }
+    </script>
+</body>
+</html>

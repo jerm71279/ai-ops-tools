@@ -1,0 +1,144 @@
+{
+  "id": "e291c20b70c9",
+  "customer_id": "acme-corp-001",
+  "customer_name": "Acme Manufacturing",
+  "assessment_type": "security",
+  "timestamp": "2025-11-28T10:05:05.928201",
+  "version": "1.0",
+  "overall_score": 35.0,
+  "category_scores": {
+    "Identity": 80.0,
+    "Endpoint": 90.0,
+    "Backup": 88.0,
+    "Network": 85.0,
+    "Email": 92.0
+  },
+  "findings": [
+    {
+      "id": "e291c20b70c9_001",
+      "category": "Identity",
+      "title": "No MFA on privileged accounts",
+      "description": "Admin accounts lack multi-factor authentication",
+      "severity": "critical",
+      "score_impact": 15,
+      "remediation_steps": [
+        "Enable Azure AD MFA",
+        "Configure Conditional Access",
+        "Test admin login flow"
+      ],
+      "remediation_status": "pending",
+      "evidence": null,
+      "assigned_to": null,
+      "due_date": null,
+      "completion_date": null,
+      "notes": []
+    },
+    {
+      "id": "e291c20b70c9_002",
+      "category": "Identity",
+      "title": "Stale user accounts present",
+      "description": "12 accounts not logged in >90 days",
+      "severity": "medium",
+      "score_impact": 5,
+      "remediation_steps": [
+        "Review account list",
+        "Disable inactive accounts",
+        "Document exceptions"
+      ],
+      "remediation_status": "pending",
+      "evidence": null,
+      "assigned_to": null,
+      "due_date": null,
+      "completion_date": null,
+      "notes": []
+    },
+    {
+      "id": "e291c20b70c9_003",
+      "category": "Endpoint",
+      "title": "Outdated antivirus definitions",
+      "description": "15% of endpoints have AV definitions >7 days old",
+      "severity": "high",
+      "score_impact": 10,
+      "remediation_steps": [
+        "Check Sophos Central sync",
+        "Force definition update",
+        "Verify update schedule"
+      ],
+      "remediation_status": "pending",
+      "evidence": null,
+      "assigned_to": null,
+      "due_date": null,
+      "completion_date": null,
+      "notes": []
+    },
+    {
+      "id": "e291c20b70c9_004",
+      "category": "Backup",
+      "title": "No offsite backup verification",
+      "description": "Backups exist but restore testing not performed",
+      "severity": "high",
+      "score_impact": 12,
+      "remediation_steps": [
+        "Schedule quarterly restore test",
+        "Document RTO/RPO",
+        "Test critical system restore"
+      ],
+      "remediation_status": "pending",
+      "evidence": null,
+      "assigned_to": null,
+      "due_date": null,
+      "completion_date": null,
+      "notes": []
+    },
+    {
+      "id": "e291c20b70c9_005",
+      "category": "Network",
+      "title": "Default credentials on network devices",
+      "description": "2 switches using factory default passwords",
+      "severity": "critical",
+      "score_impact": 15,
+      "remediation_steps": [
+        "Change default passwords",
+        "Implement password policy",
+        "Enable SSH only"
+      ],
+      "remediation_status": "pending",
+      "evidence": null,
+      "assigned_to": null,
+      "due_date": null,
+      "completion_date": null,
+      "notes": []
+    },
+    {
+      "id": "e291c20b70c9_006",
+      "category": "Email",
+      "title": "No DMARC policy configured",
+      "description": "Domain vulnerable to email spoofing",
+      "severity": "medium",
+      "score_impact": 8,
+      "remediation_steps": [
+        "Add SPF record",
+        "Configure DKIM",
+        "Implement DMARC with p=quarantine"
+      ],
+      "remediation_status": "pending",
+      "evidence": null,
+      "assigned_to": null,
+      "due_date": null,
+      "completion_date": null,
+      "notes": []
+    }
+  ],
+  "previous_assessment_id": null,
+  "score_delta": null,
+  "trend": null,
+  "environment_profile": {},
+  "technology_stack": [
+    "Microsoft 365",
+    "Azure AD",
+    "Windows Server",
+    "Sophos"
+  ],
+  "industry": "manufacturing",
+  "employee_count": 150
+}

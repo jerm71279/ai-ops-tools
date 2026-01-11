@@ -1,0 +1,14 @@
+{
+  "total_hosts_analyzed": 0,
+  "service_patterns": {},
+  "vendor_profiles": {},
+  "port_frequency": {},
+  "subnet_profiles": {},
+  "security_indicators": {},
+  "data_moat_metrics": {
+    "unique_services": 0,
+    "unique_vendors": 0,
+    "network_fingerprints": 0
+  },
+  "last_updated": null
+}

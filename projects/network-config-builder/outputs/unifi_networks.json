@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "generator": "Multi-Vendor Network Config Builder",
+    "customer": "Creative Agency LLC",
+    "site": "Studio Complex",
+    "version": "1.0"
+  },
+  "networks": [
+    {
+      "name": "WAN",
+      "purpose": "wan",
+      "wan_networkgroup": "WAN",
+      "wan_type": "static",
+      "wan_smartq_enabled": true,
+      "wan_ip": "203.0.113.100",
+      "wan_netmask": "255.255.255.240",
+      "wan_gateway": "203.0.113.97",
+      "wan_dns1": "1.1.1.1",
+      "wan_dns2": "1.0.0.1"
+    },
+    {
+      "name": "LAN",
+      "purpose": "corporate",
+      "ip_subnet": "172.16.0.1/24",
+      "domain_name": "creative-agency-llc.local",
+      "dhcpd_enabled": true,
+      "dhcp_relay_enabled": false,
+      "igmp_snooping": true,
+      "dhcpd_start": "100",
+      "dhcpd_stop": "200",
+      "dhcpd_leasetime": 43200,
+      "dhcpd_dns_1": "1.1.1.1"
+    },
+    {
+      "name": "Production",
+      "purpose": "corporate",
+      "vlan": 10,
+      "ip_subnet": "172.16.10.0/24",
+      "dhcpd_enabled": true,
+      "igmp_snooping": true,
+      "dhcpd_start": "100",
+      "dhcpd_stop": "250",
+      "dhcpd_leasetime": 86400
+    },
+    {
+      "name": "Office",
+      "purpose": "corporate",
+      "vlan": 20,
+      "ip_subnet": "172.16.20.0/24",
+      "dhcpd_enabled": true,
+      "igmp_snooping": true,
+      "dhcpd_start": "100",
+      "dhcpd_stop": "200",
+      "dhcpd_leasetime": 43200
+    },
+    {
+      "name": "Guest",
+      "purpose": "guest",
+      "vlan": 30,
+      "ip_subnet": "172.16.30.0/24",
+      "dhcpd_enabled": true,
+      "igmp_snooping": true,
+      "dhcpd_start": "10",
+      "dhcpd_stop": "250",
+      "dhcpd_leasetime": 14400,
+      "is_guest": true,
+      "guest_network": true,
+      "networkgroup": "LAN"
+    }
+  ]
+}

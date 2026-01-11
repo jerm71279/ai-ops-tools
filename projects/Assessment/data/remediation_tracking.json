@@ -1,0 +1,53 @@
+{
+  "active_remediations": {
+    "acme-corp-001": [
+      {
+        "finding": "No MFA on privileged accounts",
+        "status": "pending",
+        "score_impact": 15
+      },
+      {
+        "finding": "Default credentials on network devices",
+        "status": "pending",
+        "score_impact": 15
+      },
+      {
+        "finding": "No offsite backup verification",
+        "status": "pending",
+        "score_impact": 12
+      },
+      {
+        "finding": "Outdated antivirus definitions",
+        "status": "pending",
+        "score_impact": 10
+      },
+      {
+        "finding": "No DMARC policy configured",
+        "status": "pending",
+        "score_impact": 8
+      },
+      {
+        "finding": "Stale user accounts present",
+        "status": "pending",
+        "score_impact": 5
+      }
+    ]
+  },
+  "completed": [],
+  "templates": {
+    "mfa_implementation": {
+      "steps": 3,
+      "avg_days": 5
+    },
+    "password_change": {
+      "steps": 2,
+      "avg_days": 1
+    }
+  },
+  "aggregates": {
+    "total_tasks": 6,
+    "completed_tasks": 0,
+    "avg_completion_days": 0
+  },
+  "last_updated": "2025-11-28T10:05:36.009422"
+}

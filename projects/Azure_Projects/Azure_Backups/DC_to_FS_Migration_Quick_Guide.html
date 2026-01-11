@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DC to FS Migration - Quick Guide</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            margin-top: 10px;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .part {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .part h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .step {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #555;
+            font-size: 1.3em;
+        }
+        code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            display: block;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+        .inline-code {
+            background: #e8e8e8;
+            color: #c7254e;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            display: inline;
+        }
+        .flag-explanation {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .flag-explanation strong {
+            color: #856404;
+        }
+        .important {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .critical {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .files-list {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .files-list ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        .timeline {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .timeline ol {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        .timeline li {
+            margin: 8px 0;
+            font-size: 1.1em;
+        }
+        ul {
+            line-height: 1.8;
+        }
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .badge-success {
+            background: #28a745;
+            color: white;
+        }
+        .badge-warning {
+            background: #ffc107;
+            color: #333;
+        }
+        .badge-info {
+            background: #17a2b8;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>DC to FS Migration + Share Export</h1>
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
+    <div class="subtitle">Complete guide to copy data from Domain Controller to File Server and recreate shares</div>
+</div>
+
+<div class="part">
+    <h2>PART 1: COPY DATA FROM DC TO FS</h2>
+
+    <div class="step">
+        <h3>Step 1: Map Network Drive</h3>
+        <p><strong>On Domain Controller, run CMD as Administrator:</strong></p>
+        <code>net use Y: \\FS-SERVER\F$ /user:DOMAIN\Administrator</code>
+        <p>Replace <span class="inline-code">FS-SERVER</span> with your File Server name and <span class="inline-code">DOMAIN</span> with your actual domain.</p>
+    </div>
+
+    <div class="step">
+        <h3>Step 2: Run Optimized Robocopy</h3>
+        <p><strong>Single command - copies entire E: drive:</strong></p>
+        <code>robocopy E: Y:\Backup /MIR /COPYALL /MT:32 /R:3 /W:5 /B > C:\robocopy.log 2>&1</code>
+
+        <div class="flag-explanation">
+            <strong>Flag Explanations:</strong>
+            <ul>
+                <li><strong>/MIR</strong> - Mirror mode (exact copy, removes files on destination that don't exist on source)</li>
+                <li><strong>/COPYALL</strong> - Copy all file attributes, permissions, timestamps, and security info</li>
+                <li><strong>/MT:32</strong> - Use 32 threads for maximum speed</li>
+                <li><strong>/R:3</strong> - Retry 3 times on errors</li>
+                <li><strong>/W:5</strong> - Wait 5 seconds between retries</li>
+                <li><strong>/B</strong> - <span style="color: #dc3545; font-weight: bold;">Backup mode - CRITICAL for bypassing permission issues</span></li>
+                <li><strong>> C:\robocopy.log 2>&1</strong> - Save all output to log file</li>
+            </ul>
+        </div>
+
+        <div class="important">
+            <strong>⏱️ Estimated Time:</strong> 6-12 hours for ~380GB of data
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>Step 3: Monitor Progress (Optional)</h3>
+        <p><strong>Open a second CMD window to check status:</strong></p>
+        <code>tasklist | find "robocopy"</code>
+
+        <p><strong>Or watch the log file in real-time:</strong></p>
+        <code>powershell -command "Get-Content C:\robocopy.log -Tail 20 -Wait"</code>
+        <p><em>Press Ctrl+C to stop watching</em></p>
+    </div>
+</div>
+
+<div class="part">
+    <h2>PART 2: EXPORT SHARES FOR RECREATION</h2>
+
+    <div class="step">
+        <h3>Step 4: Export Share List</h3>
+        <p><strong>PowerShell as Administrator on DC:</strong></p>
+        <code>Get-SmbShare | Where-Object {$_.Name -notlike "*$"} | Select-Object Name,Path,Description | Export-Csv C:\Shares_List.csv -NoTypeInformation</code>
+        <p>Creates a CSV file with all share names, paths, and descriptions.</p>
+    </div>
+
+    <div class="step">
+        <h3>Step 5: Export Share Permissions</h3>
+        <p><strong>Single-line PowerShell command:</strong></p>
+        <code>$r=@(); Get-SmbShare | Where-Object {$_.Name -notlike "*$"} | ForEach-Object {$sn=$_.Name; $sp=$_.Path; Get-SmbShareAccess -Name $sn | ForEach-Object {$r+=[PSCustomObject]@{Share=$sn; Path=$sp; Account=$_.AccountName; Access=$_.AccessRight}}}; $r | Export-Csv C:\Share_Permissions.csv -NoType</code>
+        <p>Creates a CSV file showing which users/groups have access to each share.</p>
+    </div>
+
+    <div class="step">
+        <h3>Step 6: Export NTFS Permissions</h3>
+        <p><strong>Get folder-level security permissions:</strong></p>
+        <code>Get-SmbShare | Where-Object {$_.Name -notlike "*$" -and $_.Path} | ForEach-Object {Write-Output "Share: $($_.Name)"; Write-Output "Path: $($_.Path)"; Get-Acl $_.Path | Format-List} | Out-File C:\NTFS_Permissions.txt</code>
+        <p>Creates a text file with detailed NTFS security settings for each share.</p>
+
+        <div class="important">
+            <strong>Note:</strong> You may see errors for printer shares - this is normal and can be ignored.
+        </div>
+    </div>
+</div>
+
+<div class="part">
+    <h2>PART 3: RECREATE SHARES ON NEW DC</h2>
+
+    <div class="step">
+        <h3>Step 7: Review Exported Data</h3>
+        <p><strong>Open and review the exported files:</strong></p>
+        <code>notepad C:\Shares_List.csv
+notepad C:\Share_Permissions.csv
+notepad C:\NTFS_Permissions.txt</code>
+
+        <div class="critical">
+            <strong>⚠️ IMPORTANT:</strong> Copy these files to a safe location (USB drive, cloud storage, or email) before migrating the DC!
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>Step 8: Recreate Shares on New DC</h3>
+        <p><strong>PowerShell on New DC (run for each share):</strong></p>
+
+        <p><strong>Example 1: HomeDirs share</strong></p>
+        <code>New-SmbShare -Name "HomeDirs" -Path "E:\HomeDirs" -FullAccess "Domain Admins" -ReadAccess "Domain Users" -Description "User Home Directories"</code>
+
+        <p><strong>Example 2: SetcoDocs share</strong></p>
+        <code>New-SmbShare -Name "SetcoDocs" -Path "E:\SetcoDocs" -FullAccess "Domain Admins" -ChangeAccess "Domain Users" -Description "Company Documents"</code>
+
+        <p><strong>Example 3: PostClosing share</strong></p>
+        <code>New-SmbShare -Name "PostClosing" -Path "E:\PostClosing" -FullAccess "Domain Admins" -ChangeAccess "Finance" -Description "Post Closing Files"</code>
+
+        <div class="flag-explanation">
+            <strong>Permission Types:</strong>
+            <ul>
+                <li><strong>-FullAccess</strong> - Complete control (read, write, delete, change permissions)</li>
+                <li><strong>-ChangeAccess</strong> - Modify files and folders (read, write, delete)</li>
+                <li><strong>-ReadAccess</strong> - Read-only access</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>Step 9: Apply NTFS Permissions (if needed)</h3>
+        <p><strong>Example - Grant modify permissions to a group:</strong></p>
+        <code>$acl = Get-Acl "E:\HomeDirs"
+$permission = "DOMAIN\Domain Users","Modify","ContainerInherit,ObjectInherit","None","Allow"
+$rule = New-Object System.Security.AccessControl.FileSystemAccessRule $permission
+$acl.SetAccessRule($rule)
+Set-Acl "E:\HomeDirs" $acl</code>
+        <p>Adjust the domain, group name, and permissions as needed for each folder.</p>
+    </div>
+
+    <div class="step">
+        <h3>Step 10: Verify Shares</h3>
+        <p><strong>List all shares to confirm:</strong></p>
+        <code>Get-SmbShare | Where-Object {$_.Name -notlike "*$"}</code>
+
+        <p><strong>Test access from another computer:</strong></p>
+        <code>net view \\NEW-DC-NAME</code>
+    </div>
+</div>
+
+<div class="part">
+    <h2>VERIFICATION & COMPLETION</h2>
+
+    <div class="step">
+        <h3>Step 11: Verify Robocopy Results</h3>
+        <p><strong>Check the robocopy log summary:</strong></p>
+        <code>powershell -command "Get-Content C:\robocopy.log -Tail 30"</code>
+
+        <p><strong>Look for these results:</strong></p>
+        <pre style="background: #f9f9f9; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+              Total    Copied   Skipped  Mismatch    FAILED    Extras
+   Files :   343197    xxxxxx    xxxxxx         0         0        x
+        </pre>
+
+        <div class="important">
+            <strong>✅ Success Criteria:</strong>
+            <ul>
+                <li>FAILED should be 0 or only "System Volume Information" files</li>
+                <li>Total files should match source count</li>
+                <li>No "Access Denied" errors for user data</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="files-list">
+        <h3>📁 Files You'll Have:</h3>
+        <ul>
+            <li><span class="badge badge-success">✓</span> <strong>C:\Shares_List.csv</strong> - Share names and paths</li>
+            <li><span class="badge badge-success">✓</span> <strong>C:\Share_Permissions.csv</strong> - Who has access to what</li>
+            <li><span class="badge badge-success">✓</span> <strong>C:\NTFS_Permissions.txt</strong> - Folder security settings</li>
+            <li><span class="badge badge-success">✓</span> <strong>C:\robocopy.log</strong> - Complete copy results</li>
+        </ul>
+    </div>
+</div>
+
+<div class="part timeline">
+    <h2>⏱️ TIMELINE ESTIMATE</h2>
+    <ol>
+        <li><strong>Export shares:</strong> <span class="badge badge-info">5 minutes</span></li>
+        <li><strong>Robocopy data transfer:</strong> <span class="badge badge-warning">6-12 hours</span></li>
+        <li><strong>Recreate shares on new DC:</strong> <span class="badge badge-info">15-30 minutes</span></li>
+    </ol>
+    <p style="margin-top: 20px; font-size: 1.2em;"><strong>Total Time:</strong> ~6-13 hours (mostly automated)</p>
+</div>
+
+<div class="part">
+    <h2>🔑 KEY SUCCESS FACTORS</h2>
+    <ul style="font-size: 1.1em; line-height: 2;">
+        <li>✅ Using <strong>/B</strong> (backup mode) bypasses 99% of permission issues</li>
+        <li>✅ Running robocopy as <strong>Administrator</strong> is essential</li>
+        <li>✅ <strong>/MT:32</strong> provides maximum speed with multi-threading</li>
+        <li>✅ Exporting shares BEFORE migration prevents data loss</li>
+        <li>✅ Saving logs to C:\ ensures you have a record even if network fails</li>
+    </ul>
+</div>
+
+<div class="part">
+    <h2>❗ TROUBLESHOOTING</h2>
+
+    <div class="step">
+        <h3>If Y: Drive Mapping Fails:</h3>
+        <p>Try using IP address instead of server name:</p>
+        <code>net use Y: \\10.20.1.11\F$</code>
+    </div>
+
+    <div class="step">
+        <h3>If Many Files Fail with "Access Denied":</h3>
+        <p>Ensure you're using the <strong>/B</strong> flag and running as Administrator.</p>
+    </div>
+
+    <div class="step">
+        <h3>If PowerShell Commands Break:</h3>
+        <p>Run commands ONE AT A TIME, press Enter after each, and wait for prompt to return.</p>
+    </div>
+</div>
+
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; text-align: center; margin-top: 30px;">
+    <h2 style="margin: 0;">Migration Complete! 🎉</h2>
+    <p style="margin-top: 10px; font-size: 1.1em;">Your data and share configurations are ready for the new DC</p>
+</div>
+
+<div style="text-align: center; padding: 20px; color: #666; margin-top: 20px;">
+    <p>Generated: November 15, 2025 | Version 1.0</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  kali-nmap:
+    build: .
+    container_name: kali-network-discovery
+    network_mode: host  # Required for accurate network scanning
+    privileged: true    # Required for some network operations
+    volumes:
+      - ./scans:/scans  # Mount local directory for scan results
+    stdin_open: true
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    restart: unless-stopped

@@ -1,0 +1,2104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Installation Workflow Checklist - Interactive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #764ba2;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            padding-left: 10px;
+            border-left: 5px solid #764ba2;
+        }
+
+        h3 {
+            color: #555;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            padding-left: 15px;
+            border-left: 3px solid #667eea;
+        }
+
+        .task-list {
+            list-style: none;
+            margin-left: 20px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 12px 0;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .task-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 12px;
+            margin-top: 3px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #667eea;
+            flex-shrink: 0;
+        }
+
+        input[type="checkbox"]:checked + .task-content {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .task-content {
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .subtask-list {
+            list-style: none;
+            margin-top: 10px;
+            margin-left: 32px;
+        }
+
+        .subtask-list .task-item {
+            font-size: 0.95em;
+        }
+
+        .notes-toggle {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 4px 10px;
+            margin-left: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: background 0.3s;
+        }
+
+        .notes-toggle:hover {
+            background: #764ba2;
+        }
+
+        .notes-section {
+            display: none;
+            margin-top: 10px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 3px solid #667eea;
+            border-radius: 4px;
+        }
+
+        .notes-section.active {
+            display: block;
+        }
+
+        .notes-section textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.9em;
+            resize: vertical;
+        }
+
+        .notes-section textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .notes-label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 0.9em;
+        }
+
+        strong {
+            color: #764ba2;
+            font-weight: 600;
+        }
+
+        hr {
+            margin: 40px 0;
+            border: none;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .phase {
+            background: #f8f9fa;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 8px;
+            border-left: 5px solid #667eea;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 30px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #764ba2;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+
+            .phase {
+                page-break-inside: avoid;
+            }
+
+            .controls, .progress-bar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.4em;
+            }
+
+            h3 {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Network Installation Workflow Checklist</h1>
+
+        <div class="controls">
+            <button onclick="saveProgress()">💾 Save Progress</button>
+            <button onclick="loadProgress()">📂 Load Progress</button>
+            <button onclick="clearAll()">🔄 Clear All</button>
+            <button onclick="window.print()">🖨️ Print</button>
+            <button onclick="location.href='network_install_tasks_detailed.html'">📄 Detailed Task List</button>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar">0%</div>
+        </div>
+
+        <div class="phase">
+            <h2>Phase 1: Network Discovery & Assessment <span style="color: #e74c3c; font-weight: normal; font-size: 0.8em;">→ Onsite Pre-sales</span></h2>
+
+            <h3>Initial Site Survey</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task1" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task1">Schedule on-site or virtual discovery session with customer</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task1')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task1">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task1" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task1')">Contact customer to schedule discovery session. Prepare site survey checklist and tools.</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task2" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task2">Document current network topology</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task2a" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task2a">Identify existing network devices (routers, switches, APs)</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task2a')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task2a">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task2a" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task2a')">Document all network devices:
+• SonicWall firewalls (model, firmware, licenses)
+• MikroTik routers (model, RouterOS version)
+• UniFi gateways, switches, APs (model numbers)
+• Note serial numbers for warranty/support</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task2b" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task2b">Map IP addressing scheme and VLAN structure</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task2b')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task2b">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task2b" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task2b')">Create detailed IP/VLAN documentation:
+• Current IP addressing scheme
+• VLAN IDs and purposes
+• DHCP scopes and ranges
+• Static IP assignments</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task2c" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task2c">Document internet connection type and bandwidth</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task2c')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task2c">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task2c" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task2c')">Internet connection details:
+• ISP provider and circuit type
+• Bandwidth (upload/download)
+• Static IPs available
+• Gateway/DNS information</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task2d" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task2d">Identify critical systems and devices</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task2d')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task2d">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task2d" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task2d')">Critical systems inventory:
+• Servers and their network requirements
+• VoIP systems
+• Security systems (cameras, access control)
+• IoT devices</textarea>
+                        </div>
+                    </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task3" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task3">Assess physical infrastructure</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task3a" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task3a">Evaluate existing cabling (Cat5e/6, fiber)</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task3a')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task3a">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task3a" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task3a')">Cable infrastructure:
+• Test existing Cat5e/6 runs
+• Identify fiber connections
+• Note cable lengths and patch panel organization
+• Document any cable management needs</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task3b" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task3b">Check rack space availability</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task3b')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task3b">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task3b" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task3b')">Rack space planning:
+• Available rack units (RU)
+• Rack dimensions and depth
+• Cable management space
+• Ventilation and cooling</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task3c" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task3c">Identify mounting locations for access points</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task3c')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task3c">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task3c" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task3c')">UniFi AP placement planning:
+• Ceiling height and material
+• Wall mount feasibility
+• Coverage requirements per area
+• Aesthetic considerations</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task3d" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task3d">Verify power availability (PoE requirements, UPS)</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task3d')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task3d">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task3d" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task3d')">Power requirements:
+• PoE switch capacity needed
+• PoE+ for UniFi APs (802.3at/bt)
+• UPS capacity and runtime
+• Power outlet availability</textarea>
+                        </div>
+                    </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task4" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task4">Gather business requirements</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task4a" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task4a">Number of users and devices</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task4a')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task4a">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task4a" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task4a')">User and device count:
+• Employees per department
+• Workstations, laptops, mobile devices
+• Printers and peripherals
+• Growth projections (1-3 years)</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task4b" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task4b">Bandwidth requirements per department/function</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task4b')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task4b">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task4b" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task4b')">Bandwidth requirements:
+• Per-user bandwidth needs
+• Department-specific requirements
+• Application bandwidth (VoIP, video, cloud)
+• Peak usage times</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task4c" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task4c">Guest network requirements</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task4c')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task4c">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task4c" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task4c')">Guest network requirements:
+• Guest access method (portal, vouchers, password)
+• UniFi guest portal customization needs
+• Bandwidth limitations
+• Access duration/time limits</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task4d" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task4d">Security and compliance requirements</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task4d')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task4d">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task4d" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task4d')">Security and compliance:
+• Industry compliance (HIPAA, PCI-DSS, etc.)
+• SonicWall security services needed (IPS, GAV, CF)
+• Content filtering requirements
+• VPN access requirements</textarea>
+                        </div>
+                    </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>Network Analysis</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task5" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task5">Conduct wireless site survey (if applicable)</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task5a" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task5a">Identify RF interference sources</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task5a')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task5a">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task5a" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task5a')">RF interference assessment:
+• Use UniFi WiFiman app for site survey
+• Identify 2.4GHz/5GHz/6GHz interference
+• Check for neighboring APs
+• Note RF-blocking materials</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task5b" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task5b">Determine AP placement and quantity</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task5b')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task5b">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task5b" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task5b')">UniFi AP placement plan:
+• Coverage area per AP type (U6/U7 Lite/LR/Pro)
+• High-density area requirements
+• Outdoor AP needs
+• Channel planning for minimal interference</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task5c" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task5c">Plan channel allocation</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task5c')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task5c">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task5c" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task5c')">Wireless channel allocation:
+• 2.4GHz channel selection (1, 6, 11)
+• 5GHz channel width (20/40/80/160MHz)
+• DFS channels consideration
+• Channel bonding strategy</textarea>
+                        </div>
+                    </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task6" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task6">Analyze traffic patterns and bottlenecks</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task6')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task6">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task6" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task6')">Traffic analysis:
+• Current bandwidth utilization
+• Top talkers and applications
+• Identify bottlenecks
+• QoS requirements for MikroTik/UniFi</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task7" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task7">Document security gaps and vulnerabilities</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task7')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task7">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task7" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task7')">Security assessment:
+• Audit current SonicWall firewall rules
+• Review existing security policies
+• Identify vulnerabilities
+• Document security incidents</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task8" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task8">Identify single points of failure</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task8')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task8">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task8" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task8')">Identify network redundancy gaps:
+• Single points of failure
+• Backup internet connection needs
+• Redundant gateway requirements
+• Switch stacking/failover options</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task9" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task9">Review backup and redundancy needs</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task9')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task9">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task9" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task9')">Backup and redundancy planning:
+• Configuration backup procedures
+• Failover mechanisms (SonicWall HA, MikroTik VRRP)
+• UniFi controller backup strategy</textarea>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>Documentation Deliverables</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task10" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task10">Create network diagram (current state)</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task10')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task10">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task10" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task10')">Create comprehensive network diagram:
+• Current state topology
+• All SonicWall, MikroTik, UniFi devices
+• VLAN layout
+• IP addressing scheme
+• Use draw.io, Visio, or Lucidchart</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task11" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task11">Document findings report</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task11')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task11">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task11" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task11')">Findings report:
+• Site survey summary
+• Current state assessment
+• Identified issues and risks
+• Recommendations overview</textarea>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <div class="phase">
+            <h2>Phase 2: Recommendation & Design <span style="color: #e74c3c; font-weight: normal; font-size: 0.8em;">→ After Phase 1 before SOW Quote</span></h2>
+
+            <h3>Device Recommendations</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task12" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task12"><strong>Core Router/Firewall</strong></label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task12a" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task12a">Model and specifications</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task12a')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task12a">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task12a" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task12a')">**SonicWall Firewall Options:**
+• TZ series (small office): TZ270, TZ370, TZ470, TZ570
+• NSa series (mid-size): NSa 2700, NSa 3700, NSa 4700
+• NSsp series (large/enterprise): NSsp 10700, NSsp 11700
+
+**MikroTik Router Options:**
+• Small office: hEX S, RB5009
+• Mid-size: CCR1009, CCR1036, CCR2004
+• Enterprise: CCR2116, CCR2216
+• Consider RouterOS license level and throughput needs
+
+**UniFi Gateway Options:**
+• Small office: Dream Machine (UDM), Dream Machine SE
+• Mid-size: Dream Machine Pro (UDM-Pro)
+• Enterprise: UXG-Pro, UXG-Max
+• Consider IPS/IDS throughput and DPI requirements
+
+Selection criteria: throughput requirements, user count, feature needs (VPN, IPS, content filtering)</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task12b" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task12b">Throughput requirements</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task12b')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task12b">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task12b" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task12b')">SonicWall throughput requirements:
+• Firewall throughput (Mbps)
+• IPS/GAV throughput
+• VPN throughput
+• SSL inspection throughput
+• Concurrent connections needed</textarea>
+                        </div>
+                    </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>Design Documentation</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task13" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task13">Create proposed network topology diagram</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task13')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task13">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task13" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task13')">Create proposed network topology:
+• Include all recommended SonicWall, MikroTik, UniFi devices
+• Show VLAN segmentation
+• Indicate redundancy paths
+• Label all connections and ports</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task14" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task14">Define IP addressing and VLAN scheme</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task14a" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task14a">Management VLAN</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task14a')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task14a">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task14a" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task14a')">Management VLAN:
+• Dedicated VLAN for network equipment
+• Recommended: VLAN 10, 10.x.10.0/24
+• Access restricted to IT staff
+• SonicWall, MikroTik, UniFi management IPs</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task14b" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task14b">User/data VLANs</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task14b')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task14b">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task14b" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task14b')">User/Data VLANs:
+• Department-based VLANs
+• Example: VLAN 20 (10.x.20.0/24) - Staff
+• Appropriate firewall rules between VLANs
+• Configure in UniFi Networks</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task14c" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task14c">Voice VLAN</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task14c')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task14c">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task14c" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task14c')">Voice VLAN:
+• Dedicated VLAN for VoIP phones
+• QoS priority on UniFi switches
+• Recommended: VLAN 30, 10.x.30.0/24
+• DSCP tagging for voice traffic</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task14d" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task14d">Guest VLAN</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task14d')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task14d">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task14d" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task14d')">Guest VLAN:
+• Isolated network for guests
+• Internet-only access (no local network)
+• Recommended: VLAN 40, 10.x.40.0/24
+• UniFi guest portal integration
+• Bandwidth limitations</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task14e" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task14e">IoT/security VLAN</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task14e')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task14e">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task14e" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task14e')">IoT/Security VLAN:
+• Isolated VLAN for IoT devices
+• Security cameras, access control
+• Recommended: VLAN 50, 10.x.50.0/24
+• Restricted internet access via SonicWall</textarea>
+                        </div>
+                    </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task15" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task15">Plan wireless network architecture</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task15a" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task15a">SSID naming and security</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task15a')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task15a">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task15a" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task15a')">UniFi WiFi SSID planning:
+• Corporate SSID (WPA3-Enterprise or WPA2/3)
+• Guest SSID with captive portal
+• IoT SSID (separate from corporate)
+• Hidden SSIDs if required</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task15b" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task15b">AP coverage map</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task15b')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task15b">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task15b" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task15b')">UniFi AP coverage map:
+• AP placement on floor plan
+• Coverage overlap for roaming
+• Minimum -67dBm signal strength
+• High-density areas (conference rooms)</textarea>
+                        </div>
+                    </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task16" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task16">Design security policies</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task16a" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task16a">Firewall rules</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task16a')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task16a">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task16a" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task16a')">SonicWall firewall rules:
+• Zone-based security policies
+• Allow/deny rules between VLANs
+• Application control rules
+• Geo-IP filtering
+• Schedule-based rules</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task16b" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task16b">Access control lists</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task16b')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task16b">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task16b" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task16b')">Access control lists:
+• MikroTik firewall filter rules
+• UniFi firewall groups and rules
+• Port-based access control
+• MAC filtering if required</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task16c" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task16c">Guest portal requirements</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task16c')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task16c">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task16c" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task16c')">Guest portal requirements:
+• UniFi guest portal customization
+• Landing page branding
+• Authentication method (voucher, password, social)
+• Terms of service acceptance
+• Usage time limits</textarea>
+                        </div>
+                    </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task17" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task17">Plan redundancy and failover</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task17')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task17">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task17" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task17')">Redundancy and failover planning:
+• Dual WAN failover (SonicWall/MikroTik)
+• Switch stacking (UniFi switch redundancy)
+• Power redundancy (dual PSU, UPS)
+• UniFi controller backup</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task18" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task18">Develop naming conventions for devices</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task18')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task18">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task18" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task18')">Device naming conventions:
+• Location-Type-Number format
+• Example: HQ-SW-01, HQ-AP-02
+• Consistent across all platforms
+• Document in spreadsheet</textarea>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <div class="phase">
+            <h2>Phase 3: Pre-Configuration & Preparation <span style="color: #e74c3c; font-weight: normal; font-size: 0.8em;">→ After Quote is signed</span></h2>
+
+            <h3>Pre-Configuration</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task19" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task19">Create configuration templates</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task19a" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task19a">Router/firewall base config</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task19a')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task19a">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task19a" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task19a')">SonicWall base configuration template:
+• Zone configuration (WAN, LAN, DMZ)
+• Basic security policies
+• NAT policies
+• VPN settings
+• IPS/GAV/Content Filtering
+• Admin access restrictions</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task19b" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task19b">Switch base config</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task19b')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task19b">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task19b" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task19b')">MikroTik base configuration template:
+• IP addressing
+• Firewall filter rules
+• NAT rules
+• DHCP server
+• DNS settings
+• User management</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task19c" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task19c">AP base config</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task19c')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task19c">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task19c" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task19c')">UniFi configuration template:
+• Network (VLAN) definitions
+• WiFi network profiles
+• Switch port profiles
+• Firewall rules
+• Traffic management rules</textarea>
+                        </div>
+                    </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task20" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task20">Configure devices in lab/staging environment</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task20a" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task20a">Set management IPs</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task20a')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task20a">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task20a" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task20a')">Management IP assignment:
+• Assign static IPs to all devices
+• SonicWall management IP (LAN interface)
+• MikroTik management IP
+• UniFi gateway, switches, APs
+• Document in IP spreadsheet</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task20b" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task20b">Configure VLANs and (trunking if needed)</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task20b')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task20b">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task20b" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task20b')">VLAN and trunk configuration:
+• Configure VLANs on UniFi gateway
+• Set trunk ports on UniFi switches
+• Configure MikroTik VLAN interfaces if used
+• Test inter-VLAN routing</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task20c" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task20c">Apply security policies</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task20c')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task20c">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task20c" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task20c')">Security policy implementation:
+• Apply SonicWall security rules
+• Configure MikroTik firewall filters
+• Set UniFi firewall groups and rules
+• Enable IPS on SonicWall
+• Test rule effectiveness</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task20d" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task20d">Set up wireless controller and SSIDs</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task20d')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task20d">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task20d" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task20d')">UniFi wireless setup:
+• Create WiFi networks in controller
+• Configure WPA2/3 Enterprise (RADIUS) if needed
+• Set channel width and power levels
+• Enable band steering and fast roaming
+• Configure guest portal</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task20e" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task20e">Configure monitoring/management access</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task20e')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task20e">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task20e" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task20e')">Monitoring and management setup:
+• Configure SNMP on all devices
+• Set up syslog forwarding
+• Enable remote management (secure)
+• Configure email alerts
+• Test access from management workstation</textarea>
+                        </div>
+                    </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task21" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task21">Test configurations</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task21a" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task21a">Verify connectivity</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task21a')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task21a">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task21a" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task21a')">Connectivity testing:
+• Test internet connectivity through SonicWall/MikroTik
+• Verify DHCP on all VLANs
+• Test DNS resolution
+• Confirm gateway redundancy</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task21b" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task21b">Test VLAN routing</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task21b')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task21b">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task21b" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task21b')">VLAN routing tests:
+• Test communication between allowed VLANs
+• Verify blocked traffic between isolated VLANs
+• Test guest network isolation
+• Confirm IoT VLAN restrictions</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task21c" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task21c">Validate security rules</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task21c')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task21c">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task21c" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task21c')">Security rule validation:
+• Test SonicWall IPS/GAV/Content Filtering
+• Verify firewall rule order and effectiveness
+• Test VPN connectivity
+• Check application control rules</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task21d" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task21d">Check wireless functionality</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task21d')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task21d">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task21d" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task21d')">WiFi functionality testing:
+• Connect devices to all SSIDs
+• Test UniFi guest portal
+• Verify roaming between APs
+• Check band steering
+• Test WiFi speeds</textarea>
+                        </div>
+                    </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task22" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task22">Document all configurations</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task22')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task22">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task22" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task22')">Configuration documentation:
+• Export SonicWall configuration
+• Save MikroTik .rsc backup
+• Backup UniFi site
+• Document all settings in spreadsheet
+• Create network diagram with IPs</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task23" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task23">Create device labels with IP addresses</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task23')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task23">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task23" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task23')">Device labeling:
+• Print labels with device name and management IP
+• Label physical ports (WAN, LAN, etc.)
+• Cable labels for identification
+• QR codes for quick access (optional)</textarea>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>Installation Planning</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task24" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task24">Schedule installation date/time with customer</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task24')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task24">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task24" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task24')">Schedule installation with customer:
+• Coordinate date/time
+• Confirm key personnel availability
+• Plan for after-hours if needed
+• Send calendar invites</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task25" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task25">Coordinate downtime window (if required)</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task25')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task25">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task25" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task25')">Downtime coordination:
+• Identify acceptable downtime window
+• Plan cutover strategy
+• Notify users of outage
+• Prepare rollback plan</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task26" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task26">Assign installation team roles</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task26')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task26">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task26" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task26')">Team role assignment:
+• Lead technician (overall coordination)
+• Network engineer (config/troubleshooting)
+• Cabling technician
+• Support staff (user assistance)
+• Assign backup resources</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task27" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task27">Brief team on installation plan</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task27')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task27">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task27" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task27')">Installation plan briefing:
+• Review installation sequence
+• Discuss potential issues
+• Review rollback procedures
+• Confirm tool/equipment checklist
+• Q&A session</textarea>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <div class="phase">
+            <h2>Phase 4: Installation Day <span style="color: #e74c3c; font-weight: normal; font-size: 0.8em;">→ On-site Install</span></h2>
+
+            <h3>Configuration & Cutover</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task28" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task28">Connect to each device and verify config</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task28')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task28">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task28" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task28')">Device verification:
+• Console into each device
+• Verify running configuration
+• Check firmware versions
+• Confirm management IP accessibility
+• Test initial connectivity</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task29" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task29">Upload final configurations</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task29')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task29">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task29" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task29')">Final configuration deployment:
+• Restore SonicWall configuration backup
+• Apply MikroTik .rsc configuration
+• Push UniFi settings from controller
+• Verify all services enabled
+• Check device synchronization</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task30" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task30">Establish internet connectivity</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task30')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task30">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task30" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task30')">Internet connectivity establishment:
+• Connect WAN to ISP equipment
+• Verify SonicWall/MikroTik WAN IP
+• Test internet connectivity
+• Configure DNS (primary/secondary)
+• Test external connectivity</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task31" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task31">Configure and test inter-VLAN routing</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task31')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task31">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task31" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task31')">Inter-VLAN routing configuration:
+• Verify UniFi VLAN routing
+• Test connectivity between VLANs
+• Confirm firewall rules applied
+• Check routing tables on MikroTik (if used)</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task32" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task32">Verify wireless network operation</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task32')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task32">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task32" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task32')">WiFi network verification:
+• Verify all UniFi APs online in controller
+• Check SSID broadcasting
+• Test WiFi authentication
+• Verify guest portal functionality
+• Check signal strength coverage</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task33" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task33">Test connectivity from each VLAN</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task33')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task33">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task33" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task33')">VLAN connectivity testing:
+• Test connectivity from Management VLAN
+• Test from User/Data VLANs
+• Test Voice VLAN (VoIP phones)
+• Test Guest VLAN (internet-only)
+• Test IoT/Security VLAN</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task34" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task34">Migrate devices to new network (if applicable)</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task34')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task34">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task34" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task34')">Device migration:
+• Migrate workstations to new network
+• Reconnect printers to VLANs
+• Migrate VoIP phones
+• Update static IP devices
+• Test application connectivity</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task35" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task35">Update DHCP scopes and DNS settings</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task35')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task35">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task35" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task35')">DHCP and DNS configuration:
+• Configure DHCP scopes on UniFi/MikroTik
+• Set DHCP reservations for servers/printers
+• Configure DNS forwarding
+• Set custom DNS entries if needed
+• Test DHCP assignments</textarea>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>Testing & Validation</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task36" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task36">Test internet connectivity from all VLANs</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task36')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task36">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task36" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task36')">Internet connectivity tests:
+• Test from each VLAN
+• Verify SonicWall security services active
+• Test website access (HTTP/HTTPS)
+• Verify content filtering
+• Check DNS resolution</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task37" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task37">Verify wireless coverage and performance</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task37')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task37">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task37" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task37')">WiFi coverage and performance:
+• Walk site with UniFi WiFiman app
+• Test coverage in all areas
+• Verify -67dBm or better signal
+• Test roaming between UniFi APs
+• Check for dead zones</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task38" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task38">Test guest network isolation</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task38')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task38">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task38" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task38')">Guest network isolation test:
+• Connect to guest WiFi
+• Verify internet access works
+• Confirm no local network access
+• Test UniFi guest portal
+• Verify bandwidth limits applied</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task39" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task39">Validate firewall rules</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task39')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task39">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task39" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task39')">SonicWall firewall validation:
+• Test firewall rules (allow/deny)
+• Verify IPS detection and blocking
+• Test GAV/Content Filtering
+• Check application control
+• Review security logs</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task40" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task40">Check VPN connectivity (if applicable)</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task40')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task40">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task40" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task40')">VPN connectivity testing:
+• Test SonicWall SSL-VPN or IPSec
+• Test MikroTik L2TP/IPSec VPN
+• Verify remote access functionality
+• Test split-tunnel vs full-tunnel
+• Check VPN performance</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task41" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task41">Test failover/redundancy mechanisms</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task41')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task41">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task41" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task41')">Redundancy and failover tests:
+• Test dual-WAN failover (if configured)
+• Verify backup internet cutover
+• Test switch redundancy
+• Power failure simulation (UPS)
+• Document failover times</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task42" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task42">Verify critical applications are accessible</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task42')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task42">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task42" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task42')">Critical application testing:
+• Test LOB applications
+• Verify file server access
+• Test email connectivity
+• Check VoIP call quality
+• Test printer functionality</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task43" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task43">Run speed tests from multiple locations</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task43')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task43">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task43" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task43')">Speed testing:
+• Run speed tests from multiple locations
+• Test from each VLAN
+• Verify speeds meet ISP plan
+• Test WiFi speeds vs wired
+• Document results</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task44" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task44">Test roaming between APs</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task44')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task44">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task44" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task44')">UniFi AP roaming test:
+• Walk site while connected to WiFi
+• Monitor UniFi controller for roaming events
+• Verify seamless handoff between APs
+• Test VoIP during roaming
+• Check for connection drops</textarea>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <div class="phase">
+            <h2>Phase 5: Post-Installation & Handoff</h2>
+            <div class="note">Hand off to IT Services?</div>
+
+            <h3>Monitoring & Optimization</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task45" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task45">Configure network monitoring</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task45a" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task45a">Set up SNMP monitoring</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task45a')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task45a">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task45a" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task45a')">SNMP monitoring configuration:
+• Enable SNMP v2c/v3 on all devices
+• Configure community strings (secure)
+• Set up monitoring in NinjaOne RMM
+• Test SNMP polling</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task45b" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task45b">Configure alerts and notifications</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task45b')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task45b">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task45b" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task45b')">Alert configuration:
+• SonicWall email alerts (high CPU, attacks, failures)
+• UniFi notification settings (device offline, high clients)
+• MikroTik email alerts
+• Configure alert recipients
+• Test alert delivery</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task45c" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task45c">Enable logging</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task45c')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task45c">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task45c" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task45c')">Logging setup:
+• Enable SonicWall syslog forwarding
+• Configure MikroTik logging
+• Enable UniFi remote logging
+• Set log retention periods
+• Configure log analysis tools</textarea>
+                        </div>
+                    </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task46" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task46">Add devices to management platform</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task46a" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task46a">NinjaOne/RMM integration</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task46a')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task46a">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task46a" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task46a')">NinjaOne RMM integration:
+• Add all network devices
+• Configure SNMP monitoring
+• Set up device health checks
+• Configure automated alerts
+• Create device documentation</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task46b" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task46b">Network management controller</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task46b')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task46b">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task46b" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task46b')">UniFi controller management:
+• Ensure UniFi controller accessible
+• Configure remote access (if cloud)
+• Set up automatic backups
+• Configure UniFi mobile app access
+• Test remote management</textarea>
+                        </div>
+                    </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task47" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task47">Monitor for first 24-48 hours</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task47a" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task47a">Check for errors or warnings</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task47a')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task47a">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task47a" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task47a')">Error and warning monitoring:
+• Review SonicWall logs daily
+• Check UniFi insights and alerts
+• Monitor MikroTik logs
+• Review RMM alerts
+• Document any issues</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task47b" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task47b">Optimize wireless channels if needed</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task47b')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task47b">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task47b" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task47b')">WiFi optimization:
+• Review UniFi RF environment
+• Adjust channel assignments if needed
+• Optimize AP power levels
+• Address any coverage gaps
+• Fine-tune band steering</textarea>
+                        </div>
+                    </div>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task47c" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task47c">Adjust QoS policies</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task47c')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task47c">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task47c" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task47c')">QoS policy tuning:
+• Review traffic statistics
+• Adjust UniFi traffic management rules
+• Fine-tune MikroTik queue trees
+• Optimize VoIP QoS
+• Monitor bandwidth usage</textarea>
+                        </div>
+                    </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>Project Closeout</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task48" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task48">Conduct final walkthrough with customer</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task48')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task48">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task48" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task48')">Final walkthrough with customer:
+• Review installation completion
+• Demonstrate network functionality
+• Walk through WiFi coverage
+• Review security features
+• Address any questions</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task49" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task49">Obtain customer sign-off</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task49')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task49">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task49" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task49')">Customer sign-off:
+• Complete installation checklist
+• Obtain signature on completion form
+• Document any punch-list items
+• Schedule follow-up for open items</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task50" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task50">Document lessons learned</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task50')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task50">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task50" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task50')">Lessons learned documentation:
+• Document challenges encountered
+• Note solutions implemented
+• Record time spent per phase
+• Identify process improvements
+• Update installation procedures</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task51" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task51">Schedule 30-day follow-up review</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task51')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task51">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task51" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task51')">30-day follow-up:
+• Schedule review meeting
+• Address any outstanding issues
+• Review network performance
+• Gather customer feedback
+• Make any necessary adjustments</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task52" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task52">Package all documentation for handoff</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task52')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task52">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task52" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task52')">Documentation package:
+• Network diagrams (as-built)
+• SonicWall configuration backup and policy export
+• MikroTik .rsc configuration file
+• UniFi site backup file
+• IP address spreadsheet
+• VLAN documentation
+• WiFi network details
+• Admin credentials (password vault)
+• Support contact information</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task53" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task53">Update customer records in PSA/CRM</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task53')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task53">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task53" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task53')">PSA/CRM updates:
+• Update customer asset inventory
+• Add all device serial numbers
+• Document warranty/license expiration
+• Update network diagram in CRM
+• Create maintenance schedule</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task54" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task54">Close project in project management system</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task54')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task54">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task54" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task54')">Project closure:
+• Close project in PM system
+• Archive project documentation
+• Complete time/expense reporting
+• Invoice customer
+• Transfer to ongoing support team</textarea>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <div class="phase">
+            <h2>Ongoing Maintenance (Post-Install)</h2>
+
+            <h3>Regular Tasks</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task55" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task55">Schedule firmware updates</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task55')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task55">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task55" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task55')">Firmware update scheduling:
+• SonicWall firmware updates (test -> production)
+• MikroTik RouterOS updates (stable branch)
+• UniFi firmware updates (staged rollout)
+• Test updates in off-hours
+• Maintain firmware version documentation</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task56" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task56">Review monitoring alerts weekly</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task56')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task56">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task56" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task56')">Weekly alert monitoring:
+• Review NinjaOne RMM alerts
+• Check SonicWall security logs
+• Review UniFi insights and anomalies
+• Monitor bandwidth utilization
+• Address any warnings proactively</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task57" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task57">Conduct quarterly network health checks</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task57')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task57">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task57" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task57')">Quarterly health checks:
+• Review network performance metrics
+• Check device health and uptime
+• Review security logs and incidents
+• Test backup/restore procedures
+• Update documentation as needed</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task58" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task58">Update documentation as changes occur</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task58')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task58">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task58" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task58')">Documentation maintenance:
+• Update network diagrams for changes
+• Document configuration changes
+• Update IP address spreadsheet
+• Maintain device inventory
+• Keep firmware versions current</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task59" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task59">Review security policies quarterly</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task59')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task59">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task59" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task59')">Security policy reviews:
+• Review SonicWall firewall rules
+• Audit MikroTik access control
+• Review UniFi firewall groups
+• Update security policies
+• Review user access rights
+• Check for security vulnerabilities</textarea>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>Support & Optimization</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task60" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task60">Monitor network growth and capacity</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task60')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task60">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task60" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task60')">Capacity monitoring:
+• Monitor bandwidth trends
+• Track user/device growth
+• Review UniFi insights for capacity
+• Identify bottlenecks
+• Plan for expansion</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task61" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task61">Adjust configurations as needed</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task61')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task61">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task61" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task61')">Configuration adjustments:
+• Optimize based on usage patterns
+• Adjust QoS policies
+• Fine-tune security rules
+• Update access control
+• Implement requested changes</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task62" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task62">Plan for future expansion</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task62')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task62">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task62" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task62')">Future expansion planning:
+• Review growth projections
+• Plan for additional sites
+• Evaluate technology upgrades
+• Budget for equipment refresh
+• Plan for increased bandwidth</textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task63" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task63">Schedule annual network review with customer</label>
+                        <button class="notes-toggle" onclick="toggleNotes('task63')">📝 Notes</button>
+                        <div class="notes-section" id="notes-task63">
+                            <label class="notes-label">Task Notes & Definition:</label>
+                            <textarea id="notes-textarea-task63" placeholder="Add notes, definitions, or details about this task..." onblur="saveNotes('task63')">Annual customer review:
+• Schedule review meeting
+• Present performance report
+• Review incidents and resolutions
+• Discuss improvement opportunities
+• Plan for next year
+• Recommend upgrades/enhancements</textarea>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function updateProgress() {
+            const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+            const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            const percentage = Math.round((checkedBoxes.length / allCheckboxes.length) * 100);
+
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '% Complete (' + checkedBoxes.length + '/' + allCheckboxes.length + ')';
+        }
+
+        function toggleNotes(taskId) {
+            const notesSection = document.getElementById('notes-' + taskId);
+            notesSection.classList.toggle('active');
+        }
+
+        function saveNotes(taskId) {
+            const textarea = document.getElementById('notes-textarea-' + taskId);
+            const notes = textarea.value;
+
+            // Get existing notes from localStorage
+            const allNotes = JSON.parse(localStorage.getItem('networkInstallNotes') || '{}');
+            allNotes[taskId] = notes;
+            localStorage.setItem('networkInstallNotes', JSON.stringify(allNotes));
+        }
+
+        function loadNotes() {
+            const allNotes = JSON.parse(localStorage.getItem('networkInstallNotes') || '{}');
+            Object.keys(allNotes).forEach(taskId => {
+                const textarea = document.getElementById('notes-textarea-' + taskId);
+                if (textarea) {
+                    textarea.value = allNotes[taskId];
+                }
+            });
+        }
+
+        function saveProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const state = {};
+            checkboxes.forEach(checkbox => {
+                state[checkbox.id] = checkbox.checked;
+            });
+            localStorage.setItem('networkInstallProgress', JSON.stringify(state));
+
+            // Also save all notes
+            const textareas = document.querySelectorAll('.notes-section textarea');
+            const notes = {};
+            textareas.forEach(textarea => {
+                const taskId = textarea.id.replace('notes-textarea-', '');
+                notes[taskId] = textarea.value;
+            });
+            localStorage.setItem('networkInstallNotes', JSON.stringify(notes));
+
+            alert('Progress and notes saved successfully!');
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('networkInstallProgress');
+            if (saved) {
+                const state = JSON.parse(saved);
+                Object.keys(state).forEach(id => {
+                    const checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = state[id];
+                    }
+                });
+                updateProgress();
+            }
+
+            // Load notes
+            loadNotes();
+
+            if (saved) {
+                alert('Progress and notes loaded successfully!');
+            }
+        }
+
+        function clearAll() {
+            if (confirm('Are you sure you want to clear all checkboxes and notes?')) {
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+
+                const textareas = document.querySelectorAll('.notes-section textarea');
+                textareas.forEach(textarea => {
+                    textarea.value = '';
+                });
+
+                updateProgress();
+                localStorage.removeItem('networkInstallProgress');
+                localStorage.removeItem('networkInstallNotes');
+            }
+        }
+
+        // Auto-load progress on page load
+        window.addEventListener('load', () => {
+            loadProgress();
+        });
+
+        // Auto-save every 30 seconds
+        setInterval(() => {
+            const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            if (checkedBoxes.length > 0) {
+                saveProgress();
+            }
+        }, 30000);
+    </script>
+</body>
+</html>

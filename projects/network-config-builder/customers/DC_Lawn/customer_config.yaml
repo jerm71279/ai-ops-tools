@@ -1,0 +1,53 @@
+# MikroTik Configuration for Customer 205922
+# Location: 16520 Gaineswood Dr N, Fairhope, AL 36532-5164
+# Customer Type: /INT/205922//UIF/
+# Generated: 2025-11-24
+
+vendor: mikrotik
+device_model: MikroTik Router
+
+customer:
+  name: "DC Lawn"
+  site: "16520 Gaineswood Dr N, Fairhope, AL 36532-5164"
+  contact: "INT-UIF-205922"
+  notes: "UIF Internal Customer - Fairhope Location"
+
+deployment_type: router_only
+
+wan:
+  interface: ether1
+  mode: static
+  ip: 142.190.216.66
+  netmask: 30
+  gateway: 142.190.216.65
+  dns:
+    - 142.190.111.111
+    - 142.190.222.222
+
+lan:
+  interface: bridge-lan
+  ip: 10.54.0.1
+  netmask: 24
+  dhcp:
+    enabled: true
+    pool_start: 10.54.0.100
+    pool_end: 10.54.0.200
+    lease_time: 24h
+    dns_servers:
+      - 142.190.111.111
+      - 142.190.222.222
+
+security:
+  admin_username: admin
+  admin_password: "ChangeMe@205922!"
+  allowed_management_ips:
+    - 10.54.0.0/24
+    - 142.190.216.64/30
+  disable_unused_services: true
+
+# MikroTik-specific settings
+mikrotik:
+  enable_winbox: true
+  enable_ssh: true
+  bandwidth_test: false
+  stun_port: false

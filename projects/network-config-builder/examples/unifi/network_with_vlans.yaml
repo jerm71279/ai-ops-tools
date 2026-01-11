@@ -1,0 +1,104 @@
+# Ubiquiti UniFi Network with VLANs and Multiple SSIDs
+#
+# This example demonstrates:
+# - Multi-VLAN network
+# - Multiple wireless networks
+# - Guest network isolation
+# - DHCP per VLAN
+
+vendor: unifi
+device_model: UniFi Dream Machine Pro
+
+customer:
+  name: Creative Agency LLC
+  site: Studio Complex
+  contact: it@creativeagency.com
+
+deployment_type: router_and_ap
+
+wan:
+  interface: eth0
+  mode: static
+  ip: 203.0.113.100
+  netmask: 28
+  gateway: 203.0.113.97
+  dns:
+    - 1.1.1.1
+    - 1.0.0.1
+
+lan:
+  interface: eth1
+  ip: 172.16.0.1
+  netmask: 24
+  dhcp:
+    enabled: true
+    pool_start: 172.16.0.100
+    pool_end: 172.16.0.200
+    lease_time: 12h
+    dns_servers:
+      - 1.1.1.1
+
+vlans:
+  - id: 10
+    name: Production
+    subnet: 172.16.10.0/24
+    dhcp: true
+    dhcp_config:
+      pool_start: 172.16.10.100
+      pool_end: 172.16.10.250
+      lease_time: 24h
+
+  - id: 20
+    name: Office
+    subnet: 172.16.20.0/24
+    dhcp: true
+    dhcp_config:
+      pool_start: 172.16.20.100
+      pool_end: 172.16.20.200
+      lease_time: 12h
+
+  - id: 30
+    name: Guest
+    subnet: 172.16.30.0/24
+    dhcp: true
+    isolation: true
+    dhcp_config:
+      pool_start: 172.16.30.10
+      pool_end: 172.16.30.250
+      lease_time: 4h
+
+wireless:
+  - ssid: CreativeStudio
+    password: StudioWiFi2024!
+    mode: wifi6
+    band: 5ghz
+    channel_width: 80mhz
+    country: us
+    vlan: 10
+    guest_mode: false
+
+  - ssid: OfficeWiFi
+    password: OfficePass2024!
+    mode: wifi6
+    band: both
+    channel_width: 40mhz
+    country: us
+    vlan: 20
+    guest_mode: false
+
+  - ssid: GuestNetwork
+    password: GuestPass2024
+    mode: wifi6
+    band: 2ghz-b/g/n
+    channel_width: 20mhz
+    country: us
+    vlan: 30
+    guest_mode: true
+
+security:
+  admin_username: unifiadmin
+  admin_password: SuperSecure789!
+  allowed_management_ips:
+    - 172.16.0.0/24
+    - 172.16.10.0/24
+  disable_unused_services: true

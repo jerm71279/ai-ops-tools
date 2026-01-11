@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obera Connect - Customer Subnet Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        header {
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header-info {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card.green {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .stat-card.orange {
+            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+        }
+
+        .stat-card.blue {
+            background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .alert {
+            background: #fff3cd;
+            border-left: 5px solid #f39c12;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .alert strong {
+            color: #856404;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        th {
+            background: #34495e;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .subnet-info {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+
+        .notes {
+            color: #666;
+            font-size: 13px;
+            font-style: italic;
+        }
+
+        .add-button {
+            background: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 20px 0;
+        }
+
+        .add-button:hover {
+            background: #2980b9;
+        }
+
+        footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+
+        .reserved-ranges {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .reserved-ranges h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .reserved-ranges ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .reserved-ranges li {
+            padding: 8px 0;
+            border-bottom: 1px solid #c8e6c9;
+        }
+
+        .reserved-ranges li:last-child {
+            border-bottom: none;
+        }
+
+        .subnet-code {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+            .add-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌐 Customer Subnet Tracker</h1>
+            <div class="header-info">
+                <strong>Obera Connect</strong> | Network Infrastructure Management
+                <br>Last Updated: <span id="current-date"></span>
+            </div>
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" style="max-width: 200px; height: auto;">
+        </header>
+
+        <div class="stats">
+            <div class="stat-card green">
+                <div class="stat-label">Total Customers</div>
+                <div class="stat-value">1</div>
+            </div>
+            <div class="stat-card blue">
+                <div class="stat-label">Active Subnets</div>
+                <div class="stat-value">1</div>
+            </div>
+            <div class="stat-card orange">
+                <div class="stat-label">Available /24 Subnets</div>
+                <div class="stat-value">254</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Subnet Utilization</div>
+                <div class="stat-value">0.4%</div>
+            </div>
+        </div>
+
+        <div class="alert">
+            <strong>⚠️ Important:</strong> Always check this tracker before assigning new LAN subnets to avoid conflicts, especially for site-to-site VPN requirements.
+        </div>
+
+        <h2 style="color: #2c3e50; margin: 30px 0 15px 0;">Customer Subnet Assignments</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Customer Name</th>
+                    <th>LAN Subnet</th>
+                    <th>LAN Gateway</th>
+                    <th>DHCP Range</th>
+                    <th>WAN IP</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>205922</strong></td>
+                    <td><strong>DC Lawn</strong></td>
+                    <td><span class="subnet-info">192.168.1.0/24</span></td>
+                    <td><span class="subnet-info">192.168.1.1</span></td>
+                    <td><span class="subnet-info">192.168.1.100-200</span></td>
+                    <td><span class="subnet-info">142.190.216.66/30</span></td>
+                    <td>Fairhope, AL</td>
+                    <td><span class="status-badge status-active">Active</span></td>
+                    <td class="notes">Circuit: 205922, Unifi</td>
+                </tr>
+                <!-- Add more rows here as customers are added -->
+            </tbody>
+        </table>
+
+        <button class="add-button" onclick="alert('To add a customer:\n1. Open CUSTOMER_SUBNET_TRACKER.csv\n2. Add new row with customer info\n3. Check for subnet conflicts\n4. Update this HTML file')">
+            ➕ Add New Customer
+        </button>
+
+        <div class="reserved-ranges">
+            <h3>📋 Recommended Subnet Assignment Strategy</h3>
+            <ul>
+                <li><span class="subnet-code">192.168.0.0/24</span> - Reserved for testing/lab</li>
+                <li><span class="subnet-code">192.168.1.0/24</span> - DC Lawn (ASSIGNED)</li>
+                <li><span class="subnet-code">192.168.2.0/24</span> - Available</li>
+                <li><span class="subnet-code">192.168.3.0/24</span> - Available</li>
+                <li><span class="subnet-code">192.168.4.0/24</span> - Available</li>
+                <li><span class="subnet-code">192.168.5.0/24</span> - Available</li>
+                <li><span class="subnet-code">...</span> - Continue sequentially</li>
+                <li><span class="subnet-code">192.168.254.0/24</span> - Available</li>
+                <li><span class="subnet-code">10.0.0.0/8</span> - Reserve for large deployments</li>
+                <li><span class="subnet-code">172.16.0.0/12</span> - Reserve for VPN/interconnects</li>
+            </ul>
+        </div>
+
+        <div style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="color: #1976d2; margin-bottom: 10px;">🔍 Subnet Assignment Guidelines</h3>
+            <ul style="margin-left: 20px; color: #555;">
+                <li>Use 192.168.x.0/24 for standard customer deployments (254 subnets available)</li>
+                <li>Assign sequentially to maintain organization (1, 2, 3, etc.)</li>
+                <li>Always verify no conflicts before assignment</li>
+                <li>Document all assignments immediately</li>
+                <li>Reserve 192.168.0.0/24 for internal testing</li>
+                <li>Use 10.x.x.x for customers requiring multiple /24 subnets</li>
+                <li>Use 172.16.x.x for site-to-site VPNs and interconnects</li>
+                <li>Update both CSV and HTML versions when adding customers</li>
+            </ul>
+        </div>
+
+        <div style="background: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="color: #856404; margin-bottom: 10px;">⚠️ Conflict Avoidance</h3>
+            <p style="color: #555; margin-bottom: 10px;">
+                <strong>Why unique subnets matter:</strong>
+            </p>
+            <ul style="margin-left: 20px; color: #555;">
+                <li>Prevents routing issues in site-to-site VPNs</li>
+                <li>Enables proper remote access and support</li>
+                <li>Avoids IP conflicts during migrations or mergers</li>
+                <li>Simplifies network troubleshooting and management</li>
+                <li>Required for proper network segmentation</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p><strong>Obera Connect - Network Configuration Builder</strong></p>
+            <p>Customer Subnet Management System</p>
+            <p style="margin-top: 10px;">
+                📄 CSV Version: <a href="CUSTOMER_SUBNET_TRACKER.csv">CUSTOMER_SUBNET_TRACKER.csv</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Set current date
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    </script>
+</body>
+</html>

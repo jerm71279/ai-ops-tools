@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Installation Workflow Checklist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #764ba2;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            padding-left: 10px;
+            border-left: 5px solid #764ba2;
+        }
+
+        h3 {
+            color: #555;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            padding-left: 15px;
+            border-left: 3px solid #667eea;
+        }
+
+        .task-list {
+            list-style: none;
+            margin-left: 20px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 12px 0;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .task-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 12px;
+            margin-top: 3px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #667eea;
+            flex-shrink: 0;
+        }
+
+        input[type="checkbox"]:checked + .task-content {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .task-content {
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .subtask-list {
+            list-style: none;
+            margin-top: 10px;
+            margin-left: 32px;
+        }
+
+        .subtask-list .task-item {
+            font-size: 0.95em;
+        }
+
+        strong {
+            color: #764ba2;
+            font-weight: 600;
+        }
+
+        hr {
+            margin: 40px 0;
+            border: none;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .phase {
+            background: #f8f9fa;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 8px;
+            border-left: 5px solid #667eea;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 30px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #764ba2;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+
+            .phase {
+                page-break-inside: avoid;
+            }
+
+            .controls, .progress-bar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.4em;
+            }
+
+            h3 {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Network Installation Workflow Checklist</h1>
+
+        <div class="controls">
+            <button onclick="saveProgress()">💾 Save Progress</button>
+            <button onclick="loadProgress()">📂 Load Progress</button>
+            <button onclick="clearAll()">🔄 Clear All</button>
+            <button onclick="window.print()">🖨️ Print</button>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar">0%</div>
+        </div>
+
+        <div class="phase">
+            <h2>Phase 1: Network Discovery & Assessment <span style="color: #e74c3c; font-weight: normal; font-size: 0.8em;">→ Onsite Pre-sales</span></h2>
+
+            <h3>Initial Site Survey</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task1" onchange="updateProgress()">
+                    <label class="task-content" for="task1">Schedule on-site or virtual discovery session with customer</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task2" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task2">Document current network topology</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task2a" onchange="updateProgress()">
+                                <label class="task-content" for="task2a">Identify existing network devices (routers, switches, APs)</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task2b" onchange="updateProgress()">
+                                <label class="task-content" for="task2b">Map IP addressing scheme and VLAN structure</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task2c" onchange="updateProgress()">
+                                <label class="task-content" for="task2c">Document internet connection type and bandwidth</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task2d" onchange="updateProgress()">
+                                <label class="task-content" for="task2d">Identify critical systems and devices</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task3" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task3">Assess physical infrastructure</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task3a" onchange="updateProgress()">
+                                <label class="task-content" for="task3a">Evaluate existing cabling (Cat5e/6, fiber)</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task3b" onchange="updateProgress()">
+                                <label class="task-content" for="task3b">Check rack space availability</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task3c" onchange="updateProgress()">
+                                <label class="task-content" for="task3c">Identify mounting locations for access points</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task3d" onchange="updateProgress()">
+                                <label class="task-content" for="task3d">Verify power availability (PoE requirements, UPS)</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task4" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task4">Gather business requirements</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task4a" onchange="updateProgress()">
+                                <label class="task-content" for="task4a">Number of users and devices</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task4b" onchange="updateProgress()">
+                                <label class="task-content" for="task4b">Bandwidth requirements per department/function</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task4c" onchange="updateProgress()">
+                                <label class="task-content" for="task4c">Guest network requirements</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task4d" onchange="updateProgress()">
+                                <label class="task-content" for="task4d">Security and compliance requirements</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>Network Analysis</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task5" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task5">Conduct wireless site survey (if applicable)</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task5a" onchange="updateProgress()">
+                                <label class="task-content" for="task5a">Identify RF interference sources</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task5b" onchange="updateProgress()">
+                                <label class="task-content" for="task5b">Determine AP placement and quantity</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task5c" onchange="updateProgress()">
+                                <label class="task-content" for="task5c">Plan channel allocation</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task6" onchange="updateProgress()">
+                    <label class="task-content" for="task6">Analyze traffic patterns and bottlenecks</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task7" onchange="updateProgress()">
+                    <label class="task-content" for="task7">Document security gaps and vulnerabilities</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task8" onchange="updateProgress()">
+                    <label class="task-content" for="task8">Identify single points of failure</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task9" onchange="updateProgress()">
+                    <label class="task-content" for="task9">Review backup and redundancy needs</label>
+                </li>
+            </ul>
+
+            <h3>Documentation Deliverables</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task10" onchange="updateProgress()">
+                    <label class="task-content" for="task10">Create network diagram (current state)</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task11" onchange="updateProgress()">
+                    <label class="task-content" for="task11">Document findings report</label>
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <div class="phase">
+            <h2>Phase 2: Recommendation & Design <span style="color: #e74c3c; font-weight: normal; font-size: 0.8em;">→ After Phase 1 before SOW Quote</span></h2>
+
+            <h3>Device Recommendations</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task12" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task12"><strong>Core Router/Firewall</strong></label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task12a" onchange="updateProgress()">
+                                <label class="task-content" for="task12a">Model and specifications</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task12b" onchange="updateProgress()">
+                                <label class="task-content" for="task12b">Throughput requirements</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>Design Documentation</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task13" onchange="updateProgress()">
+                    <label class="task-content" for="task13">Create proposed network topology diagram</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task14" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task14">Define IP addressing and VLAN scheme</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task14a" onchange="updateProgress()">
+                                <label class="task-content" for="task14a">Management VLAN</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task14b" onchange="updateProgress()">
+                                <label class="task-content" for="task14b">User/data VLANs</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task14c" onchange="updateProgress()">
+                                <label class="task-content" for="task14c">Voice VLAN</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task14d" onchange="updateProgress()">
+                                <label class="task-content" for="task14d">Guest VLAN</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task14e" onchange="updateProgress()">
+                                <label class="task-content" for="task14e">IoT/security VLAN</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task15" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task15">Plan wireless network architecture</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task15a" onchange="updateProgress()">
+                                <label class="task-content" for="task15a">SSID naming and security</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task15b" onchange="updateProgress()">
+                                <label class="task-content" for="task15b">AP coverage map</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task16" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task16">Design security policies</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task16a" onchange="updateProgress()">
+                                <label class="task-content" for="task16a">Firewall rules</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task16b" onchange="updateProgress()">
+                                <label class="task-content" for="task16b">Access control lists</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task16c" onchange="updateProgress()">
+                                <label class="task-content" for="task16c">Guest portal requirements</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task17" onchange="updateProgress()">
+                    <label class="task-content" for="task17">Plan redundancy and failover</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task18" onchange="updateProgress()">
+                    <label class="task-content" for="task18">Develop naming conventions for devices</label>
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <div class="phase">
+            <h2>Phase 3: Pre-Configuration & Preparation <span style="color: #e74c3c; font-weight: normal; font-size: 0.8em;">→ After Quote is signed</span></h2>
+
+            <h3>Pre-Configuration</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task19" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task19">Create configuration templates</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task19a" onchange="updateProgress()">
+                                <label class="task-content" for="task19a">Router/firewall base config</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task19b" onchange="updateProgress()">
+                                <label class="task-content" for="task19b">Switch base config</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task19c" onchange="updateProgress()">
+                                <label class="task-content" for="task19c">AP base config</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task20" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task20">Configure devices in lab/staging environment</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task20a" onchange="updateProgress()">
+                                <label class="task-content" for="task20a">Set management IPs</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task20b" onchange="updateProgress()">
+                                <label class="task-content" for="task20b">Configure VLANs and (trunking if needed)</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task20c" onchange="updateProgress()">
+                                <label class="task-content" for="task20c">Apply security policies</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task20d" onchange="updateProgress()">
+                                <label class="task-content" for="task20d">Set up wireless controller and SSIDs</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task20e" onchange="updateProgress()">
+                                <label class="task-content" for="task20e">Configure monitoring/management access</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task21" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task21">Test configurations</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task21a" onchange="updateProgress()">
+                                <label class="task-content" for="task21a">Verify connectivity</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task21b" onchange="updateProgress()">
+                                <label class="task-content" for="task21b">Test VLAN routing</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task21c" onchange="updateProgress()">
+                                <label class="task-content" for="task21c">Validate security rules</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task21d" onchange="updateProgress()">
+                                <label class="task-content" for="task21d">Check wireless functionality</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task22" onchange="updateProgress()">
+                    <label class="task-content" for="task22">Document all configurations</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task23" onchange="updateProgress()">
+                    <label class="task-content" for="task23">Create device labels with IP addresses</label>
+                </li>
+            </ul>
+
+            <h3>Installation Planning</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task24" onchange="updateProgress()">
+                    <label class="task-content" for="task24">Schedule installation date/time with customer</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task25" onchange="updateProgress()">
+                    <label class="task-content" for="task25">Coordinate downtime window (if required)</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task26" onchange="updateProgress()">
+                    <label class="task-content" for="task26">Assign installation team roles</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task27" onchange="updateProgress()">
+                    <label class="task-content" for="task27">Brief team on installation plan</label>
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <div class="phase">
+            <h2>Phase 4: Installation Day <span style="color: #e74c3c; font-weight: normal; font-size: 0.8em;">→ On-site Install</span></h2>
+
+            <h3>Configuration & Cutover</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task28" onchange="updateProgress()">
+                    <label class="task-content" for="task28">Connect to each device and verify config</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task29" onchange="updateProgress()">
+                    <label class="task-content" for="task29">Upload final configurations</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task30" onchange="updateProgress()">
+                    <label class="task-content" for="task30">Establish internet connectivity</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task31" onchange="updateProgress()">
+                    <label class="task-content" for="task31">Configure and test inter-VLAN routing</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task32" onchange="updateProgress()">
+                    <label class="task-content" for="task32">Verify wireless network operation</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task33" onchange="updateProgress()">
+                    <label class="task-content" for="task33">Test connectivity from each VLAN</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task34" onchange="updateProgress()">
+                    <label class="task-content" for="task34">Migrate devices to new network (if applicable)</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task35" onchange="updateProgress()">
+                    <label class="task-content" for="task35">Update DHCP scopes and DNS settings</label>
+                </li>
+            </ul>
+
+            <h3>Testing & Validation</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task36" onchange="updateProgress()">
+                    <label class="task-content" for="task36">Test internet connectivity from all VLANs</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task37" onchange="updateProgress()">
+                    <label class="task-content" for="task37">Verify wireless coverage and performance</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task38" onchange="updateProgress()">
+                    <label class="task-content" for="task38">Test guest network isolation</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task39" onchange="updateProgress()">
+                    <label class="task-content" for="task39">Validate firewall rules</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task40" onchange="updateProgress()">
+                    <label class="task-content" for="task40">Check VPN connectivity (if applicable)</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task41" onchange="updateProgress()">
+                    <label class="task-content" for="task41">Test failover/redundancy mechanisms</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task42" onchange="updateProgress()">
+                    <label class="task-content" for="task42">Verify critical applications are accessible</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task43" onchange="updateProgress()">
+                    <label class="task-content" for="task43">Run speed tests from multiple locations</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task44" onchange="updateProgress()">
+                    <label class="task-content" for="task44">Test roaming between APs</label>
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <div class="phase">
+            <h2>Phase 5: Post-Installation & Handoff</h2>
+            <div class="note">Hand off to IT Services?</div>
+
+            <h3>Monitoring & Optimization</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task45" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task45">Configure network monitoring</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task45a" onchange="updateProgress()">
+                                <label class="task-content" for="task45a">Set up SNMP monitoring</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task45b" onchange="updateProgress()">
+                                <label class="task-content" for="task45b">Configure alerts and notifications</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task45c" onchange="updateProgress()">
+                                <label class="task-content" for="task45c">Enable logging</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task46" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task46">Add devices to management platform</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task46a" onchange="updateProgress()">
+                                <label class="task-content" for="task46a">NinjaOne/RMM integration</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task46b" onchange="updateProgress()">
+                                <label class="task-content" for="task46b">Network management controller</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task47" onchange="updateProgress()">
+                    <div class="task-content">
+                        <label for="task47">Monitor for first 24-48 hours</label>
+                        <ul class="subtask-list">
+                            <li class="task-item">
+                                <input type="checkbox" id="task47a" onchange="updateProgress()">
+                                <label class="task-content" for="task47a">Check for errors or warnings</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task47b" onchange="updateProgress()">
+                                <label class="task-content" for="task47b">Optimize wireless channels if needed</label>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" id="task47c" onchange="updateProgress()">
+                                <label class="task-content" for="task47c">Adjust QoS policies</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>Project Closeout</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task48" onchange="updateProgress()">
+                    <label class="task-content" for="task48">Conduct final walkthrough with customer</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task49" onchange="updateProgress()">
+                    <label class="task-content" for="task49">Obtain customer sign-off</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task50" onchange="updateProgress()">
+                    <label class="task-content" for="task50">Document lessons learned</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task51" onchange="updateProgress()">
+                    <label class="task-content" for="task51">Schedule 30-day follow-up review</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task52" onchange="updateProgress()">
+                    <label class="task-content" for="task52">Package all documentation for handoff</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task53" onchange="updateProgress()">
+                    <label class="task-content" for="task53">Update customer records in PSA/CRM</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task54" onchange="updateProgress()">
+                    <label class="task-content" for="task54">Close project in project management system</label>
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <div class="phase">
+            <h2>Ongoing Maintenance (Post-Install)</h2>
+
+            <h3>Regular Tasks</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task55" onchange="updateProgress()">
+                    <label class="task-content" for="task55">Schedule firmware updates</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task56" onchange="updateProgress()">
+                    <label class="task-content" for="task56">Review monitoring alerts weekly</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task57" onchange="updateProgress()">
+                    <label class="task-content" for="task57">Conduct quarterly network health checks</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task58" onchange="updateProgress()">
+                    <label class="task-content" for="task58">Update documentation as changes occur</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task59" onchange="updateProgress()">
+                    <label class="task-content" for="task59">Review security policies quarterly</label>
+                </li>
+            </ul>
+
+            <h3>Support & Optimization</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <input type="checkbox" id="task60" onchange="updateProgress()">
+                    <label class="task-content" for="task60">Monitor network growth and capacity</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task61" onchange="updateProgress()">
+                    <label class="task-content" for="task61">Adjust configurations as needed</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task62" onchange="updateProgress()">
+                    <label class="task-content" for="task62">Plan for future expansion</label>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" id="task63" onchange="updateProgress()">
+                    <label class="task-content" for="task63">Schedule annual network review with customer</label>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function updateProgress() {
+            const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+            const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            const percentage = Math.round((checkedBoxes.length / allCheckboxes.length) * 100);
+
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '% Complete (' + checkedBoxes.length + '/' + allCheckboxes.length + ')';
+        }
+
+        function saveProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const state = {};
+            checkboxes.forEach(checkbox => {
+                state[checkbox.id] = checkbox.checked;
+            });
+            localStorage.setItem('networkInstallProgress', JSON.stringify(state));
+            alert('Progress saved successfully!');
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('networkInstallProgress');
+            if (saved) {
+                const state = JSON.parse(saved);
+                Object.keys(state).forEach(id => {
+                    const checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = state[id];
+                    }
+                });
+                updateProgress();
+                alert('Progress loaded successfully!');
+            } else {
+                alert('No saved progress found.');
+            }
+        }
+
+        function clearAll() {
+            if (confirm('Are you sure you want to clear all checkboxes?')) {
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                updateProgress();
+                localStorage.removeItem('networkInstallProgress');
+            }
+        }
+
+        // Auto-load progress on page load
+        window.addEventListener('load', () => {
+            loadProgress();
+        });
+
+        // Auto-save every 30 seconds
+        setInterval(() => {
+            const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            if (checkedBoxes.length > 0) {
+                saveProgress();
+            }
+        }, 30000);
+    </script>
+</body>
+</html>

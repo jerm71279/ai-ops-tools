@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+"""
+Multi-Vendor Network Config Builder - Main Entry Point
+
+Supports: MikroTik, SonicWall, Ubiquiti (UniFi/EdgeRouter)
+"""
+
+if __name__ == "__main__":
+    from cli.commands import cli
+    cli()

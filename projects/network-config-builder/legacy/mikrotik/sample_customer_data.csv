@@ -1,0 +1,28 @@
+Field Name,Value
+Customer Name,OberaMain
+Deployment Type,Router + AP
+Device Model,RB4011
+Site Location,Main Office
+WAN IP Address,192.0.2.10
+WAN Netmask,24
+WAN Gateway,192.0.2.1
+LAN Bridge Name,bridge-lan
+LAN IP Address,192.168.88.1
+LAN Netmask,24
+DHCP Pool Start,192.168.88.100
+DHCP Pool End,192.168.88.200
+DHCP Lease Time,12h
+LAN DNS Servers,8.8.8.8,8.8.4.4
+Wireless SSID,OberaGuest
+Wireless Band/Channel Width,2ghz-b/g/n
+Wireless Channel Width,20mhz
+Wireless Country / Coverage Region,us
+Wireless Password,SecurePass123
+Admin Username,oberadmin
+Admin Password,SuperSecure!
+Allowed Remote IPs for Admin,192.168.1.0/24,10.0.0.0/8
+Enable STUN Port,true
+Enable Throughput Port,true
+Enable Winbox Access,true
+Enable SSH Access,true
+

@@ -1,0 +1,94 @@
+# MikroTik Router + WiFi Configuration Example
+#
+# This example demonstrates:
+# - Router with wireless AP
+# - Multiple SSIDs (corporate + guest)
+# - WiFi 6 configuration
+# - Guest isolation
+
+vendor: mikrotik
+device_model: RB4011iGS+RM
+
+customer:
+  name: Acme Corp
+  site: Main Office with WiFi
+  contact: admin@acme.com
+
+deployment_type: router_and_ap
+
+wan:
+  interface: ether1
+  mode: static
+  ip: 203.0.113.10
+  netmask: 29
+  gateway: 203.0.113.9
+  dns:
+    - 8.8.8.8
+    - 8.8.4.4
+
+lan:
+  interface: bridge-lan
+  ip: 192.168.1.1
+  netmask: 24
+  dhcp:
+    enabled: true
+    pool_start: 192.168.1.100
+    pool_end: 192.168.1.200
+    lease_time: 12h
+    dns_servers:
+      - 8.8.8.8
+      - 8.8.4.4
+
+vlans:
+  - id: 10
+    name: Corporate
+    subnet: 192.168.10.0/24
+    dhcp: true
+    dhcp_config:
+      pool_start: 192.168.10.100
+      pool_end: 192.168.10.200
+      lease_time: 12h
+
+  - id: 20
+    name: Guest
+    subnet: 192.168.20.0/24
+    dhcp: true
+    isolation: true
+    dhcp_config:
+      pool_start: 192.168.20.100
+      pool_end: 192.168.20.200
+      lease_time: 2h
+
+# Multiple wireless networks
+wireless:
+  - ssid: AcmeWiFi
+    password: SecurePass123
+    mode: wifi6
+    band: 2ghz-b/g/n
+    channel_width: 20mhz
+    country: us
+    vlan: 10
+    guest_mode: false
+
+  - ssid: AcmeGuest
+    password: GuestPass456
+    mode: wifi6
+    band: 2ghz-b/g/n
+    channel_width: 20mhz
+    country: us
+    vlan: 20
+    guest_mode: true
+
+security:
+  admin_username: acmeadmin
+  admin_password: SuperSecure123!
+  allowed_management_ips:
+    - 192.168.1.0/24
+    - 192.168.10.0/24
+  disable_unused_services: true
+
+mikrotik:
+  enable_winbox: true
+  enable_ssh: true
+  bandwidth_test: true
+  stun_port: false

@@ -1,0 +1,95 @@
+# SonicWall Firewall with VLANs
+#
+# This example demonstrates:
+# - Multi-VLAN configuration
+# - Zone-based security
+# - Guest network isolation
+# - DHCP per VLAN
+
+vendor: sonicwall
+device_model: TZ470
+
+customer:
+  name: Enterprise Corp
+  site: Main Office - Multi-Zone
+  contact: netadmin@enterprise.com
+
+deployment_type: firewall
+
+wan:
+  interface: X0
+  mode: static
+  ip: 203.0.113.50
+  netmask: 29
+  gateway: 203.0.113.49
+  dns:
+    - 1.1.1.1
+    - 1.0.0.1
+
+lan:
+  interface: X1
+  ip: 10.0.0.1
+  netmask: 24
+  dhcp:
+    enabled: true
+    pool_start: 10.0.0.100
+    pool_end: 10.0.0.200
+    lease_time: 12h
+    dns_servers:
+      - 1.1.1.1
+      - 1.0.0.1
+
+vlans:
+  - id: 10
+    name: Management
+    subnet: 10.0.10.0/24
+    dhcp: true
+    dhcp_config:
+      pool_start: 10.0.10.100
+      pool_end: 10.0.10.200
+      lease_time: 24h
+      dns_servers:
+        - 1.1.1.1
+
+  - id: 20
+    name: Engineering
+    subnet: 10.0.20.0/24
+    dhcp: true
+    dhcp_config:
+      pool_start: 10.0.20.100
+      pool_end: 10.0.20.250
+      lease_time: 12h
+
+  - id: 30
+    name: Guest
+    subnet: 10.0.30.0/24
+    dhcp: true
+    isolation: true
+    dhcp_config:
+      pool_start: 10.0.30.10
+      pool_end: 10.0.30.250
+      lease_time: 4h
+
+  - id: 40
+    name: IoT
+    subnet: 10.0.40.0/24
+    dhcp: true
+    isolation: true
+    dhcp_config:
+      pool_start: 10.0.40.100
+      pool_end: 10.0.40.200
+      lease_time: 24h
+
+security:
+  admin_username: firewalladmin
+  admin_password: VerySecure456!
+  allowed_management_ips:
+    - 10.0.0.0/24
+    - 10.0.10.0/24
+  disable_unused_services: true
+
+sonicwall_config:
+  enable_ssl_vpn: true
+  enable_content_filtering: true
+  enable_intrusion_prevention: true
+  enable_anti_malware: true

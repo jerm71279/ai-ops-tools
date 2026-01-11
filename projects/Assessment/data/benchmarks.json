@@ -1,0 +1,29 @@
+{
+  "industry_benchmarks": {
+    "manufacturing": {
+      "avg_score": 35.0,
+      "sample_size": 1,
+      "percentile_50": 35.0
+    }
+  },
+  "size_benchmarks": {
+    "100-250": {
+      "avg_score": 35.0,
+      "sample_size": 1
+    }
+  },
+  "framework_benchmarks": {},
+  "percentile_rankings": {
+    "acme-corp-001": {
+      "percentile": 50,
+      "vs_industry": 0,
+      "vs_size": 0
+    }
+  },
+  "benchmark_metadata": {
+    "total_data_points": 1,
+    "industries_covered": 1,
+    "last_calculation": "2025-11-28T10:05:36.009490"
+  },
+  "last_updated": "2025-11-28T10:05:36.009492"
+}

@@ -1,0 +1,9 @@
+# Exclude List for Network Scans
+# Add IP addresses or ranges that should not be scanned
+# One entry per line
+
+# Example entries (replace with your actual exclusions):
+# 192.168.1.1        # Main router
+# 192.168.1.10       # Production database server
+# 10.0.0.0/24        # Management network
+# 172.16.50.0/24     # Critical infrastructure subnet

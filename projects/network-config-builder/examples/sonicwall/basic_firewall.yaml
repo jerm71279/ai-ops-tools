@@ -1,0 +1,52 @@
+# SonicWall Basic Firewall Configuration
+#
+# This example demonstrates:
+# - Basic firewall setup
+# - WAN/LAN configuration
+# - NAT and firewall rules
+# - Security hardening
+
+vendor: sonicwall
+device_model: TZ370
+
+customer:
+  name: Tech Solutions Inc
+  site: Corporate Office
+  contact: it@techsolutions.com
+
+deployment_type: firewall
+
+wan:
+  interface: X0
+  mode: static
+  ip: 198.51.100.10
+  netmask: 28
+  gateway: 198.51.100.1
+  dns:
+    - 8.8.8.8
+    - 8.8.4.4
+
+lan:
+  interface: X1
+  ip: 192.168.10.1
+  netmask: 24
+  dhcp:
+    enabled: true
+    pool_start: 192.168.10.100
+    pool_end: 192.168.10.200
+    lease_time: 24h
+    dns_servers:
+      - 8.8.8.8
+      - 8.8.4.4
+
+security:
+  admin_username: swadmin
+  admin_password: SecureFirewall123!
+  allowed_management_ips:
+    - 192.168.10.0/24
+  disable_unused_services: true
+
+sonicwall_config:
+  enable_ssl_vpn: false
+  enable_content_filtering: true
+  enable_intrusion_prevention: true

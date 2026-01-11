@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "generator": "Multi-Vendor Network Config Builder",
+    "customer": "Creative Agency LLC"
+  },
+  "wlans": [
+    {
+      "name": "CreativeStudio",
+      "enabled": true,
+      "security": "wpapsk",
+      "wpa_mode": "wpa2",
+      "x_passphrase": "StudioWiFi2024!",
+      "wpa_enc": "ccmp",
+      "wlan_band": "5g",
+      "vlan_enabled": true,
+      "vlan": 10,
+      "he_enabled": true
+    },
+    {
+      "name": "OfficeWiFi",
+      "enabled": true,
+      "security": "wpapsk",
+      "wpa_mode": "wpa2",
+      "x_passphrase": "OfficePass2024!",
+      "wpa_enc": "ccmp",
+      "wlan_band": "both",
+      "vlan_enabled": true,
+      "vlan": 20,
+      "he_enabled": true
+    },
+    {
+      "name": "GuestNetwork",
+      "enabled": true,
+      "security": "wpapsk",
+      "wpa_mode": "wpa2",
+      "x_passphrase": "GuestPass2024",
+      "wpa_enc": "ccmp",
+      "wlan_band": "2g",
+      "vlan_enabled": true,
+      "vlan": 30,
+      "is_guest": true,
+      "guest_network": true,
+      "guest_allow_wan_access": true,
+      "guest_allow_lan_access": false,
+      "he_enabled": true
+    }
+  ]
+}

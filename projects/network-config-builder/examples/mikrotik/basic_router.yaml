@@ -1,0 +1,55 @@
+# MikroTik Basic Router Configuration Example
+#
+# This example demonstrates a simple router setup with:
+# - Static WAN connection
+# - LAN with DHCP
+# - Basic security hardening
+
+vendor: mikrotik
+device_model: RB4011iGS+RM
+
+customer:
+  name: Acme Corp
+  site: Main Office
+  contact: admin@acme.com
+  notes: Basic router deployment
+
+deployment_type: router_only
+
+wan:
+  interface: ether1
+  mode: static
+  ip: 203.0.113.10
+  netmask: 29
+  gateway: 203.0.113.9
+  dns:
+    - 8.8.8.8
+    - 8.8.4.4
+
+lan:
+  interface: bridge-lan
+  ip: 192.168.1.1
+  netmask: 24
+  dhcp:
+    enabled: true
+    pool_start: 192.168.1.100
+    pool_end: 192.168.1.200
+    lease_time: 12h
+    dns_servers:
+      - 8.8.8.8
+      - 8.8.4.4
+
+security:
+  admin_username: acmeadmin
+  admin_password: ChangeMe123!
+  allowed_management_ips:
+    - 192.168.1.0/24
+    - 10.0.0.0/8
+  disable_unused_services: true
+
+# MikroTik-specific settings
+mikrotik:
+  enable_winbox: true
+  enable_ssh: true
+  bandwidth_test: false
+  stun_port: false
