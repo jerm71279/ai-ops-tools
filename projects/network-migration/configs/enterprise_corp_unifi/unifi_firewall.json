@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "generator": "Network Migration Toolkit",
+    "customer": "Enterprise Corp",
+    "generated_date": "2026-01-09 16:29:04",
+    "total_rules": 9
+  },
+  "firewall_rules": [
+    {
+      "name": "Block-Dangerous-TCP-WAN",
+      "action": "drop",
+      "rule_index": 2001,
+      "enabled": true,
+      "protocol": "tcp",
+      "protocol_match_excepted": false,
+      "src_firewallgroup_ids": [],
+      "dst_firewallgroup_ids": [],
+      "dst_port": "21,22,23,80,443,2000,8080",
+      "ruleset": "WAN_IN"
+    },
+    {
+      "name": "Block-Dangerous-UDP-WAN",
+      "action": "drop",
+      "rule_index": 2002,
+      "enabled": true,
+      "protocol": "udp",
+      "protocol_match_excepted": false,
+      "src_firewallgroup_ids": [],
+      "dst_firewallgroup_ids": [],
+      "dst_port": "53,123,161",
+      "ruleset": "WAN_IN"
+    },
+    {
+      "name": "LAN_to_WAN",
+      "action": "accept",
+      "rule_index": 3000,
+      "enabled": true,
+      "ruleset": "LAN_IN"
+    },
+    {
+      "name": "MANAGEMENT_to_WAN",
+      "action": "accept",
+      "rule_index": 3001,
+      "enabled": true,
+      "ruleset": "LAN_IN"
+    },
+    {
+      "name": "ENGINEERING_to_WAN",
+      "action": "accept",
+      "rule_index": 3002,
+      "enabled": true,
+      "ruleset": "LAN_IN"
+    },
+    {
+      "name": "GUEST_to_WAN",
+      "action": "accept",
+      "rule_index": 3003,
+      "enabled": true,
+      "ruleset": "LAN_IN"
+    },
+    {
+      "name": "GUEST_to_LAN_deny",
+      "action": "drop",
+      "rule_index": 3004,
+      "enabled": true,
+      "ruleset": "LAN_IN"
+    },
+    {
+      "name": "IOT_to_WAN",
+      "action": "accept",
+      "rule_index": 3005,
+      "enabled": true,
+      "ruleset": "LAN_IN"
+    },
+    {
+      "name": "IOT_to_LAN_deny",
+      "action": "drop",
+      "rule_index": 3006,
+      "enabled": true,
+      "ruleset": "LAN_IN"
+    }
+  ]
+}

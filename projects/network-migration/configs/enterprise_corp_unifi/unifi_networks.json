@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "generator": "Network Migration Toolkit",
+    "customer": "Enterprise Corp",
+    "source_platform": "sonicwall",
+    "source_device": "",
+    "generated_date": "2026-01-09 16:29:04",
+    "total_networks": 5
+  },
+  "networks": [
+    {
+      "name": "LAN",
+      "purpose": "corporate",
+      "ip_subnet": "10.0.0.1/24",
+      "networkgroup": "LAN",
+      "dhcpd_enabled": true,
+      "dhcpd_start": "10.0.0.100",
+      "dhcpd_stop": "10.0.0.200",
+      "dhcpd_dns_enabled": true,
+      "dhcpd_dns_1": "1.1.1.1",
+      "dhcpd_dns_2": "1.0.0.1",
+      "dhcpd_leasetime": 86400
+    },
+    {
+      "name": "MANAGEMENT",
+      "purpose": "corporate",
+      "ip_subnet": "10.0.10.1/24",
+      "networkgroup": "LAN",
+      "dhcpd_enabled": true,
+      "vlan_enabled": true,
+      "vlan": "10",
+      "dhcpd_start": "10.0.10.100",
+      "dhcpd_stop": "10.0.10.200",
+      "dhcpd_dns_enabled": true,
+      "dhcpd_dns_1": "1.1.1.1",
+      "dhcpd_leasetime": 86400
+    },
+    {
+      "name": "ENGINEERING",
+      "purpose": "corporate",
+      "ip_subnet": "10.0.20.1/24",
+      "networkgroup": "LAN",
+      "dhcpd_enabled": true,
+      "vlan_enabled": true,
+      "vlan": "20",
+      "dhcpd_start": "10.0.20.100",
+      "dhcpd_stop": "10.0.20.250",
+      "dhcpd_dns_enabled": true,
+      "dhcpd_dns_1": "1.1.1.1",
+      "dhcpd_dns_2": "1.0.0.1",
+      "dhcpd_leasetime": 86400
+    },
+    {
+      "name": "GUEST",
+      "purpose": "guest",
+      "ip_subnet": "10.0.30.1/24",
+      "networkgroup": "LAN",
+      "dhcpd_enabled": true,
+      "vlan_enabled": true,
+      "vlan": "30",
+      "dhcpd_start": "10.0.30.10",
+      "dhcpd_stop": "10.0.30.250",
+      "dhcpd_dns_enabled": true,
+      "dhcpd_dns_1": "1.1.1.1",
+      "dhcpd_dns_2": "1.0.0.1",
+      "dhcpd_leasetime": 86400,
+      "network_isolation": true
+    },
+    {
+      "name": "IOT",
+      "purpose": "corporate",
+      "ip_subnet": "10.0.40.1/24",
+      "networkgroup": "LAN",
+      "dhcpd_enabled": true,
+      "vlan_enabled": true,
+      "vlan": "40",
+      "dhcpd_start": "10.0.40.100",
+      "dhcpd_stop": "10.0.40.200",
+      "dhcpd_dns_enabled": true,
+      "dhcpd_dns_1": "1.1.1.1",
+      "dhcpd_dns_2": "1.0.0.1",
+      "dhcpd_leasetime": 86400,
+      "network_isolation": true
+    }
+  ]
+}

@@ -15,7 +15,7 @@ credentials/
 **/history.jsonl
 **/file-history/
 **/session-env/
-**/projects/
+**/.claude/projects/
 **/shell-snapshots/
 **/debug/
 **/statsig/

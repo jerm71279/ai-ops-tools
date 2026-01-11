@@ -1,0 +1,1091 @@
+{
+  "metadata": {
+    "customer_name": "Lunas",
+    "source_platform": "cisco",
+    "source_device": "WS-C3650-48PS",
+    "source_firmware": "IOS 16.6",
+    "hostname": "LUNAS",
+    "domain_name": "oberaconnect.com",
+    "default_gateway": "192.168.1.1",
+    "spanning_tree_mode": "rapid-pvst",
+    "parsed_date": "2026-01-09",
+    "total_vlans": 3,
+    "total_ports": 53
+  },
+  "networks": [
+    {
+      "name": "Management",
+      "vlan_id": 1,
+      "purpose": "management",
+      "dhcp_enabled": false,
+      "network_isolation": false,
+      "gateway": "192.168.1.2",
+      "subnet": "192.168.1.0/24"
+    },
+    {
+      "name": "Voice-VLAN30",
+      "vlan_id": 30,
+      "purpose": "voice",
+      "dhcp_enabled": false,
+      "network_isolation": false
+    },
+    {
+      "name": "Voice-VLAN40",
+      "vlan_id": 40,
+      "purpose": "voice",
+      "dhcp_enabled": false,
+      "network_isolation": false
+    }
+  ],
+  "switch_ports": [
+    {
+      "name": "GigabitEthernet0/0",
+      "description": "",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": null,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": false,
+      "shutdown": true,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/1",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/2",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/3",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/4",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/5",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/6",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/7",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/8",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/9",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/10",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/11",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/12",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/13",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/14",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/15",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/16",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/17",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/18",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/19",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 30,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/20",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/21",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/22",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/23",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/24",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/25",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/26",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/27",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/28",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/29",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/30",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/31",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/32",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/33",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/34",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/35",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/36",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/37",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/38",
+      "description": "data and phone",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": 40,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": true,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/39",
+      "description": "",
+      "mode": "trunk",
+      "access_vlan": 1,
+      "voice_vlan": null,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": false,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/40",
+      "description": "",
+      "mode": "trunk",
+      "access_vlan": 1,
+      "voice_vlan": null,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": false,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/41",
+      "description": "",
+      "mode": "trunk",
+      "access_vlan": 1,
+      "voice_vlan": null,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": false,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/42",
+      "description": "",
+      "mode": "trunk",
+      "access_vlan": 1,
+      "voice_vlan": null,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": false,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/43",
+      "description": "",
+      "mode": "trunk",
+      "access_vlan": 1,
+      "voice_vlan": null,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": false,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/44",
+      "description": "",
+      "mode": "trunk",
+      "access_vlan": 1,
+      "voice_vlan": null,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": false,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/45",
+      "description": "",
+      "mode": "trunk",
+      "access_vlan": 1,
+      "voice_vlan": null,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": false,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/46",
+      "description": "",
+      "mode": "trunk",
+      "access_vlan": 1,
+      "voice_vlan": null,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": false,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/47",
+      "description": "Lunas",
+      "mode": "trunk",
+      "access_vlan": 1,
+      "voice_vlan": null,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": false,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/0/48",
+      "description": "main feed",
+      "mode": "trunk",
+      "access_vlan": 1,
+      "voice_vlan": null,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": false,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/1/1",
+      "description": "",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": null,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": false,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/1/2",
+      "description": "",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": null,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": false,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/1/3",
+      "description": "",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": null,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": false,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    },
+    {
+      "name": "GigabitEthernet1/1/4",
+      "description": "",
+      "mode": "access",
+      "access_vlan": 1,
+      "voice_vlan": null,
+      "trunk_encapsulation": null,
+      "trunk_allowed_vlans": "all",
+      "portfast": false,
+      "shutdown": false,
+      "ip_address": null,
+      "subnet_mask": null
+    }
+  ],
+  "port_profiles": [
+    {
+      "name": "VLAN 1 + Voice 30",
+      "mode": "access",
+      "native_vlan": 1,
+      "voice_vlan": 30,
+      "allowed_vlans": null,
+      "portfast": true,
+      "ports": [
+        {
+          "name": "GigabitEthernet1/0/1",
+          "short_name": "Gi1/0/1",
+          "port_number": 1,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/2",
+          "short_name": "Gi1/0/2",
+          "port_number": 2,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/3",
+          "short_name": "Gi1/0/3",
+          "port_number": 3,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/4",
+          "short_name": "Gi1/0/4",
+          "port_number": 4,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/5",
+          "short_name": "Gi1/0/5",
+          "port_number": 5,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/6",
+          "short_name": "Gi1/0/6",
+          "port_number": 6,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/7",
+          "short_name": "Gi1/0/7",
+          "port_number": 7,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/8",
+          "short_name": "Gi1/0/8",
+          "port_number": 8,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/9",
+          "short_name": "Gi1/0/9",
+          "port_number": 9,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/10",
+          "short_name": "Gi1/0/10",
+          "port_number": 10,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/11",
+          "short_name": "Gi1/0/11",
+          "port_number": 11,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/12",
+          "short_name": "Gi1/0/12",
+          "port_number": 12,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/13",
+          "short_name": "Gi1/0/13",
+          "port_number": 13,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/14",
+          "short_name": "Gi1/0/14",
+          "port_number": 14,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/15",
+          "short_name": "Gi1/0/15",
+          "port_number": 15,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/16",
+          "short_name": "Gi1/0/16",
+          "port_number": 16,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/17",
+          "short_name": "Gi1/0/17",
+          "port_number": 17,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/18",
+          "short_name": "Gi1/0/18",
+          "port_number": 18,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/19",
+          "short_name": "Gi1/0/19",
+          "port_number": 19,
+          "description": "data and phone"
+        }
+      ]
+    },
+    {
+      "name": "VLAN 1 + Voice 40",
+      "mode": "access",
+      "native_vlan": 1,
+      "voice_vlan": 40,
+      "allowed_vlans": null,
+      "portfast": true,
+      "ports": [
+        {
+          "name": "GigabitEthernet1/0/20",
+          "short_name": "Gi1/0/20",
+          "port_number": 20,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/21",
+          "short_name": "Gi1/0/21",
+          "port_number": 21,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/22",
+          "short_name": "Gi1/0/22",
+          "port_number": 22,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/23",
+          "short_name": "Gi1/0/23",
+          "port_number": 23,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/24",
+          "short_name": "Gi1/0/24",
+          "port_number": 24,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/25",
+          "short_name": "Gi1/0/25",
+          "port_number": 25,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/26",
+          "short_name": "Gi1/0/26",
+          "port_number": 26,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/27",
+          "short_name": "Gi1/0/27",
+          "port_number": 27,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/28",
+          "short_name": "Gi1/0/28",
+          "port_number": 28,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/29",
+          "short_name": "Gi1/0/29",
+          "port_number": 29,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/30",
+          "short_name": "Gi1/0/30",
+          "port_number": 30,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/31",
+          "short_name": "Gi1/0/31",
+          "port_number": 31,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/32",
+          "short_name": "Gi1/0/32",
+          "port_number": 32,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/33",
+          "short_name": "Gi1/0/33",
+          "port_number": 33,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/34",
+          "short_name": "Gi1/0/34",
+          "port_number": 34,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/35",
+          "short_name": "Gi1/0/35",
+          "port_number": 35,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/36",
+          "short_name": "Gi1/0/36",
+          "port_number": 36,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/37",
+          "short_name": "Gi1/0/37",
+          "port_number": 37,
+          "description": "data and phone"
+        },
+        {
+          "name": "GigabitEthernet1/0/38",
+          "short_name": "Gi1/0/38",
+          "port_number": 38,
+          "description": "data and phone"
+        }
+      ]
+    },
+    {
+      "name": "All VLANs (Trunk)",
+      "mode": "trunk",
+      "native_vlan": 1,
+      "voice_vlan": null,
+      "allowed_vlans": "all",
+      "portfast": false,
+      "ports": [
+        {
+          "name": "GigabitEthernet1/0/39",
+          "short_name": "Gi1/0/39",
+          "port_number": 39,
+          "description": ""
+        },
+        {
+          "name": "GigabitEthernet1/0/40",
+          "short_name": "Gi1/0/40",
+          "port_number": 40,
+          "description": ""
+        },
+        {
+          "name": "GigabitEthernet1/0/41",
+          "short_name": "Gi1/0/41",
+          "port_number": 41,
+          "description": ""
+        },
+        {
+          "name": "GigabitEthernet1/0/42",
+          "short_name": "Gi1/0/42",
+          "port_number": 42,
+          "description": ""
+        },
+        {
+          "name": "GigabitEthernet1/0/43",
+          "short_name": "Gi1/0/43",
+          "port_number": 43,
+          "description": ""
+        },
+        {
+          "name": "GigabitEthernet1/0/44",
+          "short_name": "Gi1/0/44",
+          "port_number": 44,
+          "description": ""
+        },
+        {
+          "name": "GigabitEthernet1/0/45",
+          "short_name": "Gi1/0/45",
+          "port_number": 45,
+          "description": ""
+        },
+        {
+          "name": "GigabitEthernet1/0/46",
+          "short_name": "Gi1/0/46",
+          "port_number": 46,
+          "description": ""
+        },
+        {
+          "name": "GigabitEthernet1/0/47",
+          "short_name": "Gi1/0/47",
+          "port_number": 47,
+          "description": "Lunas"
+        },
+        {
+          "name": "GigabitEthernet1/0/48",
+          "short_name": "Gi1/0/48",
+          "port_number": 48,
+          "description": "main feed"
+        }
+      ]
+    },
+    {
+      "name": "VLAN 1",
+      "mode": "access",
+      "native_vlan": 1,
+      "voice_vlan": null,
+      "allowed_vlans": null,
+      "portfast": false,
+      "ports": [
+        {
+          "name": "GigabitEthernet1/1/1",
+          "short_name": "Gi1/1/1",
+          "port_number": 1,
+          "description": ""
+        },
+        {
+          "name": "GigabitEthernet1/1/2",
+          "short_name": "Gi1/1/2",
+          "port_number": 2,
+          "description": ""
+        },
+        {
+          "name": "GigabitEthernet1/1/3",
+          "short_name": "Gi1/1/3",
+          "port_number": 3,
+          "description": ""
+        },
+        {
+          "name": "GigabitEthernet1/1/4",
+          "short_name": "Gi1/1/4",
+          "port_number": 4,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "management": {
+    "interface": "Vlan1",
+    "ip_address": "192.168.1.2",
+    "subnet_mask": "255.255.255.0",
+    "default_gateway": "192.168.1.1"
+  }
+}
