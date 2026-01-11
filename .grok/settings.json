@@ -1,0 +1,7 @@
+{
+  "model": "grok-3-latest",
+  "contextFiles": [
+    "GROK_CONTEXT.md",
+    "README.md"
+  ]
+}
