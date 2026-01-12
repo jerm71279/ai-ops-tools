@@ -33,6 +33,9 @@ COPY config.py .
 # Copy API server
 COPY docker/agents/api_server.py .
 
+# Copy data files (BA agent data)
+COPY data/ba_agent_data.json /app/data/ba_agent_data.json
+
 # Create data directories and fix ownership
 RUN mkdir -p /app/data/agents /app/data/mcp && chown -R app:app /app
 

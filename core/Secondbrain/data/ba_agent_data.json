@@ -1,0 +1,58 @@
+{
+  "projects": [
+    {
+      "id": "1",
+      "fields": {
+        "Title": "Example Project",
+        "ProjectName": "Network Upgrade - Customer ABC",
+        "Status": "In Progress",
+        "Priority": "High",
+        "AssignedTo": "Mavrick Faison",
+        "DueDate": "2026-02-01",
+        "BudgetHours": 40,
+        "HoursSpent": 15,
+        "PercentComplete": 35
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1",
+      "fields": {
+        "Title": "Configure firewall",
+        "Status": "In Progress",
+        "Priority": "High",
+        "AssignedTo": "Mavrick Faison",
+        "ProjectID": "1",
+        "DueDate": "2026-01-20"
+      }
+    }
+  ],
+  "tickets": [
+    {
+      "id": "1",
+      "fields": {
+        "Title": "VPN connectivity issue",
+        "TicketNumber": "TKT-001",
+        "Status": "Open",
+        "Priority": "High",
+        "AssignedTo": "Patrick McFarland",
+        "Customer": "Customer XYZ"
+      }
+    }
+  ],
+  "time_entries": [
+    {
+      "id": "1",
+      "fields": {
+        "Employee": "Mavrick Faison",
+        "Hours": 4.5,
+        "Date": "2026-01-10",
+        "ProjectID": "1",
+        "WorkType": "Engineering",
+        "Description": "Firewall configuration"
+      }
+    }
+  ],
+  "_instructions": "Replace this sample data with real data exported from SharePoint Lists: Engineering Projects, Tasks, Tickets, TimeEntries"
+}

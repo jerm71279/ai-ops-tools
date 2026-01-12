@@ -99,6 +99,34 @@ class BAAgent:
         self.reports_dir = Path("./ba_reports")
         self.reports_dir.mkdir(parents=True, exist_ok=True)
 
+        # Auto-load data from file if exists
+        self.load_data_from_file()
+
+    def load_data_from_file(self, filepath: str = None):
+        """Load data from JSON file"""
+        if filepath is None:
+            filepath = Path("./data/ba_agent_data.json")
+        else:
+            filepath = Path(filepath)
+
+        if filepath.exists():
+            try:
+                with open(filepath, 'r') as f:
+                    data = json.load(f)
+                self.set_data(
+                    projects=data.get('projects', []),
+                    tasks=data.get('tasks', []),
+                    tickets=data.get('tickets', []),
+                    time_entries=data.get('time_entries', [])
+                )
+                print(f"Loaded data from {filepath}")
+                print(f"  Projects: {len(self._projects_cache)}")
+                print(f"  Tasks: {len(self._tasks_cache)}")
+                print(f"  Tickets: {len(self._tickets_cache)}")
+                print(f"  Time Entries: {len(self._time_entries_cache)}")
+            except Exception as e:
+                print(f"Error loading data file: {e}")
+
     def set_data(
         self,
         projects: List[Dict] = None,

@@ -246,6 +246,7 @@ services:
       - OLLAMA_BASE_URL=http://ollama:11434
     volumes:
       - ./core/Secondbrain/data/agents:/app/data/agents
+      - ./core/Secondbrain/data/ba_agent_data.json:/app/data/ba_agent_data.json
       - ./core/Secondbrain/vault:/app/vault
     restart: unless-stopped
     networks:
