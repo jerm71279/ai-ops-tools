@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubuntu Installation Guide</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .warning {
+            color: #d9534f;
+            font-weight: bold;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Guide: Wiping a PC and Installing Ubuntu from a Bootable USB</h1>
+
+    <p class="warning">Please follow these steps carefully. This process will erase everything on your mini PC's hard drive.</p>
+
+    <h2>1. Boot from the USB Drive</h2>
+    <ol>
+        <li><strong>Plug the bootable USB drive</strong> into your mini PC.</li>
+        <li><strong>Power on the mini PC</strong> and immediately start pressing the key to enter the BIOS/UEFI settings. Common keys are <strong>F2, F10, F12, Del, or Esc</strong>. The correct key is often displayed on the screen for a brief moment when the computer starts.</li>
+        <li>In the BIOS/UEFI settings, find the <strong>"Boot"</strong> or <strong>"Boot Order"</strong> menu.</li>
+        <li><strong>Change the boot order</strong> to make the USB drive the first boot device. It might be listed as "USB HDD," "Removable Device," or the name of the USB drive itself.</li>
+        <li><strong>Save your changes and exit</strong> the BIOS/UEFI settings. The computer will restart.</li>
+    </ol>
+
+    <h2>2. Start the Ubuntu Installation</h2>
+    <ol>
+        <li>The mini PC should now boot from the USB drive and you will see the Ubuntu installer.</li>
+        <li>On the welcome screen, select <strong>"Install Ubuntu"</strong>.</li>
+        <li>Follow the on-screen prompts to select your language and keyboard layout.</li>
+    </ol>
+
+    <h2>3. Wipe the Disk and Install Ubuntu</h2>
+    <ol>
+        <li>You will reach a step called <strong>"Installation type"</strong>. This is the most important step for wiping your old Red Hat installation.</li>
+        <li>Choose the option <strong>"Erase disk and install Ubuntu"</strong>.
+            <ul>
+                <li class="warning">WARNING: This will delete all programs, documents, photos, music, and any other files on your mini PC's internal hard drive.</li>
+            </ul>
+        </li>
+        <li>Click <strong>"Install Now"</strong>. You will see a final confirmation window showing the changes that will be made to the disk. Click <strong>"Continue"</strong> to proceed.</li>
+    </ol>
+
+    <h2>4. Complete the Installation</h2>
+    <ol>
+        <li>The installer will now copy the Ubuntu files to the hard drive.</li>
+        <li>While it's installing, you will be asked to:
+            <ul>
+                <li>Choose your geographical location (timezone).</li>
+                <li>Create your user account by choosing a username and a strong password.</li>
+            </ul>
+        </li>
+        <li>When the installation is finished, you will see a message saying "Installation Complete". Click <strong>"Restart Now"</strong>.</li>
+    </ol>
+
+    <h2>5. First Boot into Ubuntu</h2>
+    <ol>
+        <li>You will be prompted to <strong>remove the installation medium (your USB drive)</strong> and press Enter.</li>
+        <li>Your mini PC will restart and boot into your new Ubuntu installation.</li>
+    </ol>
+
+    <p>You have now successfully replaced Red Hat with Ubuntu on your mini PC.</p>
+
+</body>
+</html>
