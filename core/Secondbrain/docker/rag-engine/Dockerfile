@@ -30,6 +30,9 @@ COPY config.py .
 COPY suggest_links.py .
 COPY obsidian_vault.py .
 COPY html_generator.py .
+COPY structured_store.py .
+COPY query_classifier.py .
+COPY agentic_rag.py .
 
 # Create data directory for ChromaDB persistence and fix ownership
 RUN mkdir -p /app/data/chroma && chown -R app:app /app
