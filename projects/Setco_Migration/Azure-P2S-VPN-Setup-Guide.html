@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure Point-to-Site VPN Setup Guide - Setco</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .header {
+            border-bottom: 3px solid #0078d4;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            max-width: 200px;
+            height: auto;
+        }
+
+        h1 {
+            color: #0078d4;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #0078d4;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        h3 {
+            color: #333;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .info-box {
+            background-color: #e8f4fd;
+            border-left: 4px solid #0078d4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background-color: #fff4e5;
+            border-left: 4px solid #ff8c00;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .code-block {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+        }
+
+        .code-inline {
+            background-color: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #c7254e;
+        }
+
+        .step-number {
+            display: inline-block;
+            background-color: #0078d4;
+            color: white;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        ul, ol {
+            margin-left: 40px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #0078d4;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .checkmark {
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        a {
+            color: #0078d4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>Azure Point-to-Site VPN Setup Guide</h1>
+                <p><strong>Client:</strong> Setco (SouthernEscrow.com)</p>
+                <p><strong>Date:</strong> November 2024</p>
+            </div>
+            <!-- Replace this img src with actual OberaConnect logo path -->
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo">
+        </div>
+
+        <div class="info-box">
+            <strong>Purpose:</strong> This document provides step-by-step instructions for configuring Point-to-Site (P2S) VPN access to the Setco Azure environment, allowing remote users to securely connect to Azure resources using Azure Active Directory authentication.
+        </div>
+
+        <h2>Table of Contents</h2>
+        <ol>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#prerequisites">Prerequisites</a></li>
+            <li><a href="#configuration-values">Configuration Values</a></li>
+            <li><a href="#portal-setup">Portal Setup: Configure P2S VPN</a></li>
+            <li><a href="#cli-setup">CLI Alternative: Configure P2S VPN</a></li>
+            <li><a href="#download-config">Download VPN Client Configuration</a></li>
+            <li><a href="#user-setup">User Setup: Install and Connect</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+            <li><a href="#summary">Configuration Summary</a></li>
+        </ol>
+
+        <h2 id="overview">1. Overview</h2>
+        <p>Point-to-Site (P2S) VPN allows individual users to connect securely to Azure virtual networks from remote locations. This setup uses:</p>
+        <ul>
+            <li><strong>Azure Active Directory Authentication</strong> - Users authenticate with their Microsoft 365 credentials</li>
+            <li><strong>OpenVPN Protocol</strong> - SSL-based VPN protocol</li>
+            <li><strong>Azure VPN Client</strong> - Modern VPN client application for Windows</li>
+            <li><strong>Microsoft-Registered App</strong> - No manual app registration required</li>
+        </ul>
+
+        <h2 id="prerequisites">2. Prerequisites</h2>
+        <div class="warning-box">
+            <strong>Before You Begin:</strong>
+            <ul>
+                <li><span class="checkmark">✓</span> Existing VPN Gateway (VpnGw2AZ or higher)</li>
+                <li><span class="checkmark">✓</span> Global Administrator access to Azure AD tenant</li>
+                <li><span class="checkmark">✓</span> User account must exist in Azure AD</li>
+                <li><span class="checkmark">✓</span> No overlapping IP address ranges with existing VNets</li>
+            </ul>
+        </div>
+
+        <h2 id="configuration-values">3. Configuration Values</h2>
+        <p>The following values are specific to the Setco environment:</p>
+
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Resource Group</td>
+                <td><code class="code-inline">DataCenter</code></td>
+            </tr>
+            <tr>
+                <td>VPN Gateway Name</td>
+                <td><code class="code-inline">DataCenter_Gateway</code></td>
+            </tr>
+            <tr>
+                <td>VPN Gateway SKU</td>
+                <td><code class="code-inline">VpnGw2AZ</code></td>
+            </tr>
+            <tr>
+                <td>Location</td>
+                <td><code class="code-inline">East US</code></td>
+            </tr>
+            <tr>
+                <td>Domain</td>
+                <td><code class="code-inline">SouthernEscrow.com</code></td>
+            </tr>
+            <tr>
+                <td>Azure AD Tenant ID</td>
+                <td><code class="code-inline">7cf9e47b-84ff-4248-914f-8d8c70947e3b</code></td>
+            </tr>
+            <tr>
+                <td>VPN Client Address Pool</td>
+                <td><code class="code-inline">172.18.1.0/24</code></td>
+            </tr>
+            <tr>
+                <td>Tunnel Type</td>
+                <td><code class="code-inline">OpenVPN (SSL)</code></td>
+            </tr>
+            <tr>
+                <td>Authentication Type</td>
+                <td><code class="code-inline">Azure Active Directory</code></td>
+            </tr>
+        </table>
+
+        <h3>Azure AD Authentication Values</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Tenant URL</td>
+                <td><code class="code-inline">https://login.microsoftonline.com/7cf9e47b-84ff-4248-914f-8d8c70947e3b/</code></td>
+            </tr>
+            <tr>
+                <td>Audience (App ID)</td>
+                <td><code class="code-inline">c632b3df-fb67-4d84-bdcf-b95ad541b5c8</code></td>
+            </tr>
+            <tr>
+                <td>Issuer URL</td>
+                <td><code class="code-inline">https://sts.windows.net/7cf9e47b-84ff-4248-914f-8d8c70947e3b/</code></td>
+            </tr>
+        </table>
+
+        <div class="info-box">
+            <strong>Note:</strong> The Audience value <code class="code-inline">c632b3df-fb67-4d84-bdcf-b95ad541b5c8</code> is Microsoft's pre-registered Azure VPN application. This newer app does NOT require manual app registration or admin consent.
+        </div>
+
+        <h2 id="portal-setup">4. Portal Setup: Configure P2S VPN</h2>
+
+        <h3><span class="step-number">1</span>Navigate to VPN Gateway</h3>
+        <ol>
+            <li>Sign in to <a href="https://portal.azure.com" target="_blank">Azure Portal</a></li>
+            <li>Search for <strong>"Virtual network gateways"</strong></li>
+            <li>Select <strong>DataCenter_Gateway</strong></li>
+        </ol>
+
+        <h3><span class="step-number">2</span>Configure Point-to-Site</h3>
+        <ol>
+            <li>In the left menu, click <strong>Point-to-site configuration</strong></li>
+            <li>Click <strong>Configure now</strong></li>
+            <li>Enter the following values:</li>
+        </ol>
+
+        <table>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Address pool</td>
+                <td><code class="code-inline">172.18.1.0/24</code></td>
+            </tr>
+            <tr>
+                <td>Tunnel type</td>
+                <td><code class="code-inline">OpenVPN (SSL)</code></td>
+            </tr>
+            <tr>
+                <td>Authentication type</td>
+                <td><code class="code-inline">Azure Active Directory</code></td>
+            </tr>
+            <tr>
+                <td>Tenant</td>
+                <td><code class="code-inline">https://login.microsoftonline.com/7cf9e47b-84ff-4248-914f-8d8c70947e3b/</code></td>
+            </tr>
+            <tr>
+                <td>Audience</td>
+                <td><code class="code-inline">c632b3df-fb67-4d84-bdcf-b95ad541b5c8</code></td>
+            </tr>
+            <tr>
+                <td>Issuer</td>
+                <td><code class="code-inline">https://sts.windows.net/7cf9e47b-84ff-4248-914f-8d8c70947e3b/</code></td>
+            </tr>
+        </table>
+
+        <h3><span class="step-number">3</span>Save Configuration</h3>
+        <ol>
+            <li>Click <strong>Save</strong> at the top</li>
+            <li>Wait for deployment to complete (5-10 minutes)</li>
+            <li>Do not navigate away until you see "Deployment succeeded"</li>
+        </ol>
+
+        <div class="warning-box">
+            <strong>Important:</strong> Do NOT click "Grant administrator consent for Azure VPN client application" - this is only required for legacy app registrations. The new Microsoft-registered app does not require consent.
+        </div>
+
+        <h2 id="cli-setup">5. CLI Alternative: Configure P2S VPN</h2>
+        <p>If you prefer using Azure CLI or encounter issues with the portal, use this command:</p>
+
+        <div class="code-block">az network vnet-gateway update \
+  --name DataCenter_Gateway \
+  --resource-group DataCenter \
+  --client-protocol OpenVPN \
+  --address-prefixes 172.18.1.0/24 \
+  --aad-tenant "https://login.microsoftonline.com/7cf9e47b-84ff-4248-914f-8d8c70947e3b/" \
+  --aad-audience "c632b3df-fb67-4d84-bdcf-b95ad541b5c8" \
+  --aad-issuer "https://sts.windows.net/7cf9e47b-84ff-4248-914f-8d8c70947e3b/"</div>
+
+        <p><strong>Verify Configuration:</strong></p>
+        <div class="code-block">az network vnet-gateway show \
+  --name DataCenter_Gateway \
+  --resource-group DataCenter \
+  --query "vpnClientConfiguration" \
+  --output json</div>
+
+        <h2 id="download-config">6. Download VPN Client Configuration</h2>
+
+        <h3>Option 1: Azure Portal</h3>
+        <ol>
+            <li>Navigate to <strong>DataCenter_Gateway</strong> → <strong>Point-to-site configuration</strong></li>
+            <li>Click <strong>Download VPN client</strong> at the top</li>
+            <li>Save the ZIP file to your computer</li>
+            <li>Extract the ZIP file</li>
+            <li>Navigate to <code class="code-inline">AzureVPN</code> folder</li>
+            <li>Locate <code class="code-inline">azurevpnconfig.xml</code> file</li>
+        </ol>
+
+        <h3>Option 2: Azure CLI</h3>
+        <div class="code-block">az network vnet-gateway vpn-client generate \
+  --name DataCenter_Gateway \
+  --resource-group DataCenter \
+  --processor-architecture Amd64</div>
+        <p>This command returns a URL - download the ZIP file from that URL and extract it.</p>
+
+        <div class="success-box">
+            <strong>Configuration File:</strong> The <code class="code-inline">azurevpnconfig.xml</code> file contains all the settings needed for users to connect to the VPN.
+        </div>
+
+        <h2 id="user-setup">7. User Setup: Install and Connect</h2>
+
+        <h3><span class="step-number">1</span>Install Azure VPN Client</h3>
+        <p><strong>On the user's Windows PC:</strong></p>
+        <ol>
+            <li>Download Azure VPN Client:
+                <ul>
+                    <li><a href="https://aka.ms/azvpnclientdownload" target="_blank">https://aka.ms/azvpnclientdownload</a></li>
+                    <li>Or from Microsoft Store: <a href="https://www.microsoft.com/store/productId/9NP355QT2SQB" target="_blank">Azure VPN Client</a></li>
+                </ul>
+            </li>
+            <li>Run the installer as Administrator</li>
+            <li>Follow the installation wizard</li>
+            <li>Click <strong>Install</strong></li>
+        </ol>
+
+        <h3><span class="step-number">2</span>Import VPN Configuration</h3>
+        <ol>
+            <li>Copy the <code class="code-inline">azurevpnconfig.xml</code> file to the user's PC</li>
+            <li>Open <strong>Azure VPN Client</strong> from the Start menu</li>
+            <li>Click the <strong>+</strong> button (bottom left corner)</li>
+            <li>Select <strong>Import</strong></li>
+            <li>Browse to and select the <code class="code-inline">azurevpnconfig.xml</code> file</li>
+            <li>Click <strong>Open</strong></li>
+            <li>The profile "DataCenter_vNet" will appear in the client</li>
+        </ol>
+
+        <h3><span class="step-number">3</span>Connect to VPN</h3>
+        <ol>
+            <li>Select the <strong>DataCenter_vNet</strong> profile</li>
+            <li>Click <strong>Connect</strong></li>
+            <li>A sign-in window will appear</li>
+            <li>Enter Microsoft 365/Azure AD credentials:
+                <ul>
+                    <li>Username: <code class="code-inline">user@southernescrow.com</code></li>
+                    <li>Password: User's Azure AD password</li>
+                </ul>
+            </li>
+            <li>Complete any MFA challenges if configured</li>
+            <li>VPN will connect and show <strong>Connected</strong></li>
+        </ol>
+
+        <div class="success-box">
+            <strong>Connected!</strong> The user is now connected to the Setco Azure environment and will receive an IP address from the <code class="code-inline">172.18.1.0/24</code> pool.
+        </div>
+
+        <h3>What Users Can Access</h3>
+        <p>Once connected via VPN, users can access:</p>
+        <ul>
+            <li><strong>Domain Controller:</strong> SETCO-DC02</li>
+            <li><strong>File Shares:</strong> <code class="code-inline">\\SETCO-DC02\sharename</code></li>
+            <li><strong>DataCenter_vNet Resources:</strong> 10.20.x.x, 10.19.x.x</li>
+            <li><strong>vnet-eastus Resources:</strong> 172.16.x.x</li>
+            <li><strong>Any Azure resources</strong> in connected VNets</li>
+        </ul>
+
+        <h2 id="troubleshooting">8. Troubleshooting</h2>
+
+        <h3>Issue: Cannot find Azure VPN Client after installation</h3>
+        <p><strong>Solution:</strong></p>
+        <ul>
+            <li>Search for "Azure VPN" in the Start menu</li>
+            <li>Check <code class="code-inline">C:\Program Files\Azure VPN Client\</code></li>
+            <li>Reinstall if necessary</li>
+        </ul>
+
+        <h3>Issue: Import fails or configuration not recognized</h3>
+        <p><strong>Solution:</strong></p>
+        <ul>
+            <li>Verify you extracted the <code class="code-inline">azurevpnconfig.xml</code> from the AzureVPN folder</li>
+            <li>Re-download the VPN client configuration from Azure</li>
+            <li>Ensure the XML file is not corrupted (open in text editor to verify)</li>
+        </ul>
+
+        <h3>Issue: Authentication fails</h3>
+        <p><strong>Solution:</strong></p>
+        <ul>
+            <li>Verify the user account exists in Azure AD tenant <code class="code-inline">7cf9e47b-84ff-4248-914f-8d8c70947e3b</code></li>
+            <li>Check if user is using correct credentials (username@southernescrow.com)</li>
+            <li>Try signing out and back in</li>
+            <li>Clear cached credentials: Settings → Sign out of all accounts</li>
+        </ul>
+
+        <h3>Issue: Connection fails after authentication</h3>
+        <p><strong>Solution:</strong></p>
+        <ul>
+            <li>Check VPN Gateway status in Azure Portal</li>
+            <li>Verify Point-to-Site configuration is saved correctly</li>
+            <li>Check firewall rules on user's PC (allow Azure VPN Client)</li>
+            <li>Verify network connectivity (not behind a restrictive proxy)</li>
+        </ul>
+
+        <h3>Issue: Portal configuration doesn't save (IP pool disappears)</h3>
+        <p><strong>Solution:</strong></p>
+        <ul>
+            <li>Use Azure CLI method instead (more reliable)</li>
+            <li>Clear browser cache and try again</li>
+            <li>Verify configuration with CLI: <code class="code-inline">az network vnet-gateway show</code></li>
+        </ul>
+
+        <h3>Check Current Configuration</h3>
+        <p>To verify the P2S VPN configuration is applied correctly:</p>
+        <div class="code-block">az network vnet-gateway show \
+  --name DataCenter_Gateway \
+  --resource-group DataCenter \
+  --query "vpnClientConfiguration" \
+  --output json</div>
+
+        <h2 id="summary">9. Configuration Summary</h2>
+
+        <div class="success-box">
+            <h3>Setco P2S VPN Configuration - ACTIVE</h3>
+            <table>
+                <tr>
+                    <td><strong>VPN Gateway</strong></td>
+                    <td>DataCenter_Gateway (VpnGw2AZ)</td>
+                </tr>
+                <tr>
+                    <td><strong>Client Address Pool</strong></td>
+                    <td>172.18.1.0/24 (254 available IPs)</td>
+                </tr>
+                <tr>
+                    <td><strong>Protocol</strong></td>
+                    <td>OpenVPN (SSL)</td>
+                </tr>
+                <tr>
+                    <td><strong>Authentication</strong></td>
+                    <td>Azure Active Directory</td>
+                </tr>
+                <tr>
+                    <td><strong>VPN Server FQDN</strong></td>
+                    <td>azuregateway-86060077-45e0-4b29-80a1-4c172dd521f1-cc76cb507fd1.vpn.azure.com</td>
+                </tr>
+                <tr>
+                    <td><strong>User Authentication</strong></td>
+                    <td>Microsoft 365/Azure AD credentials</td>
+                </tr>
+                <tr>
+                    <td><strong>Client Application</strong></td>
+                    <td>Azure VPN Client (Windows)</td>
+                </tr>
+            </table>
+        </div>
+
+        <h3>Network Access</h3>
+        <p>VPN clients can access:</p>
+        <ul>
+            <li><strong>DataCenter_vNet:</strong> 10.20.1.0/24, 10.19.1.0/27, 10.20.2-12.0/24</li>
+            <li><strong>vnet-eastus:</strong> 172.16.0.0/16</li>
+            <li><strong>Domain Controller:</strong> SETCO-DC02 (SouthernEscrow.com)</li>
+        </ul>
+
+        <h3>Key Features</h3>
+        <ul>
+            <li><span class="checkmark">✓</span> No certificate management required</li>
+            <li><span class="checkmark">✓</span> No app registration or consent needed</li>
+            <li><span class="checkmark">✓</span> Uses existing Azure AD credentials</li>
+            <li><span class="checkmark">✓</span> Supports MFA if configured</li>
+            <li><span class="checkmark">✓</span> Modern, user-friendly VPN client</li>
+            <li><span class="checkmark">✓</span> Secure OpenVPN protocol</li>
+        </ul>
+
+        <h3>Reference Links</h3>
+        <ul>
+            <li><a href="https://learn.microsoft.com/en-us/azure/vpn-gateway/point-to-site-entra-gateway" target="_blank">Configure P2S VPN with Azure AD - Microsoft Docs</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/azure/vpn-gateway/point-to-site-entra-vpn-client-windows" target="_blank">Azure VPN Client for Windows - Microsoft Docs</a></li>
+            <li><a href="https://aka.ms/azvpnclientdownload" target="_blank">Download Azure VPN Client</a></li>
+        </ul>
+
+        <div class="footer">
+            <p><strong>Prepared by:</strong> OberaConnect</p>
+            <p><strong>Client:</strong> Setco (SouthernEscrow.com)</p>
+            <p><strong>Document Version:</strong> 1.0</p>
+            <p><strong>Last Updated:</strong> November 2024</p>
+            <p><strong>Azure Tenant ID:</strong> 7cf9e47b-84ff-4248-914f-8d8c70947e3b</p>
+        </div>
+    </div>
+</body>
+</html>

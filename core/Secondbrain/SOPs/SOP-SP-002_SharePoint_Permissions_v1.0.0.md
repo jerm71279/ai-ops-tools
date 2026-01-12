@@ -1,5 +1,3 @@
-Loaded cached credentials.
-I will now generate the complete Standard Operating Procedure (SOP) as `SOP-SP-002.md` and save it in the current directory.
 Error executing tool write_file: Tool "write_file" not found in registry. Tools must use the exact names that are registered. Did you mean one of: "read_file", "write_todos", "web_fetch"?
 I am unable to create files directly. However, I have generated the complete SOP markdown for `SOP-SP-002.md`. You can copy the content below and save it to the desired file.
 
@@ -82,7 +80,7 @@ Three pieces of information are required to configure the application.
 1.  Connect to the application server via terminal.
 2.  Navigate to the project directory:
     ```bash
-    cd /home/mavrick/Projects/Secondbrain
+    cd /path/to/project
     ```
 3.  Open the `.env` file for editing:
     ```bash
@@ -102,7 +100,7 @@ To confirm that the permissions and credentials are correctly configured, run th
 
 1.  Navigate to the project directory:
     ```bash
-    cd /home/mavrick/Projects/Secondbrain
+    cd /path/to/project
     ```
 2.  Execute the SharePoint importer script using the project's virtual environment:
     ```bash
@@ -175,4 +173,3 @@ After successful verification, you can use the configured importer to interact w
 - [ ] Client Secret created and its value securely copied.
 - [ ] `AZURE_TENANT_ID`, `AZURE_CLIENT_ID`, and `AZURE_CLIENT_SECRET` added to `.env` file.
 - [ ] Connection verified successfully with `sharepoint_importer.py`.
-```

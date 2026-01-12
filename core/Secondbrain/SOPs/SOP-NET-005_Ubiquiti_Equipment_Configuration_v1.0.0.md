@@ -5,7 +5,7 @@
 | **Document ID:** | SOP-NET-005 |
 | **Title:** | Ubiquiti Equipment Configuration for New Customers |
 | **Category:** | Network Administration |
-| **Version:** | 1.0 |
+| **Version:** | 1.2 |
 | **Status:** | Draft |
 | **Author:** | System |
 | **Creation Date:** | 2025-12-04 |
@@ -95,20 +95,65 @@ After connecting the device to the lab network:
    * Navigate to **Network > DHCP Server > Current DHCP Leases**
    * Look for recent leases with Ubiquiti MAC prefixes or hostnames like `U7-Pro`, `UBNT`
 
-#### 6.2 Switch Configuration (Pre-Adoption)
+#### 6.2 Factory Reset (If Device Previously Adopted)
+
+> **NOTE:** If device was previously adopted to another controller, it must be factory reset before re-adoption.
+
+**Physical Reset Button:**
+1. Locate the reset button (small pinhole, usually near power port)
+2. With device powered on, press and hold reset button for 10+ seconds
+3. Release when LED flashes indicating reset
+4. Device will reboot to factory defaults (~2-3 minutes)
+
+**SSH Reset (if accessible):**
+```
+ssh ubnt@<device_ip>
+# Default credentials: ubnt / ubnt
+
+# For switches:
+set-default
+
+# For access points:
+set-default
+# OR
+syswrapper.sh restore-default
+```
+
+**UniFi Controller Reset (if still connected):**
+1. In UniFi Controller, select the device
+2. Click **Settings** (gear icon)
+3. Click **Forget** to remove from controller
+4. Device will reset and become available for new adoption
+
+#### 6.3 Switch Configuration (Pre-Adoption)
 
 > **IMPORTANT:** Switches require SSH firmware upgrade BEFORE adoption into UniFi Controller. APs do NOT require this step.
 
-1. **SSH into the switch:**
-   ```
-   ssh ubnt@<switch_ip>
-   ```
-   Default credentials: `ubnt` / `ubnt`
+1. **SSH into the switch using PuTTY:**
+   1. Launch **PuTTY** from Start Menu or desktop
+   2. In the **Session** category:
+      - **Host Name (or IP address):** Enter the switch IP (e.g., `10.55.1.25`)
+      - **Port:** `22`
+      - **Connection type:** Select **SSH**
+   3. Click **Open**
+   4. If prompted with a security alert about the server's host key, click **Accept** (first connection only)
+   5. At the `login as:` prompt, enter: `ubnt`
+   6. At the `password:` prompt, enter: `ubnt`
+
+   > **Default credentials:** Username `ubnt`, Password `ubnt`
+
+   You should now see the UniFi switch command prompt (e.g., `UBNT-US.v6.6.65#`)
 
 2. **Upgrade firmware via SSH:**
+   At the switch command prompt, enter the upgrade command:
    ```
    upgrade <firmware_url>
    ```
+
+   > **NOTE:** Some older firmware versions use `fwupdate` instead of `upgrade`. If `upgrade` fails, try:
+   > ```
+   > fwupdate --download <firmware_url>
+   > ```
 
 3. **Firmware URLs by model:**
 
@@ -121,7 +166,7 @@ After connecting the device to the lab network:
    |-------|---------|--------------|
    | USW-16-POE | 7.1.26 | `https://dl.ui.com/unifi/firmware/USMULTUSW16POE/7.1.26.15869/US.MULT.USW_16_POE_7.1.26+15869.240926.2129.bin` |
 
-   > See `/home/mavrick/Projects/Secondbrain/reference/ubiquiti_firmware_urls.md` for complete firmware URL reference and additional models.
+   > See the **Ubiquiti Firmware Reference** document on [SharePoint > Technical Docs](https://oberaconnect.sharepoint.com/sites/support/Shared%20Documents/How%20To%27s/SOPs) for complete firmware URL reference and additional models.
 
 4. **Wait for reboot** - Switch will automatically reboot after firmware download completes (~3-5 minutes).
 
@@ -130,15 +175,19 @@ After connecting the device to the lab network:
    info
    ```
 
-#### 6.3 Access Point Configuration
+#### 6.4 Access Point Configuration
 
 > **NOTE:** APs can be adopted directly without manual firmware upgrade. The UniFi Controller will push firmware during adoption.
 
 1. Connect AP to PoE switch port or PoE injector
 2. Wait for LED to show solid white (ready for adoption)
-3. Proceed to Section 6.4 for adoption
+3. Proceed to Section 6.5 for adoption
 
-#### 6.4 UniFi Controller Adoption
+#### 6.5 UniFi Controller Adoption
+
+##### 6.5.1 Same-Subnet Adoption (L2)
+
+If device and controller are on the same network subnet:
 
 1. **Log into UniFi Network Controller**
 
@@ -153,6 +202,37 @@ After connecting the device to the lab network:
    * Set device name (e.g., `SFWB_Main-SW01`, `SFWB_Rockwell-AP01`)
    * Assign to appropriate site
 
+##### 6.5.2 Cross-Subnet Adoption (L3)
+
+If device is on a different subnet than the controller (common in customer deployments):
+
+1. **SSH into the device using PuTTY:**
+   - Launch PuTTY, enter the device IP in **Host Name**, Port `22`, Connection type **SSH**
+   - Click **Open**, accept host key if prompted
+   - Login: `ubnt` / `ubnt`
+
+2. **Set the inform URL to point to the controller:**
+   ```
+   set-inform http://<controller_ip>:8080/inform
+   ```
+
+   For cloud-hosted controllers:
+   ```
+   set-inform https://unifi.ui.com/inform
+   ```
+
+3. **Verify inform URL:**
+   ```
+   info
+   ```
+   Look for `Status: Connected (http://<controller>:8080/inform)`
+
+4. **Adopt in controller** - Device should now appear in pending devices
+
+> **NOTE:** The inform URL persists across reboots. For DHCP Option 43 or DNS-based adoption, configure on the DHCP server or internal DNS.
+
+##### 6.5.3 Post-Adoption Configuration
+
 5. **For switches - Configure ports:**
    * Set port profiles as needed
    * Configure VLANs if applicable
@@ -163,7 +243,7 @@ After connecting the device to the lab network:
    * Set transmit power if needed
    * Configure band steering preferences
 
-#### 6.5 Network Configuration Standards
+#### 6.6 Network Configuration Standards
 
 Apply the following defaults per customer subnet:
 
@@ -180,7 +260,7 @@ Apply the following defaults per customer subnet:
 | .100-.199 | Static client devices (printers, cameras) |
 | .200-.254 | DHCP pool |
 
-> See `/home/mavrick/Projects/Secondbrain/reference/network_defaults.md` for complete reference.
+> See the **Network Configuration Standards** document on [SharePoint > Technical Docs](https://oberaconnect.sharepoint.com/sites/support/Shared%20Documents/How%20To%27s/SOPs) for complete reference.
 
 ---
 
@@ -204,9 +284,9 @@ Apply the following defaults per customer subnet:
 
 ### 9.0 Related Documents
 
-* Ubiquiti Firmware Reference: `/reference/ubiquiti_firmware_urls.md`
-* Network Defaults: `/reference/network_defaults.md`
-* Customer Subnet Tracker: `/network-config-builder/CUSTOMER_SUBNET_TRACKER.csv`
+* [Ubiquiti Firmware Reference](https://oberaconnect.sharepoint.com/sites/support/Shared%20Documents/How%20To%27s/SOPs)
+* [Network Configuration Standards](https://oberaconnect.sharepoint.com/sites/support/Shared%20Documents/How%20To%27s/SOPs)
+* [Customer Subnet Tracker](https://oberaconnect.sharepoint.com/sites/support/Shared%20Documents/How%20To%27s/SOPs)
 * SOP-NET-001: Initial SonicWall Firewall Setup
 
 ### 10.0 Revision History
@@ -214,6 +294,8 @@ Apply the following defaults per customer subnet:
 | Version | Date | Author | Change Description |
 |---------|------|--------|-------------------|
 | 1.0 | 2025-12-04 | System | Initial document creation |
+| 1.1 | 2025-12-29 | Jeremy Smith | SME Review: Added Section 6.2 (Factory Reset for pre-adopted devices). Added L3 adoption with set-inform URL (6.5.2). Added firmware command variation note. Renumbered sections. |
+| 1.2 | 2025-12-30 | Jeremy Smith | Updated SSH access instructions to use PuTTY as preferred method (Sections 6.3, 6.5.2). Added step-by-step PuTTY connection procedure. |
 
 ### 11.0 Approval
 

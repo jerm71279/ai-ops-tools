@@ -4,29 +4,29 @@
     {
       "parameters": {
         "rule": {
-          "interval": [{"field": "cronExpression", "expression": "0 7 * * 1-5"}]
+          "interval": [{"field": "cronExpression", "expression": "0 7 * * *"}]
         }
       },
       "id": "schedule-trigger",
-      "name": "Weekdays 7 AM",
+      "name": "Daily 7 AM CST",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
       "position": [250, 300]
     },
     {
       "parameters": {
-        "command": "mkdir -p ~/oberaconnect-ai-ops/reports && cd ~/oberaconnect-ai-ops/core/Secondbrain && python3 scripts/azure_backup_report.py -o ~/oberaconnect-ai-ops/reports/azure_backup_$(date +%Y-%m-%d).md"
+        "command": "AZURE_CONFIG_DIR=/home/mavrick/AZ_Subs/customer/setcoservices python3 /home/mavrick/Projects/Secondbrain/scripts/azure_backup_report.py --sharepoint 2>&1"
       },
       "id": "run-backup-report",
-      "name": "Generate Backup Report",
+      "name": "Generate & Upload Report",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [450, 300]
     }
   ],
   "connections": {
-    "Weekdays 7 AM": {"main": [[{"node": "Generate Backup Report", "type": "main", "index": 0}]]}
+    "Daily 7 AM CST": {"main": [[{"node": "Generate & Upload Report", "type": "main", "index": 0}]]}
   },
   "settings": {"executionOrder": "v1"},
-  "tags": [{"name": "cron-migration"}, {"name": "weekdays"}, {"name": "azure"}, {"name": "backup"}]
+  "tags": [{"name": "daily"}, {"name": "azure"}, {"name": "backup"}, {"name": "sharepoint"}]
 }

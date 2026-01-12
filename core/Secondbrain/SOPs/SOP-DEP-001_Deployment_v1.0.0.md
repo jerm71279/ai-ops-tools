@@ -76,7 +76,7 @@ This document outlines the standard procedure for deploying, configuring, and ma
 ## 5. Prerequisites & Requirements
 - [ ] A server with a supported Linux distribution (e.g., Ubuntu, CentOS, RHEL).
 - [ ] User account with `sudo` (administrative) privileges.
-- [ ] The OberaConnect Tools project files must be present in `/home/mavrick/Projects/Secondbrain/`.
+- [ ] The OberaConnect Tools project files must be present in the designated project directory (e.g., `/opt/oberaconnect-tools/` or as specified by IT).
 - [ ] A configured Python virtual environment within the project directory (`venv/`).
 - [ ] Network connectivity between the server and end-user machines.
 
@@ -87,7 +87,7 @@ This method is used for development or temporary instances.
 
 1.  **Navigate to the project directory:**
     ```bash
-    cd /home/mavrick/Projects/Secondbrain
+    cd /opt/oberaconnect-tools
     ```
 2.  **Start the server in Development Mode:**
     For development, use the `--dev` flag. This typically enables debugging and auto-reloading.
@@ -105,7 +105,7 @@ This procedure configures the application to start automatically on server boot.
 
 1.  **Copy the service definition file** to the systemd directory.
     ```bash
-    sudo cp /home/mavrick/Projects/Secondbrain/oberaconnect-tools.service /etc/systemd/system/
+    sudo cp /opt/oberaconnect-tools/oberaconnect-tools.service /etc/systemd/system/
     ```
 2.  **Reload the systemd daemon** to recognize the new service.
     ```bash
@@ -155,13 +155,13 @@ Enable encrypted traffic to the web interface.
 1.  **Generate a self-signed certificate** (or obtain one from a Certificate Authority like Let's Encrypt).
     ```bash
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-      -keyout /home/mavrick/Projects/Secondbrain/ssl/server.key \
-      -out /home/mavrick/Projects/Secondbrain/ssl/server.crt
+      -keyout /opt/oberaconnect-tools/ssl/server.key \
+      -out /opt/oberaconnect-tools/ssl/server.crt
     ```
 2.  **Edit `gunicorn_config.py`** to point to the certificate files.
     ```python
-    keyfile = "/home/mavrick/Projects/Secondbrain/ssl/server.key"
-    certfile = "/home/mavrick/Projects/Secondbrain/ssl/server.crt"
+    keyfile = "/opt/oberaconnect-tools/ssl/server.key"
+    certfile = "/opt/oberaconnect-tools/ssl/server.crt"
     ```
 3.  **Update the bind address** to the standard HTTPS port.
     ```python
@@ -177,12 +177,12 @@ Enable encrypted traffic to the web interface.
 Backup critical application data.
 
 1.  **Identify data files to backup:**
-    -   `/home/mavrick/Projects/Secondbrain/contracts_tracking/contracts_data.json`
-    -   `/home/mavrick/Projects/Secondbrain/call_flows_processed/`
-    -   `/home/mavrick/Projects/Secondbrain/call_flows_generated/`
+    -   `/opt/oberaconnect-tools/contracts_tracking/contracts_data.json`
+    -   `/opt/oberaconnect-tools/call_flows_processed/`
+    -   `/opt/oberaconnect-tools/call_flows_generated/`
 2.  **Execute the backup command** to create a compressed archive.
     ```bash
-    cd /home/mavrick/Projects/Secondbrain/
+    cd /opt/oberaconnect-tools/
     tar -czf oberaconnect-tools-backup-$(date +%Y%m%d).tar.gz \
       contracts_tracking/ \
       call_flows_processed/ \
@@ -206,13 +206,13 @@ Instructions for team members to use the deployed tools.
 - [ ] The application is accessible from another computer on the same network at `http://[SERVER-IP]:5000`.
 - [ ] A call flow can be successfully generated and downloaded from the "Call Flow Generator" tab.
 - [ ] Contract renewal data is visible and accurate on the "Contract Tracker" tab.
-- [ ] Log files are being written to `/home/mavrick/Projects/Secondbrain/logs/`.
+- [ ] Log files are being written to `/opt/oberaconnect-tools/logs/`.
 
 ## 8. Troubleshooting
 | Issue | Cause | Resolution |
 |-------|-------|------------|
 | **Port Already in Use** | Another application is listening on the same port. | Find and stop the conflicting process: `lsof -i:5000` followed by `kill -9 <PID>`. |
-| **Permission Denied** | The user running the service does not have read/execute permissions for the project files. | Check permissions with `ls -la`. Correct ownership with `sudo chown -R mavrick:mavrick /home/mavrick/Projects/Secondbrain/`. |
+| **Permission Denied** | The user running the service does not have read/execute permissions for the project files. | Check permissions with `ls -la`. Correct ownership with `sudo chown -R <service_user>:<service_group> /opt/oberaconnect-tools/`. |
 | **Service Won't Start** | Configuration error, code issue, or environment problem. | Check detailed service logs: `sudo journalctl -u oberaconnect-tools --no-pager -n 50`. Test Gunicorn directly: `cd /path/to/project`, `source venv/bin/activate`, `gunicorn -c gunicorn_config.py call_flow_web:app`. |
 | **Can't Access from Network** | Firewall is blocking the port, server is not running, or incorrect IP is being used. | 1. Verify service is running locally (`curl http://localhost:5000`). 2. Check server firewall rules. 3. Confirm the server IP address with `hostname -I`. 4. Ensure the client and server are on the same network. |
 

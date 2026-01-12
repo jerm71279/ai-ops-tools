@@ -1,0 +1,85 @@
+================================================================================
+HOW TO RUN THE BONUS SID TRANSLATION HELPER SCRIPT
+================================================================================
+
+You're getting errors because you're pasting the script code directly into
+PowerShell. Instead, you need to save it as a file and run it.
+
+METHOD 1: Save and Run the Script (RECOMMENDED)
+================================================
+
+1. Copy the file BONUS-SID-Translation-Helper.ps1 to your server
+   (e.g., C:\ShareMigration\)
+
+2. Open PowerShell as Administrator
+
+3. Navigate to the folder and run:
+   cd C:\ShareMigration
+   .\BONUS-SID-Translation-Helper.ps1
+
+METHOD 2: Quick One-Liner Version
+==================================
+
+If you just want to check the domain SID quickly, run this in PowerShell:
+
+Get-ADDomain | Select-Object DomainSID, DNSRoot, NetBIOSName
+
+This will show you:
+- Current domain SID
+- Domain name
+- NetBIOS name
+
+Compare to original: S-1-5-21-117609710-1303643608-725345543
+
+METHOD 3: Check for Missing Users
+==================================
+
+Run this to check if key users exist:
+
+$users = @("Administrator","PJarvis","gbrannon","GBrannonjr","kcouvillion","datatrustinc","oberaconnect")
+foreach ($user in $users) {
+    try {
+        $u = Get-ADUser -Identity $user -ErrorAction Stop
+        Write-Host "[FOUND] $user - $($u.SID)" -ForegroundColor Green
+    }
+    catch {
+        Write-Host "[MISSING] $user" -ForegroundColor Red
+    }
+}
+
+METHOD 4: Check for Unresolved SIDs in Permissions
+===================================================
+
+Run this to check if E:\HomeDirs has any unresolved SIDs:
+
+$acl = Get-Acl "E:\HomeDirs"
+$acl.Access | ForEach-Object {
+    if ($_.IdentityReference.Value -match '^S-1-5-21-') {
+        Write-Host "UNRESOLVED SID: $($_.IdentityReference.Value)" -ForegroundColor Yellow
+    }
+    else {
+        Write-Host "OK: $($_.IdentityReference.Value)" -ForegroundColor Green
+    }
+}
+
+================================================================================
+COPY THE SCRIPT FILES TO YOUR SERVER
+================================================================================
+
+All the .ps1 files need to be copied to your server. You can:
+
+1. Use RDP and copy/paste the files
+2. Use Azure File Copy
+3. Download from a network share
+4. Copy via USB if direct access
+
+The files you need:
+- 1-Setup-Directories.ps1
+- 2-Set-NTFS-Permissions.ps1
+- 3-Create-SMB-Shares.ps1
+- 4-Validate-Configuration.ps1
+- BONUS-SID-Translation-Helper.ps1
+
+Place them all in C:\ShareMigration\ on your new DC.
+
+================================================================================

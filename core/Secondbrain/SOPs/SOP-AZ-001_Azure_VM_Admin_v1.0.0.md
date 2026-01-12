@@ -1,5 +1,3 @@
-Loaded cached credentials.
-```markdown
 # Standard Operating Procedure: SOP-AZ-001
 
 ---
@@ -181,4 +179,3 @@ This procedure outlines the steps for migrating on-premises VMs to Azure using A
 | Version | Date | Author | Description of Change |
 | :--- | :--- | :--- | :--- |
 | 1.0 | 2025-12-02 | IT Department | Initial document creation. |
-```

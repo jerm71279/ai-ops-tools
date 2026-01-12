@@ -1,0 +1,145 @@
+services:
+  # ===========================================
+  # Data Processing Service
+  # ===========================================
+  data-processing:
+    build:
+      context: .
+      dockerfile: docker/data-processing/Dockerfile
+    container_name: sb-data-processing
+    ports:
+      - "8081:8080"
+    environment:
+      - AZURE_TENANT_ID=${AZURE_TENANT_ID}
+      - AZURE_CLIENT_ID=${AZURE_CLIENT_ID}
+      - AZURE_CLIENT_SECRET=${AZURE_CLIENT_SECRET}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ===========================================
+  # RAG Engine Service
+  # ===========================================
+  rag-engine:
+    build:
+      context: .
+      dockerfile: docker/rag-engine/Dockerfile
+    container_name: sb-rag-engine
+    ports:
+      - "8082:8080"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - CHROMA_PERSIST_DIRECTORY=/app/chroma_db
+      - OBSIDIAN_VAULT_PATH=/app/vault
+    volumes:
+      - ./chroma_db:/app/chroma_db
+      - /mnt/c/Users/JeremySmith/OneDrive - Obera Connect/MyVault:/app/vault:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ===========================================
+  # Engineering API Service
+  # ===========================================
+  engineering-api:
+    build:
+      context: .
+      dockerfile: docker/engineering-api/Dockerfile
+    container_name: sb-engineering-api
+    ports:
+      - "8083:8080"
+    environment:
+      - AZURE_TENANT_ID=${AZURE_TENANT_ID}
+      - AZURE_CLIENT_ID=${AZURE_CLIENT_ID}
+      - AZURE_CLIENT_SECRET=${AZURE_CLIENT_SECRET}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY:-}
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ===========================================
+  # Call Flow Service
+  # ===========================================
+  call-flow:
+    build:
+      context: .
+      dockerfile: docker/call-flow/Dockerfile
+    container_name: sb-call-flow
+    ports:
+      - "8084:8080"
+    environment:
+      - AZURE_TENANT_ID=${AZURE_TENANT_ID}
+      - AZURE_CLIENT_ID=${AZURE_CLIENT_ID}
+      - AZURE_CLIENT_SECRET=${AZURE_CLIENT_SECRET}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    volumes:
+      - ./data/call_flows:/app/data/call_flows
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ===========================================
+  # AI Agents Service
+  # ===========================================
+  agents:
+    build:
+      context: .
+      dockerfile: docker/agents/Dockerfile
+    container_name: sb-agents
+    ports:
+      - "8085:8080"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    volumes:
+      - ./data/agents:/app/data/agents
+      - ./vault:/app/vault
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ===========================================
+  # API Gateway (optional - routes to services)
+  # ===========================================
+  gateway:
+    image: nginx:alpine
+    container_name: sb-gateway
+    ports:
+      - "8080:80"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - data-processing
+      - rag-engine
+      - engineering-api
+      - call-flow
+      - agents
+    restart: unless-stopped
+
+volumes:
+  chroma-data:
+  call-flow-data:
+  agent-data:

@@ -1,0 +1,149 @@
+================================================================================
+FILE SHARE MIGRATION - QUICK START GUIDE
+================================================================================
+
+WHAT YOU HAVE:
+--------------
+5 PowerShell scripts to recreate your file shares and permissions:
+  1. 1-Setup-Directories.ps1         - Creates folder structure
+  2. 2-Set-NTFS-Permissions.ps1      - Applies NTFS permissions
+  3. 3-Create-SMB-Shares.ps1         - Creates file shares
+  4. 4-Validate-Configuration.ps1    - Verifies everything
+  5. BONUS-SID-Translation-Helper.ps1 - Checks for SID issues
+
+PREREQUISITES:
+--------------
+✓ New VM is promoted to Domain Controller (or will be)
+✓ E:\ drive exists on new server
+✓ You have Administrator access
+✓ Active Directory users are created with same usernames
+
+QUICK EXECUTION (5 MINUTES):
+----------------------------
+1. Copy all scripts to C:\ShareMigration\ on the new DC
+
+2. Open PowerShell as Administrator
+
+3. Run these commands in order:
+
+   cd C:\ShareMigration
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+
+   .\1-Setup-Directories.ps1
+   .\2-Set-NTFS-Permissions.ps1
+   .\3-Create-SMB-Shares.ps1
+   .\4-Validate-Configuration.ps1
+
+4. Optional - Check for SID issues:
+   .\BONUS-SID-Translation-Helper.ps1
+
+5. Test access from a client:
+   \\servername\HomeDirs
+
+WHAT GETS CREATED:
+------------------
+Data Shares:
+  - E                     (E:\)
+  - FTP Data              (E:\FTP Data)
+  - HomeDirs              (E:\HomeDirs)
+  - Legal                 (E:\HomeDirs\Legal)
+  - PostClosing           (E:\PostClosing)
+  - Qbooks                (E:\Qbooks)
+  - SeaCrestScans         (E:\SeaCrestScans)
+  - SetcoDocs             (E:\SetcoDocs)
+  - Versacheck            (E:\Versacheck)
+  - Whole Life Fitness    (E:\Whole Life Fitness)
+  - worddocs              (E:\NTSYS\worddocs)
+
+System Shares (Auto-created by DC):
+  - NETLOGON
+  - SYSVOL
+
+Printer Shares (Configure separately):
+  - 36 printer shares listed in script output
+  - Must be configured via Print Management console
+
+IMPORTANT DOMAIN NOTES:
+-----------------------
+Original Domain SID: S-1-5-21-117609710-1303643608-725345543
+
+If your new domain has the SAME SID (same domain, different tenant):
+  → Permissions should work automatically
+
+If your new domain has a DIFFERENT SID (new domain):
+  → Run BONUS-SID-Translation-Helper.ps1 to identify issues
+  → You may need to manually update some permissions
+
+KEY USER ACCOUNTS NEEDED:
+-------------------------
+Ensure these users exist in Active Directory:
+  - Administrator, PJarvis, gbrannon, GBrannonjr, kcouvillion
+  - datatrustinc, oberaconnect, JMFSolutions, lsavio, setcoadmin
+  - wgibson, oc-michael.mccool, kyork, mhelms, Tmarsh
+  - Bdeweese, bbuege, cgeiselman, cbrooks, kmcdonald
+  - oc-theresa.gilbert, ktoolan, mbrannon, mhudson-2, brookebrannon
+
+KEY GROUPS NEEDED:
+------------------
+  - Domain Admins
+  - Domain Users
+  - PostClosers
+
+TROUBLESHOOTING:
+----------------
+Problem: "Access Denied"
+  → Run PowerShell as Administrator
+
+Problem: Users show as SIDs (S-1-5-21-...)
+  → Run BONUS-SID-Translation-Helper.ps1
+  → Create missing user accounts
+  → Re-run 2-Set-NTFS-Permissions.ps1
+
+Problem: Share creation fails
+  → Verify directory exists
+  → Check for share name conflicts
+
+Problem: Permission errors
+  → Verify users exist in AD
+  → Check domain SID matches original
+
+VALIDATION CHECKLIST:
+--------------------
+□ All directories created (green [OK] in validation)
+□ All SMB shares created (green [OK] in validation)
+□ No unresolved SIDs in permissions
+□ Test access from client: \\servername\sharename
+□ Users can read/write according to permissions
+□ Printer shares configured separately
+□ DNS updated if server name changed
+□ Backup jobs pointed to new locations
+
+NEXT STEPS AFTER MIGRATION:
+---------------------------
+1. Configure printer shares via Print Management
+2. Update DNS records if needed
+3. Test user access from workstations
+4. Update Group Policy if server name changed
+5. Configure backups for new share locations
+6. Update documentation with new server info
+
+HELP COMMANDS:
+--------------
+View all shares:
+  Get-SmbShare
+
+View share permissions:
+  Get-SmbShareAccess -Name "ShareName"
+
+View NTFS permissions:
+  Get-Acl "E:\FolderName" | Format-List
+
+Check domain SID:
+  Get-ADDomain | Select-Object DomainSID
+
+Check user SID:
+  Get-ADUser -Identity username | Select-Object SID
+
+For detailed instructions, see README-ShareMigration.md
+
+================================================================================

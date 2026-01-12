@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MIGRATION-WORKFLOW-FINAL.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="setco-dc-migration---final-workflow">Setco DC Migration - Final Workflow</h1>
+<h2 id="step-by-step-migration-process">Step-by-Step Migration Process</h2>
+<hr>
+<h2 id="your-migration-approach">Your Migration Approach</h2>
+<pre class="hljs"><code><div>Source DC (Old Tenant)
+    ↓
+    ├─→ Robocopy data to File Server (FS)
+    └─→ Create OS VHD snapshot
+
+File Server (FS)
+    ↓
+    └─→ After Robocopy complete, create Data Disk VHD
+
+Both VHDs
+    ↓
+    └─→ Copy to New Azure Tenant
+
+New Tenant
+    ↓
+    ├─→ Build DC from OS VHD
+    └─→ Attach Data disk from Data VHD
+</div></code></pre>
+<hr>
+<h2 id="step-by-step-execution-plan">Step-by-Step Execution Plan</h2>
+<h3 id="step-1-sync-data-from-dc-to-file-server-using-robocopy">STEP 1: Sync Data from DC to File Server (Using Robocopy)</h3>
+<p><strong>Location:</strong> Run on Source DC</p>
+<p><strong>Purpose:</strong> Copy all file share data to intermediate file server</p>
+<p><strong>Commands:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-built_in">mkdir</span> C:\Logs
+
+robocopy "E:\FTP Data" "\\FileServer\MigrationStaging\FTP Data" /E /COPYALL /DCOPY:T /R:<span class="hljs-number">3</span> /W:<span class="hljs-number">10</span> /MT:<span class="hljs-number">16</span> /LOG:C:\Logs\FTPData.log /TEE
+
+robocopy "E:\HomeDirs" "\\FileServer\MigrationStaging\HomeDirs" /E /COPYALL /DCOPY:T /R:<span class="hljs-number">3</span> /W:<span class="hljs-number">10</span> /MT:<span class="hljs-number">8</span> /LOG:C:\Logs\HomeDirs.log /TEE
+
+robocopy "E:\PostClosing" "\\FileServer\MigrationStaging\PostClosing" /E /COPYALL /DCOPY:T /R:<span class="hljs-number">3</span> /W:<span class="hljs-number">10</span> /MT:<span class="hljs-number">16</span> /LOG:C:\Logs\PostClosing.log /TEE
+
+robocopy "E:\Qbooks" "\\FileServer\MigrationStaging\Qbooks" /E /COPYALL /DCOPY:T /R:<span class="hljs-number">5</span> /W:<span class="hljs-number">15</span> /MT:<span class="hljs-number">8</span> /LOG:C:\Logs\Qbooks.log /TEE
+
+robocopy "E:\SeaCrestScans" "\\FileServer\MigrationStaging\SeaCrestScans" /E /COPYALL /DCOPY:T /R:<span class="hljs-number">3</span> /W:<span class="hljs-number">10</span> /MT:<span class="hljs-number">16</span> /LOG:C:\Logs\SeaCrestScans.log /TEE
+
+robocopy "E:\SetcoDocs" "\\FileServer\MigrationStaging\SetcoDocs" /E /COPYALL /DCOPY:T /R:<span class="hljs-number">3</span> /W:<span class="hljs-number">10</span> /MT:<span class="hljs-number">16</span> /LOG:C:\Logs\SetcoDocs.log /TEE
+
+robocopy "E:\Versacheck" "\\FileServer\MigrationStaging\Versacheck" /E /COPYALL /DCOPY:T /R:<span class="hljs-number">3</span> /W:<span class="hljs-number">10</span> /MT:<span class="hljs-number">16</span> /LOG:C:\Logs\Versacheck.log /TEE
+
+robocopy "E:\Whole Life Fitness" "\\FileServer\MigrationStaging\Whole Life Fitness" /E /COPYALL /DCOPY:T /R:<span class="hljs-number">3</span> /W:<span class="hljs-number">10</span> /MT:<span class="hljs-number">16</span> /LOG:C:\Logs\WholeLifeFitness.log /TEE
+
+robocopy "E:\NTSYS\worddocs" "\\FileServer\MigrationStaging\NTSYS\worddocs" /E /COPYALL /DCOPY:T /R:<span class="hljs-number">3</span> /W:<span class="hljs-number">10</span> /MT:<span class="hljs-number">16</span> /LOG:C:\Logs\worddocs.log /TEE
+</div></code></pre>
+<p><strong>Checklist:</strong></p>
+<ul>
+<li><input type="checkbox" id="checkbox0"><label for="checkbox0">All robocopy commands completed successfully</label></li>
+<li><input type="checkbox" id="checkbox1"><label for="checkbox1">Review all logs in C:\Logs for errors</label></li>
+<li><input type="checkbox" id="checkbox2"><label for="checkbox2">Verify file counts match source</label></li>
+<li><input type="checkbox" id="checkbox3"><label for="checkbox3">Note total data size: _______________ GB</label></li>
+<li><input type="checkbox" id="checkbox4"><label for="checkbox4">Total time taken: _______________</label></li>
+</ul>
+<hr>
+<h3 id="step-2-create-os-vhd-from-source-dc">STEP 2: Create OS VHD from Source DC</h3>
+<p><strong>Location:</strong> Source Azure Tenant Portal</p>
+<p><strong>Purpose:</strong> Capture the DC's OS disk as VHD</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li><input type="checkbox" id="checkbox5"><label for="checkbox5">Navigate to source Azure Portal</label></li>
+<li><input type="checkbox" id="checkbox6"><label for="checkbox6">Go to source DC VM</label></li>
+<li><input type="checkbox" id="checkbox7"><label for="checkbox7">Stop/Deallocate the VM</label></li>
+<li><input type="checkbox" id="checkbox8"><label for="checkbox8">Navigate to the OS disk</label></li>
+<li><input type="checkbox" id="checkbox9"><label for="checkbox9">Click &quot;Create Snapshot&quot;</label>
+<ul>
+<li>Name: <code>DC-OS-Snapshot-[DATE]</code></li>
+<li>Snapshot type: Full</li>
+<li>Storage type: Standard HDD</li>
+</ul>
+</li>
+<li><input type="checkbox" id="checkbox10"><label for="checkbox10">Wait for snapshot completion (5-10 min)</label></li>
+<li><input type="checkbox" id="checkbox11"><label for="checkbox11">Go to the snapshot</label></li>
+<li><input type="checkbox" id="checkbox12"><label for="checkbox12">Click &quot;Export&quot;</label></li>
+<li><input type="checkbox" id="checkbox13"><label for="checkbox13">Generate SAS URL (valid for 48 hours)</label></li>
+<li><input type="checkbox" id="checkbox14"><label for="checkbox14"></label><strong>Copy SAS URL:</strong> ________________________________</li>
+</ol>
+<p><strong>Download OS VHD (Optional - or upload directly to new tenant):</strong></p>
+<pre class="hljs"><code><div>azcopy copy <span class="hljs-string">"OS_SNAPSHOT_SAS_URL"</span> <span class="hljs-string">"C:\VHD-Export\DC-OS.vhd"</span>
+</div></code></pre>
+<p><strong>Or use Azure Storage Explorer to copy between tenants</strong></p>
+<ul>
+<li><input type="checkbox" id="checkbox15"><label for="checkbox15">OS VHD Size: _______________ GB</label></li>
+<li><input type="checkbox" id="checkbox16"><label for="checkbox16">Export completed: _______________</label></li>
+</ul>
+<hr>
+<h3 id="step-3-create-data-disk-vhd-from-file-server">STEP 3: Create Data Disk VHD from File Server</h3>
+<p><strong>Location:</strong> File Server OR create managed disk in Azure from File Server data</p>
+<p><strong>Purpose:</strong> After robocopy is done, create data disk VHD/managed disk</p>
+<p><strong>Option A: Create VHD from File Server Data</strong></p>
+<p><strong>On File Server, run PowerShell:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Install Hyper-V tools if not present</span>
+<span class="hljs-built_in">Install-WindowsFeature</span> <span class="hljs-literal">-Name</span> Hyper<span class="hljs-literal">-V</span><span class="hljs-literal">-PowerShell</span>
+
+<span class="hljs-comment"># Calculate required VHD size</span>
+<span class="hljs-variable">$dataSize</span> = (<span class="hljs-built_in">Get-ChildItem</span> <span class="hljs-string">"\\FileServer\MigrationStaging"</span> <span class="hljs-literal">-Recurse</span> | <span class="hljs-built_in">Measure-Object</span> <span class="hljs-literal">-Property</span> Length <span class="hljs-literal">-Sum</span>).Sum
+<span class="hljs-variable">$vhdSizeGB</span> = [<span class="hljs-type">Math</span>]::Ceiling(<span class="hljs-variable">$dataSize</span> / <span class="hljs-number">1</span>GB) + <span class="hljs-number">50</span>  <span class="hljs-comment"># Add 50GB buffer</span>
+
+<span class="hljs-built_in">Write-Host</span> <span class="hljs-string">"Creating VHD of size: <span class="hljs-variable">$vhdSizeGB</span> GB"</span>
+
+<span class="hljs-comment"># Create VHD</span>
+<span class="hljs-built_in">New-VHD</span> <span class="hljs-literal">-Path</span> <span class="hljs-string">"C:\VHD-Export\DC-Data.vhdx"</span> <span class="hljs-literal">-SizeBytes</span> (<span class="hljs-variable">$vhdSizeGB</span> * <span class="hljs-number">1</span>GB) <span class="hljs-literal">-Dynamic</span>
+
+<span class="hljs-comment"># Mount VHD</span>
+<span class="hljs-variable">$vhd</span> = Mount<span class="hljs-literal">-VHD</span> <span class="hljs-literal">-Path</span> <span class="hljs-string">"C:\VHD-Export\DC-Data.vhdx"</span> <span class="hljs-literal">-Passthru</span>
+
+<span class="hljs-comment"># Initialize and format</span>
+<span class="hljs-variable">$disk</span> = <span class="hljs-built_in">Initialize-Disk</span> <span class="hljs-literal">-Number</span> <span class="hljs-variable">$vhd</span>.Number <span class="hljs-literal">-PartitionStyle</span> GPT <span class="hljs-literal">-PassThru</span>
+<span class="hljs-variable">$partition</span> = <span class="hljs-built_in">New-Partition</span> <span class="hljs-literal">-DiskNumber</span> <span class="hljs-variable">$disk</span>.Number <span class="hljs-literal">-UseMaximumSize</span> <span class="hljs-literal">-AssignDriveLetter</span>
+<span class="hljs-variable">$volume</span> = <span class="hljs-built_in">Format-Volume</span> <span class="hljs-literal">-DriveLetter</span> <span class="hljs-variable">$partition</span>.DriveLetter <span class="hljs-literal">-FileSystem</span> NTFS <span class="hljs-literal">-NewFileSystemLabel</span> <span class="hljs-string">"Data"</span> <span class="hljs-literal">-Confirm</span>:<span class="hljs-variable">$false</span>
+
+<span class="hljs-comment"># Get the drive letter</span>
+<span class="hljs-variable">$driveLetter</span> = <span class="hljs-variable">$partition</span>.DriveLetter
+
+<span class="hljs-comment"># Copy data to VHD</span>
+robocopy <span class="hljs-string">"\\FileServer\MigrationStaging\FTP Data"</span> <span class="hljs-string">"<span class="hljs-variable">$</span>{driveLetter}:\FTP Data"</span> /E /COPYALL /DCOPY:T /MT:<span class="hljs-number">16</span>
+robocopy <span class="hljs-string">"\\FileServer\MigrationStaging\HomeDirs"</span> <span class="hljs-string">"<span class="hljs-variable">$</span>{driveLetter}:\HomeDirs"</span> /E /COPYALL /DCOPY:T /MT:<span class="hljs-number">8</span>
+robocopy <span class="hljs-string">"\\FileServer\MigrationStaging\PostClosing"</span> <span class="hljs-string">"<span class="hljs-variable">$</span>{driveLetter}:\PostClosing"</span> /E /COPYALL /DCOPY:T /MT:<span class="hljs-number">16</span>
+robocopy <span class="hljs-string">"\\FileServer\MigrationStaging\Qbooks"</span> <span class="hljs-string">"<span class="hljs-variable">$</span>{driveLetter}:\Qbooks"</span> /E /COPYALL /DCOPY:T /MT:<span class="hljs-number">8</span>
+robocopy <span class="hljs-string">"\\FileServer\MigrationStaging\SeaCrestScans"</span> <span class="hljs-string">"<span class="hljs-variable">$</span>{driveLetter}:\SeaCrestScans"</span> /E /COPYALL /DCOPY:T /MT:<span class="hljs-number">16</span>
+robocopy <span class="hljs-string">"\\FileServer\MigrationStaging\SetcoDocs"</span> <span class="hljs-string">"<span class="hljs-variable">$</span>{driveLetter}:\SetcoDocs"</span> /E /COPYALL /DCOPY:T /MT:<span class="hljs-number">16</span>
+robocopy <span class="hljs-string">"\\FileServer\MigrationStaging\Versacheck"</span> <span class="hljs-string">"<span class="hljs-variable">$</span>{driveLetter}:\Versacheck"</span> /E /COPYALL /DCOPY:T /MT:<span class="hljs-number">16</span>
+robocopy <span class="hljs-string">"\\FileServer\MigrationStaging\Whole Life Fitness"</span> <span class="hljs-string">"<span class="hljs-variable">$</span>{driveLetter}:\Whole Life Fitness"</span> /E /COPYALL /DCOPY:T /MT:<span class="hljs-number">16</span>
+robocopy <span class="hljs-string">"\\FileServer\MigrationStaging\NTSYS\worddocs"</span> <span class="hljs-string">"<span class="hljs-variable">$</span>{driveLetter}:\NTSYS\worddocs"</span> /E /COPYALL /DCOPY:T /MT:<span class="hljs-number">16</span>
+
+<span class="hljs-comment"># Dismount VHD</span>
+<span class="hljs-built_in">Dismount-VHD</span> <span class="hljs-literal">-Path</span> <span class="hljs-string">"C:\VHD-Export\DC-Data.vhdx"</span>
+
+<span class="hljs-built_in">Write-Host</span> <span class="hljs-string">"Data VHD created successfully at C:\VHD-Export\DC-Data.vhdx"</span>
+</div></code></pre>
+<p><strong>Option B: Upload File Server Data Directly to Azure and Create Managed Disk</strong></p>
+<p>This is actually easier! Upload the file server data to Azure Storage, then create managed disk:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># 1. Upload data to Azure Storage in destination tenant</span>
+azcopy copy <span class="hljs-string">"\\FileServer\MigrationStaging\*"</span> <span class="hljs-string">"https://setcodestination.blob.core.windows.net/data-staging/?[SAS]"</span> -<span class="hljs-literal">-recursive</span>
+
+<span class="hljs-comment"># 2. In Azure Portal, create empty managed disk</span>
+<span class="hljs-comment"># 3. Attach disk to temporary VM</span>
+<span class="hljs-comment"># 4. Use AzCopy or Storage Explorer to copy data from blob to disk</span>
+<span class="hljs-comment"># 5. Detach disk</span>
+<span class="hljs-comment"># 6. Attach to new DC</span>
+</div></code></pre>
+<p><strong>Checklist:</strong></p>
+<ul>
+<li><input type="checkbox" id="checkbox17"><label for="checkbox17">Data disk VHD created successfully</label></li>
+<li><input type="checkbox" id="checkbox18"><label for="checkbox18">All folders copied to VHD/disk</label></li>
+<li><input type="checkbox" id="checkbox19"><label for="checkbox19">Verified file integrity</label></li>
+<li><input type="checkbox" id="checkbox20"><label for="checkbox20">Data VHD Size: _______________ GB</label></li>
+<li><input type="checkbox" id="checkbox21"><label for="checkbox21">Creation completed: _______________</label></li>
+</ul>
+<hr>
+<h3 id="step-4-copy-vhds-to-destination-azure-tenant">STEP 4: Copy VHDs to Destination Azure Tenant</h3>
+<p><strong>Purpose:</strong> Transfer both OS and Data VHDs to new tenant</p>
+<p><strong>Method 1: Storage Account to Storage Account Copy (Recommended)</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># In source tenant - export snapshot to storage account</span>
+<span class="hljs-comment"># Already done in Step 2</span>
+
+<span class="hljs-comment"># In destination tenant - create storage account</span>
+<span class="hljs-variable">$destStorageAccount</span> = <span class="hljs-string">"setcodestination"</span>
+<span class="hljs-variable">$destContainer</span> = <span class="hljs-string">"vhd-import"</span>
+
+<span class="hljs-comment"># Copy from source SAS URL to destination</span>
+azcopy copy <span class="hljs-string">"SOURCE_OS_SNAPSHOT_SAS_URL"</span> <span class="hljs-string">"https://<span class="hljs-variable">$destStorageAccount</span>.blob.core.windows.net/<span class="hljs-variable">$destContainer</span>/DC-OS.vhd?[DEST_SAS]"</span>
+
+azcopy copy <span class="hljs-string">"C:\VHD-Export\DC-Data.vhdx"</span> <span class="hljs-string">"https://<span class="hljs-variable">$destStorageAccount</span>.blob.core.windows.net/<span class="hljs-variable">$destContainer</span>/DC-Data.vhd?[DEST_SAS]"</span>
+</div></code></pre>
+<p><strong>Method 2: Download Then Upload</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Download from source</span>
+azcopy copy <span class="hljs-string">"SOURCE_OS_SAS"</span> <span class="hljs-string">"C:\VHD-Export\DC-OS.vhd"</span>
+azcopy copy <span class="hljs-string">"SOURCE_DATA_SAS"</span> <span class="hljs-string">"C:\VHD-Export\DC-Data.vhd"</span>
+
+<span class="hljs-comment"># Upload to destination</span>
+azcopy copy <span class="hljs-string">"C:\VHD-Export\DC-OS.vhd"</span> <span class="hljs-string">"DEST_STORAGE_SAS"</span>
+azcopy copy <span class="hljs-string">"C:\VHD-Export\DC-Data.vhd"</span> <span class="hljs-string">"DEST_STORAGE_SAS"</span>
+</div></code></pre>
+<p><strong>Checklist:</strong></p>
+<ul>
+<li><input type="checkbox" id="checkbox22"><label for="checkbox22">OS VHD copied to destination tenant</label></li>
+<li><input type="checkbox" id="checkbox23"><label for="checkbox23">Data VHD copied to destination tenant</label></li>
+<li><input type="checkbox" id="checkbox24"><label for="checkbox24">Verified file sizes match</label></li>
+<li><input type="checkbox" id="checkbox25"><label for="checkbox25">Both VHDs visible in destination storage account</label></li>
+<li><input type="checkbox" id="checkbox26"><label for="checkbox26">Transfer completed: _______________</label></li>
+</ul>
+<hr>
+<h3 id="step-5-create-managed-disks-in-destination-tenant">STEP 5: Create Managed Disks in Destination Tenant</h3>
+<p><strong>Purpose:</strong> Convert uploaded VHD blobs to Azure Managed Disks</p>
+<p><strong>In Azure Portal (Destination Tenant):</strong></p>
+<p><strong>Create OS Disk:</strong></p>
+<ol>
+<li><input type="checkbox" id="checkbox27"><label for="checkbox27">Navigate to &quot;Disks&quot; → &quot;Create&quot;</label></li>
+<li><input type="checkbox" id="checkbox28"><label for="checkbox28">Source type: &quot;Storage blob&quot;</label></li>
+<li><input type="checkbox" id="checkbox29"><label for="checkbox29">Browse to: vhd-import/DC-OS.vhd</label></li>
+<li><input type="checkbox" id="checkbox30"><label for="checkbox30">Settings:</label>
+<ul>
+<li>Name: <code>DC-Setco-OS-Disk</code></li>
+<li>Resource group: <code>RG-Setco-DC</code></li>
+<li>Region: <code>[YOUR-REGION]</code></li>
+<li>Disk type: <code>Premium SSD</code></li>
+<li>Size: Auto-detected</li>
+</ul>
+</li>
+<li><input type="checkbox" id="checkbox31"><label for="checkbox31">Click &quot;Review + Create&quot;</label></li>
+<li><input type="checkbox" id="checkbox32"><label for="checkbox32">Wait for completion</label></li>
+</ol>
+<p><strong>Create Data Disk:</strong></p>
+<ol>
+<li><input type="checkbox" id="checkbox33"><label for="checkbox33">Navigate to &quot;Disks&quot; → &quot;Create&quot;</label></li>
+<li><input type="checkbox" id="checkbox34"><label for="checkbox34">Source type: &quot;Storage blob&quot;</label></li>
+<li><input type="checkbox" id="checkbox35"><label for="checkbox35">Browse to: vhd-import/DC-Data.vhd</label></li>
+<li><input type="checkbox" id="checkbox36"><label for="checkbox36">Settings:</label>
+<ul>
+<li>Name: <code>DC-Setco-Data-Disk</code></li>
+<li>Resource group: <code>RG-Setco-DC</code></li>
+<li>Region: <code>[YOUR-REGION]</code> (same as OS)</li>
+<li>Disk type: <code>Standard SSD</code> or <code>Premium SSD</code></li>
+<li>Size: Auto-detected</li>
+</ul>
+</li>
+<li><input type="checkbox" id="checkbox37"><label for="checkbox37">Click &quot;Review + Create&quot;</label></li>
+<li><input type="checkbox" id="checkbox38"><label for="checkbox38">Wait for completion</label></li>
+</ol>
+<p><strong>Checklist:</strong></p>
+<ul>
+<li><input type="checkbox" id="checkbox39"><label for="checkbox39">OS managed disk created</label></li>
+<li><input type="checkbox" id="checkbox40"><label for="checkbox40">Data managed disk created</label></li>
+<li><input type="checkbox" id="checkbox41"><label for="checkbox41">Both disks in same region</label></li>
+<li><input type="checkbox" id="checkbox42"><label for="checkbox42">Both disks in same resource group</label></li>
+</ul>
+<hr>
+<h3 id="step-6-build-new-dc-vm-from-os-disk">STEP 6: Build New DC VM from OS Disk</h3>
+<p><strong>Purpose:</strong> Create new VM using the OS managed disk</p>
+<p><strong>Use PowerShell (Portal doesn't support attaching existing OS disk):</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Variables</span>
+<span class="hljs-variable">$resourceGroup</span> = <span class="hljs-string">"RG-Setco-DC"</span>
+<span class="hljs-variable">$location</span> = <span class="hljs-string">"eastus"</span>  <span class="hljs-comment"># Change to your region</span>
+<span class="hljs-variable">$vmName</span> = <span class="hljs-string">"DC-Setco-NewTenant"</span>
+<span class="hljs-variable">$vmSize</span> = <span class="hljs-string">"Standard_D2s_v3"</span>  <span class="hljs-comment"># 2 vCPU, 8GB RAM (adjust as needed)</span>
+<span class="hljs-variable">$osDiskName</span> = <span class="hljs-string">"DC-Setco-OS-Disk"</span>
+<span class="hljs-variable">$dataDiskName</span> = <span class="hljs-string">"DC-Setco-Data-Disk"</span>
+<span class="hljs-variable">$vnetName</span> = <span class="hljs-string">"VNet-Setco"</span>
+<span class="hljs-variable">$subnetName</span> = <span class="hljs-string">"DC-Subnet"</span>
+<span class="hljs-variable">$nsgName</span> = <span class="hljs-string">"NSG-DC"</span>
+<span class="hljs-variable">$staticIP</span> = <span class="hljs-string">"10.0.1.4"</span>  <span class="hljs-comment"># Choose your DC IP</span>
+
+<span class="hljs-comment"># Get managed disks</span>
+<span class="hljs-variable">$osDisk</span> = <span class="hljs-built_in">Get-AzDisk</span> <span class="hljs-literal">-ResourceGroupName</span> <span class="hljs-variable">$resourceGroup</span> <span class="hljs-literal">-DiskName</span> <span class="hljs-variable">$osDiskName</span>
+<span class="hljs-variable">$dataDisk</span> = <span class="hljs-built_in">Get-AzDisk</span> <span class="hljs-literal">-ResourceGroupName</span> <span class="hljs-variable">$resourceGroup</span> <span class="hljs-literal">-DiskName</span> <span class="hljs-variable">$dataDiskName</span>
+
+<span class="hljs-comment"># Create Public IP (optional - for initial access)</span>
+<span class="hljs-variable">$pip</span> = <span class="hljs-built_in">New-AzPublicIpAddress</span> <span class="hljs-literal">-Name</span> <span class="hljs-string">"<span class="hljs-variable">$vmName</span>-PIP"</span> <span class="hljs-literal">-ResourceGroupName</span> <span class="hljs-variable">$resourceGroup</span> <span class="hljs-literal">-Location</span> <span class="hljs-variable">$location</span> <span class="hljs-literal">-AllocationMethod</span> <span class="hljs-keyword">Static</span>
+
+<span class="hljs-comment"># Get VNet and Subnet</span>
+<span class="hljs-variable">$vnet</span> = <span class="hljs-built_in">Get-AzVirtualNetwork</span> <span class="hljs-literal">-Name</span> <span class="hljs-variable">$vnetName</span> <span class="hljs-literal">-ResourceGroupName</span> <span class="hljs-variable">$resourceGroup</span>
+<span class="hljs-variable">$subnet</span> = <span class="hljs-built_in">Get-AzVirtualNetworkSubnetConfig</span> <span class="hljs-literal">-Name</span> <span class="hljs-variable">$subnetName</span> <span class="hljs-literal">-VirtualNetwork</span> <span class="hljs-variable">$vnet</span>
+
+<span class="hljs-comment"># Get NSG</span>
+<span class="hljs-variable">$nsg</span> = <span class="hljs-built_in">Get-AzNetworkSecurityGroup</span> <span class="hljs-literal">-Name</span> <span class="hljs-variable">$nsgName</span> <span class="hljs-literal">-ResourceGroupName</span> <span class="hljs-variable">$resourceGroup</span>
+
+<span class="hljs-comment"># Create Network Interface with static IP</span>
+<span class="hljs-variable">$nicName</span> = <span class="hljs-string">"<span class="hljs-variable">$vmName</span>-NIC"</span>
+<span class="hljs-variable">$nic</span> = <span class="hljs-built_in">New-AzNetworkInterface</span> <span class="hljs-literal">-Name</span> <span class="hljs-variable">$nicName</span> <span class="hljs-literal">-ResourceGroupName</span> <span class="hljs-variable">$resourceGroup</span> <span class="hljs-literal">-Location</span> <span class="hljs-variable">$location</span> <span class="hljs-literal">-SubnetId</span> <span class="hljs-variable">$subnet</span>.Id <span class="hljs-literal">-PublicIpAddressId</span> <span class="hljs-variable">$pip</span>.Id <span class="hljs-literal">-NetworkSecurityGroupId</span> <span class="hljs-variable">$nsg</span>.Id <span class="hljs-literal">-PrivateIpAddress</span> <span class="hljs-variable">$staticIP</span>
+
+<span class="hljs-comment"># Create VM Config</span>
+<span class="hljs-variable">$vmConfig</span> = <span class="hljs-built_in">New-AzVMConfig</span> <span class="hljs-literal">-VMName</span> <span class="hljs-variable">$vmName</span> <span class="hljs-literal">-VMSize</span> <span class="hljs-variable">$vmSize</span>
+
+<span class="hljs-comment"># Attach OS Disk</span>
+<span class="hljs-variable">$vmConfig</span> = <span class="hljs-built_in">Set-AzVMOSDisk</span> <span class="hljs-literal">-VM</span> <span class="hljs-variable">$vmConfig</span> <span class="hljs-literal">-ManagedDiskId</span> <span class="hljs-variable">$osDisk</span>.Id <span class="hljs-literal">-CreateOption</span> Attach <span class="hljs-literal">-Windows</span>
+
+<span class="hljs-comment"># Attach Data Disk</span>
+<span class="hljs-variable">$vmConfig</span> = <span class="hljs-built_in">Add-AzVMDataDisk</span> <span class="hljs-literal">-VM</span> <span class="hljs-variable">$vmConfig</span> <span class="hljs-literal">-ManagedDiskId</span> <span class="hljs-variable">$dataDisk</span>.Id <span class="hljs-literal">-Lun</span> <span class="hljs-number">0</span> <span class="hljs-literal">-CreateOption</span> Attach
+
+<span class="hljs-comment"># Add Network Interface</span>
+<span class="hljs-variable">$vmConfig</span> = <span class="hljs-built_in">Add-AzVMNetworkInterface</span> <span class="hljs-literal">-VM</span> <span class="hljs-variable">$vmConfig</span> <span class="hljs-literal">-Id</span> <span class="hljs-variable">$nic</span>.Id <span class="hljs-literal">-Primary</span>
+
+<span class="hljs-comment"># Create VM</span>
+<span class="hljs-built_in">New-AzVM</span> <span class="hljs-literal">-ResourceGroupName</span> <span class="hljs-variable">$resourceGroup</span> <span class="hljs-literal">-Location</span> <span class="hljs-variable">$location</span> <span class="hljs-literal">-VM</span> <span class="hljs-variable">$vmConfig</span>
+
+<span class="hljs-built_in">Write-Host</span> <span class="hljs-string">"VM created successfully!"</span>
+<span class="hljs-built_in">Write-Host</span> <span class="hljs-string">"VM Name: <span class="hljs-variable">$vmName</span>"</span>
+<span class="hljs-built_in">Write-Host</span> <span class="hljs-string">"Private IP: <span class="hljs-variable">$staticIP</span>"</span>
+<span class="hljs-built_in">Write-Host</span> <span class="hljs-string">"Public IP: <span class="hljs-variable">$</span>(<span class="hljs-variable">$pip</span>.IpAddress)"</span>
+</div></code></pre>
+<p><strong>Checklist:</strong></p>
+<ul>
+<li><input type="checkbox" id="checkbox43"><label for="checkbox43">PowerShell script executed successfully</label></li>
+<li><input type="checkbox" id="checkbox44"><label for="checkbox44">VM created in Azure Portal</label></li>
+<li><input type="checkbox" id="checkbox45"><label for="checkbox45">VM started successfully</label></li>
+<li><input type="checkbox" id="checkbox46"><label for="checkbox46">Note Public IP: _______________</label></li>
+<li><input type="checkbox" id="checkbox47"><label for="checkbox47">Note Private IP: _______________</label></li>
+</ul>
+<hr>
+<h3 id="step-7-initial-vm-configuration">STEP 7: Initial VM Configuration</h3>
+<p><strong>Connect to new DC via RDP</strong></p>
+<p><strong>First Login:</strong></p>
+<ul>
+<li><input type="checkbox" id="checkbox48"><label for="checkbox48">RDP to public IP</label></li>
+<li><input type="checkbox" id="checkbox49"><label for="checkbox49">Login with domain admin credentials</label></li>
+<li><input type="checkbox" id="checkbox50"><label for="checkbox50">Windows boots successfully</label></li>
+<li><input type="checkbox" id="checkbox51"><label for="checkbox51">No critical errors in Event Viewer</label></li>
+</ul>
+<p><strong>Verify Disks:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Check disk status</span>
+<span class="hljs-built_in">Get-Disk</span>
+<span class="hljs-built_in">Get-Volume</span>
+
+<span class="hljs-comment"># Bring data disk online if needed</span>
+<span class="hljs-built_in">Set-Disk</span> <span class="hljs-literal">-Number</span> <span class="hljs-number">1</span> <span class="hljs-literal">-IsOffline</span> <span class="hljs-variable">$false</span>
+
+<span class="hljs-comment"># Assign drive letter F: if needed</span>
+<span class="hljs-built_in">Get-Partition</span> <span class="hljs-literal">-DiskNumber</span> <span class="hljs-number">1</span> | <span class="hljs-built_in">Set-Partition</span> <span class="hljs-literal">-NewDriveLetter</span> F
+</div></code></pre>
+<ul>
+<li><input type="checkbox" id="checkbox52"><label for="checkbox52">C:\ (OS disk) is accessible</label></li>
+<li><input type="checkbox" id="checkbox53"><label for="checkbox53">F:\ (Data disk) is accessible</label></li>
+<li><input type="checkbox" id="checkbox54"><label for="checkbox54">All folders visible on F:\</label></li>
+</ul>
+<p><strong>Verify AD Services:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Check AD services</span>
+<span class="hljs-built_in">Get-Service</span> NTDS, DNS, Netlogon, W32Time | <span class="hljs-built_in">Format-Table</span> Name, Status
+
+<span class="hljs-comment"># Verify domain</span>
+<span class="hljs-built_in">Get-ADDomain</span>
+
+<span class="hljs-comment"># Check FSMO roles</span>
+netdom query fsmo
+
+<span class="hljs-comment"># Verify DNS</span>
+<span class="hljs-built_in">Get-DnsServerZone</span>
+</div></code></pre>
+<ul>
+<li><input type="checkbox" id="checkbox55"><label for="checkbox55">All AD services running</label></li>
+<li><input type="checkbox" id="checkbox56"><label for="checkbox56">Domain is SouthernEscrow.com</label></li>
+<li><input type="checkbox" id="checkbox57"><label for="checkbox57">DNS zones present</label></li>
+<li><input type="checkbox" id="checkbox58"><label for="checkbox58">SYSVOL and NETLOGON shares exist</label></li>
+</ul>
+<hr>
+<h3 id="step-8-recreate-file-shares">STEP 8: Recreate File Shares</h3>
+<p><strong>Run File Share Scripts:</strong></p>
+<pre class="hljs"><code><div>cd C:\ps1
+
+<span class="hljs-comment"># Run scripts in order</span>
+.\<span class="hljs-number">1</span><span class="hljs-literal">-Setup</span><span class="hljs-literal">-Directories</span><span class="hljs-operator">-F</span><span class="hljs-literal">-Drive</span>.ps1
+<span class="hljs-comment"># Should show "Already exists" for all folders</span>
+
+.\<span class="hljs-number">2</span><span class="hljs-literal">-Set</span><span class="hljs-literal">-NTFS</span><span class="hljs-literal">-Permissions</span><span class="hljs-operator">-F</span><span class="hljs-literal">-Drive</span>.ps1
+<span class="hljs-comment"># Applies permissions to F:\ folders</span>
+
+.\<span class="hljs-number">3</span><span class="hljs-literal">-Create</span><span class="hljs-literal">-SMB</span><span class="hljs-literal">-Shares</span><span class="hljs-operator">-F</span><span class="hljs-literal">-Drive</span>.ps1
+<span class="hljs-comment"># Creates all SMB shares</span>
+
+.\<span class="hljs-number">4</span><span class="hljs-literal">-Validate</span><span class="hljs-literal">-Configuration</span><span class="hljs-operator">-F</span><span class="hljs-literal">-Drive</span>.ps1
+<span class="hljs-comment"># Validates everything</span>
+</div></code></pre>
+<p><strong>Checklist:</strong></p>
+<ul>
+<li><input type="checkbox" id="checkbox59"><label for="checkbox59">Script 1 - All directories already exist</label></li>
+<li><input type="checkbox" id="checkbox60"><label for="checkbox60">Script 2 - Permissions applied successfully</label></li>
+<li><input type="checkbox" id="checkbox61"><label for="checkbox61">Script 3 - All 11 shares created</label></li>
+<li><input type="checkbox" id="checkbox62"><label for="checkbox62">Script 4 - All validation checks pass ([OK])</label></li>
+</ul>
+<p><strong>Verify Shares:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-built_in">Get-SmbShare</span> | <span class="hljs-built_in">Format-Table</span> Name, Path
+</div></code></pre>
+<ul>
+<li><input type="checkbox" id="checkbox63"><label for="checkbox63">F share → F:\</label></li>
+<li><input type="checkbox" id="checkbox64"><label for="checkbox64">FTP Data → F:\FTP Data</label></li>
+<li><input type="checkbox" id="checkbox65"><label for="checkbox65">HomeDirs → F:\HomeDirs</label></li>
+<li><input type="checkbox" id="checkbox66"><label for="checkbox66">Legal → F:\HomeDirs\Legal</label></li>
+<li><input type="checkbox" id="checkbox67"><label for="checkbox67">PostClosing → F:\PostClosing</label></li>
+<li><input type="checkbox" id="checkbox68"><label for="checkbox68">Qbooks → F:\Qbooks</label></li>
+<li><input type="checkbox" id="checkbox69"><label for="checkbox69">SeaCrestScans → F:\SeaCrestScans</label></li>
+<li><input type="checkbox" id="checkbox70"><label for="checkbox70">SetcoDocs → F:\SetcoDocs</label></li>
+<li><input type="checkbox" id="checkbox71"><label for="checkbox71">Versacheck → F:\Versacheck</label></li>
+<li><input type="checkbox" id="checkbox72"><label for="checkbox72">Whole Life Fitness → F:\Whole Life Fitness</label></li>
+<li><input type="checkbox" id="checkbox73"><label for="checkbox73">worddocs → F:\NTSYS\worddocs</label></li>
+</ul>
+<hr>
+<h3 id="step-9-network-configuration">STEP 9: Network Configuration</h3>
+<p><strong>Set DNS to Point to Itself:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Get network adapter</span>
+<span class="hljs-variable">$adapter</span> = <span class="hljs-built_in">Get-NetAdapter</span> | <span class="hljs-built_in">Where-Object</span> {<span class="hljs-variable">$_</span>.Status <span class="hljs-operator">-eq</span> <span class="hljs-string">"Up"</span>}
+
+<span class="hljs-comment"># Set DNS to itself</span>
+<span class="hljs-built_in">Set-DnsClientServerAddress</span> <span class="hljs-literal">-InterfaceIndex</span> <span class="hljs-variable">$adapter</span>.InterfaceIndex <span class="hljs-literal">-ServerAddresses</span> (<span class="hljs-string">"127.0.0.1"</span>, <span class="hljs-string">"8.8.8.8"</span>)
+
+<span class="hljs-comment"># Verify</span>
+<span class="hljs-built_in">Get-DnsClientServerAddress</span> <span class="hljs-literal">-InterfaceIndex</span> <span class="hljs-variable">$adapter</span>.InterfaceIndex
+</div></code></pre>
+<p><strong>Verify DNS Resolution:</strong></p>
+<pre class="hljs"><code><div>nslookup SouthernEscrow.com
+<span class="hljs-built_in">ipconfig</span> /registerdns
+</div></code></pre>
+<ul>
+<li><input type="checkbox" id="checkbox74"><label for="checkbox74">DNS set to 127.0.0.1 (or own IP) as primary</label></li>
+<li><input type="checkbox" id="checkbox75"><label for="checkbox75">DNS zones resolve correctly</label></li>
+<li><input type="checkbox" id="checkbox76"><label for="checkbox76">SRV records exist</label></li>
+</ul>
+<hr>
+<h3 id="step-10-testing--validation">STEP 10: Testing &amp; Validation</h3>
+<p><strong>DC Health Check:</strong></p>
+<pre class="hljs"><code><div>dcdiag /v &gt; C:\Logs\dcdiag.txt
+</div></code></pre>
+<ul>
+<li><input type="checkbox" id="checkbox77"><label for="checkbox77">Review dcdiag output</label></li>
+<li><input type="checkbox" id="checkbox78"><label for="checkbox78">All tests pass or acceptable warnings only</label></li>
+</ul>
+<p><strong>Test from Client PC:</strong></p>
+<ul>
+<li><input type="checkbox" id="checkbox79"><label for="checkbox79">Client can ping DC: </label><code>ping DC-Setco-NewTenant</code></li>
+<li><input type="checkbox" id="checkbox80"><label for="checkbox80">Client can resolve domain: </label><code>nslookup SouthernEscrow.com</code></li>
+<li><input type="checkbox" id="checkbox81"><label for="checkbox81">Client can authenticate: Test user login</label></li>
+<li><input type="checkbox" id="checkbox82"><label for="checkbox82">Client can access shares: </label><code>\\DC-Setco-NewTenant\HomeDirs</code></li>
+</ul>
+<p><strong>File Share Tests:</strong></p>
+<ul>
+<li><input type="checkbox" id="checkbox83"><label for="checkbox83">Read file from HomeDirs</label></li>
+<li><input type="checkbox" id="checkbox84"><label for="checkbox84">Write file to HomeDirs</label></li>
+<li><input type="checkbox" id="checkbox85"><label for="checkbox85">Delete test file</label></li>
+<li><input type="checkbox" id="checkbox86"><label for="checkbox86">Access Qbooks share (QuickBooks)</label></li>
+<li><input type="checkbox" id="checkbox87"><label for="checkbox87">Access PostClosing share</label></li>
+<li><input type="checkbox" id="checkbox88"><label for="checkbox88">Access Legal share (limited users)</label></li>
+</ul>
+<p><strong>Application Tests:</strong></p>
+<ul>
+<li><input type="checkbox" id="checkbox89"><label for="checkbox89">QuickBooks connects to Qbooks share</label></li>
+<li><input type="checkbox" id="checkbox90"><label for="checkbox90">Users can access their home directories</label></li>
+<li><input type="checkbox" id="checkbox91"><label for="checkbox91">Applications can authenticate against AD</label></li>
+<li><input type="checkbox" id="checkbox92"><label for="checkbox92">Email/Outlook works (if using AD auth)</label></li>
+</ul>
+<hr>
+<h3 id="step-11-cutover">STEP 11: Cutover</h3>
+<p><strong>Pre-Cutover:</strong></p>
+<ul>
+<li><input type="checkbox" id="checkbox93"><label for="checkbox93">Schedule maintenance window: _______________</label></li>
+<li><input type="checkbox" id="checkbox94"><label for="checkbox94">Notify all users</label></li>
+<li><input type="checkbox" id="checkbox95"><label for="checkbox95">Take snapshots of new DC VM</label></li>
+<li><input type="checkbox" id="checkbox96"><label for="checkbox96">Document rollback procedure</label></li>
+</ul>
+<p><strong>Cutover Steps:</strong></p>
+<ol>
+<li><input type="checkbox" id="checkbox97"><label for="checkbox97">Update DHCP to provide new DC IP as DNS</label></li>
+<li><input type="checkbox" id="checkbox98"><label for="checkbox98">Update client DNS settings (if static IPs)</label></li>
+<li><input type="checkbox" id="checkbox99"><label for="checkbox99">Update VPN to authenticate against new DC</label></li>
+<li><input type="checkbox" id="checkbox100"><label for="checkbox100">Update firewall rules to allow traffic to new DC</label></li>
+<li><input type="checkbox" id="checkbox101"><label for="checkbox101">Monitor Event Viewer on new DC</label></li>
+<li><input type="checkbox" id="checkbox102"><label for="checkbox102">Monitor user logins</label></li>
+</ol>
+<p><strong>Post-Cutover:</strong></p>
+<ul>
+<li><input type="checkbox" id="checkbox103"><label for="checkbox103">All users can log in</label></li>
+<li><input type="checkbox" id="checkbox104"><label for="checkbox104">All file shares accessible</label></li>
+<li><input type="checkbox" id="checkbox105"><label for="checkbox105">Applications working</label></li>
+<li><input type="checkbox" id="checkbox106"><label for="checkbox106">No critical errors in Event Viewer</label></li>
+<li><input type="checkbox" id="checkbox107"><label for="checkbox107">Monitor for 48 hours</label></li>
+</ul>
+<hr>
+<h3 id="step-12-decommission-old-dc">STEP 12: Decommission Old DC</h3>
+<p><strong>Wait 2-4 Weeks Before Decommissioning!</strong></p>
+<ul>
+<li><input type="checkbox" id="checkbox108"><label for="checkbox108">Verify no users/services connecting to old DC</label></li>
+<li><input type="checkbox" id="checkbox109"><label for="checkbox109">Demote old DC (if still domain member)</label></li>
+<li><input type="checkbox" id="checkbox110"><label for="checkbox110">Clean up AD metadata</label></li>
+<li><input type="checkbox" id="checkbox111"><label for="checkbox111">Shut down old DC VM</label></li>
+<li><input type="checkbox" id="checkbox112"><label for="checkbox112">Keep VM for 30 days (archived)</label></li>
+<li><input type="checkbox" id="checkbox113"><label for="checkbox113">Delete old DC resources</label></li>
+<li><input type="checkbox" id="checkbox114"><label for="checkbox114">Cancel old Azure subscription</label></li>
+</ul>
+<hr>
+<h2 id="quick-reference-commands">Quick Reference Commands</h2>
+<h3 id="monitor-robocopy-progress">Monitor Robocopy Progress</h3>
+<pre class="hljs"><code><div><span class="hljs-built_in">Get-Content</span> C:\Logs\HomeDirs.log <span class="hljs-literal">-Tail</span> <span class="hljs-number">50</span> <span class="hljs-literal">-Wait</span>
+</div></code></pre>
+<h3 id="check-ad-health">Check AD Health</h3>
+<pre class="hljs"><code><div>dcdiag /v
+repadmin /showrepl
+netdom query fsmo
+</div></code></pre>
+<h3 id="verify-disks">Verify Disks</h3>
+<pre class="hljs"><code><div><span class="hljs-built_in">Get-Disk</span>
+<span class="hljs-built_in">Get-Volume</span>
+<span class="hljs-built_in">Get-Partition</span>
+</div></code></pre>
+<h3 id="verify-shares">Verify Shares</h3>
+<pre class="hljs"><code><div><span class="hljs-built_in">Get-SmbShare</span>
+<span class="hljs-built_in">Get-SmbShareAccess</span> <span class="hljs-literal">-Name</span> <span class="hljs-string">"HomeDirs"</span>
+</div></code></pre>
+<h3 id="verify-dns">Verify DNS</h3>
+<pre class="hljs"><code><div>nslookup SouthernEscrow.com
+<span class="hljs-built_in">ipconfig</span> /registerdns
+dcdiag /test:dns
+</div></code></pre>
+<hr>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="data-disk-not-showing-as-f">Data Disk Not Showing as F:\</h3>
+<pre class="hljs"><code><div><span class="hljs-built_in">Set-Disk</span> <span class="hljs-literal">-Number</span> <span class="hljs-number">1</span> <span class="hljs-literal">-IsOffline</span> <span class="hljs-variable">$false</span>
+<span class="hljs-built_in">Get-Partition</span> <span class="hljs-literal">-DiskNumber</span> <span class="hljs-number">1</span> | <span class="hljs-built_in">Set-Partition</span> <span class="hljs-literal">-NewDriveLetter</span> F
+</div></code></pre>
+<h3 id="shares-not-created">Shares Not Created</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Manually create share</span>
+<span class="hljs-built_in">New-SmbShare</span> <span class="hljs-literal">-Name</span> <span class="hljs-string">"HomeDirs"</span> <span class="hljs-literal">-Path</span> <span class="hljs-string">"F:\HomeDirs"</span> <span class="hljs-literal">-FullAccess</span> <span class="hljs-string">"Domain Admins"</span>
+</div></code></pre>
+<h3 id="dns-not-resolving">DNS Not Resolving</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Re-register DNS</span>
+ipconfig /registerdns
+<span class="hljs-built_in">Restart-Service</span> DNS
+</div></code></pre>
+<h3 id="ad-services-not-starting">AD Services Not Starting</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Check event logs</span>
+<span class="hljs-built_in">Get-EventLog</span> <span class="hljs-literal">-LogName</span> <span class="hljs-string">"Directory Service"</span> <span class="hljs-literal">-Newest</span> <span class="hljs-number">50</span>
+
+<span class="hljs-comment"># Restart NTDS</span>
+<span class="hljs-built_in">Restart-Service</span> NTDS <span class="hljs-literal">-Force</span>
+</div></code></pre>
+<hr>
+<h2 id="summary-timeline">Summary Timeline</h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Task</th>
+<th>Est. Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Robocopy DC to FS</td>
+<td>2-8 hours</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Create OS VHD</td>
+<td>30 min</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Create Data VHD from FS</td>
+<td>2-6 hours</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Copy VHDs to new tenant</td>
+<td>1-4 hours</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Create managed disks</td>
+<td>30 min</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Build VM from disks</td>
+<td>30 min</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Initial config</td>
+<td>1 hour</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Recreate shares</td>
+<td>30 min</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Network config</td>
+<td>30 min</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Testing</td>
+<td>2 hours</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Cutover</td>
+<td>2 hours</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>12-24 hours</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><strong>Document Version:</strong> 1.0
+<strong>Created:</strong> 2025-11-17
+<strong>Migration Date:</strong> _______________
+<strong>Completed By:</strong> _______________</p>
+
+</body>
+</html>

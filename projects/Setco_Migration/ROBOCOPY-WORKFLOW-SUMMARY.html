@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DC02 Data Copy Workflow Summary</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 20px;
+        }
+        .summary-box {
+            background-color: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .success {
+            background-color: #d4edda;
+            border-left-color: #28a745;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        pre code {
+            background-color: transparent;
+            color: #f8f8f2;
+            padding: 0;
+        }
+        .command {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        ul {
+            line-height: 1.8;
+        }
+        .stat {
+            font-weight: bold;
+            color: #2980b9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DC02 Data Copy Workflow Summary</h1>
+
+        <div class="summary-box">
+            <h2>Overview</h2>
+            <p>Successfully mirrored E:\ drive to Y:\ (\\setco-fs01-vm\f$) for Azure migration preparation.</p>
+        </div>
+
+        <div class="summary-box success">
+            <h3>Results</h3>
+            <ul>
+                <li><span class="stat">Total Files:</span> 549,424</li>
+                <li><span class="stat">Total Size:</span> 538.865 GB</li>
+                <li><span class="stat">Files Copied:</span> 291,968 (189.110 GB)</li>
+                <li><span class="stat">Files Skipped:</span> 256,941 (already identical)</li>
+                <li><span class="stat">Files Failed:</span> 517 (System Volume Information - acceptable)</li>
+                <li><span class="stat">Copy Time:</span> 2 hours 54 minutes (with /MT:32)</li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <h2>1. Create Log Directory</h2>
+        <div class="command">mkdir C:\Logs</div>
+
+        <h2>2. Run Robocopy (Mirror E:\ to Y:\)</h2>
+        <div class="command">robocopy E:\ \\setco-fs01-vm\f$ /MIR /COPYALL /DCOPY:T /MT:32 /R:1 /W:1 /B /XD "\\setco-fs01-vm\f$\Backup" /LOG:C:\Logs\robocopy_delta.log /TEE /NP</div>
+
+        <h3>Key Parameters:</h3>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><code>/MIR</code></td>
+                <td>Mirror mode (exact copy, deletes extras)</td>
+            </tr>
+            <tr>
+                <td><code>/COPYALL</code></td>
+                <td>Copy all file attributes, permissions, timestamps</td>
+            </tr>
+            <tr>
+                <td><code>/DCOPY:T</code></td>
+                <td>Copy directory timestamps</td>
+            </tr>
+            <tr>
+                <td><code>/MT:32</code></td>
+                <td>Use 32 threads (fast)</td>
+            </tr>
+            <tr>
+                <td><code>/R:1 /W:1</code></td>
+                <td>Retry once, wait 1 second</td>
+            </tr>
+            <tr>
+                <td><code>/B</code></td>
+                <td>Backup mode (use backup privileges)</td>
+            </tr>
+            <tr>
+                <td><code>/XD</code></td>
+                <td>Exclude Backup folder</td>
+            </tr>
+            <tr>
+                <td><code>/LOG</code></td>
+                <td>Log to file</td>
+            </tr>
+            <tr>
+                <td><code>/TEE</code></td>
+                <td>Show output on screen and log</td>
+            </tr>
+            <tr>
+                <td><code>/NP</code></td>
+                <td>No progress percentage (cleaner output)</td>
+            </tr>
+        </table>
+
+        <h2>3. Monitor Progress</h2>
+
+        <h3>Option A: PowerShell Progress Monitor (Recommended)</h3>
+        <pre><code># Run in separate PowerShell (as Administrator)
+$totalFiles = 392994  # Adjust based on your E:\ file count
+
+while($true) {
+    $currentCount = (Get-ChildItem \\setco-fs01-vm\f$ -Recurse -File -Force -ErrorAction SilentlyContinue | Where-Object {$_.FullName -notlike '*\Backup\*'} | Measure-Object).Count
+
+    $remaining = $totalFiles - $currentCount
+    $progress = [math]::Round(($currentCount / $totalFiles) * 100, 2)
+
+    Write-Host "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')" -ForegroundColor Green
+    Write-Host "  Files copied: $currentCount / $totalFiles" -ForegroundColor White
+    Write-Host "  Remaining:    $remaining files" -ForegroundColor Yellow
+    Write-Host "  Progress:     $progress%" -ForegroundColor Cyan
+    Write-Host ""
+
+    Start-Sleep -Seconds 300  # Check every 5 minutes
+}</code></pre>
+
+        <h3>Option B: Manual File Count Check</h3>
+        <pre><code># Get current file count on destination
+(Get-ChildItem \\setco-fs01-vm\f$ -Recurse -File -Force -ErrorAction SilentlyContinue | Where-Object {$_.FullName -notlike '*\Backup\*'} | Measure-Object).Count</code></pre>
+
+        <h2>4. Validation After Completion</h2>
+
+        <h3>Check Source File Count</h3>
+        <pre><code>(Get-ChildItem E:\ -Recurse -File -Force -ErrorAction SilentlyContinue | Measure-Object).Count</code></pre>
+
+        <h3>Check Destination File Count</h3>
+        <pre><code>(Get-ChildItem \\setco-fs01-vm\f$ -Recurse -File -Force -ErrorAction SilentlyContinue | Where-Object {$_.FullName -notlike '*\Backup\*'} | Measure-Object).Count</code></pre>
+
+        <h3>Compare Sizes</h3>
+        <div class="command">dir E:\ /s</div>
+        <div class="command">dir \\setco-fs01-vm\f$\ /s</div>
+
+        <h3>Review Failed Files</h3>
+        <div class="command">findstr /I "ERROR" C:\Logs\robocopy_delta.log | more</div>
+
+        <h3>Spot Check Critical Folders</h3>
+        <ul>
+            <li>Navigate to <code>\\setco-fs01-vm\f$\HomeDirs</code> - verify user folders</li>
+            <li>Check <code>\\setco-fs01-vm\f$\SetcoDocs</code> - verify documents</li>
+            <li>Check <code>\\setco-fs01-vm\f$\PostClosing</code> - verify data exists</li>
+        </ul>
+
+        <h2>Key Findings</h2>
+
+        <h3>Excluded Items (Expected):</h3>
+        <ul>
+            <li>Recycle Bin ($RECYCLE.BIN) - skipped automatically</li>
+            <li>Backup folder - excluded via /XD parameter</li>
+            <li>System Volume Information - failed with Access Denied (expected, not needed)</li>
+        </ul>
+
+        <h3>Failed Files (517 total):</h3>
+        <ul>
+            <li>System Volume Information files (shadow copies/restore points)</li>
+            <li>2 Excel files locked by users during copy</li>
+            <li><strong>All failures acceptable</strong> - no critical business data lost</li>
+        </ul>
+
+        <div class="summary-box success">
+            <h2>Next Steps</h2>
+            <p>Y:\ drive is now ready for:</p>
+            <ul>
+                <li>VHD export</li>
+                <li>Azure disk image creation</li>
+                <li>VM migration to new tenant</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

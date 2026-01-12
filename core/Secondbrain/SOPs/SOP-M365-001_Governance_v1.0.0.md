@@ -1,5 +1,3 @@
-Loaded cached credentials.
-```markdown
 # Standard Operating Procedure: Microsoft 365 Governance and Administration
 
 | **Document ID** | **SOP-M365-001** |
@@ -119,4 +117,3 @@ Personnel are encouraged to pursue the following certifications to ensure profic
 -   **Hands-on Labs:**
     -   **M365 Developer Sandbox:** [developer.microsoft.com/en-us/microsoft-365/dev-program](https://developer.microsoft.com/en-us/microsoft-365/dev-program)
     -   **Official Microsoft Labs:** [microsoftlearning.github.io/Labs/](https://microsoftlearning.github.io/Labs/)
-```

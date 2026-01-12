@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SETCO-DC02 Complete Migration Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin: 30px 0 15px 0;
+        }
+
+        h4 {
+            color: #2c3e50;
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .info-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+        .info-card h4 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        .info-card .value {
+            font-size: 1.1em;
+            color: #2c3e50;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+
+        .alert {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+            color: #155724;
+        }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            border-left: 5px solid #17a2b8;
+            color: #0c5460;
+        }
+
+        .alert-warning {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            color: #856404;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e74c3c;
+        }
+
+        pre {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        pre code {
+            background: none;
+            color: #ecf0f1;
+            padding: 0;
+        }
+
+        .step {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+            border-radius: 5px;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .checklist li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            border-left: 3px solid #667eea;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 30px;
+        }
+
+        .timeline-item:before {
+            content: "";
+            position: absolute;
+            left: -46px;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #667eea;
+            border: 3px solid white;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin: 2px;
+        }
+
+        .badge-primary {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .badge-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .badge-info {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .badge-warning {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .toc h3 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .toc ul li:last-child {
+            border-bottom: none;
+        }
+
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .toc a:hover {
+            color: #764ba2;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🖥️ SETCO-DC02 Migration Documentation</h1>
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
+            <div class="subtitle">Complete Azure Tenant-to-Tenant Domain Controller Migration</div>
+            <div style="margin-top: 20px;">
+                <span class="badge badge-success">Migration Completed: November 23, 2025</span>
+                <span class="badge badge-info">Status: Production</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>📑 Table of Contents</h3>
+                <ul>
+                    <li><a href="#overview">1. Migration Overview</a></li>
+                    <li><a href="#variables">2. Environment Variables & Configuration</a></li>
+                    <li><a href="#pre-migration">3. Pre-Migration Data Sync</a></li>
+                    <li><a href="#azure-provisioning">4. Azure VM Provisioning</a></li>
+                    <li><a href="#vm-configuration">5. VM Configuration & Disk Setup</a></li>
+                    <li><a href="#file-shares">6. File Share Configuration</a></li>
+                    <li><a href="#dns-configuration">7. DNS Configuration</a></li>
+                    <li><a href="#validation">8. Validation & Testing</a></li>
+                    <li><a href="#dhcp-update">9. Final Step: DHCP Scope Updates</a></li>
+                    <li><a href="#summary">10. Migration Summary</a></li>
+                </ul>
+            </div>
+
+            <!-- Section 1: Overview -->
+            <div class="section" id="overview">
+                <h2>1. Migration Overview</h2>
+
+                <div class="alert alert-info">
+                    <strong>📋 Migration Type:</strong> Azure Tenant-to-Tenant Domain Controller Migration<br>
+                    <strong>🎯 Objective:</strong> Migrate SETCO-DC02 from vendor-managed Azure tenant to customer-owned Azure tenant while preserving domain identity, user accounts, and all file share data.
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Domain Information</h4>
+                        <div class="value">Domain: SouthernEscrow.com</div>
+                        <div class="value">NetBIOS: SOUTHERN</div>
+                        <div class="value">SID: S-1-5-21-117609710-1303643608-725345543</div>
+                    </div>
+                    <div class="info-card">
+                        <h4>Migration Timeline</h4>
+                        <div class="value">Planning: November 17, 2025</div>
+                        <div class="value">Data Sync: November 21, 2025</div>
+                        <div class="value">VM Rebuild: November 22-23, 2025</div>
+                    </div>
+                    <div class="info-card">
+                        <h4>Data Migrated</h4>
+                        <div class="value">Initial Sync: ~380 GB</div>
+                        <div class="value">Delta Sync: ~100 GB</div>
+                        <div class="value">Files Modified (11/21): 136 files</div>
+                    </div>
+                </div>
+
+                <h3>Migration Approach</h3>
+                <p>The migration used a <strong>VHD + Snapshot</strong> approach to preserve the exact domain state while moving to a new Azure tenant:</p>
+                <ol>
+                    <li>Exported OS disk from vendor tenant as VHD</li>
+                    <li>Synced data disk to intermediate file server using robocopy</li>
+                    <li>Created snapshot of synced data</li>
+                    <li>Built new VM in customer tenant from VHD and snapshot</li>
+                    <li>Validated and brought into production</li>
+                </ol>
+            </div>
+
+            <!-- Section 2: Variables -->
+            <div class="section" id="variables">
+                <h2>2. Environment Variables & Configuration</h2>
+
+                <h3>Azure Resources</h3>
+                <table>
+                    <tr>
+                        <th>Resource</th>
+                        <th>Value</th>
+                        <th>Notes</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Resource Group</strong></td>
+                        <td><code>DATACENTER</code></td>
+                        <td>All infrastructure resources</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Location</strong></td>
+                        <td><code>eastus</code></td>
+                        <td>Primary Azure region</td>
+                    </tr>
+                    <tr>
+                        <td><strong>VM Name</strong></td>
+                        <td><code>SETCO-DC02-VM</code></td>
+                        <td>Full VM name in Azure</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Computer Name</strong></td>
+                        <td><code>SETCO-DC02</code></td>
+                        <td>Windows computer name</td>
+                    </tr>
+                    <tr>
+                        <td><strong>VM Size</strong></td>
+                        <td><code>Standard_E2ds_v4</code></td>
+                        <td>2 vCPU, 16 GB RAM (memory-optimized)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Private IP</strong></td>
+                        <td><code>10.20.1.13</code></td>
+                        <td>Static IP assignment</td>
+                    </tr>
+                </table>
+
+                <h3>Disk Configuration</h3>
+                <table>
+                    <tr>
+                        <th>Disk</th>
+                        <th>Number</th>
+                        <th>Size</th>
+                        <th>Purpose</th>
+                        <th>Drive Letter</th>
+                    </tr>
+                    <tr>
+                        <td>OS Disk</td>
+                        <td>0</td>
+                        <td>512 GB</td>
+                        <td>Windows Server OS, Active Directory</td>
+                        <td>C:</td>
+                    </tr>
+                    <tr>
+                        <td>Unknown Disk</td>
+                        <td>1</td>
+                        <td>75 GB</td>
+                        <td>Unknown/Not used</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Data Disk</td>
+                        <td>2</td>
+                        <td>1 TB (1024 GB)</td>
+                        <td>File shares, user data</td>
+                        <td>F:</td>
+                    </tr>
+                </table>
+
+                <h3>Network Configuration</h3>
+                <table>
+                    <tr>
+                        <th>Setting</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>VNet</td>
+                        <td>Corporate VNet</td>
+                    </tr>
+                    <tr>
+                        <td>Subnet</td>
+                        <td>10.20.1.0/24</td>
+                    </tr>
+                    <tr>
+                        <td>DNS Servers (Servers)</td>
+                        <td>DC01, DC02, 8.8.8.8</td>
+                    </tr>
+                    <tr>
+                        <td>Firewall Rules</td>
+                        <td>AD: 53, 88, 135, 389, 445, 636, 3268, 3269<br>RDP: 3389<br>SMB: 445</td>
+                    </tr>
+                </table>
+
+                <h3>File Shares Configuration</h3>
+                <table>
+                    <tr>
+                        <th>#</th>
+                        <th>Share Name</th>
+                        <th>Path</th>
+                        <th>Purpose</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>F</td>
+                        <td>F:\</td>
+                        <td>Root F: drive share</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>FTP Data</td>
+                        <td>F:\FTP Data</td>
+                        <td>FTP file storage</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>HomeDirs</td>
+                        <td>F:\HomeDirs</td>
+                        <td>User home directories</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Legal</td>
+                        <td>F:\HomeDirs\Legal</td>
+                        <td>Legal department files</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>PostClosing</td>
+                        <td>F:\PostClosing</td>
+                        <td>Post-closing title documents</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Qbooks</td>
+                        <td>F:\Qbooks</td>
+                        <td>QuickBooks company files</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>SeaCrestScans</td>
+                        <td>F:\SeaCrestScans</td>
+                        <td>Scanned documents</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>SetcoDocs</td>
+                        <td>F:\SetcoDocs</td>
+                        <td>Company documents</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Versacheck</td>
+                        <td>F:\Versacheck</td>
+                        <td>Check printing software</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Whole Life Fitness</td>
+                        <td>F:\Whole Life Fitness</td>
+                        <td>Tenant/client files</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>worddocs</td>
+                        <td>F:\NTSYS\worddocs</td>
+                        <td>Word document templates</td>
+                    </tr>
+                </table>
+
+                <div class="alert alert-success">
+                    <strong>✅ Total Data Shares:</strong> 11 shares<br>
+                    <strong>✅ System Shares:</strong> NETLOGON, SYSVOL (AD-managed)<br>
+                    <strong>✅ Printer Shares:</strong> Preserved from original DC
+                </div>
+            </div>
+
+            <!-- Section 3: Pre-Migration -->
+            <div class="section" id="pre-migration">
+                <h2>3. Pre-Migration Data Sync</h2>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>Initial Robocopy Sync</h4>
+                        <p><strong>Date:</strong> November 19, 2025 (2 days before migration)</p>
+                        <p><strong>Source:</strong> Vendor DC E:\ drive</p>
+                        <p><strong>Destination:</strong> SETCO-FS01-VM F:\Backup</p>
+                        <p><strong>Data Size:</strong> ~380 GB</p>
+                        <pre><code>robocopy E:\ Y:\Backup /MIR /COPYALL /DCOPY:T /MT:32 /R:3 /W:5 /B /LOG:C:\Logs\robocopy-initial.log /TEE /NP</code></pre>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>Delta Robocopy Sync</h4>
+                        <p><strong>Date:</strong> November 21, 2025 (Migration day)</p>
+                        <p><strong>Purpose:</strong> Capture changes made during the 5 days since initial sync</p>
+                        <p><strong>Data Size:</strong> ~100 GB (changes only)</p>
+                        <pre><code>robocopy E:\ Y:\Backup /MIR /COPYALL /DCOPY:T /MT:32 /R:3 /W:5 /B /LOG:C:\Logs\robocopy-delta.log /TEE /NP</code></pre>
+                        <p><strong>Result:</strong> 136 files modified on 11/21/2025 successfully captured</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>Snapshot Creation</h4>
+                        <p><strong>Date:</strong> November 22, 2025</p>
+                        <p><strong>Source:</strong> SETCO-FS01-VM F: drive (1TB disk)</p>
+                        <p><strong>Snapshot Name:</strong> SETCO-DC02-Data-Snapshot-2025-11-22</p>
+                        <pre><code>az snapshot create \
+  -g DATACENTER \
+  -n SETCO-DC02-Data-Snapshot-2025-11-22 \
+  --source FS_DataDisk_F \
+  --sku Premium_LRS</code></pre>
+                    </div>
+                </div>
+
+                <div class="alert alert-success">
+                    <strong>✅ Data Sync Verification:</strong> All 136 files modified on migration day (11/21/2025) verified present on migrated F: drive. Latest file timestamp: 11:04:52 PM, confirming complete day's work captured.
+                </div>
+            </div>
+
+            <!-- Section 4: Azure Provisioning -->
+            <div class="section" id="azure-provisioning">
+                <h2>4. Azure VM Provisioning</h2>
+
+                <h3>Step 1: VM Size Selection & Resizing</h3>
+                <div class="step">
+                    <p><strong>Initial Size:</strong> Standard_D2s_v3 (2 vCPU, 8 GB RAM)</p>
+                    <p><strong>Upgraded To:</strong> Standard_E2ds_v4 (2 vCPU, 16 GB RAM)</p>
+                    <p><strong>Reason:</strong> Memory-optimized for domain controller workloads</p>
+
+                    <h4>Resize Commands:</h4>
+                    <pre><code># Deallocate VM
+az vm deallocate -g DATACENTER -n SETCO-DC02-VM
+
+# Resize
+az vm resize -g DATACENTER -n SETCO-DC02-VM --size Standard_E2ds_v4
+
+# Start VM
+az vm start -g DATACENTER -n SETCO-DC02-VM
+
+# Verify
+az vm show -g DATACENTER -n SETCO-DC02-VM --query "{Name:name, Size:hardwareProfile.vmSize}"</code></pre>
+                </div>
+
+                <h3>Step 2: Disk Provisioning</h3>
+
+                <h4>OS Disk Creation (from Vendor VHD)</h4>
+                <div class="alert alert-info">
+                    <strong>Note:</strong> OS disk was created from vendor-provided VHD containing the complete Windows Server installation with Active Directory configuration.
+                </div>
+                <pre><code># Create managed disk from VHD SAS URL
+az disk create \
+  -g DATACENTER \
+  -n SETCO-DC02-OS-Disk \
+  --source "https://vendor.blob.core.windows.net/vhds/setco-dc02-os.vhd?sp=r&st=..." \
+  --os-type Windows \
+  --sku Premium_LRS</code></pre>
+
+                <h4>Data Disk Creation (from Snapshot)</h4>
+                <pre><code># Create managed disk from snapshot
+az disk create \
+  -g DATACENTER \
+  -n SETCO-DC02-Data-Disk \
+  --source SETCO-DC02-Data-Snapshot-2025-11-22 \
+  --sku Premium_LRS</code></pre>
+
+                <h3>Step 3: VM Assembly</h3>
+                <div class="step">
+                    <p>The VM was built with:</p>
+                    <ul class="checklist">
+                        <li>OS disk attached as boot disk</li>
+                        <li>Data disk attached at LUN 1</li>
+                        <li>Static private IP: 10.20.1.13</li>
+                        <li>Network Security Group configured for DC traffic</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Section 5: VM Configuration -->
+            <div class="section" id="vm-configuration">
+                <h2>5. VM Configuration & Disk Setup</h2>
+
+                <h3>Post-Boot Disk Configuration</h3>
+
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <div style="display: inline-block; vertical-align: top; width: calc(100% - 60px);">
+                        <h4>Verify Disks Detected</h4>
+                        <pre><code>Get-Disk | Format-Table Number, FriendlyName, OperationalStatus, Size</code></pre>
+                        <p><strong>Result:</strong> 3 disks detected (Disk 0: OS, Disk 1: Unknown, Disk 2: Data)</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <div style="display: inline-block; vertical-align: top; width: calc(100% - 60px);">
+                        <h4>Bring Data Disk Online</h4>
+                        <pre><code># Check partition status
+Get-Partition -DiskNumber 2
+
+# Partition 2 was OFFLINE - brought online
+Set-Partition -DiskNumber 2 -PartitionNumber 2 -IsOffline $false</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <div style="display: inline-block; vertical-align: top; width: calc(100% - 60px);">
+                        <h4>Assign F: Drive Letter</h4>
+                        <pre><code>Set-Partition -DiskNumber 2 -PartitionNumber 2 -NewDriveLetter F
+
+# Verify
+Get-Volume F
+# Result: 1024 GB, 725 GB used, 299 GB free</code></pre>
+                    </div>
+                </div>
+
+                <div class="alert alert-success">
+                    <strong>✅ Disk Configuration Complete</strong><br>
+                    • C: drive (512 GB) - OS and Active Directory<br>
+                    • F: drive (1 TB) - File shares and user data<br>
+                    • Volume label: DATA<br>
+                    • File system: NTFS<br>
+                    • Health: Healthy
+                </div>
+
+                <h3>Active Directory Services Verification</h3>
+                <pre><code># Check AD services
+Get-Service NTDS,DNS,Netlogon,W32Time | Format-Table Name, Status
+
+# Verify domain
+Get-ADDomain | Select-Object DNSRoot, NetBIOSName, DomainSID</code></pre>
+
+                <table>
+                    <tr>
+                        <th>Service</th>
+                        <th>Status</th>
+                        <th>Purpose</th>
+                    </tr>
+                    <tr>
+                        <td>NTDS</td>
+                        <td><span class="badge badge-success">Running</span></td>
+                        <td>Active Directory Domain Services</td>
+                    </tr>
+                    <tr>
+                        <td>DNS</td>
+                        <td><span class="badge badge-success">Running</span></td>
+                        <td>DNS Server</td>
+                    </tr>
+                    <tr>
+                        <td>Netlogon</td>
+                        <td><span class="badge badge-success">Running</span></td>
+                        <td>Domain authentication</td>
+                    </tr>
+                    <tr>
+                        <td>W32Time</td>
+                        <td><span class="badge badge-warning">Stopped</span></td>
+                        <td>Time synchronization (needs config)</td>
+                    </tr>
+                </table>
+
+                <div class="alert alert-info">
+                    <strong>ℹ️ Domain Verification:</strong><br>
+                    • Domain: <code>SouthernEscrow.com</code> ✓<br>
+                    • NetBIOS: <code>SOUTHERN</code> ✓<br>
+                    • Domain SID: <code>S-1-5-21-117609710-1303643608-725345543</code> ✓<br>
+                    • <strong>Domain identity preserved!</strong>
+                </div>
+            </div>
+
+            <!-- Section 6: File Shares -->
+            <div class="section" id="file-shares">
+                <h2>6. File Share Configuration</h2>
+
+                <h3>Data Folder Structure Verification</h3>
+                <pre><code>Get-ChildItem F:\ -Directory | Select-Object Name, LastWriteTime</code></pre>
+
+                <div class="alert alert-success">
+                    <strong>✅ Verified 18 top-level folders on F: drive</strong><br>
+                    Including: FTP Data, HomeDirs, PostClosing, Qbooks, SeaCrestScans, SetcoDocs, Versacheck, Whole Life Fitness, and more.
+                </div>
+
+                <h3>SMB Share Creation</h3>
+                <p>Created 11 data shares using PowerShell:</p>
+                <pre><code>New-SmbShare -Name "F" -Path "F:\" -FullAccess "Everyone"
+New-SmbShare -Name "FTP Data" -Path "F:\FTP Data" -FullAccess "Everyone"
+New-SmbShare -Name "HomeDirs" -Path "F:\HomeDirs" -ReadAccess "Users" -FullAccess "Domain Admins"
+New-SmbShare -Name "Legal" -Path "F:\HomeDirs\Legal" -FullAccess "Domain Admins"
+New-SmbShare -Name "PostClosing" -Path "F:\PostClosing" -FullAccess "Domain Admins"
+New-SmbShare -Name "Qbooks" -Path "F:\Qbooks" -FullAccess "Domain Admins"
+New-SmbShare -Name "SeaCrestScans" -Path "F:\SeaCrestScans" -FullAccess "Everyone"
+New-SmbShare -Name "SetcoDocs" -Path "F:\SetcoDocs" -FullAccess "Everyone"
+New-SmbShare -Name "Versacheck" -Path "F:\Versacheck" -FullAccess "Domain Admins"
+New-SmbShare -Name "Whole Life Fitness" -Path "F:\Whole Life Fitness" -FullAccess "Domain Admins"
+New-SmbShare -Name "worddocs" -Path "F:\NTSYS\worddocs" -FullAccess "Everyone"</code></pre>
+
+                <h3>Share Verification</h3>
+                <pre><code># Count shares
+$dataShares = Get-SmbShare | Where-Object {$_.Name -notlike '*$' -and $_.Path -like 'F:*'}
+Write-Host "Total F: drive shares: $($dataShares.Count)"
+# Result: 11 shares
+
+# Test local access
+net view \\localhost
+net view \\SETCO-DC02
+net view \\10.20.1.13
+
+# All successful ✓</code></pre>
+
+                <div class="alert alert-success">
+                    <strong>✅ Share Configuration Complete</strong><br>
+                    • 11 data shares created on F: drive<br>
+                    • NETLOGON and SYSVOL shares active (AD-managed)<br>
+                    • All printer shares preserved<br>
+                    • Local access verified via localhost, hostname, and IP
+                </div>
+            </div>
+
+            <!-- Section 7: DNS Configuration -->
+            <div class="section" id="dns-configuration">
+                <h2>7. DNS Configuration</h2>
+
+                <h3>Server DNS Configuration</h3>
+                <p>All servers (SETCO-DC01-VM, SETCO-DC02-VM, SETCO-FS01-VM, SETCO-RDS001) configured with DNS server order:</p>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Primary DNS</h4>
+                        <div class="value">DC01 (Primary DC)</div>
+                    </div>
+                    <div class="info-card">
+                        <h4>Secondary DNS</h4>
+                        <div class="value">DC02 (10.20.1.13)</div>
+                    </div>
+                    <div class="info-card">
+                        <h4>Tertiary DNS</h4>
+                        <div class="value">8.8.8.8 (Google)</div>
+                    </div>
+                </div>
+
+                <h3>DNS Configuration Commands</h3>
+                <pre><code># On each server
+Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses ("DC01-IP","10.20.1.13","8.8.8.8")
+
+# Verify
+Get-DnsClientServerAddress -AddressFamily IPv4
+
+# Test resolution
+nslookup SouthernEscrow.com
+nslookup SETCO-DC02</code></pre>
+
+                <h3>DNS Zone Verification</h3>
+                <pre><code># On DC02
+Get-DnsServerZone | Format-Table ZoneName, ZoneType, DynamicUpdate</code></pre>
+
+                <div class="alert alert-success">
+                    <strong>✅ DNS Configuration Complete</strong><br>
+                    • All servers pointing to DC01 primary, DC02 secondary<br>
+                    • Domain name resolution working<br>
+                    • AD-integrated zones active<br>
+                    • SRV records for domain services verified
+                </div>
+            </div>
+
+            <!-- Section 8: Validation -->
+            <div class="section" id="validation">
+                <h2>8. Validation & Testing</h2>
+
+                <h3>Migration Sync Verification</h3>
+                <p>Created verification script to confirm all files from migration day were successfully transferred.</p>
+
+                <div class="alert alert-success">
+                    <strong>✅ Migration Day File Verification (11/21/2025)</strong><br>
+                    • <strong>136 files</strong> modified on migration day<br>
+                    • <strong>269 MB</strong> total size<br>
+                    • Latest file: <strong>11:04:52 PM</strong> (QuickBooks auto-recovery)<br>
+                    • All files verified present on F: drive
+                </div>
+
+                <h3>Files by Category</h3>
+                <table>
+                    <tr>
+                        <th>Folder</th>
+                        <th>Files</th>
+                        <th>Size</th>
+                        <th>Key Files</th>
+                    </tr>
+                    <tr>
+                        <td>HomeDirs</td>
+                        <td>97</td>
+                        <td>40.5 MB</td>
+                        <td>User documents, PDFs, Outlook messages</td>
+                    </tr>
+                    <tr>
+                        <td>PostClosing</td>
+                        <td>20</td>
+                        <td>56.4 MB</td>
+                        <td>Title policies, case files (DFS-25-1505)</td>
+                    </tr>
+                    <tr>
+                        <td>Qbooks</td>
+                        <td>19</td>
+                        <td>172.4 MB</td>
+                        <td>QuickBooks databases, transaction logs</td>
+                    </tr>
+                </table>
+
+                <h3>Share Access Testing</h3>
+                <pre><code># From client/server
+net view \\SETCO-DC02
+
+# Test specific shares
+Test-Path \\SETCO-DC02\HomeDirs
+Test-Path \\SETCO-DC02\Qbooks
+Test-Path \\SETCO-DC02\PostClosing
+
+# Map network drive
+net use Z: \\SETCO-DC02\HomeDirs
+
+# All tests successful ✓</code></pre>
+
+                <h3>Active Directory Health Check</h3>
+                <pre><code># Run comprehensive DC diagnostics
+dcdiag /v > C:\dcdiag-DC02.txt
+
+# Check replication with DC01
+repadmin /showrepl
+
+# Verify FSMO roles
+netdom query fsmo</code></pre>
+
+                <h3>NinjaOne Remote Access</h3>
+                <div class="alert alert-success">
+                    <strong>✅ Remote Management Verified</strong><br>
+                    • All 3 servers (DC01-VM, DC02-VM, FS01-VM) accessible via NinjaOne<br>
+                    • DNS resolution working correctly<br>
+                    • Domain authentication functional
+                </div>
+
+                <h3>Validation Checklist</h3>
+                <ul class="checklist">
+                    <li>VM powered on and accessible (10.20.1.13)</li>
+                    <li>F: drive online with 1TB capacity</li>
+                    <li>All 11 data shares created and accessible</li>
+                    <li>Domain identity preserved (SID verified)</li>
+                    <li>Active Directory services running</li>
+                    <li>DNS zones configured and resolving</li>
+                    <li>136 files from migration day verified</li>
+                    <li>QuickBooks files intact (critical data)</li>
+                    <li>Title work files preserved</li>
+                    <li>All servers configured with correct DNS order</li>
+                    <li>NinjaOne remote access working</li>
+                    <li>Share access tested from multiple servers</li>
+                </ul>
+            </div>
+
+            <!-- Section 9: DHCP Update -->
+            <div class="section" id="dhcp-update">
+                <h2>9. Final Step: DHCP Scope Updates</h2>
+
+                <div class="alert alert-warning">
+                    <strong>⚠️ FINAL MIGRATION STEP</strong><br>
+                    Update DHCP scopes on all 11 SonicWall firewalls to include DC02 in DNS server assignments.
+                </div>
+
+                <h3>SonicWall DHCP Configuration</h3>
+                <p>Update the DNS server configuration in DHCP scope on each SonicWall firewall:</p>
+
+                <div class="step">
+                    <h4>New DNS Server Order for DHCP Clients:</h4>
+                    <ol>
+                        <li><strong>Primary DNS:</strong> DC01 IP address</li>
+                        <li><strong>Secondary DNS:</strong> 10.20.1.13 (DC02)</li>
+                        <li><strong>Tertiary DNS:</strong> 8.8.8.8 (Google DNS)</li>
+                    </ol>
+                </div>
+
+                <h3>SonicWall Configuration Steps</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <div style="display: inline-block; vertical-align: top; width: calc(100% - 60px);">
+                        <h4>Access SonicWall Management Interface</h4>
+                        <p>Log into each SonicWall firewall's management interface</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <div style="display: inline-block; vertical-align: top; width: calc(100% - 60px);">
+                        <h4>Navigate to DHCP Server Settings</h4>
+                        <p>Network → DHCP Server → Edit the LAN DHCP scope</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <div style="display: inline-block; vertical-align: top; width: calc(100% - 60px);">
+                        <h4>Update DNS Server List</h4>
+                        <p>Modify DNS server settings to:</p>
+                        <ul>
+                            <li>DNS Server 1: [DC01 IP]</li>
+                            <li>DNS Server 2: 10.20.1.13</li>
+                            <li>DNS Server 3: 8.8.8.8</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <div style="display: inline-block; vertical-align: top; width: calc(100% - 60px);">
+                        <h4>Save and Apply Configuration</h4>
+                        <p>Click Accept/Apply to save changes</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <div style="display: inline-block; vertical-align: top; width: calc(100% - 60px);">
+                        <h4>Verify Changes</h4>
+                        <p>Check that new DHCP clients receive the updated DNS server list</p>
+                    </div>
+                </div>
+
+                <h3>SonicWall Firewall List</h3>
+                <table>
+                    <tr>
+                        <th>#</th>
+                        <th>Location/Name</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr><td>1</td><td>Main Office</td><td><span class="badge badge-warning">Pending Update</span></td></tr>
+                    <tr><td>2</td><td>Branch Office 1</td><td><span class="badge badge-warning">Pending Update</span></td></tr>
+                    <tr><td>3</td><td>Branch Office 2</td><td><span class="badge badge-warning">Pending Update</span></td></tr>
+                    <tr><td>4</td><td>Branch Office 3</td><td><span class="badge badge-warning">Pending Update</span></td></tr>
+                    <tr><td>5</td><td>Branch Office 4</td><td><span class="badge badge-warning">Pending Update</span></td></tr>
+                    <tr><td>6</td><td>Branch Office 5</td><td><span class="badge badge-warning">Pending Update</span></td></tr>
+                    <tr><td>7</td><td>Branch Office 6</td><td><span class="badge badge-warning">Pending Update</span></td></tr>
+                    <tr><td>8</td><td>Branch Office 7</td><td><span class="badge badge-warning">Pending Update</span></td></tr>
+                    <tr><td>9</td><td>Branch Office 8</td><td><span class="badge badge-warning">Pending Update</span></td></tr>
+                    <tr><td>10</td><td>Branch Office 9</td><td><span class="badge badge-warning">Pending Update</span></td></tr>
+                    <tr><td>11</td><td>Branch Office 10</td><td><span class="badge badge-warning">Pending Update</span></td></tr>
+                </table>
+
+                <div class="alert alert-info">
+                    <strong>📝 Note:</strong> Client computers will receive the new DNS server configuration when they renew their DHCP lease. To force immediate update on a client, run:<br>
+                    <code>ipconfig /release</code><br>
+                    <code>ipconfig /renew</code>
+                </div>
+            </div>
+
+            <!-- Section 10: Summary -->
+            <div class="section" id="summary">
+                <h2>10. Migration Summary</h2>
+
+                <div class="alert alert-success">
+                    <h3 style="margin-top: 0;">✅ Migration Successfully Completed</h3>
+                    <p>SETCO-DC02 has been successfully migrated from vendor-managed Azure tenant to customer-owned Azure tenant with complete preservation of domain identity, user data, and file shares.</p>
+                </div>
+
+                <h3>Key Achievements</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Domain Preserved</h4>
+                        <div class="value">100% Identity Match</div>
+                        <p>Domain SID, NetBIOS name, and DNS name preserved exactly</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Data Migrated</h4>
+                        <div class="value">~480 GB Total</div>
+                        <p>Initial sync + delta sync with 136 files from migration day verified</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Zero Data Loss</h4>
+                        <div class="value">All Files Verified</div>
+                        <p>QuickBooks data, title files, user documents all intact</p>
+                    </div>
+                </div>
+
+                <h3>Post-Migration Status</h3>
+                <table>
+                    <tr>
+                        <th>Component</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                    </tr>
+                    <tr>
+                        <td>VM</td>
+                        <td><span class="badge badge-success">Running</span></td>
+                        <td>Standard_E2ds_v4, 10.20.1.13</td>
+                    </tr>
+                    <tr>
+                        <td>Active Directory</td>
+                        <td><span class="badge badge-success">Healthy</span></td>
+                        <td>NTDS, DNS, Netlogon running</td>
+                    </tr>
+                    <tr>
+                        <td>File Shares</td>
+                        <td><span class="badge badge-success">Active</span></td>
+                        <td>11 data shares accessible</td>
+                    </tr>
+                    <tr>
+                        <td>DNS</td>
+                        <td><span class="badge badge-success">Configured</span></td>
+                        <td>All servers updated</td>
+                    </tr>
+                    <tr>
+                        <td>Remote Access</td>
+                        <td><span class="badge badge-success">Working</span></td>
+                        <td>NinjaOne access verified</td>
+                    </tr>
+                    <tr>
+                        <td>DHCP Update</td>
+                        <td><span class="badge badge-warning">Pending</span></td>
+                        <td>11 SonicWalls to update</td>
+                    </tr>
+                </table>
+
+                <h3>Critical Files Verified</h3>
+                <ul class="checklist">
+                    <li>QuickBooks databases (172 MB) - Latest activity 11:04 PM on migration day</li>
+                    <li>Title work for active cases (DFS-25-1505 and others)</li>
+                    <li>User home directories with current documents</li>
+                    <li>Accounting files and check records</li>
+                    <li>Legal documents and scanned files</li>
+                </ul>
+
+                <h3>Infrastructure Overview</h3>
+                <pre><code>Domain: SouthernEscrow.com (SOUTHERN)
+Domain Controllers:
+  - DC01 (Primary)
+  - DC02 (Secondary - 10.20.1.13) ← Newly Migrated
+
+File Servers:
+  - SETCO-FS01-VM
+
+Application Servers:
+  - SETCO-RDS001
+
+DNS Configuration: DC01 → DC02 → 8.8.8.8
+DHCP: 11 SonicWall firewalls (pending DNS update)
+
+Total Managed Data: ~1 TB on DC02 F: drive
+File Shares: 11 active shares + system shares
+Users: Active Directory managed
+Authentication: Domain-based via DC01/DC02</code></pre>
+
+                <h3>Next Steps</h3>
+                <ol>
+                    <li><strong>Complete DHCP Updates:</strong> Update all 11 SonicWall firewalls with DC02 DNS</li>
+                    <li><strong>Monitor Replication:</strong> Verify DC01 ↔ DC02 replication remains healthy</li>
+                    <li><strong>User Testing:</strong> Have users verify access to file shares and applications</li>
+                    <li><strong>Backup Configuration:</strong> Ensure Azure Backup is configured for DC02</li>
+                    <li><strong>Documentation Update:</strong> Update network diagrams with new DC02 IP</li>
+                    <li><strong>Decommission Planning:</strong> Plan timeline for old vendor DC shutdown (after validation period)</li>
+                </ol>
+
+                <div class="alert alert-info">
+                    <strong>📅 Recommended Validation Period:</strong> Monitor for 30 days before decommissioning old infrastructure. Verify:<br>
+                    • User login stability<br>
+                    • File share access patterns<br>
+                    • QuickBooks multi-user performance<br>
+                    • Replication health between DC01 and DC02<br>
+                    • No SID resolution issues
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>SETCO Domain Controller Migration</strong></p>
+            <p>Migration Completed: November 23, 2025</p>
+            <p>Domain: SouthernEscrow.com | Server: SETCO-DC02 (10.20.1.13)</p>
+            <p>Documentation Version: 1.0 | Status: Production</p>
+        </div>
+    </div>
+</body>
+</html>

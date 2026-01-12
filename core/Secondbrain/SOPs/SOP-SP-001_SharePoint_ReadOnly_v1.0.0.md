@@ -1,5 +1,3 @@
-Loaded cached credentials.
-```markdown
 # Standard Operating Procedure: SOP-SP-001
 
 ---
@@ -82,7 +80,7 @@ This procedure is divided into three main parts: App Registration in Azure, loca
 1.  Connect to the WSL/Linux system hosting the application.
 2.  Navigate to the project directory:
     ```bash
-    cd /home/mavrick/Projects/Secondbrain
+    cd /path/to/project
     ```
 3.  Open the environment variable file for editing:
     ```bash
@@ -101,7 +99,7 @@ This procedure is divided into three main parts: App Registration in Azure, loca
 
 1.  Ensure you are in the project directory:
     ```bash
-    cd /home/mavrick/Projects/Secondbrain
+    cd /path/to/project
     ```
 2.  Execute the SharePoint importer script to test the connection:
     ```bash
@@ -138,11 +136,59 @@ To revoke access for this application, perform the following steps:
 
 ---
 
-### 9.0 Approval
+### 8.1 Troubleshooting
+
+| Issue | Cause | Resolution |
+|-------|-------|------------|
+| "Insufficient privileges to complete the operation" | Admin consent not granted or not propagated | Go to API Permissions, click "Grant admin consent". Wait 5-10 minutes for propagation. |
+| "Failed to get access token" | Incorrect credentials in `.env` | Verify AZURE_TENANT_ID, AZURE_CLIENT_ID, and AZURE_CLIENT_SECRET are correct. Check for extra spaces/characters. |
+| "AADSTS700016: Application not found" | Wrong tenant ID or app deleted | Verify tenant ID matches your Azure AD. Check app registration still exists. |
+| "The specified client secret has expired" | Client secret expired | Create new client secret in Azure Portal > Certificates & secrets. Update `.env`. |
+| "Access denied" to specific site | Site-level permissions restrict app access | App has tenant-wide read, but site admins can block. Check site permissions or use delegated flow. |
+| Connection timeout | Network/firewall blocking Azure endpoints | Verify outbound HTTPS to `login.microsoftonline.com` and `graph.microsoft.com`. |
+| "Resource does not exist" | Wrong site ID or site deleted | Verify site ID using Graph Explorer: `GET /sites?search=sitename`. |
+| Empty file list returned | No files in library or wrong drive ID | Verify drive ID. Check library has files. Try listing root: `/drives/{drive-id}/root/children`. |
+
+**Diagnostic Commands:**
+```bash
+# Test authentication
+curl -X POST "https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/token" \
+  -d "client_id={client_id}&scope=https://graph.microsoft.com/.default&client_secret={secret}&grant_type=client_credentials"
+
+# Test Graph API access (with token)
+curl -H "Authorization: Bearer {token}" "https://graph.microsoft.com/v1.0/sites"
+```
+
+**Python Test Script:**
+```python
+from azure.identity import ClientSecretCredential
+from msgraph.core import GraphClient
+
+credential = ClientSecretCredential(
+    tenant_id=os.getenv("AZURE_TENANT_ID"),
+    client_id=os.getenv("AZURE_CLIENT_ID"),
+    client_secret=os.getenv("AZURE_CLIENT_SECRET")
+)
+client = GraphClient(credential=credential)
+result = client.get('/sites')
+print(result.json())
+```
+
+---
+
+### 9.0 Revision History
+
+| Version | Date | Author | Description |
+|---------|------|--------|-------------|
+| 1.0 | 2025-12-02 | Gemini Agent | Initial document creation. |
+| 1.1 | 2025-12-29 | Jeremy Smith | SME Review: Added Section 8.1 (Troubleshooting) with common Azure AD app and Graph API issues. Added diagnostic commands. |
+
+---
+
+### 10.0 Approval
 
 | Role | Name | Signature | Date |
 | :--- | :--- | :--- | :--- |
 | **Document Owner** | | | |
 | **Approved By** | | | |
 
-```

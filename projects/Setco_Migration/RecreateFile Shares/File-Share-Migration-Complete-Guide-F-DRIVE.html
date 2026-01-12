@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Share Migration - Complete Guide (F:\ Drive Version)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #0066cc;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #0088cc;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        h3 {
+            color: #333;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            color: #555;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        .alert {
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 5px solid;
+            border-radius: 4px;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            border-color: #0c5460;
+            color: #0c5460;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border-color: #856404;
+            color: #856404;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border-color: #155724;
+            color: #155724;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            border-color: #721c24;
+            color: #721c24;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .copy-btn:hover {
+            background: #0052a3;
+        }
+
+        .step {
+            background: #f9f9f9;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 4px solid #0066cc;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #0066cc;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        ul, ol {
+            margin-left: 40px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        li {
+            margin: 5px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        table th {
+            background: #0066cc;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li:before {
+            content: "☐ ";
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        .toc {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .toc ul {
+            list-style: none;
+            margin-left: 20px;
+        }
+
+        .toc a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .badge-required {
+            background: #dc3545;
+            color: white;
+        }
+
+        .badge-optional {
+            background: #6c757d;
+            color: white;
+        }
+
+        .badge-time {
+            background: #28a745;
+            color: white;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+            .copy-btn {
+                display: none;
+            }
+        }
+
+        .script-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 5px;
+        }
+
+        .inline-code {
+            background: #e8e8e8;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 File Share Migration - Complete Guide</h1>
+        <p><strong>From Old Domain Controller to New Azure VM</strong></p>
+        <p>Domain: SouthernEscrow.com | Estimated Time: 30-60 minutes</p>
+
+        <div class="alert alert-info" style="margin-top: 20px;">
+            <strong>📌 F:\ DRIVE VERSION</strong><br>
+            This version of the guide has been customized to use the <strong>F:\ drive</strong> instead of E:\ drive. All scripts and paths reference F:\ as the data drive location.
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h2>📑 Table of Contents</h2>
+            <ul>
+                <li><a href="#overview">1. Overview</a></li>
+                <li><a href="#prerequisites">2. Prerequisites</a></li>
+                <li><a href="#understanding">3. Understanding the Migration</a></li>
+                <li><a href="#scripts">4. PowerShell Scripts</a>
+                    <ul>
+                        <li><a href="#script1">Script 1: Setup Directories</a></li>
+                        <li><a href="#script2">Script 2: Set NTFS Permissions</a></li>
+                        <li><a href="#script3">Script 3: Create SMB Shares</a></li>
+                        <li><a href="#script4">Script 4: Validate Configuration</a></li>
+                        <li><a href="#script5">Script 5: SID Translation Helper</a></li>
+                    </ul>
+                </li>
+                <li><a href="#execution">5. Execution Process</a></li>
+                <li><a href="#validation">6. Validation & Testing</a></li>
+                <li><a href="#troubleshooting">7. Troubleshooting</a></li>
+                <li><a href="#reference">8. Reference Information</a></li>
+            </ul>
+        </div>
+
+        <!-- Overview Section -->
+        <section id="overview">
+            <h2>1. Overview</h2>
+            <p>This guide provides a complete, step-by-step process to migrate file shares and NTFS permissions from your old Domain Controller VM to a new VM in another Azure tenant.</p>
+
+            <div class="alert alert-info">
+                <strong>ℹ️ What This Process Does:</strong>
+                <ul>
+                    <li>Creates all directory structures on the new server</li>
+                    <li>Applies exact NTFS permissions from the original DC</li>
+                    <li>Creates 11 SMB file shares</li>
+                    <li>Validates the entire configuration</li>
+                    <li>Identifies any SID translation issues</li>
+                </ul>
+            </div>
+
+            <h3>What Gets Migrated</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Share Name</th>
+                        <th>Path</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>F</td><td>F:\</td><td>Root F: drive</td></tr>
+                    <tr><td>FTP Data</td><td>F:\FTP Data</td><td>FTP data directory</td></tr>
+                    <tr><td>HomeDirs</td><td>F:\HomeDirs</td><td>User home directories</td></tr>
+                    <tr><td>Legal</td><td>F:\HomeDirs\Legal</td><td>Legal department files</td></tr>
+                    <tr><td>PostClosing</td><td>F:\PostClosing</td><td>Post-closing documents</td></tr>
+                    <tr><td>Qbooks</td><td>F:\Qbooks</td><td>QuickBooks files</td></tr>
+                    <tr><td>SeaCrestScans</td><td>F:\SeaCrestScans</td><td>SeaCrest scanned documents</td></tr>
+                    <tr><td>SetcoDocs</td><td>F:\SetcoDocs</td><td>Setco documents</td></tr>
+                    <tr><td>Versacheck</td><td>F:\Versacheck</td><td>Versacheck data</td></tr>
+                    <tr><td>Whole Life Fitness</td><td>F:\Whole Life Fitness</td><td>Whole Life Fitness files</td></tr>
+                    <tr><td>worddocs</td><td>F:\NTSYS\worddocs</td><td>Word documents</td></tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-warning">
+                <strong>⚠️ Note About Printer Shares:</strong><br>
+                36 printer shares were identified but are NOT created by these scripts. Printer shares must be configured separately through the Print Management console.
+            </div>
+        </section>
+
+        <!-- Prerequisites Section -->
+        <section id="prerequisites">
+            <h2>2. Prerequisites</h2>
+
+            <h3>Required Before Starting</h3>
+            <ul class="checklist">
+                <li>New VM is running Windows Server (2016 or later)</li>
+                <li>New VM is promoted to Domain Controller (or will be)</li>
+                <li>F:\ drive exists on the new server with adequate space</li>
+                <li>You have Administrator access to the new DC</li>
+                <li>PowerShell 5.1 or later is installed</li>
+                <li>Active Directory module for PowerShell is available</li>
+                <li>Network connectivity between client machines and new server</li>
+            </ul>
+
+            <h3>Critical Domain Information</h3>
+            <div class="alert alert-danger">
+                <strong>🔴 CRITICAL: Domain SID Information</strong><br>
+                Original Domain SID: <code>S-1-5-21-117609710-1303643608-725345543</code><br><br>
+                <strong>You MUST verify if this is:</strong>
+                <ul>
+                    <li><strong>Same Domain, Different Tenant:</strong> If you migrated the existing domain to Azure, SIDs should be preserved. Permissions will work automatically.</li>
+                    <li><strong>New Domain:</strong> If this is a brand new domain, SIDs will be different and you'll need to recreate user accounts and potentially update permissions.</li>
+                </ul>
+            </div>
+
+            <h3>Required User Accounts</h3>
+            <p>The following users must exist in Active Directory with the same usernames:</p>
+            <div class="code-block">
+                <pre>Administrator          PJarvis              gbrannon
+GBrannonjr            kcouvillion          datatrustinc
+oberaconnect          JMFSolutions         lsavio
+setcoadmin            wgibson              oc-michael.mccool
+kyork                 mhelms               Tmarsh
+Bdeweese              bbuege               cgeiselman
+cbrooks               kmcdonald            oc-theresa.gilbert
+ktoolan               mbrannon             mhudson-2
+brookebrannon</pre>
+            </div>
+
+            <h3>Required Groups</h3>
+            <ul>
+                <li>Domain Admins</li>
+                <li>Domain Users</li>
+                <li>PostClosers (custom group)</li>
+            </ul>
+        </section>
+
+        <!-- Understanding Section -->
+        <section id="understanding">
+            <h2>3. Understanding the Migration</h2>
+
+            <h3>How NTFS Permissions Are Preserved</h3>
+            <p>The migration uses <strong>SDDL (Security Descriptor Definition Language)</strong> to preserve exact permissions. SDDL is a text representation of security descriptors that includes:</p>
+            <ul>
+                <li><strong>Owner (O:)</strong> - The account that owns the object</li>
+                <li><strong>Group (G:)</strong> - The primary group</li>
+                <li><strong>DACL (D:)</strong> - Discretionary Access Control List (permissions)</li>
+                <li><strong>SACL (S:)</strong> - System Access Control List (auditing)</li>
+            </ul>
+
+            <h3>Understanding SIDs</h3>
+            <p>A SID (Security Identifier) uniquely identifies users and groups. Format:</p>
+            <div class="code-block">
+                <pre>S-1-5-21-117609710-1303643608-725345543-1128
+ │  │ │  └──────────────┬────────────────┘  └┬─┘
+ │  │ │                 │                    │
+ │  │ │          Domain Identifier          RID (Relative ID)
+ │  │ │
+ │  │ NT Authority
+ │  Revision
+ Security</pre>
+            </div>
+            <p><strong>Domain SID:</strong> S-1-5-21-117609710-1303643608-725345543</p>
+            <p><strong>User RIDs:</strong> Each user has a unique RID (e.g., 1128 for PJarvis)</p>
+
+            <div class="alert alert-info">
+                <strong>💡 Why This Matters:</strong><br>
+                If your new domain has a different domain SID, user SIDs will be different. The scripts use the original SIDs, so they may appear as "S-1-5-21-..." instead of usernames until you verify accounts exist.
+            </div>
+        </section>
+
+        <!-- Scripts Section -->
+        <section id="scripts">
+            <h2>4. PowerShell Scripts</h2>
+            <p>Five PowerShell scripts automate the entire migration process. Each script must be run in order.</p>
+
+            <!-- Script 1 -->
+            <div class="script-section" id="script1">
+                <h3><span class="step-number">1</span> Script 1: Setup Directories <span class="badge badge-time">~1 minute</span></h3>
+                <p><strong>Purpose:</strong> Creates the directory structure on F:\ drive</p>
+                <p><strong>Filename:</strong> <code>1-Setup-Directories.ps1</code></p>
+
+                <h4>What It Does:</h4>
+                <ul>
+                    <li>Creates F:\FTP Data</li>
+                    <li>Creates F:\HomeDirs and F:\HomeDirs\Legal</li>
+                    <li>Creates F:\PostClosing, F:\Qbooks, F:\SeaCrestScans</li>
+                    <li>Creates F:\SetcoDocs, F:\Versacheck, F:\Whole Life Fitness</li>
+                    <li>Creates F:\NTSYS\worddocs</li>
+                </ul>
+
+                <h4>Script Code:</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre># ============================================================================
+# Script: 1-Setup-Directories.ps1
+# Purpose: Create directory structure for file shares
+# Run as: Administrator on the new Domain Controller
+# ============================================================================
+
+# Ensure running as Administrator
+if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    Write-Error "This script must be run as Administrator"
+    exit 1
+}
+
+Write-Host "Creating directory structure..." -ForegroundColor Cyan
+
+# Define directories to create
+$directories = @(
+    "F:\FTP Data",
+    "F:\HomeDirs",
+    "F:\HomeDirs\Legal",
+    "F:\PostClosing",
+    "F:\Qbooks",
+    "F:\SeaCrestScans",
+    "F:\SetcoDocs",
+    "F:\Versacheck",
+    "F:\Whole Life Fitness",
+    "F:\NTSYS\worddocs"
+)
+
+# Create each directory if it doesn't exist
+foreach ($dir in $directories) {
+    if (-not (Test-Path $dir)) {
+        try {
+            New-Item -Path $dir -ItemType Directory -Force | Out-Null
+            Write-Host "Created: $dir" -ForegroundColor Green
+        }
+        catch {
+            Write-Error "Failed to create $dir : $_"
+        }
+    }
+    else {
+        Write-Host "Already exists: $dir" -ForegroundColor Yellow
+    }
+}
+
+Write-Host "`nDirectory creation complete!" -ForegroundColor Green
+Write-Host "Next step: Run 2-Set-NTFS-Permissions.ps1" -ForegroundColor Cyan</pre>
+                </div>
+
+                <h4>Expected Output:</h4>
+                <div class="code-block">
+                    <pre>Creating directory structure...
+Created: F:\FTP Data
+Created: F:\HomeDirs
+Created: F:\HomeDirs\Legal
+Created: F:\PostClosing
+...
+
+Directory creation complete!
+Next step: Run 2-Set-NTFS-Permissions.ps1</pre>
+                </div>
+            </div>
+
+            <!-- Script 2 -->
+            <div class="script-section" id="script2">
+                <h3><span class="step-number">2</span> Script 2: Set NTFS Permissions <span class="badge badge-time">~5-10 minutes</span></h3>
+                <p><strong>Purpose:</strong> Applies NTFS permissions using SDDL from original DC</p>
+                <p><strong>Filename:</strong> <code>2-Set-NTFS-Permissions.ps1</code></p>
+
+                <div class="alert alert-warning">
+                    <strong>⚠️ WARNING:</strong> This script will REPLACE existing permissions on directories!
+                </div>
+
+                <h4>What It Does:</h4>
+                <ul>
+                    <li>Sets exact NTFS permissions from original DC using SDDL</li>
+                    <li>Configures owners and groups for each directory</li>
+                    <li>Applies inheritance settings</li>
+                    <li>Preserves all user and group access rights</li>
+                </ul>
+
+                <h4>Script Code (Abbreviated - Full script is extensive):</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre># ============================================================================
+# Script: 2-Set-NTFS-Permissions.ps1
+# Purpose: Configure NTFS permissions based on original DC settings
+# Run as: Administrator on the new Domain Controller
+# ============================================================================
+
+# Ensure running as Administrator
+if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    Write-Error "This script must be run as Administrator"
+    exit 1
+}
+
+Write-Host "Configuring NTFS Permissions..." -ForegroundColor Cyan
+Write-Host "WARNING: This will replace existing permissions!" -ForegroundColor Yellow
+Write-Host "Press Ctrl+C to cancel, or any key to continue..." -ForegroundColor Yellow
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
+# Function to set NTFS permissions from SDDL
+function Set-NTFSPermissionsFromSDDL {
+    param(
+        [string]$Path,
+        [string]$SDDL,
+        [string]$Owner,
+        [string]$Group
+    )
+
+    try {
+        if (-not (Test-Path $Path)) {
+            Write-Warning "Path not found: $Path"
+            return
+        }
+
+        $acl = Get-Acl -Path $Path
+
+        # Set SDDL
+        $acl.SetSecurityDescriptorSddlForm($SDDL)
+
+        # Set Owner
+        if ($Owner) {
+            try {
+                $ownerAccount = New-Object System.Security.Principal.NTAccount($Owner)
+                $acl.SetOwner($ownerAccount)
+            }
+            catch {
+                Write-Warning "Could not set owner '$Owner' for $Path : $_"
+            }
+        }
+
+        # Set Group
+        if ($Group) {
+            try {
+                $groupAccount = New-Object System.Security.Principal.NTAccount($Group)
+                $acl.SetGroup($groupAccount)
+            }
+            catch {
+                Write-Warning "Could not set group '$Group' for $Path : $_"
+            }
+        }
+
+        # Apply the ACL
+        Set-Acl -Path $Path -AclObject $acl
+        Write-Host "Set permissions for: $Path" -ForegroundColor Green
+    }
+    catch {
+        Write-Error "Failed to set permissions for $Path : $_"
+    }
+}
+
+# F:\ ROOT DRIVE PERMISSIONS
+Write-Host "`n--- Configuring F:\ ---" -ForegroundColor Cyan
+Set-NTFSPermissionsFromSDDL -Path "F:\" `
+    -SDDL "O:BAG:SYD:(A;;0x1200a9;;;WD)(A;OICIIO;GA;;;CO)(A;OICI;FA;;;SY)(A;OICI;FA;;;BA)(A;CI;LC;;;BU)(A;CIIO;DC;;;BU)(A;OICI;0x1200a9;;;BU)" `
+    -Owner "BUILTIN\Administrators" `
+    -Group "NT AUTHORITY\SYSTEM"
+
+# FTP DATA
+Write-Host "`n--- Configuring F:\FTP Data ---" -ForegroundColor Cyan
+Set-NTFSPermissionsFromSDDL -Path "F:\FTP Data" `
+    -SDDL "O:BAG:DUD:PAI(A;OICI;FA;;;WD)(A;;FA;;;BA)(A;OICI;FA;;;DA)(A;OICI;FA;;;DU)" `
+    -Owner "BUILTIN\Administrators" `
+    -Group "SOUTHERN\Domain Users"
+
+# HOMEDIRS
+Write-Host "`n--- Configuring F:\HomeDirs ---" -ForegroundColor Cyan
+Set-NTFSPermissionsFromSDDL -Path "F:\HomeDirs" `
+    -SDDL "O:BAG:DUD:PAI(A;;0x1200a9;;;LA)(A;OICI;FA;;;DA)(A;;0x1200a9;;;DA)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-1128)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-5646)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-5646)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-5654)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-7644)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-8107)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-9138)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-9138)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-21608)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-21608)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-21609)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-21609)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-22616)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-22617)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-22623)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-22624)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-22633)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-24120)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-24126)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-24127)" `
+    -Owner "BUILTIN\Administrators" `
+    -Group "SOUTHERN\Domain Users"
+
+# ... (continues for all other directories)
+
+Write-Host "`n============================================================================" -ForegroundColor Green
+Write-Host "NTFS Permissions configuration complete!" -ForegroundColor Green
+Write-Host "============================================================================" -ForegroundColor Green
+Write-Host "`nNOTE: Some SIDs may need to be updated if user accounts have different SIDs" -ForegroundColor Yellow
+Write-Host "in the new domain. Review the permissions after running this script." -ForegroundColor Yellow
+Write-Host "`nNext step: Run 3-Create-SMB-Shares.ps1" -ForegroundColor Cyan</pre>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>📝 Note:</strong> The full script contains SDDL strings for all 11 directories. The example above shows the structure. Download the complete script file to get all permissions.
+                </div>
+            </div>
+
+            <!-- Script 3 -->
+            <div class="script-section" id="script3">
+                <h3><span class="step-number">3</span> Script 3: Create SMB Shares <span class="badge badge-time">~2 minutes</span></h3>
+                <p><strong>Purpose:</strong> Creates SMB file shares</p>
+                <p><strong>Filename:</strong> <code>3-Create-SMB-Shares.ps1</code></p>
+
+                <h4>What It Does:</h4>
+                <ul>
+                    <li>Creates 11 SMB file shares</li>
+                    <li>Sets appropriate share-level permissions</li>
+                    <li>Documents printer shares (not created - configure separately)</li>
+                </ul>
+
+                <h4>Script Code (Abbreviated):</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre># ============================================================================
+# Script: 3-Create-SMB-Shares.ps1
+# Purpose: Create SMB file shares based on original DC configuration
+# Run as: Administrator on the new Domain Controller
+# ============================================================================
+
+# Ensure running as Administrator
+if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    Write-Error "This script must be run as Administrator"
+    exit 1
+}
+
+Write-Host "Creating SMB Shares..." -ForegroundColor Cyan
+
+# Function to create SMB share with error handling
+function New-FileShare {
+    param(
+        [string]$Name,
+        [string]$Path,
+        [string]$Description = "",
+        [string]$FullAccess = "Everyone"
+    )
+
+    try {
+        # Check if path exists
+        if ($Path -notlike "*LocalsplOnly*" -and -not (Test-Path $Path)) {
+            Write-Warning "Path does not exist: $Path - Skipping share: $Name"
+            return
+        }
+
+        # Check if share already exists
+        $existingShare = Get-SmbShare -Name $Name -ErrorAction SilentlyContinue
+        if ($existingShare) {
+            Write-Host "Share already exists: $Name" -ForegroundColor Yellow
+            return
+        }
+
+        # Skip printer shares
+        if ($Path -like "*LocalsplOnly*") {
+            Write-Host "Skipping printer share: $Name" -ForegroundColor Gray
+            return
+        }
+
+        # Create the share
+        New-SmbShare -Name $Name -Path $Path -FullAccess $FullAccess -Description $Description -ErrorAction Stop | Out-Null
+        Write-Host "Created share: $Name -> $Path" -ForegroundColor Green
+    }
+    catch {
+        Write-Error "Failed to create share '$Name': $_"
+    }
+}
+
+# CREATE DATA SHARES
+Write-Host "`n--- Creating Data Shares ---" -ForegroundColor Cyan
+
+New-FileShare -Name "F" -Path "F:\" -Description "F Drive Root" -FullAccess "Everyone"
+New-FileShare -Name "FTP Data" -Path "F:\FTP Data" -Description "FTP Data Directory" -FullAccess "Everyone"
+New-FileShare -Name "HomeDirs" -Path "F:\HomeDirs" -Description "User Home Directories" -FullAccess "Domain Admins"
+New-FileShare -Name "Legal" -Path "F:\HomeDirs\Legal" -Description "Legal Department Files" -FullAccess "Domain Admins"
+New-FileShare -Name "PostClosing" -Path "F:\PostClosing" -Description "Post Closing Documents" -FullAccess "Domain Admins"
+New-FileShare -Name "Qbooks" -Path "F:\Qbooks" -Description "QuickBooks Files" -FullAccess "Domain Admins"
+New-FileShare -Name "SeaCrestScans" -Path "F:\SeaCrestScans" -Description "SeaCrest Scans" -FullAccess "Everyone"
+New-FileShare -Name "SetcoDocs" -Path "F:\SetcoDocs" -Description "Setco Documents" -FullAccess "Everyone"
+New-FileShare -Name "Versacheck" -Path "F:\Versacheck" -Description "Versacheck Data" -FullAccess "Domain Admins"
+New-FileShare -Name "Whole Life Fitness" -Path "F:\Whole Life Fitness" -Description "Whole Life Fitness Files" -FullAccess "Domain Admins"
+New-FileShare -Name "worddocs" -Path "F:\NTSYS\worddocs" -Description "Word Documents" -FullAccess "Everyone"
+
+Write-Host "`n============================================================================" -ForegroundColor Green
+Write-Host "SMB Share creation complete!" -ForegroundColor Green
+Write-Host "============================================================================" -ForegroundColor Green
+Write-Host "`nNOTES:" -ForegroundColor Yellow
+Write-Host "1. NETLOGON and SYSVOL shares are created automatically by DCPROMO" -ForegroundColor Yellow
+Write-Host "2. Printer shares must be configured through Print Management console" -ForegroundColor Yellow
+Write-Host "3. Share permissions are set to default - NTFS permissions control access" -ForegroundColor Yellow
+Write-Host "`nNext step: Run 4-Validate-Configuration.ps1 to verify setup" -ForegroundColor Cyan</pre>
+                </div>
+            </div>
+
+            <!-- Script 4 -->
+            <div class="script-section" id="script4">
+                <h3><span class="step-number">4</span> Script 4: Validate Configuration <span class="badge badge-time">~2 minutes</span></h3>
+                <p><strong>Purpose:</strong> Validates directories, shares, and permissions</p>
+                <p><strong>Filename:</strong> <code>4-Validate-Configuration.ps1</code></p>
+
+                <h4>What It Does:</h4>
+                <ul>
+                    <li>Checks all directories exist</li>
+                    <li>Verifies all SMB shares are created</li>
+                    <li>Displays NTFS permissions summary</li>
+                    <li>Reports any missing components</li>
+                    <li>Provides SID migration notes</li>
+                </ul>
+
+                <h4>Script Code (Abbreviated):</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre># ============================================================================
+# Script: 4-Validate-Configuration.ps1
+# Purpose: Validate file shares and NTFS permissions configuration
+# Run as: Administrator on the new Domain Controller
+# ============================================================================
+
+# Ensure running as Administrator
+if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    Write-Error "This script must be run as Administrator"
+    exit 1
+}
+
+Write-Host "============================================================================" -ForegroundColor Cyan
+Write-Host "VALIDATING FILE SHARES AND PERMISSIONS CONFIGURATION" -ForegroundColor Cyan
+Write-Host "============================================================================" -ForegroundColor Cyan
+
+# VALIDATE DIRECTORIES
+Write-Host "`n--- Validating Directories ---" -ForegroundColor Cyan
+
+$directories = @(
+    "F:\",
+    "F:\FTP Data",
+    "F:\HomeDirs",
+    "F:\HomeDirs\Legal",
+    "F:\PostClosing",
+    "F:\Qbooks",
+    "F:\SeaCrestScans",
+    "F:\SetcoDocs",
+    "F:\Versacheck",
+    "F:\Whole Life Fitness",
+    "F:\NTSYS\worddocs"
+)
+
+$dirMissing = 0
+foreach ($dir in $directories) {
+    if (Test-Path $dir) {
+        Write-Host "[OK] $dir" -ForegroundColor Green
+    }
+    else {
+        Write-Host "[MISSING] $dir" -ForegroundColor Red
+        $dirMissing++
+    }
+}
+
+# VALIDATE SMB SHARES
+Write-Host "`n--- Validating SMB Shares ---" -ForegroundColor Cyan
+
+$expectedShares = @(
+    @{Name="F"; Path="F:\"},
+    @{Name="FTP Data"; Path="F:\FTP Data"},
+    @{Name="HomeDirs"; Path="F:\HomeDirs"},
+    # ... (all shares)
+)
+
+$shareMissing = 0
+foreach ($share in $expectedShares) {
+    $smbShare = Get-SmbShare -Name $share.Name -ErrorAction SilentlyContinue
+    if ($smbShare) {
+        Write-Host "[OK] Share: $($share.Name) -> $($smbShare.Path)" -ForegroundColor Green
+    }
+    else {
+        Write-Host "[MISSING] Share: $($share.Name)" -ForegroundColor Red
+        $shareMissing++
+    }
+}
+
+# DISPLAY PERMISSIONS SUMMARY
+Write-Host "`n--- NTFS Permissions Summary ---" -ForegroundColor Cyan
+
+function Show-PermissionSummary {
+    param([string]$Path)
+    if (-not (Test-Path $Path)) {
+        Write-Host "$Path - [DOES NOT EXIST]" -ForegroundColor Red
+        return
+    }
+    try {
+        $acl = Get-Acl -Path $Path
+        $accessCount = ($acl.Access | Measure-Object).Count
+        Write-Host "`n$Path" -ForegroundColor Yellow
+        Write-Host "  Owner: $($acl.Owner)" -ForegroundColor White
+        Write-Host "  Group: $($acl.Group)" -ForegroundColor White
+        Write-Host "  Access Rules: $accessCount entries" -ForegroundColor White
+        $acl.Access | Select-Object -First 5 | ForEach-Object {
+            Write-Host "    - $($_.IdentityReference): $($_.FileSystemRights) ($($_.AccessControlType))" -ForegroundColor Gray
+        }
+    }
+    catch {
+        Write-Host "  ERROR reading permissions: $_" -ForegroundColor Red
+    }
+}
+
+foreach ($dir in $directories) {
+    Show-PermissionSummary -Path $dir
+}
+
+Write-Host "`n============================================================================" -ForegroundColor Cyan
+Write-Host "VALIDATION COMPLETE" -ForegroundColor Cyan
+Write-Host "============================================================================" -ForegroundColor Cyan
+Write-Host "`nSUMMARY:" -ForegroundColor Green
+Write-Host "  Directories Missing: $dirMissing" -ForegroundColor $(if($dirMissing -eq 0){"Green"}else{"Red"})
+Write-Host "  Shares Missing: $shareMissing" -ForegroundColor $(if($shareMissing -eq 0){"Green"}else{"Red"})</pre>
+                </div>
+            </div>
+
+            <!-- Script 5 -->
+            <div class="script-section" id="script5">
+                <h3><span class="step-number">5</span> Script 5: SID Translation Helper <span class="badge badge-optional">Optional</span></h3>
+                <p><strong>Purpose:</strong> Identifies SID translation issues between domains</p>
+                <p><strong>Filename:</strong> <code>BONUS-SID-Translation-Helper.ps1</code></p>
+
+                <h4>When to Use This:</h4>
+                <ul>
+                    <li>If you created a NEW domain (not migrated existing)</li>
+                    <li>To verify domain SID matches original</li>
+                    <li>To identify missing user accounts</li>
+                    <li>To find unresolved SIDs in permissions</li>
+                </ul>
+
+                <h4>What It Does:</h4>
+                <ul>
+                    <li>Compares current domain SID to original</li>
+                    <li>Checks if all required users exist</li>
+                    <li>Scans for unresolved SIDs in permissions</li>
+                    <li>Provides SID-to-username mapping</li>
+                    <li>Exports user SID mapping to CSV</li>
+                </ul>
+
+                <div class="alert alert-info">
+                    <strong>💡 Quick Check:</strong> Before running the full script, you can quickly check your domain SID with this command:
+                    <div class="code-block" style="margin-top: 10px;">
+                        <pre>Get-ADDomain | Select-Object DomainSID, DNSRoot, NetBIOSName</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Execution Section -->
+        <section id="execution">
+            <h2>5. Execution Process</h2>
+
+            <div class="step">
+                <h3><span class="step-number">1</span> Prepare the Scripts</h3>
+                <h4>Option A: Create Scripts Manually on Server</h4>
+                <ol>
+                    <li>RDP into your new Domain Controller</li>
+                    <li>Create folder: <code>C:\ShareMigration</code></li>
+                    <li>Open Notepad or PowerShell ISE</li>
+                    <li>Copy each script from this guide</li>
+                    <li>Save as the appropriate filename (e.g., <code>1-Setup-Directories.ps1</code>)</li>
+                    <li>Repeat for all 5 scripts</li>
+                </ol>
+
+                <h4>Option B: Transfer Pre-Created Scripts</h4>
+                <ol>
+                    <li>Download all 5 .ps1 files to your local machine</li>
+                    <li>Use RDP copy/paste to transfer to server</li>
+                    <li>Or use Azure File Copy, network share, or USB drive</li>
+                    <li>Place all files in <code>C:\ShareMigration</code></li>
+                </ol>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-number">2</span> Open PowerShell as Administrator</h3>
+                <ol>
+                    <li>Click Start menu</li>
+                    <li>Type "PowerShell"</li>
+                    <li>Right-click "Windows PowerShell"</li>
+                    <li>Select "Run as Administrator"</li>
+                </ol>
+
+                <div class="alert alert-danger">
+                    <strong>🔴 CRITICAL:</strong> You MUST run PowerShell as Administrator or the scripts will fail!
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-number">3</span> Set Execution Policy</h3>
+                <p>Allow scripts to run in this session:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process</pre>
+                </div>
+                <p>When prompted, type <code>Y</code> and press Enter.</p>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-number">4</span> Navigate to Script Directory</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre>cd C:\ShareMigration</pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-number">5</span> Run Script 1: Setup Directories</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre>.\1-Setup-Directories.ps1</pre>
+                </div>
+
+                <h4>Expected Output:</h4>
+                <div class="code-block">
+                    <pre style="color: #00ff00;">Creating directory structure...
+Created: F:\FTP Data
+Created: F:\HomeDirs
+Created: F:\HomeDirs\Legal
+Created: F:\PostClosing
+Created: F:\Qbooks
+Created: F:\SeaCrestScans
+Created: F:\SetcoDocs
+Created: F:\Versacheck
+Created: F:\Whole Life Fitness
+Created: F:\NTSYS\worddocs
+
+Directory creation complete!
+Next step: Run 2-Set-NTFS-Permissions.ps1</pre>
+                </div>
+
+                <div class="alert alert-warning">
+                    <strong>⚠️ If you see errors:</strong>
+                    <ul>
+                        <li>Verify F:\ drive exists</li>
+                        <li>Check you're running as Administrator</li>
+                        <li>Ensure sufficient disk space</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-number">6</span> Run Script 2: Set NTFS Permissions</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre>.\2-Set-NTFS-Permissions.ps1</pre>
+                </div>
+
+                <p><strong>You will see a warning prompt.</strong> Press any key to continue or Ctrl+C to cancel.</p>
+
+                <h4>Expected Output:</h4>
+                <div class="code-block">
+                    <pre style="color: #ffff00;">Configuring NTFS Permissions...
+WARNING: This will replace existing permissions!
+Press Ctrl+C to cancel, or any key to continue...</pre>
+                </div>
+
+                <p>After pressing a key:</p>
+                <div class="code-block">
+                    <pre style="color: #00ff00;">--- Configuring F:\ ---
+Set permissions for: F:\
+
+--- Configuring F:\FTP Data ---
+Set permissions for: F:\FTP Data
+
+--- Configuring F:\HomeDirs ---
+Set permissions for: F:\HomeDirs
+...</pre>
+                </div>
+
+                <div class="alert alert-warning">
+                    <strong>⚠️ Possible Warnings:</strong>
+                    <p>You may see warnings like:</p>
+                    <code>Could not set owner 'SOUTHERN\Username' for F:\Path</code>
+                    <p>This is normal if the user doesn't exist yet. The permissions will still be applied using SIDs.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-number">7</span> Run Script 3: Create SMB Shares</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre>.\3-Create-SMB-Shares.ps1</pre>
+                </div>
+
+                <h4>Expected Output:</h4>
+                <div class="code-block">
+                    <pre style="color: #00ff00;">Creating SMB Shares...
+
+--- Creating Data Shares ---
+Created share: E -> F:\
+Created share: FTP Data -> F:\FTP Data
+Created share: HomeDirs -> F:\HomeDirs
+Created share: Legal -> F:\HomeDirs\Legal
+Created share: PostClosing -> F:\PostClosing
+...
+
+--- Printer Shares (Not Created by this script) ---
+The following are printer shares and should be configured via Print Management:
+  - Crestview-Sharp-Upstairs
+  - HP LaserJet Pro M402-M403 n-dne PCB Checks
+  ...
+
+SMB Share creation complete!</pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-number">8</span> Run Script 4: Validate Configuration</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre>.\4-Validate-Configuration.ps1</pre>
+                </div>
+
+                <h4>Expected Output:</h4>
+                <div class="code-block">
+                    <pre style="color: #00ff00;">============================================================================
+VALIDATING FILE SHARES AND PERMISSIONS CONFIGURATION
+============================================================================
+
+--- Validating Directories ---
+[OK] F:\
+[OK] F:\FTP Data
+[OK] F:\HomeDirs
+...
+
+--- Validating SMB Shares ---
+[OK] Share: E -> F:\
+[OK] Share: FTP Data -> F:\FTP Data
+...
+
+--- NTFS Permissions Summary ---
+
+F:\HomeDirs
+  Owner: BUILTIN\Administrators
+  Group: SOUTHERN\Domain Users
+  Access Rules: 23 entries
+    - SOUTHERN\Administrator: ReadAndExecute, Synchronize (Allow)
+    - SOUTHERN\Domain Admins: FullControl (Allow)
+...
+
+VALIDATION COMPLETE
+
+SUMMARY:
+  Directories Missing: 0
+  Shares Missing: 0</pre>
+                </div>
+
+                <div class="alert alert-success">
+                    <strong>✅ Success Indicators:</strong>
+                    <ul>
+                        <li>All directories show <code>[OK]</code></li>
+                        <li>All shares show <code>[OK]</code></li>
+                        <li>Directories Missing: 0</li>
+                        <li>Shares Missing: 0</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-number">9</span> (Optional) Run Script 5: SID Translation Helper</h3>
+                <p>Only run this if you suspect domain SID issues or want to verify user accounts:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre>.\BONUS-SID-Translation-Helper.ps1</pre>
+                </div>
+
+                <p>Or use quick checks:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre># Check domain SID
+Get-ADDomain | Select-Object DomainSID
+
+# Check if user exists
+Get-ADUser -Identity "PJarvis" | Select-Object Name, SID
+
+# List all shares
+Get-SmbShare | Format-Table Name, Path</pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Validation Section -->
+        <section id="validation">
+            <h2>6. Validation & Testing</h2>
+
+            <h3>Post-Migration Checklist</h3>
+            <ul class="checklist">
+                <li>All directories created successfully (validated by Script 4)</li>
+                <li>All SMB shares created successfully (validated by Script 4)</li>
+                <li>NTFS permissions applied without errors</li>
+                <li>Domain SID verified (same as original or users recreated)</li>
+                <li>Test access from client workstations (see below)</li>
+                <li>No unresolved SIDs in permissions (run Script 5 to check)</li>
+                <li>NETLOGON and SYSVOL shares exist (if DC promoted)</li>
+            </ul>
+
+            <h3>Test Share Access from Client</h3>
+            <div class="step">
+                <h4>Step 1: Access Shares via UNC Path</h4>
+                <p>From a client workstation (logged in as a domain user):</p>
+                <ol>
+                    <li>Open File Explorer</li>
+                    <li>In address bar, type: <code>\\SERVERNAME\HomeDirs</code> (replace SERVERNAME with your DC name)</li>
+                    <li>Press Enter</li>
+                </ol>
+
+                <h4>Step 2: Test Multiple Shares</h4>
+                <div class="code-block">
+                    <pre>\\SERVERNAME\HomeDirs
+\\SERVERNAME\PostClosing
+\\SERVERNAME\Qbooks
+\\SERVERNAME\SetcoDocs
+\\SERVERNAME\worddocs</pre>
+                </div>
+
+                <h4>Step 3: Verify Permissions</h4>
+                <ul>
+                    <li>Try to read files (should work based on permissions)</li>
+                    <li>Try to create a test file (should work if user has write access)</li>
+                    <li>Try to delete the test file</li>
+                    <li>Log in as different users to test various permission levels</li>
+                </ul>
+            </div>
+
+            <h3>Verify NTFS Permissions</h3>
+            <p>On the server, run these commands to verify permissions:</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre># View permissions for HomeDirs
+Get-Acl "F:\HomeDirs" | Format-List
+
+# View permissions in detailed format
+(Get-Acl "F:\HomeDirs").Access | Format-Table IdentityReference, FileSystemRights, AccessControlType
+
+# Check for unresolved SIDs
+(Get-Acl "F:\HomeDirs").Access | Where-Object { $_.IdentityReference.Value -match '^S-1-5-21-' }</pre>
+            </div>
+
+            <h3>Verify Share Permissions</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre># List all shares
+Get-SmbShare | Format-Table Name, Path, Description
+
+# View share permissions
+Get-SmbShareAccess -Name "HomeDirs"
+
+# View detailed share info
+Get-SmbShare -Name "HomeDirs" | Format-List *</pre>
+            </div>
+
+            <h3>Common Issues During Testing</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Issue</th>
+                        <th>Possible Cause</th>
+                        <th>Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cannot access \\SERVERNAME</td>
+                        <td>DNS not configured, firewall blocking</td>
+                        <td>Verify DNS, check Windows Firewall, enable File and Printer Sharing</td>
+                    </tr>
+                    <tr>
+                        <td>Access Denied to share</td>
+                        <td>User lacks NTFS permissions</td>
+                        <td>Check NTFS permissions, verify user account exists</td>
+                    </tr>
+                    <tr>
+                        <td>Share not visible</td>
+                        <td>Share not created or hidden</td>
+                        <td>Run Get-SmbShare to verify, recreate if needed</td>
+                    </tr>
+                    <tr>
+                        <td>Permissions show as SIDs</td>
+                        <td>User account doesn't exist or domain SID changed</td>
+                        <td>Create missing users, run SID Translation Helper</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Troubleshooting Section -->
+        <section id="troubleshooting">
+            <h2>7. Troubleshooting</h2>
+
+            <h3>Script Execution Errors</h3>
+
+            <h4>Error: "This script must be run as Administrator"</h4>
+            <div class="alert alert-danger">
+                <strong>Problem:</strong> PowerShell not running with administrative privileges<br>
+                <strong>Solution:</strong> Close PowerShell, right-click PowerShell, select "Run as Administrator"
+            </div>
+
+            <h4>Error: "Cannot be loaded because running scripts is disabled"</h4>
+            <div class="alert alert-danger">
+                <strong>Problem:</strong> Execution policy blocks scripts<br>
+                <strong>Solution:</strong> Run <code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process</code>
+            </div>
+
+            <h4>Error: "Path not found: F:\"</h4>
+            <div class="alert alert-danger">
+                <strong>Problem:</strong> F:\ drive doesn't exist<br>
+                <strong>Solution:</strong> Add/format F:\ drive, or modify scripts to use different drive letter
+            </div>
+
+            <h4>Warning: "Could not set owner 'SOUTHERN\Username'"</h4>
+            <div class="alert alert-warning">
+                <strong>Problem:</strong> User account doesn't exist in new domain<br>
+                <strong>Solution:</strong> This is often OK - permissions use SIDs. Create the user account if needed:<br>
+                <code>New-ADUser -Name "Username" -SamAccountName "Username" -UserPrincipalName "Username@domain.com" -Enabled $true</code>
+            </div>
+
+            <h3>Permission Issues</h3>
+
+            <h4>Users Show as SIDs (S-1-5-21-...)</h4>
+            <div class="step">
+                <p><strong>Cause:</strong> User account doesn't exist or domain SID changed</p>
+                <p><strong>Diagnosis:</strong></p>
+                <ol>
+                    <li>Run: <code>Get-ADDomain | Select-Object DomainSID</code></li>
+                    <li>Compare to original: <code>S-1-5-21-117609710-1303643608-725345543</code></li>
+                    <li>If different, you have a new domain</li>
+                </ol>
+                <p><strong>Solution:</strong></p>
+                <ol>
+                    <li>Run <code>BONUS-SID-Translation-Helper.ps1</code> to identify missing users</li>
+                    <li>Create missing user accounts</li>
+                    <li>Optionally re-run <code>2-Set-NTFS-Permissions.ps1</code></li>
+                </ol>
+            </div>
+
+            <h4>Access Denied When Accessing Share</h4>
+            <div class="step">
+                <p><strong>Diagnosis:</strong></p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre># Check share permissions
+Get-SmbShareAccess -Name "ShareName"
+
+# Check NTFS permissions
+Get-Acl "F:\FolderPath" | Format-List
+
+# Check if user can access
+icacls "F:\FolderPath" /findsid USERNAME</pre>
+                </div>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Verify user account exists and is enabled</li>
+                    <li>Check user is member of required groups (e.g., Domain Users)</li>
+                    <li>Verify NTFS permissions include the user or their group</li>
+                    <li>Check share-level permissions allow access</li>
+                </ul>
+            </div>
+
+            <h3>Share Creation Issues</h3>
+
+            <h4>Share Already Exists</h4>
+            <p>If share already exists with wrong settings:</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre># Remove existing share
+Remove-SmbShare -Name "ShareName" -Force
+
+# Re-run script or manually create
+New-SmbShare -Name "ShareName" -Path "F:\Path" -FullAccess "Everyone"</pre>
+            </div>
+
+            <h4>Cannot Create Share - Path Not Found</h4>
+            <p>Ensure directory exists first:</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre># Check if path exists
+Test-Path "F:\FolderPath"
+
+# Create if missing
+New-Item -Path "F:\FolderPath" -ItemType Directory -Force</pre>
+            </div>
+
+            <h3>Domain SID Mismatch Issues</h3>
+
+            <h4>Scenario: New Domain (Different SID)</h4>
+            <p>If you created a completely new domain:</p>
+            <ol>
+                <li><strong>Accept the situation:</strong> The scripts will create permissions using SIDs from the old domain</li>
+                <li><strong>Create all user accounts:</strong> Use the same usernames as the original domain</li>
+                <li><strong>Manually update critical permissions:</strong>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre># Example: Grant user full control
+$acl = Get-Acl "F:\HomeDirs"
+$permission = "DOMAIN\Username","FullControl","ContainerInherit,ObjectInherit","None","Allow"
+$accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule $permission
+$acl.SetAccessRule($accessRule)
+Set-Acl "F:\HomeDirs" $acl</pre>
+                    </div>
+                </li>
+                <li><strong>Or re-run Script 2:</strong> After creating all user accounts, re-run the permissions script</li>
+            </ol>
+
+            <h3>Network Access Issues</h3>
+
+            <h4>Cannot Access \\SERVERNAME from Client</h4>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre># On Server: Check firewall
+Get-NetFirewallRule -DisplayGroup "File and Printer Sharing" | Enable-NetFirewallRule
+
+# On Server: Check SMB is running
+Get-Service -Name LanmanServer
+
+# On Client: Check DNS resolution
+nslookup SERVERNAME
+
+# On Client: Test connectivity
+Test-NetConnection -ComputerName SERVERNAME -Port 445</pre>
+            </div>
+
+            <h3>Quick Diagnostic Commands</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre># Check all shares
+Get-SmbShare | Format-Table Name, Path
+
+# Check all directories exist
+Get-ChildItem F:\ -Directory
+
+# Check domain info
+Get-ADDomain | Format-List
+
+# Check if user exists
+Get-ADUser -Identity "username"
+
+# Check group membership
+Get-ADGroupMember -Identity "Domain Admins"
+
+# View effective permissions for a user
+icacls "F:\HomeDirs" /findsid DOMAIN\Username
+
+# Check share access permissions
+Get-SmbShareAccess -Name "HomeDirs" | Format-Table</pre>
+            </div>
+        </section>
+
+        <!-- Reference Section -->
+        <section id="reference">
+            <h2>8. Reference Information</h2>
+
+            <h3>Original Domain Information</h3>
+            <table>
+                <tr><th>Property</th><th>Value</th></tr>
+                <tr><td>Domain SID</td><td>S-1-5-21-117609710-1303643608-725345543</td></tr>
+                <tr><td>Domain Name</td><td>SouthernEscrow.com</td></tr>
+                <tr><td>NetBIOS Name</td><td>SOUTHERN</td></tr>
+            </table>
+
+            <h3>User SID Mapping (Original Domain)</h3>
+            <table>
+                <thead>
+                    <tr><th>RID</th><th>Username</th><th>Full SID</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1128</td><td>PJarvis</td><td>S-1-5-21-117609710-1303643608-725345543-1128</td></tr>
+                    <tr><td>1136</td><td>gbrannon</td><td>S-1-5-21-117609710-1303643608-725345543-1136</td></tr>
+                    <tr><td>1137</td><td>GBrannonjr</td><td>S-1-5-21-117609710-1303643608-725345543-1137</td></tr>
+                    <tr><td>5654</td><td>kcouvillion</td><td>S-1-5-21-117609710-1303643608-725345543-5654</td></tr>
+                    <tr><td>21608</td><td>datatrustinc</td><td>S-1-5-21-117609710-1303643608-725345543-21608</td></tr>
+                    <tr><td>24126</td><td>oberaconnect</td><td>S-1-5-21-117609710-1303643608-725345543-24126</td></tr>
+                    <tr><td colspan="3" style="text-align: center;">... (see BONUS script for complete mapping)</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Share Permissions vs NTFS Permissions</h3>
+            <table>
+                <thead>
+                    <tr><th>Aspect</th><th>Share Permissions</th><th>NTFS Permissions</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Scope</strong></td><td>Only applies to network access</td><td>Applies to local and network access</td></tr>
+                    <tr><td><strong>Granularity</strong></td><td>Basic: Read, Change, Full Control</td><td>Detailed: Read, Write, Modify, Full Control, etc.</td></tr>
+                    <tr><td><strong>Inheritance</strong></td><td>No inheritance</td><td>Full inheritance support</td></tr>
+                    <tr><td><strong>Default in Scripts</strong></td><td>Set to "Everyone" or "Domain Admins"</td><td>Exact permissions from original DC</td></tr>
+                    <tr><td><strong>Effective Access</strong></td><td colspan="2">Most restrictive of Share + NTFS applies</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Useful PowerShell Commands</h3>
+            <h4>Share Management</h4>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre># Create a new share
+New-SmbShare -Name "ShareName" -Path "F:\Path" -FullAccess "Everyone"
+
+# Modify share permissions
+Grant-SmbShareAccess -Name "ShareName" -AccountName "DOMAIN\User" -AccessRight Full
+Revoke-SmbShareAccess -Name "ShareName" -AccountName "DOMAIN\User"
+
+# Remove a share
+Remove-SmbShare -Name "ShareName" -Force
+
+# List all shares
+Get-SmbShare
+
+# View share details
+Get-SmbShare -Name "ShareName" | Format-List *
+
+# View share permissions
+Get-SmbShareAccess -Name "ShareName"</pre>
+            </div>
+
+            <h4>NTFS Permissions Management</h4>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre># View NTFS permissions
+Get-Acl "F:\FolderPath" | Format-List
+
+# View in table format
+(Get-Acl "F:\FolderPath").Access | Format-Table IdentityReference, FileSystemRights, AccessControlType
+
+# Add NTFS permission
+$acl = Get-Acl "F:\FolderPath"
+$permission = "DOMAIN\User","FullControl","ContainerInherit,ObjectInherit","None","Allow"
+$accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule $permission
+$acl.SetAccessRule($accessRule)
+Set-Acl "F:\FolderPath" $acl
+
+# Remove NTFS permission
+$acl = Get-Acl "F:\FolderPath"
+$permission = "DOMAIN\User","FullControl","ContainerInherit,ObjectInherit","None","Allow"
+$accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule $permission
+$acl.RemoveAccessRule($accessRule)
+Set-Acl "F:\FolderPath" $acl
+
+# Take ownership
+$acl = Get-Acl "F:\FolderPath"
+$acl.SetOwner([System.Security.Principal.NTAccount]"DOMAIN\User")
+Set-Acl "F:\FolderPath" $acl</pre>
+            </div>
+
+            <h4>Active Directory Commands</h4>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre># Get domain SID
+Get-ADDomain | Select-Object DomainSID
+
+# Check if user exists
+Get-ADUser -Identity "username"
+
+# Get user SID
+Get-ADUser -Identity "username" | Select-Object Name, SID
+
+# Create new user
+New-ADUser -Name "John Doe" -SamAccountName "jdoe" -UserPrincipalName "jdoe@domain.com" -Enabled $true
+
+# Add user to group
+Add-ADGroupMember -Identity "Domain Admins" -Members "username"
+
+# List group members
+Get-ADGroupMember -Identity "Domain Admins"
+
+# Create new group
+New-ADGroup -Name "PostClosers" -GroupScope Global -GroupCategory Security</pre>
+            </div>
+
+            <h3>File Locations</h3>
+            <table>
+                <thead>
+                    <tr><th>File</th><th>Purpose</th><th>Location on Server</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1-Setup-Directories.ps1</td><td>Create directory structure</td><td>C:\ShareMigration\</td></tr>
+                    <tr><td>2-Set-NTFS-Permissions.ps1</td><td>Apply NTFS permissions</td><td>C:\ShareMigration\</td></tr>
+                    <tr><td>3-Create-SMB-Shares.ps1</td><td>Create file shares</td><td>C:\ShareMigration\</td></tr>
+                    <tr><td>4-Validate-Configuration.ps1</td><td>Validate setup</td><td>C:\ShareMigration\</td></tr>
+                    <tr><td>BONUS-SID-Translation-Helper.ps1</td><td>Check SID issues</td><td>C:\ShareMigration\</td></tr>
+                    <tr><td>UserSIDMapping.csv</td><td>Exported SID mapping</td><td>C:\ShareMigration\</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Printer Shares (Configure Separately)</h3>
+            <p>The following 36 printer shares were identified but must be configured through Print Management:</p>
+            <div style="column-count: 2; column-gap: 20px;">
+                <ul style="margin: 0; font-size: 14px;">
+                    <li>Crestview-Sharp-Upstairs</li>
+                    <li>HP LaserJet Pro M402-M403 n-dne PCB Checks</li>
+                    <li>HP Photosmart D7400 PanamaCity</li>
+                    <li>HPLaserjet1300-Panama City</li>
+                    <li>HPLaserjet2200-Accounting</li>
+                    <li>Lexmark FWB Checks</li>
+                    <li>Lexmark XM1100 Series XL DraperJ-30A</li>
+                    <li>Lexmark-M3150-Crestview</li>
+                    <li>Lexmark-M3150-Defuniak</li>
+                    <li>Lexmark-M3150-Destin-Check</li>
+                    <li>Lexmark-M3150-FWB</li>
+                    <li>Lexmark-M3150-Pace-Check</li>
+                    <li>Lexmark-M3150-PanamaCity-check</li>
+                    <li>Lexmark-M3150-PanamaCity-Plain</li>
+                    <li>Lexmark-M3150-Pensacola-Check</li>
+                    <li>Navarre-Back-Lexmark-M3150</li>
+                    <li>Navarre-Back-MX-M6071</li>
+                    <li>Pensacola Lexmark</li>
+                    <li>RICOH-SP5300-PCB</li>
+                    <li>SHARP MX-B350W PCL6 HudsonLaw</li>
+                    <li>SHARP MX-M316N-Pensacola</li>
+                    <li>SHARP MX-M4070 PCL6 DraperJ-30A</li>
+                    <li>SHARP MX-M4070 PCL6 PanamaCity 23rd St</li>
+                    <li>SHARP MX-M4071 PCL6 -30A Suite 204</li>
+                    <li>SHARP MX-M4071-Crestview</li>
+                    <li>SHARP MX-M4071-FWB</li>
+                    <li>SHARP MX-M4071-Panama-City2</li>
+                    <li>SHARP MX-M4071-PostClosing</li>
+                    <li>SHARP MX-M465N-Destin-Main</li>
+                    <li>SHARP MX-M465N-PanamaCityBeach</li>
+                    <li>SHARP MX-M5070-Pace</li>
+                    <li>SHARP UD3 PCL6</li>
+                    <li>SHARP UD3 PCL6 (Copy 1)</li>
+                    <li>SHARP UD3 PCL6 Port St Joe</li>
+                    <li>SHARP-Destin-Admin</li>
+                    <li>SHARP-MX-M4070-Defuniak</li>
+                </ul>
+            </div>
+
+            <h3>Next Steps After Migration</h3>
+            <ol>
+                <li><strong>Configure Printer Shares</strong> - Use Print Management console</li>
+                <li><strong>Update DNS Records</strong> - Point to new server if name changed</li>
+                <li><strong>Update Group Policy</strong> - If server name or paths changed</li>
+                <li><strong>Configure Backups</strong> - Set up backup jobs for F:\</li>
+                <li><strong>Update Documentation</strong> - Record new server details</li>
+                <li><strong>Monitor Event Logs</strong> - Check for permission errors</li>
+                <li><strong>User Training</strong> - If UNC paths changed</li>
+                <li><strong>Decommission Old Server</strong> - After verifying everything works</li>
+            </ol>
+
+            <h3>Support Resources</h3>
+            <ul>
+                <li><strong>PowerShell Help:</strong> <code>Get-Help CommandName -Full</code></li>
+                <li><strong>Event Viewer:</strong> Windows Logs → Security (for permission issues)</li>
+                <li><strong>SMB Share Logs:</strong> Applications and Services Logs → Microsoft → Windows → SMBServer</li>
+                <li><strong>AD Users & Computers:</strong> Server Manager → Tools → Active Directory Users and Computers</li>
+            </ul>
+        </section>
+
+        <!-- Footer -->
+        <div style="margin-top: 50px; padding-top: 20px; border-top: 2px solid #e0e0e0; text-align: center; color: #666;">
+            <p><strong>File Share Migration Complete Guide</strong></p>
+            <p>Created: <script>document.write(new Date().toLocaleDateString())</script></p>
+            <p>For support, review the Troubleshooting section or check Event Viewer logs</p>
+        </div>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const code = codeBlock.textContent;
+
+            navigator.clipboard.writeText(code).then(function() {
+                button.textContent = 'Copied!';
+                button.style.background = '#28a745';
+                setTimeout(function() {
+                    button.textContent = 'Copy';
+                    button.style.background = '#0066cc';
+                }, 2000);
+            }, function(err) {
+                button.textContent = 'Failed';
+                button.style.background = '#dc3545';
+            });
+        }
+
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

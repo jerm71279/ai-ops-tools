@@ -1,5 +1,3 @@
-Loaded cached credentials.
-```markdown
 # Standard Operating Procedure: Initial SonicWall Firewall Setup
 
 | | |
@@ -7,7 +5,7 @@ Loaded cached credentials.
 | **Document ID:** | SOP-NET-001 |
 | **Title:** | Initial SonicWall Firewall Setup |
 | **Category:** | Network Administration |
-| **Version:** | 1.0 |
+| **Version:** | 1.4 |
 | **Status:** | Final |
 | **Author:** | System |
 | **Creation Date:** | 2025-12-02 |
@@ -70,65 +68,95 @@ This SOP applies to all Network Technicians responsible for deploying new SonicW
     *   You will be prompted to change the administrator password. Set a new, secure password.
     *   When prompted for setup type, select **Manual Setup**.
 
-#### 6.2 System Configuration and Firmware Update
+#### 6.2 Device Registration Verification (CRITICAL - Before Firmware)
 
-1.  **Sync Licenses:** Navigate to **System > Licenses**. Log in with your MySonicwall credentials to synchronize the device registration and service licenses.
-2.  **Set Firewall Name:** Go to **System > Administration**. Set a descriptive name for the firewall (e.g., `Obera-Fairhope`).
-3.  **Configure Admin Timeout:**
+> **IMPORTANT:** Device registration MUST be fully verified before attempting firmware upload. Firmware upload will fail with "Device not registered" error if this step is incomplete.
+
+1.  **Check Registration Status on Firewall:**
+    *   Navigate to **Device > Settings > MySonicWall** (or **System > Administration > MySonicWall**).
+    *   If status shows "Not Registered", proceed to step 2.
+    *   If status shows "Registered", skip to Section 6.3.
+
+2.  **Obtain Registration Code from MySonicWall Portal:**
+    *   Log in to [mysonicwall.com](https://mysonicwall.com).
+    *   Navigate to **My Products** and click on the registered device.
+    *   Locate the **Registration Code** in the device details.
+    *   If device is not yet registered in portal, register it first using the Serial Number and Authentication Code from the firewall.
+
+3.  **Enter Registration Code on Firewall:**
+    *   On the firewall's MySonicWall page, enter the **Registration Code** obtained from the portal.
+    *   Click **Register** or **Submit**.
+    *   Wait for confirmation message.
+
+4.  **Verify Registration Complete:**
+    *   Refresh the page and confirm status shows "Registered".
+    *   Navigate to **Device > Settings > Licenses** and verify licenses are synchronized.
+    *   **Do NOT proceed to firmware update until registration is confirmed.**
+
+5.  **Troubleshooting Registration:**
+    *   If registration fails, restart the firewall and retry.
+    *   Ensure firewall has internet access (WAN connected and routing).
+    *   Verify MySonicWall account has the device under correct tenant.
+
+#### 6.3 System Configuration
+
+1.  **Set Firewall Name:** Go to **Device > Settings > Administration**. Set a descriptive name for the firewall (e.g., `Obera-Fairhope`).
+2.  **Configure Admin Timeout:**
     *   On the same page, under **Login/Multiple Administrators**, change **Log out the Admin after inactivity (minutes)** to `60`.
-4.  **Verify Management Ports:** Select the **Management** tab. Ensure **HTTP Port** is `80` and **HTTPS Port** is `443`.
-5.  **Download Latest Firmware:**
+3.  **Configure Time Zone and NTP:**
+    *   Navigate to **Device > Settings > Time**.
+    *   Set **Time Zone** to the client's local time zone (e.g., `America/Chicago` for Central).
+    *   Enable **Use NTP to set time**.
+    *   Set **NTP Server 1** to `time.google.com`.
+    *   Set **NTP Server 2** to `pool.ntp.org`.
+    *   Click **Accept** to save.
+    *   **Note:** Accurate time is critical for logging, certificates, and security event correlation.
+4.  **Enable Remote Management:** Navigate to **Network > System > Interfaces**. Edit the **X1 (WAN)** interface. Under **Management**, enable **HTTPS** only. Leave HTTP and Ping disabled for security.
+
+#### 6.4 Firmware Update
+
+> **IMPORTANT:** Always check the firmware upgrade path in the Release Notes before upgrading. Direct upgrades across major versions may not be supported.
+
+1.  **Check Current Firmware Version:**
+    *   Note the current version from the Dashboard or **Device > Settings > Firmware & Backups**.
+    *   Example: `7.0.1-5165`
+
+2.  **Download Release Notes and Check Upgrade Path:**
     *   Go to the MySonicwall portal and select the firewall.
-    *   Navigate to the **Firmware** tab and download the latest stable firmware release (`.sig` file).
-6.  **Update Firmware:**
-    *   Return to the firewall GUI and navigate to **System > Firmware and Backups**.
-    *   Click **Upload Firmware** and select the `.sig` file you downloaded.
-    *   **Important:** Check the box to create a backup of your current settings before proceeding.
-    *   After the upload completes, click the **Boot** button next to the newly uploaded firmware version with the "Reboot with current settings" option.
-    *   The firewall will reboot, which can take 3-5 minutes.
+    *   Navigate to the **Downloads** tab.
+    *   Download the **Release Notes PDF** for the target firmware version.
+    *   Search for "upgrade path" or "supported upgrade" in the Release Notes.
+    *   **Key Rule:** If jumping multiple major versions (e.g., 7.0.x to 7.3.x), stepped upgrades may be required.
 
-#### 6.3 Security Services Configuration
+3.  **Determine Upgrade Path:**
+    *   **Single step OK:** Minor version upgrades within same major version (e.g., 7.0.1 → 7.0.3).
+    *   **Stepped upgrade required:** Major version jumps - download intermediate firmware versions.
+    *   Example stepped path: `7.0.1 → 7.3.0 → 7.3.1`
 
-After the firewall reboots, log back in and configure the following security settings. Click **Accept** at the bottom of each page to save changes.
+4.  **Download Required Firmware:**
+    *   Download all required `.sig` files from MySonicwall portal.
+    *   For stepped upgrades, download each intermediate version.
 
-1.  **UDP Flood Protection:**
-    *   Navigate to **Firewall Settings > Flood Protection**.
-    *   Select the **UDP** tab.
-    *   Check **Enable UDP Flood Protection**.
-    *   From the **UDP Flood Attack Protection Destination List** dropdown, select **LAN Subnets**.
-2.  **AppFlow Reporting:**
-    *   Navigate to **AppFlow > Flow Reporting > Settings**.
-    *   Toggle on **Enable Real-Time Data Collection**.
-    *   Toggle on **Enable AppFlow to Local Collector**.
-    *   Click **Accept**. The firewall will reboot to apply this change. Log back in after it comes back online.
-3.  **Gateway Anti-Virus:**
-    *   Navigate to **Security > Gateway Anti-Virus**.
-    *   Check **Enable Gateway Anti-Virus**.
-    *   Check **Enable Inbound and Outbound Inspection** for all listed protocols.
-4.  **Intrusion Prevention (IPS):**
-    *   Navigate to **Security > Intrusion Prevention**.
-    *   Check **Enable IPS**.
-    *   Set **High Priority Attacks** to **Prevent All**.
-    *   Set **Medium Priority Attacks** to **Prevent All**.
-    *   Set **Low Priority Attacks** to **Detect All**.
-5.  **Anti-Spyware:**
-    *   Navigate to **Security > Anti-Spyware**.
-    *   Check **Enable Anti-Spyware**.
-    *   Set **High Priority Attacks** to **Prevent All**.
-    *   Set **Medium Priority Attacks** to **Prevent All**.
-    *   Set **Low Priority Attacks** to **Detect All**.
-    *   Ensure all protocols are selected for inspection.
-6.  **Geo-IP Filter:**
-    *   Navigate to **Security > Geo-IP Filter**.
-    *   Check **Block connections to/from countries selected in Countries tab**.
-    *   Go to the **Countries** tab and select high-risk countries to block (e.g., China, Russia, North Korea, Iran).
-    *   Check **Block all unknown countries**.
-    *   From the **Geo-IP Exclusion Object** dropdown, select **Default Geo-IP and Botnet Exclusion Group**.
-7.  **Botnet Filter:**
-    *   Navigate to **Security > Botnet Filter**.
-    *   Check **Block connections to/from botnet command and control servers**.
+5.  **Export Configuration Backup:**
+    *   Navigate to **Device > Settings > Firmware & Backups**.
+    *   Click **Export Settings** and save the `.exp` file.
+    *   **Store backup securely** - see SOP-NET-006.
+    *   **WARNING:** Once upgraded to newer major version, downgrade may not be supported.
 
-#### 6.4 Network DNS Configuration
+6.  **Upload and Apply Firmware:**
+    *   Click **Upload Firmware** and select the `.sig` file.
+    *   If registration error occurs, return to Section 6.2.
+    *   After upload completes, click **Boot Uploaded Firmware**.
+    *   Select "Boot with current configuration".
+    *   The firewall will reboot (3-10 minutes).
+
+7.  **Verify Upgrade and Repeat if Stepped:**
+    *   Log back in after reboot.
+    *   Confirm new firmware version on Dashboard.
+    *   Test basic connectivity (internet, management access).
+    *   **If stepped upgrade:** Repeat steps 5-7 for each intermediate version until target version reached.
+
+#### 6.5 Network DNS Configuration
 
 1.  Navigate to **Network > DNS**.
 2.  Select **Specify DNS Servers Manually**.
@@ -136,7 +164,7 @@ After the firewall reboots, log back in and configure the following security set
     *   **With Domain Controllers:** Set DNS Server 1 and 2 to the client's primary and secondary domain controllers. Set DNS Server 3 to a public DNS (e.g., `8.8.8.8`).
     *   **Without Domain Controllers:** Set DNS servers to the ISP-provided DNS or a reliable public DNS service (e.g., `8.8.8.8`, `1.1.1.1`).
 
-#### 6.5 Final WAN Interface Configuration
+#### 6.6 Final WAN Interface Configuration
 
 > **WARNING:** Executing this final step will reconfigure the WAN (X1) interface, and you will lose access to the firewall's management GUI until it is physically installed at the client's site. Ensure all previous configuration steps are completed and verified before proceeding.
 
@@ -147,8 +175,11 @@ After the firewall reboots, log back in and configure the following security set
     *   Enter the **IP Address** (first usable IP from the client's static block).
     *   Enter the **Subnet Mask**.
     *   Enter the **Default Gateway**.
-    *   Set the **DNS Server(s)** to either the client's domain controllers or public DNS, as determined in step 6.4.
-4.  Under the **Management** section for the X1 interface, ensure both **HTTPS** and **Ping** are checked to allow remote management and diagnostics.
+    *   Set the **DNS Server(s)** to either the client's domain controllers or public DNS (e.g., `8.8.8.8`, `1.1.1.1`).
+4.  Under the **Management** section for the X1 interface:
+    *   Enable **HTTPS** for remote management.
+    *   Leave **Ping** disabled unless required for external monitoring tools.
+    *   **Security Note:** Enabling Ping on WAN allows ICMP reconnaissance. Only enable if client requires it for monitoring.
 5.  Click **Accept** to save the changes. Access to the GUI will be lost. The firewall is now ready for on-site installation.
 
 ---
@@ -157,7 +188,6 @@ After the firewall reboots, log back in and configure the following security set
 
 *   Confirm the device is registered and all licenses are active in the MySonicwall portal.
 *   Verify the firmware has been updated to the latest stable release.
-*   Double-check that all security services (AV, IPS, Geo-IP, Botnet) are enabled and configured as per Section 6.3.
 *   Confirm the WAN interface settings are transcribed correctly from the client circuit sheet before clicking the final 'Accept'.
 
 ### 8.0 Troubleshooting
@@ -167,20 +197,30 @@ After the firewall reboots, log back in and configure the following security set
 | Cannot access login page at 192.168.168.168. | 1. Verify your computer's static IP settings match Section 6.1. <br> 2. Ensure the Ethernet cable is securely connected to the LAN (X0) port. <br> 3. Confirm the firewall's LAN light is green. |
 | Licenses fail to synchronize. | 1. Ensure the WAN port is connected to an active internet connection. <br> 2. Verify the MySonicwall portal credentials are correct. <br> 3. Reboot the firewall and try again. |
 | Lost access after WAN configuration. | This is expected behavior. The device must now be installed on-site to be accessed via its new WAN or LAN IP address. |
+| Firmware upload fails with "Device not registered". | 1. Complete Section 6.2 registration verification. <br> 2. Get Registration Code from MySonicWall portal. <br> 3. Enter code on firewall's MySonicWall page. <br> 4. Restart firewall if sync fails. |
+| "Serial number registered to another account" error. | Device is registered under different MySonicWall account (e.g., different tenant). Log into correct account or contact SonicWall support for transfer. |
+| Firmware upgrade fails or bricks device. | 1. Firewall will auto-rollback to backup firmware. <br> 2. Check release notes for required upgrade path. <br> 3. May need stepped upgrades (e.g., 7.0→7.3.0→7.3.1). |
 
 ### 9.0 Related Documents
 
 *   Client Network Circuit Information Sheet
+*   SOP-NET-004: Register Device in MySonicwall
+*   SOP-NET-006: SonicWall Configuration Backup
+*   SOP-NET-007: SonicWall Configuration Restore
+*   SonicOS Release Notes (download from MySonicWall for each firmware version)
 
 ### 10.0 Revision History
 
 | Version | Date | Author | Change Description |
 |---|---|---|---|
 | 1.0 | 2025-12-02 | System | Initial document creation from source material. |
+| 1.1 | 2025-12-29 | Jeremy Smith | Added Section 6.2 for device registration verification before firmware upload. Expanded Section 6.4 with firmware upgrade path checking, stepped upgrade process, and release notes review. Lessons learned from Jubilee Pool & Spa deployment. |
+| 1.2 | 2025-12-29 | Jeremy Smith | Removed Security Services Configuration and Network DNS Configuration sections (will be separate SOP). Renumbered Final WAN Interface Configuration to 6.5. |
+| 1.3 | 2025-12-29 | Jeremy Smith | Added back Section 6.5 Network DNS Configuration. Renumbered Final WAN Interface Configuration to 6.6. |
+| 1.4 | 2025-12-29 | Jeremy Smith | SME Review: Added NTP/Time Zone configuration in Section 6.3. Updated WAN management to disable Ping by default (security hardening). Clarified remote management security notes. |
 
 ### 11.0 Approval
 
 | Name | Role | Signature | Date |
 |---|---|---|---|
 | | Network Manager | | |
-```

@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>DC Migration - Destination Focused (NinjaOne Access)</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <link href="data:application/octet-stream;base64,Ym9keSB7CiAgICBmb250LWZhbWlseTogJ1NlZ29lIFVJJywgVGFob21hLCBHZW5ldmEsIFZlcmRhbmEsIHNhbnMtc2VyaWY7CiAgICBtYXgtd2lkdGg6IDEyMDBweDsKICAgIG1hcmdpbjogMCBhdXRvOwogICAgcGFkZGluZzogMjBweDsKICAgIGJhY2tncm91bmQtY29sb3I6ICNmNWY1ZjU7CiAgICBjb2xvcjogIzMzMzsKICAgIGxpbmUtaGVpZ2h0OiAxLjY7Cn0KaDEgewogICAgY29sb3I6ICMwMDY2Y2M7CiAgICBib3JkZXItYm90dG9tOiAzcHggc29saWQgIzAwNjZjYzsKICAgIHBhZGRpbmctYm90dG9tOiAxMHB4Owp9CmgyIHsKICAgIGNvbG9yOiAjMDA4OGNjOwogICAgYm9yZGVyLWJvdHRvbTogMnB4IHNvbGlkICNlMGUwZTA7CiAgICBwYWRkaW5nLWJvdHRvbTogOHB4OwogICAgbWFyZ2luLXRvcDogMzBweDsKfQpoMyB7CiAgICBjb2xvcjogIzU1NTsKICAgIG1hcmdpbi10b3A6IDI1cHg7Cn0KY29kZSB7CiAgICBiYWNrZ3JvdW5kOiAjMmQyZDJkOwogICAgY29sb3I6ICNmOGY4ZjI7CiAgICBwYWRkaW5nOiAycHggNnB4OwogICAgYm9yZGVyLXJhZGl1czogM3B4OwogICAgZm9udC1mYW1pbHk6ICdDb25zb2xhcycsICdNb25hY28nLCBtb25vc3BhY2U7Cn0KcHJlIHsKICAgIGJhY2tncm91bmQ6ICMyZDJkMmQ7CiAgICBjb2xvcjogI2Y4ZjhmMjsKICAgIHBhZGRpbmc6IDE1cHg7CiAgICBib3JkZXItcmFkaXVzOiA1cHg7CiAgICBvdmVyZmxvdy14OiBhdXRvOwogICAgbGluZS1oZWlnaHQ6IDEuNTsKfQpwcmUgY29kZSB7CiAgICBiYWNrZ3JvdW5kOiBub25lOwogICAgcGFkZGluZzogMDsKfQp1bCwgb2wgewogICAgbGluZS1oZWlnaHQ6IDEuODsKfQp0YWJsZSB7CiAgICB3aWR0aDogMTAwJTsKICAgIGJvcmRlci1jb2xsYXBzZTogY29sbGFwc2U7CiAgICBtYXJnaW46IDE1cHggMDsKICAgIGJhY2tncm91bmQ6IHdoaXRlOwp9CnRhYmxlIHRoIHsKICAgIGJhY2tncm91bmQ6ICMwMDY2Y2M7CiAgICBjb2xvcjogd2hpdGU7CiAgICBwYWRkaW5nOiAxMnB4OwogICAgdGV4dC1hbGlnbjogbGVmdDsKfQp0YWJsZSB0ZCB7CiAgICBwYWRkaW5nOiAxMHB4OwogICAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkICNkZGQ7Cn0KdGFibGUgdHI6aG92ZXIgewogICAgYmFja2dyb3VuZDogI2Y1ZjVmNTsKfQpibG9ja3F1b3RlIHsKICAgIGJvcmRlci1sZWZ0OiA0cHggc29saWQgIzAwNjZjYzsKICAgIHBhZGRpbmctbGVmdDogMTVweDsKICAgIGNvbG9yOiAjNjY2OwogICAgZm9udC1zdHlsZTogaXRhbGljOwp9Ci50YXNrLWxpc3QgewogICAgbGlzdC1zdHlsZTogbm9uZTsKfQoudGFzay1saXN0IGxpIHsKICAgIG1hcmdpbjogNXB4IDA7Cn0K" rel="stylesheet" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">DC Migration - Destination Focused (NinjaOne
+Access)</h1>
+            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" style="max-width: 200px; height: auto;">
+</header>
+<h1 id="dc-migration-to-destination-tenant">DC Migration to Destination
+Tenant</h1>
+<h2 id="destination-tenant-owners-guide">Destination Tenant Owner’s
+Guide</h2>
+<hr />
+<h2 id="your-role-environment">Your Role &amp; Environment</h2>
+<p><strong>YOU Control:</strong> - ✅ Destination Azure Tenant - ✅ File
+Server (FS) in destination tenant - ✅ Destination storage accounts and
+resources - ✅ Final DC build and configuration - ✅ <strong>Remote
+access to Source DC via NinjaOne</strong></p>
+<p><strong>Vendor Controls:</strong> - 🔒 Source Azure Tenant (Portal
+access only) - 🔒 OS VHD export from Azure Portal</p>
+<p><strong>YOU Have Direct Access To:</strong> - ✅ Source Domain
+Controller via NinjaOne remote control - ✅ Can run commands and scripts
+on source DC - ✅ Can execute robocopy from source DC to your FS</p>
+<hr />
+<h2 id="migration-flow-overview">Migration Flow Overview</h2>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│ SOURCE TENANT (Vendor Controls Azure Portal Only)          │
+│                                                              │
+│  ┌──────────┐                                               │
+│  │ Source DC│ ← YOU access via NinjaOne                     │
+│  │  (E:\)   │                                               │
+│  └────┬─────┘                                               │
+│       │                                                     │
+│       │ 1. YOU Run Robocopy via NinjaOne                    │
+│       │                                                     │
+│       ↓                                                     │
+└───────┼─────────────────────────────────────────────────────┘
+        │
+        │ Network/VPN
+        │
+        ↓
+┌───────┼─────────────────────────────────────────────────────┐
+│       ↓  DESTINATION TENANT (YOU Control)                   │
+│  ┌─────────┐                                                │
+│  │   FS    │ ← Robocopy destination (F:\Backup)             │
+│  │  (F:\)  │                                                │
+│  └────┬────┘                                                │
+│       │                                                     │
+│       │ 2. After sync complete                              │
+│       │ YOU Create Data Disk VHD                            │
+│       ↓                                                     │
+│  ┌──────────────┐                                           │
+│  │ Data Disk    │                                           │
+│  │ (from FS)    │                                           │
+│  └──────────────┘                                           │
+│                                                              │
+│  ┌──────────────┐                                           │
+│  │  OS Disk     │ ← 3. Vendor exports OS VHD               │
+│  │ (from source)│    (via Azure Portal)                    │
+│  └──────────────┘                                           │
+│                                                              │
+│       │                                                     │
+│       │ 4. YOU Build New DC VM                              │
+│       ↓                                                     │
+│  ┌──────────────┐                                           │
+│  │  NEW DC      │                                           │
+│  │  (C:\ + F:\) │                                           │
+│  └──────────────┘                                           │
+└─────────────────────────────────────────────────────────────┘</code></pre>
+<hr />
+<h2 id="your-action-plan">Your Action Plan</h2>
+<h3 id="phase-1-you-run-data-sync-via-ninjaone">Phase 1: YOU Run Data
+Sync via NinjaOne</h3>
+<h3 id="phase-2-prepare-destination-infrastructure">Phase 2: Prepare
+Destination Infrastructure</h3>
+<h3 id="phase-3-receive-and-import-os-vhd">Phase 3: Receive and Import
+OS VHD</h3>
+<h3 id="phase-4-create-data-disk-from-fs">Phase 4: Create Data Disk from
+FS</h3>
+<h3 id="phase-5-build-new-dc-vm">Phase 5: Build New DC VM</h3>
+<h3 id="phase-6-configure-and-validate">Phase 6: Configure and
+Validate</h3>
+<hr />
+<h2 id="phase-1-you-run-data-sync-via-ninjaone-1">PHASE 1: YOU Run Data
+Sync via NinjaOne</h2>
+<h3 id="your-actions">Your Actions:</h3>
+<h4 id="prepare-staging-folder-on-fs">1.1 Prepare Staging Folder on
+FS</h4>
+<p><strong>Create staging folder on FS:</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On your FS in destination tenant</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">New-Item</span> <span class="op">-</span>Path <span class="st">&quot;F:\Backup&quot;</span> <span class="op">-</span>ItemType Directory</span></code></pre></div>
+<h4 id="connect-to-source-dc-via-ninjaone">1.2 Connect to Source DC via
+NinjaOne</h4>
+<p><strong>Via NinjaOne Console:</strong> 1. Open NinjaOne console 2.
+Find source DC in device list 3. Click “Remote Control” or “Take
+Control” 4. Open CMD or PowerShell as Administrator on remote DC</p>
+<h4 id="map-fs-drive-on-source-dc">1.3 Map FS Drive on Source DC</h4>
+<p><strong>On Source DC (via NinjaOne), run CMD as
+Administrator:</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a># Map Y: drive to your FS</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a># Replace FS<span class="at">-SERVERNAME</span> with your actual FS hostname<span class="at">/IP</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>net use Y: \\FS-SERVERNAME\F$ <span class="at">/user:</span>DESTINATION\Administrator</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a># Or use IP address if DNS not configured:</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>net use Y: \\10.x.x.x\F$ <span class="at">/user:</span>DESTINATION\Administrator</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a># Verify mapping</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span> Y:</span></code></pre></div>
+<p><strong>Expected result:</strong> You should see the F:folder</p>
+<h4 id="run-robocopy-from-source-dc">1.4 Run Robocopy from Source
+DC</h4>
+<p><strong>Still on Source DC via NinjaOne, run this
+command:</strong></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>robocopy E:\ Y:\Backup <span class="at">/MIR</span> <span class="at">/COPYALL</span> <span class="at">/DCOPY:</span>T <span class="at">/MT:</span>32 <span class="at">/R:</span>3 <span class="at">/W:</span>5 <span class="at">/B</span> <span class="at">/LOG:</span>C:\Logs\robocopy.log <span class="at">/TEE</span> <span class="at">/NP</span></span></code></pre></div>
+<p><strong>Command breakdown:</strong> - <code>E:\</code> - Source DC
+data drive - <code>Y:\Backup</code> - Mapped drive to your FS -
+<code>/MIR</code> - Mirror (copies all, deletes from destination if not
+in source) - <code>/COPYALL</code> - Copies all file info (permissions,
+attributes, timestamps, owner, ACLs) - <code>/DCOPY:T</code> - Copies
+directory timestamps - <code>/MT:32</code> - Multi-threaded (32 threads)
+- <code>/R:3</code> - Retry 3 times on failed copies - <code>/W:5</code>
+- Wait 5 seconds between retries - <code>/B</code> - Backup mode
+(bypasses file security) - <code>/LOG:C:\Logs\robocopy.log</code> -
+Writes log file - <code>/TEE</code> - Outputs to console AND log file -
+<code>/NP</code> - No progress (cleaner output)</p>
+<p><strong>Estimated time:</strong> 6-12 hours for ~380GB (depending on
+network speed)</p>
+<h4 id="monitor-progress">1.5 Monitor Progress</h4>
+<p><strong>While robocopy runs, you can check progress:</strong></p>
+<p><strong>On Source DC (via NinjaOne):</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a># View log file</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span> C:\Logs\robocopy.log <span class="kw">|</span> <span class="kw">more</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a># Or open log in notepad</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>notepad C:\Logs\robocopy.log</span></code></pre></div>
+<p><strong>On your FS in destination tenant:</strong></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Monitor data arriving</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-ChildItem</span> F<span class="op">:</span>\Backup <span class="op">-</span>Recurse <span class="op">|</span> <span class="fu">Measure-Object</span> <span class="op">-</span>Property Length <span class="op">-</span>Sum</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check folder count</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="op">(</span><span class="fu">Get-ChildItem</span> F<span class="op">:</span>\Backup <span class="op">-</span>Recurse <span class="op">-</span>Directory<span class="op">).</span><span class="fu">Count</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check file count</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">(</span><span class="fu">Get-ChildItem</span> F<span class="op">:</span>\Backup <span class="op">-</span>Recurse <span class="op">-</span>File<span class="op">).</span><span class="fu">Count</span></span></code></pre></div>
+<p><strong>Checklist:</strong> - [ ] Created F:staging folder on FS - [
+] Connected to source DC via NinjaOne - [ ] Mapped Y: drive from DC to
+FS F$ - [ ] Started robocopy command - [ ] Monitor data arrival on FS -
+[ ] <strong>Wait for robocopy to complete (will show summary when
+done)</strong></p>
+<hr />
+<h2 id="phase-2-prepare-destination-infrastructure-1">PHASE 2: Prepare
+Destination Infrastructure</h2>
+<h3 id="while-waiting-for-data-sync">While Waiting for Data Sync</h3>
+<h4 id="create-resource-group">2.1 Create Resource Group</h4>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> group create <span class="dt">\</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--location</span> eastus</span></code></pre></div>
+<h4 id="create-virtual-network">2.2 Create Virtual Network</h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create VNet</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network vnet create <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> VNet-Setco-DC <span class="dt">\</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--address-prefix</span> 10.0.0.0/16 <span class="dt">\</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--subnet-name</span> DC-Subnet <span class="dt">\</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--subnet-prefix</span> 10.0.1.0/24</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create NSG</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network nsg create <span class="dt">\</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> NSG-DC</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Add NSG rules for DC</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network nsg rule create <span class="dt">\</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">--nsg-name</span> NSG-DC <span class="dt">\</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> AllowRDP <span class="dt">\</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">--priority</span> 100 <span class="dt">\</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">--source-address-prefixes</span> <span class="st">&#39;*&#39;</span> <span class="dt">\</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--destination-port-ranges</span> 3389 <span class="dt">\</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--protocol</span> Tcp <span class="dt">\</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">--access</span> Allow</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network nsg rule create <span class="dt">\</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">--nsg-name</span> NSG-DC <span class="dt">\</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> AllowDNS <span class="dt">\</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">--priority</span> 110 <span class="dt">\</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">--source-address-prefixes</span> VirtualNetwork <span class="dt">\</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">--destination-port-ranges</span> 53 <span class="dt">\</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">--protocol</span> <span class="st">&#39;*&#39;</span> <span class="dt">\</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">--access</span> Allow</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network nsg rule create <span class="dt">\</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">--nsg-name</span> NSG-DC <span class="dt">\</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> AllowKerberos <span class="dt">\</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">--priority</span> 120 <span class="dt">\</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">--source-address-prefixes</span> VirtualNetwork <span class="dt">\</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">--destination-port-ranges</span> 88 <span class="dt">\</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">--protocol</span> <span class="st">&#39;*&#39;</span> <span class="dt">\</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">--access</span> Allow</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network nsg rule create <span class="dt">\</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>  <span class="at">--nsg-name</span> NSG-DC <span class="dt">\</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> AllowLDAP <span class="dt">\</span></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">--priority</span> 130 <span class="dt">\</span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">--source-address-prefixes</span> VirtualNetwork <span class="dt">\</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">--destination-port-ranges</span> 389 636 3268 3269 <span class="dt">\</span></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">--protocol</span> Tcp <span class="dt">\</span></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">--access</span> Allow</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network nsg rule create <span class="dt">\</span></span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>  <span class="at">--nsg-name</span> NSG-DC <span class="dt">\</span></span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> AllowSMB <span class="dt">\</span></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>  <span class="at">--priority</span> 140 <span class="dt">\</span></span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>  <span class="at">--source-address-prefixes</span> VirtualNetwork <span class="dt">\</span></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>  <span class="at">--destination-port-ranges</span> 445 <span class="dt">\</span></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>  <span class="at">--protocol</span> Tcp <span class="dt">\</span></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a>  <span class="at">--access</span> Allow</span></code></pre></div>
+<h4 id="create-storage-account-for-vhd-import">2.3 Create Storage
+Account for VHD Import</h4>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create storage account</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> storage account create <span class="dt">\</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> setcodcmigration <span class="dt">\</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--location</span> eastus <span class="dt">\</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--sku</span> Standard_LRS</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create container for VHD import</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> storage container create <span class="dt">\</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--account-name</span> setcodcmigration <span class="dt">\</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> vhd-import <span class="dt">\</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--auth-mode</span> login</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate SAS token for vendor to upload OS VHD</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> storage container generate-sas <span class="dt">\</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--account-name</span> setcodcmigration <span class="dt">\</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> vhd-import <span class="dt">\</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">--permissions</span> racwdl <span class="dt">\</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">--expiry</span> <span class="va">$(</span><span class="fu">date</span> <span class="at">-u</span> <span class="at">-d</span> <span class="st">&quot;7 days&quot;</span> <span class="st">&#39;+%Y-%m-%dT%H:%MZ&#39;</span><span class="va">)</span> <span class="dt">\</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">--auth-mode</span> login <span class="dt">\</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--as-user</span> <span class="dt">\</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> tsv</span></code></pre></div>
+<p><strong>Save this SAS token to provide to vendor!</strong></p>
+<p><strong>Checklist:</strong> - [ ] Resource group created - [ ] VNet
+and subnet created - [ ] NSG created with DC rules - [ ] Storage account
+created - [ ] Container <code>vhd-import</code> created - [ ] SAS token
+generated for vendor - [ ] SAS token provided to vendor</p>
+<hr />
+<h2 id="phase-3-receive-and-import-os-vhd-1">PHASE 3: Receive and Import
+OS VHD</h2>
+<h3 id="vendor-will-do-via-azure-portal">Vendor Will Do via Azure
+Portal</h3>
+<p><strong>Vendor will:</strong> 1. Log in to source Azure tenant portal
+2. Navigate to source DC VM 3. Create snapshot of OS disk 4. Export
+snapshot to VHD blob 5. Use AzCopy to transfer VHD to your storage
+account</p>
+<p><strong>Example command vendor runs:</strong></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">azcopy</span> copy <span class="dt">\</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://source-storage.blob.core.windows.net/snapshots/dc-os.vhd?source-sas&quot;</span> <span class="dt">\</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://setcodcmigration.blob.core.windows.net/vhd-import/dc-os.vhd?YOUR-SAS-TOKEN&quot;</span></span></code></pre></div>
+<p><strong>You provide vendor:</strong> SAS token from Phase 2</p>
+<h3 id="your-actions-1">Your Actions:</h3>
+<h4 id="verify-os-vhd-upload">3.1 Verify OS VHD Upload</h4>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List blobs to confirm OS VHD arrived</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> storage blob list <span class="dt">\</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--account-name</span> setcodcmigration <span class="dt">\</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--container-name</span> vhd-import <span class="dt">\</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> table <span class="dt">\</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--auth-mode</span> login</span></code></pre></div>
+<p><strong>Expected output:</strong></p>
+<pre><code>Name        Blob Type    Length
+----------  -----------  --------
+dc-os.vhd   PageBlob     XXX GB</code></pre>
+<h4 id="create-managed-disk-from-os-vhd">3.2 Create Managed Disk from OS
+VHD</h4>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get VHD URL</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="va">VHD_URL</span><span class="op">=</span><span class="va">$(</span><span class="ex">az</span> storage blob url <span class="dt">\</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--account-name</span> setcodcmigration <span class="dt">\</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--container-name</span> vhd-import <span class="dt">\</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> dc-os.vhd <span class="dt">\</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--auth-mode</span> login <span class="dt">\</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> tsv<span class="va">)</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create OS managed disk from VHD</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> disk create <span class="dt">\</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> DC-Setco-OS-Disk <span class="dt">\</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--location</span> eastus <span class="dt">\</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--sku</span> Premium_LRS <span class="dt">\</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--source</span> <span class="st">&quot;</span><span class="va">$VHD_URL</span><span class="st">&quot;</span> <span class="dt">\</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--os-type</span> Windows</span></code></pre></div>
+<p><strong>Wait 10-20 minutes for disk creation.</strong></p>
+<p><strong>Checklist:</strong> - [ ] Vendor confirms OS VHD upload
+complete - [ ] Verified VHD blob exists in container - [ ] OS managed
+disk created successfully - [ ] Disk shows as “Succeeded” in portal</p>
+<hr />
+<h2 id="phase-4-create-data-disk-from-file-server">PHASE 4: Create Data
+Disk from File Server</h2>
+<h3 id="critical-only-after-you-confirm-robocopy-complete">CRITICAL:
+Only After YOU Confirm Robocopy Complete!</h3>
+<p><strong>Verify robocopy finished successfully on source DC (via
+NinjaOne)</strong></p>
+<h4 id="verify-data-on-file-server">4.1 Verify Data on File Server</h4>
+<div class="sourceCode" id="cb14"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On File Server - verify data</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-ChildItem</span> F<span class="op">:</span>\Backup <span class="op">-</span>Recurse <span class="op">|</span> <span class="fu">Measure-Object</span> <span class="op">-</span>Property Length <span class="op">-</span>Sum</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected folders</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-ChildItem</span> F<span class="op">:</span>\Backup <span class="op">-</span>Directory <span class="op">|</span> <span class="fu">Select-Object</span> Name</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Should see:</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># FTP Data</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># HomeDirs</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># PostClosing</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Qbooks</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co"># SeaCrestScans</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># SetcoDocs</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Versacheck</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Whole Life Fitness</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co"># NTSYS</span></span></code></pre></div>
+<h4 id="option-a-create-vhd-from-file-server-data-preferred">4.2 Option
+A: Create VHD from File Server Data (Preferred)</h4>
+<p><strong>On File Server, run PowerShell as Administrator:</strong></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate required size</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="va">$dataSize</span> <span class="op">=</span> <span class="op">(</span><span class="fu">Get-ChildItem</span> F<span class="op">:</span>\Backup <span class="op">-</span>Recurse <span class="op">|</span> <span class="fu">Measure-Object</span> <span class="op">-</span>Property Length <span class="op">-</span>Sum<span class="op">).</span><span class="fu">Sum</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="va">$vhdSizeGB</span> <span class="op">=</span> <span class="op">[</span>Math<span class="op">]::</span>Ceiling<span class="op">(</span><span class="va">$dataSize</span> <span class="op">/</span> 1GB<span class="op">)</span> <span class="op">+</span> 100  <span class="co"># Add 100GB buffer</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">Write-Host</span> <span class="st">&quot;Creating VHD of size: $vhdSizeGB GB&quot;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create VHD</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>New<span class="op">-</span>VHD <span class="op">-</span>Path <span class="st">&quot;C:\Temp\dc-data.vhdx&quot;</span> <span class="op">-</span>SizeBytes <span class="op">(</span><span class="va">$vhdSizeGB</span> <span class="op">*</span> 1GB<span class="op">)</span> <span class="op">-</span>Dynamic</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Mount VHD</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="va">$vhd</span> <span class="op">=</span> Mount<span class="op">-</span>VHD <span class="op">-</span>Path <span class="st">&quot;C:\Temp\dc-data.vhdx&quot;</span> <span class="op">-</span>Passthru</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize and format</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="va">$disk</span> <span class="op">=</span> Initialize<span class="op">-</span>Disk <span class="op">-</span>Number <span class="va">$vhd</span><span class="op">.</span><span class="fu">Number</span> <span class="op">-</span>PartitionStyle GPT <span class="op">-</span>PassThru</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="va">$partition</span> <span class="op">=</span> New<span class="op">-</span>Partition <span class="op">-</span>DiskNumber <span class="va">$disk</span><span class="op">.</span><span class="fu">Number</span> <span class="op">-</span>UseMaximumSize <span class="op">-</span>AssignDriveLetter</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="va">$volume</span> <span class="op">=</span> Format<span class="op">-</span>Volume <span class="op">-</span>DriveLetter <span class="va">$partition</span><span class="op">.</span><span class="fu">DriveLetter</span> <span class="op">-</span>FileSystem NTFS <span class="op">-</span>NewFileSystemLabel <span class="st">&quot;Data&quot;</span> <span class="op">-</span>Confirm<span class="op">:</span><span class="va">$false</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Get drive letter</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="va">$driveLetter</span> <span class="op">=</span> <span class="va">$partition</span><span class="op">.</span><span class="fu">DriveLetter</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="fu">Write-Host</span> <span class="st">&quot;VHD mounted as drive: ${driveLetter}:&quot;</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy data to VHD</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>robocopy F<span class="op">:</span>\Backup <span class="st">&quot;${driveLetter}:\&quot;</span> <span class="op">/</span>E <span class="op">/</span>COPYALL <span class="op">/</span>DCOPY<span class="op">:</span>T <span class="op">/</span>MT<span class="op">:</span>16 <span class="op">/</span>R<span class="op">:</span>3 <span class="op">/</span>W<span class="op">:</span>5 <span class="op">/</span>LOG<span class="op">:</span>C<span class="op">:</span>\Logs\vhd<span class="op">-</span>copy<span class="op">.</span><span class="fu">log</span> <span class="op">/</span><span class="fu">TEE</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Dismount</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>Dismount<span class="op">-</span>VHD <span class="op">-</span>Path <span class="st">&quot;C:\Temp\dc-data.vhdx&quot;</span></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="fu">Write-Host</span> <span class="st">&quot;Data VHD created at C:\Temp\dc-data.vhdx&quot;</span></span></code></pre></div>
+<h4 id="upload-data-vhd-to-azure">4.3 Upload Data VHD to Azure</h4>
+<p><strong>On File Server or workstation with AzCopy:</strong></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Upload data VHD to storage</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">azcopy</span> copy <span class="dt">\</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;C:\Temp\dc-data.vhdx&quot;</span> <span class="dt">\</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://setcodcmigration.blob.core.windows.net/vhd-import/dc-data.vhd&quot;</span> <span class="dt">\</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--blob-type</span> PageBlob</span></code></pre></div>
+<p><strong>Or use Azure Storage Explorer (GUI method)</strong></p>
+<h4 id="create-managed-disk-from-data-vhd">4.4 Create Managed Disk from
+Data VHD</h4>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get VHD URL</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="va">DATA_VHD_URL</span><span class="op">=</span><span class="va">$(</span><span class="ex">az</span> storage blob url <span class="dt">\</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--account-name</span> setcodcmigration <span class="dt">\</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--container-name</span> vhd-import <span class="dt">\</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> dc-data.vhd <span class="dt">\</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--auth-mode</span> login <span class="dt">\</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> tsv<span class="va">)</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data managed disk</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> disk create <span class="dt">\</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> DC-Setco-Data-Disk <span class="dt">\</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--location</span> eastus <span class="dt">\</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--sku</span> Standard_LRS <span class="dt">\</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--source</span> <span class="st">&quot;</span><span class="va">$DATA_VHD_URL</span><span class="st">&quot;</span></span></code></pre></div>
+<p><strong>Wait for disk creation (20-40 minutes depending on
+size).</strong></p>
+<h4 id="option-b-create-empty-disk-and-copy-data-later">4.5 Option B:
+Create Empty Disk and Copy Data Later</h4>
+<p><strong>If VHD creation is too complex, create empty
+disk:</strong></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create empty data disk (adjust size as needed)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> disk create <span class="dt">\</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> DC-Setco-Data-Disk <span class="dt">\</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--location</span> eastus <span class="dt">\</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--sku</span> Standard_LRS <span class="dt">\</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--size-gb</span> 500</span></code></pre></div>
+<p><strong>Then copy data after VM is built (Phase 6)</strong></p>
+<p><strong>Checklist:</strong> - [ ] Robocopy complete (vendor
+confirmed) - [ ] Data verified on FS F: - [ ] Data VHD created from FS -
+[ ] Data VHD uploaded to Azure storage - [ ] Data managed disk created -
+[ ] Both OS and Data disks show “Succeeded”</p>
+<hr />
+<h2 id="phase-5-build-new-dc-vm-1">PHASE 5: Build New DC VM</h2>
+<h3 id="create-network-interface">5.1 Create Network Interface</h3>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create public IP (optional, for initial access)</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network public-ip create <span class="dt">\</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> DC-Setco-PIP <span class="dt">\</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--allocation-method</span> Static <span class="dt">\</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--sku</span> Standard</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create NIC with static private IP</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network nic create <span class="dt">\</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> DC-Setco-NIC <span class="dt">\</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--vnet-name</span> VNet-Setco-DC <span class="dt">\</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--subnet</span> DC-Subnet <span class="dt">\</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--network-security-group</span> NSG-DC <span class="dt">\</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--public-ip-address</span> DC-Setco-PIP <span class="dt">\</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--private-ip-address</span> 10.0.1.4</span></code></pre></div>
+<h3 id="build-vm-from-managed-disks">5.2 Build VM from Managed
+Disks</h3>
+<p><strong>PowerShell method (recommended):</strong></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variables</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="va">$resourceGroup</span> <span class="op">=</span> <span class="st">&quot;RG-Setco-DC&quot;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="va">$location</span> <span class="op">=</span> <span class="st">&quot;eastus&quot;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="va">$vmName</span> <span class="op">=</span> <span class="st">&quot;DC-Setco-NewTenant&quot;</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="va">$vmSize</span> <span class="op">=</span> <span class="st">&quot;Standard_D2s_v3&quot;</span>  <span class="co"># 2 vCPU, 8GB RAM</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="va">$osDiskName</span> <span class="op">=</span> <span class="st">&quot;DC-Setco-OS-Disk&quot;</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="va">$dataDiskName</span> <span class="op">=</span> <span class="st">&quot;DC-Setco-Data-Disk&quot;</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="va">$nicName</span> <span class="op">=</span> <span class="st">&quot;DC-Setco-NIC&quot;</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Get resources</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="va">$osDisk</span> <span class="op">=</span> Get<span class="op">-</span>AzDisk <span class="op">-</span>ResourceGroupName <span class="va">$resourceGroup</span> <span class="op">-</span>DiskName <span class="va">$osDiskName</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="va">$dataDisk</span> <span class="op">=</span> Get<span class="op">-</span>AzDisk <span class="op">-</span>ResourceGroupName <span class="va">$resourceGroup</span> <span class="op">-</span>DiskName <span class="va">$dataDiskName</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="va">$nic</span> <span class="op">=</span> Get<span class="op">-</span>AzNetworkInterface <span class="op">-</span>Name <span class="va">$nicName</span> <span class="op">-</span>ResourceGroupName <span class="va">$resourceGroup</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create VM configuration</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="va">$vmConfig</span> <span class="op">=</span> New<span class="op">-</span>AzVMConfig <span class="op">-</span>VMName <span class="va">$vmName</span> <span class="op">-</span>VMSize <span class="va">$vmSize</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Attach OS disk</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="va">$vmConfig</span> <span class="op">=</span> Set<span class="op">-</span>AzVMOSDisk <span class="op">-</span>VM <span class="va">$vmConfig</span> <span class="op">-</span>ManagedDiskId <span class="va">$osDisk</span><span class="op">.</span><span class="fu">Id</span> <span class="op">-</span>CreateOption Attach <span class="op">-</span>Windows</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Attach data disk</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="va">$vmConfig</span> <span class="op">=</span> Add<span class="op">-</span>AzVMDataDisk <span class="op">-</span>VM <span class="va">$vmConfig</span> <span class="op">-</span>ManagedDiskId <span class="va">$dataDisk</span><span class="op">.</span><span class="fu">Id</span> <span class="op">-</span>Lun 0 <span class="op">-</span>CreateOption Attach</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Add network interface</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="va">$vmConfig</span> <span class="op">=</span> Add<span class="op">-</span>AzVMNetworkInterface <span class="op">-</span>VM <span class="va">$vmConfig</span> <span class="op">-</span>Id <span class="va">$nic</span><span class="op">.</span><span class="fu">Id</span> <span class="op">-</span>Primary</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Create VM</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>New<span class="op">-</span>AzVM <span class="op">-</span>ResourceGroupName <span class="va">$resourceGroup</span> <span class="op">-</span>Location <span class="va">$location</span> <span class="op">-</span>VM <span class="va">$vmConfig</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="fu">Write-Host</span> <span class="st">&quot;VM created successfully!&quot;</span></span></code></pre></div>
+<p><strong>Azure CLI method (alternative):</strong></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get disk IDs</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="va">OS_DISK_ID</span><span class="op">=</span><span class="va">$(</span><span class="ex">az</span> disk show <span class="at">--resource-group</span> RG-Setco-DC <span class="at">--name</span> DC-Setco-OS-Disk <span class="at">--query</span> id <span class="at">-o</span> tsv<span class="va">)</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="va">DATA_DISK_ID</span><span class="op">=</span><span class="va">$(</span><span class="ex">az</span> disk show <span class="at">--resource-group</span> RG-Setco-DC <span class="at">--name</span> DC-Setco-Data-Disk <span class="at">--query</span> id <span class="at">-o</span> tsv<span class="va">)</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="va">NIC_ID</span><span class="op">=</span><span class="va">$(</span><span class="ex">az</span> network nic show <span class="at">--resource-group</span> RG-Setco-DC <span class="at">--name</span> DC-Setco-NIC <span class="at">--query</span> id <span class="at">-o</span> tsv<span class="va">)</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create VM</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> vm create <span class="dt">\</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> DC-Setco-NewTenant <span class="dt">\</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--attach-os-disk</span> <span class="va">$OS_DISK_ID</span> <span class="dt">\</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--attach-data-disks</span> <span class="va">$DATA_DISK_ID</span> <span class="dt">\</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--nics</span> <span class="va">$NIC_ID</span> <span class="dt">\</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--os-type</span> Windows <span class="dt">\</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--size</span> Standard_D2s_v3</span></code></pre></div>
+<p><strong>Wait 5-10 minutes for VM creation.</strong></p>
+<h3 id="start-vm-and-get-connection-info">5.3 Start VM and Get
+Connection Info</h3>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Start VM (if not already started)</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> vm start <span class="at">--resource-group</span> RG-Setco-DC <span class="at">--name</span> DC-Setco-NewTenant</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get public IP</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network public-ip show <span class="dt">\</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> DC-Setco-PIP <span class="dt">\</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--query</span> ipAddress <span class="at">-o</span> tsv</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Get private IP</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> vm show <span class="at">-d</span> <span class="dt">\</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> DC-Setco-NewTenant <span class="dt">\</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--query</span> privateIps <span class="at">-o</span> tsv</span></code></pre></div>
+<p><strong>Checklist:</strong> - [ ] NIC created with static IP - [ ] VM
+created successfully - [ ] VM shows “Running” status - [ ] Public IP
+obtained: _________________ - [ ] Private IP: 10.0.1.4</p>
+<hr />
+<h2 id="phase-6-configure-and-validate-new-dc">PHASE 6: Configure and
+Validate New DC</h2>
+<h3 id="initial-connection">6.1 Initial Connection</h3>
+<p><strong>RDP to the VM:</strong></p>
+<pre><code>mstsc /v:&lt;PUBLIC-IP&gt;</code></pre>
+<p><strong>Login with:</strong> - Username:
+<code>SOUTHERN\Administrator</code> (or original domain admin) -
+Password: [From vendor/original DC]</p>
+<h3 id="verify-disks">6.2 Verify Disks</h3>
+<p><strong>On new DC, open PowerShell:</strong></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check disk status</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>Disk</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>Volume</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Bring data disk online if needed</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>Set<span class="op">-</span>Disk <span class="op">-</span>Number 1 <span class="op">-</span>IsOffline <span class="va">$false</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify F: drive exists</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-PSDrive</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co"># If F: not assigned, assign it</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>Partition <span class="op">-</span>DiskNumber 1 <span class="op">|</span> Set<span class="op">-</span>Partition <span class="op">-</span>NewDriveLetter F</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify data</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-ChildItem</span> F<span class="op">:</span>\ <span class="op">-</span>Directory</span></code></pre></div>
+<p><strong>Expected folders on F::</strong> - FTP Data - HomeDirs -
+PostClosing - Qbooks - SeaCrestScans - SetcoDocs - Versacheck - Whole
+Life Fitness - NTSYS</p>
+<h3 id="verify-active-directory-services">6.3 Verify Active Directory
+Services</h3>
+<div class="sourceCode" id="cb25"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check AD services</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-Service</span> NTDS<span class="op">,</span> DNS<span class="op">,</span> Netlogon<span class="op">,</span> W32Time <span class="op">|</span> <span class="fu">Format-Table</span> Name<span class="op">,</span> Status</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># All should be &quot;Running&quot;</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify domain</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-ADDomain</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Should show: SouthernEscrow.com</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Check FSMO roles</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>netdom query fsmo</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify DNS zones</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>DnsServerZone</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Check SYSVOL/NETLOGON shares</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>SmbShare <span class="op">|</span> <span class="fu">Where-Object</span> <span class="op">{</span><span class="va">$_</span><span class="op">.</span><span class="fu">Name</span> <span class="op">-</span>match <span class="st">&quot;SYSVOL|NETLOGON&quot;</span><span class="op">}</span></span></code></pre></div>
+<h3 id="configure-dns-to-point-to-itself">6.4 Configure DNS to Point to
+Itself</h3>
+<div class="sourceCode" id="cb26"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get network adapter</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="va">$adapter</span> <span class="op">=</span> Get<span class="op">-</span>NetAdapter <span class="op">|</span> <span class="fu">Where-Object</span> <span class="op">{</span><span class="va">$_</span><span class="op">.</span><span class="fu">Status</span> <span class="op">-</span>eq <span class="st">&quot;Up&quot;</span><span class="op">}</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set DNS to point to itself</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>Set<span class="op">-</span>DnsClientServerAddress <span class="op">-</span>InterfaceIndex <span class="va">$adapter</span><span class="op">.</span><span class="fu">InterfaceIndex</span> <span class="op">-</span>ServerAddresses <span class="op">(</span><span class="st">&quot;127.0.0.1&quot;</span><span class="op">,</span> <span class="st">&quot;8.8.8.8&quot;</span><span class="op">)</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>DnsClientServerAddress <span class="op">-</span>InterfaceIndex <span class="va">$adapter</span><span class="op">.</span><span class="fu">InterfaceIndex</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Register DNS</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>ipconfig <span class="op">/</span>registerdns</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Test DNS</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>nslookup SouthernEscrow<span class="op">.</span><span class="fu">com</span></span></code></pre></div>
+<h3 id="recreate-file-shares">6.5 Recreate File Shares</h3>
+<p><strong>Copy scripts to C:1:</strong></p>
+<p>Transfer your F: drive scripts to the DC: -
+1-Setup-Directories-F-Drive.ps1 - 2-Set-NTFS-Permissions-F-Drive.ps1 -
+3-Create-SMB-Shares-F-Drive.ps1 -
+4-Validate-Configuration-F-Drive.ps1</p>
+<p><strong>Run the scripts:</strong></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> C<span class="op">:</span>\ps1</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Directories should already exist from data copy</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\1<span class="op">-</span>Setup<span class="op">-</span>Directories<span class="op">-</span>F<span class="op">-</span>Drive<span class="op">.</span><span class="fu">ps1</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Should show &quot;Already exists&quot; for all</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply NTFS permissions</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\2<span class="op">-</span>Set<span class="op">-</span>NTFS<span class="op">-</span>Permissions<span class="op">-</span>F<span class="op">-</span>Drive<span class="op">.</span><span class="fu">ps1</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Press key to confirm</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create SMB shares</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\3<span class="op">-</span>Create<span class="op">-</span>SMB<span class="op">-</span>Shares<span class="op">-</span>F<span class="op">-</span>Drive<span class="op">.</span><span class="fu">ps1</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Validate everything</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\4<span class="op">-</span>Validate<span class="op">-</span>Configuration<span class="op">-</span>F<span class="op">-</span>Drive<span class="op">.</span><span class="fu">ps1</span></span></code></pre></div>
+<p><strong>Verify shares:</strong></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List all shares</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>SmbShare <span class="op">|</span> <span class="fu">Format-Table</span> Name<span class="op">,</span> Path</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected shares:</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># F, FTP Data, HomeDirs, Legal, PostClosing, Qbooks,</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co"># SeaCrestScans, SetcoDocs, Versacheck, Whole Life Fitness, worddocs</span></span></code></pre></div>
+<h3 id="run-dc-health-check">6.6 Run DC Health Check</h3>
+<div class="sourceCode" id="cb29"><pre class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a># Comprehensive DC diagnostic</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>dcdiag <span class="at">/v</span> <span class="kw">&gt;</span> C:\Logs\dcdiag.txt</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a># Review output</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>notepad C:\Logs\dcdiag.txt</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a># Check replication (if multiple DCs<span class="kw">)</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>repadmin <span class="at">/showrepl</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a># Verify DNS</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>dcdiag <span class="at">/test:</span>dns</span></code></pre></div>
+<h3 id="test-from-client">6.7 Test from Client</h3>
+<p><strong>From a client workstation:</strong></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a># Test DNS resolution</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>nslookup SouthernEscrow.com</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a># Test DC connectivity</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>nltest <span class="at">/dsgetdc:</span>SouthernEscrow.com</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a># Test share access</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>net view \\DC-Setco-NewTenant</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a># Map a test drive</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>net use Z: \\DC-Setco-NewTenant\HomeDirs</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a># Test file access</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span> Z:</span></code></pre></div>
+<p><strong>Checklist:</strong> - [ ] RDP connection successful - [ ]
+C: drive accessible - [ ] F: drive online and accessible - [ ] All data
+folders visible on F:<br />
+- [ ] AD services running - [ ] Domain is SouthernEscrow.com - [ ] DNS
+pointing to itself - [ ] DNS resolution working - [ ] All file shares
+created - [ ] dcdiag passes (or acceptable warnings) - [ ] Client can
+access shares - [ ] Users can authenticate</p>
+<hr />
+<h2 id="phase-7-cutover">PHASE 7: Cutover</h2>
+<h3 id="your-tasks">Your Tasks:</h3>
+<h4 id="pre-cutover-coordination">7.0 Pre-Cutover Coordination</h4>
+<ul>
+<li>Notify users of maintenance window</li>
+<li>Schedule cutover during low-usage time</li>
+<li>Coordinate with vendor if they manage client DNS/DHCP</li>
+</ul>
+<h3 id="dnsdhcp-updates">DNS/DHCP Updates:</h3>
+<ul>
+<li>If YOU manage DNS/DHCP: Update clients to point to new DC IP
+(10.0.1.4)</li>
+<li>If vendor manages: Provide new DC IP and coordinate timing</li>
+</ul>
+<h3 id="old-dc-decommission">Old DC Decommission:</h3>
+<ul>
+<li><strong>Do NOT decommission immediately</strong></li>
+<li>Wait 2+ weeks to ensure stability</li>
+<li>Verify all users connecting to new DC</li>
+<li>Coordinate with vendor via NinjaOne to gracefully demote old DC</li>
+</ul>
+<h3 id="your-post-cutover-tasks">Your Post-Cutover Tasks:</h3>
+<h4 id="monitor-for-48-hours">7.1 Monitor for 48 Hours</h4>
+<div class="sourceCode" id="cb31"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check Event Viewer - Directory Services log</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-EventLog</span> <span class="op">-</span>LogName <span class="st">&quot;Directory Service&quot;</span> <span class="op">-</span>Newest 50 <span class="op">|</span> <span class="fu">Where-Object</span> <span class="op">{</span><span class="va">$_</span><span class="op">.</span><span class="fu">EntryType</span> <span class="op">-</span>eq <span class="st">&quot;Error&quot;</span><span class="op">}</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Monitor failed logins</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-EventLog</span> <span class="op">-</span>LogName Security <span class="op">|</span> <span class="fu">Where-Object</span> <span class="op">{</span><span class="va">$_</span><span class="op">.</span><span class="fu">EventID</span> <span class="op">-</span>eq 4625<span class="op">}</span> <span class="op">|</span> <span class="fu">Select-Object</span> <span class="op">-</span>First 10</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check share access</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>SmbOpenFile <span class="op">|</span> <span class="fu">Format-Table</span> ClientComputerName<span class="op">,</span> ClientUserName<span class="op">,</span> Path</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Monitor disk space</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>Volume</span></code></pre></div>
+<h4 id="configure-backups">7.2 Configure Backups</h4>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enable Azure Backup</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> backup vault create <span class="dt">\</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> Vault-Setco-DC <span class="dt">\</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--location</span> eastus</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Enable backup for VM</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> backup protection enable-for-vm <span class="dt">\</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--vault-name</span> Vault-Setco-DC <span class="dt">\</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--vm</span> DC-Setco-NewTenant <span class="dt">\</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--policy-name</span> DefaultPolicy</span></code></pre></div>
+<h4 id="take-snapshots">7.3 Take Snapshots</h4>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Snapshot OS disk</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> snapshot create <span class="dt">\</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> DC-OS-Snapshot-PostMigration <span class="dt">\</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--source</span> DC-Setco-OS-Disk</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Snapshot data disk</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> snapshot create <span class="dt">\</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> DC-Data-Snapshot-PostMigration <span class="dt">\</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--source</span> DC-Setco-Data-Disk</span></code></pre></div>
+<hr />
+<h2 id="quick-reference-commands">Quick Reference Commands</h2>
+<h3 id="check-robocopy-progress-on-fs">Check Robocopy Progress (on
+FS)</h3>
+<div class="sourceCode" id="cb34"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-ChildItem</span> F<span class="op">:</span>\Backup <span class="op">-</span>Recurse <span class="op">|</span> <span class="fu">Measure-Object</span> <span class="op">-</span>Property Length <span class="op">-</span>Sum</span></code></pre></div>
+<h3 id="list-azure-resources">List Azure Resources</h3>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> resource list <span class="at">--resource-group</span> RG-Setco-DC <span class="at">--output</span> table</span></code></pre></div>
+<h3 id="vm-status">VM Status</h3>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> vm get-instance-view <span class="at">--resource-group</span> RG-Setco-DC <span class="at">--name</span> DC-Setco-NewTenant <span class="at">--query</span> instanceView.statuses</span></code></pre></div>
+<h3 id="check-disk-status">Check Disk Status</h3>
+<div class="sourceCode" id="cb37"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>Disk</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>Volume</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>Partition</span></code></pre></div>
+<h3 id="verify-shares">Verify Shares</h3>
+<div class="sourceCode" id="cb38"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>SmbShare</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>SmbShareAccess <span class="op">-</span>Name HomeDirs</span></code></pre></div>
+<h3 id="check-ad-health">Check AD Health</h3>
+<div class="sourceCode" id="cb39"><pre class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>dcdiag <span class="at">/v</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>netdom query fsmo</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>repadmin <span class="at">/showrepl</span></span></code></pre></div>
+<hr />
+<h2 id="coordination-points-with-vendor">Coordination Points with
+Vendor</h2>
+<h3 id="what-you-need-from-vendor">What You Need from Vendor:</h3>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 30%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>When</th>
+<th>Format</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>OS VHD export</td>
+<td>Phase 3</td>
+<td>Vendor uploads via AzCopy to your storage</td>
+</tr>
+<tr class="even">
+<td>Domain admin password</td>
+<td>Before VM start</td>
+<td>Secure method (if not already known)</td>
+</tr>
+<tr class="odd">
+<td>Original DC IP/hostname</td>
+<td>During planning</td>
+<td>Documentation</td>
+</tr>
+<tr class="even">
+<td>Azure Portal access confirmation</td>
+<td>Pre-migration</td>
+<td>Vendor confirms they can export VHD</td>
+</tr>
+<tr class="odd">
+<td>Cutover coordination</td>
+<td>Pre-cutover</td>
+<td>If they manage client DNS/DHCP</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-you-provide-to-vendor">What You Provide to Vendor:</h3>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 30%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>When</th>
+<th>Format</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Storage SAS token</td>
+<td>Phase 2</td>
+<td>SAS URL for VHD upload</td>
+</tr>
+<tr class="even">
+<td>New DC IP address</td>
+<td>Post-build</td>
+<td>10.0.1.4</td>
+</tr>
+<tr class="odd">
+<td>Cutover confirmation</td>
+<td>Post-validation</td>
+<td>Email/call</td>
+</tr>
+<tr class="even">
+<td>Old DC decommission request</td>
+<td>After 2+ weeks</td>
+<td>Via NinjaOne coordination</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="timeline">Timeline</h2>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 22%" />
+<col style="width: 31%" />
+<col style="width: 29%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Phase</th>
+<th>Duration</th>
+<th>Dependencies</th>
+<th>Who Does It</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. YOU run robocopy via NinjaOne</td>
+<td>6-12 hours</td>
+<td>Network speed</td>
+<td>YOU</td>
+</tr>
+<tr class="even">
+<td>2. Prep infrastructure</td>
+<td>1 hour</td>
+<td>Can run parallel</td>
+<td>YOU</td>
+</tr>
+<tr class="odd">
+<td>3. OS VHD import</td>
+<td>2-4 hours</td>
+<td>Vendor export</td>
+<td>Vendor exports, YOU import</td>
+</tr>
+<tr class="even">
+<td>4. Data disk creation</td>
+<td>2-6 hours</td>
+<td>Robocopy done</td>
+<td>YOU</td>
+</tr>
+<tr class="odd">
+<td>5. VM build</td>
+<td>30 min</td>
+<td>Both disks ready</td>
+<td>YOU</td>
+</tr>
+<tr class="even">
+<td>6. Configuration</td>
+<td>2-3 hours</td>
+<td>-</td>
+<td>YOU</td>
+</tr>
+<tr class="odd">
+<td>7. Testing</td>
+<td>2-4 hours</td>
+<td>-</td>
+<td>YOU</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td><strong>15-30 hours</strong></td>
+<td>Over 2-3 days</td>
+<td>Mostly YOU</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="robocopy-issues">Robocopy Issues</h3>
+<p><strong>Can’t map Y: drive from DC to FS:</strong></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a># Test network connectivity from DC</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>ping FS<span class="at">-SERVERNAME</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>ping 10.x.x.x</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a># Check SMB port</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>Test-NetConnection <span class="at">-ComputerName</span> FS<span class="at">-SERVERNAME</span> <span class="at">-Port</span> 445</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a># Try with IP instead of hostname</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>net use Y: \\10.x.x.x\F$ <span class="at">/user:</span>DESTINATION\Administrator</span></code></pre></div>
+<p><strong>Robocopy fails with access denied:</strong></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a># Ensure you&#39;re running CMD as Administrator on source DC</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a># Verify credentials are correct</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a># Check that F$ share exists on FS and has admin access</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a># On FS, verify admin share</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>Get-SmbShare <span class="at">-Name</span> F$</span></code></pre></div>
+<p><strong>Robocopy slow or timing out:</strong></p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a># Reduce thread count</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>robocopy E:\ Y:\Backup <span class="at">/MIR</span> <span class="at">/COPYALL</span> <span class="at">/DCOPY:</span>T <span class="at">/MT:</span>8 <span class="at">/R:</span>3 <span class="at">/W:</span>5 <span class="at">/B</span> <span class="at">/LOG:</span>C:\Logs\robocopy.log <span class="at">/TEE</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a># Or increase wait time</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>robocopy E:\ Y:\Backup <span class="at">/MIR</span> <span class="at">/COPYALL</span> <span class="at">/DCOPY:</span>T <span class="at">/MT:</span>32 <span class="at">/R:</span>5 <span class="at">/W:</span>30 <span class="at">/B</span> <span class="at">/LOG:</span>C:\Logs\robocopy.log <span class="at">/TEE</span></span></code></pre></div>
+<h3 id="os-vhd-upload-fails">OS VHD Upload Fails</h3>
+<div class="sourceCode" id="cb43"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Regenerate SAS token (24hr expiry)</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> storage container generate-sas <span class="dt">\</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--account-name</span> setcodcmigration <span class="dt">\</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> vhd-import <span class="dt">\</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--permissions</span> racwdl <span class="dt">\</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--expiry</span> <span class="va">$(</span><span class="fu">date</span> <span class="at">-u</span> <span class="at">-d</span> <span class="st">&quot;1 day&quot;</span> <span class="st">&#39;+%Y-%m-%dT%H:%MZ&#39;</span><span class="va">)</span> <span class="dt">\</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--auth-mode</span> login <span class="dt">\</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> tsv</span></code></pre></div>
+<h3 id="data-disk-not-showing-as-f">Data Disk Not Showing as F:<br />
+</h3>
+<div class="sourceCode" id="cb44"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>Set<span class="op">-</span>Disk <span class="op">-</span>Number 1 <span class="op">-</span>IsOffline <span class="va">$false</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>Partition <span class="op">-</span>DiskNumber 1 <span class="op">|</span> Set<span class="op">-</span>Partition <span class="op">-</span>NewDriveLetter F</span></code></pre></div>
+<h3 id="vm-wont-start">VM Won’t Start</h3>
+<div class="sourceCode" id="cb45"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check boot diagnostics</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> vm boot-diagnostics get-boot-log <span class="dt">\</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> DC-Setco-NewTenant</span></code></pre></div>
+<h3 id="cant-rdp">Can’t RDP</h3>
+<div class="sourceCode" id="cb46"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reset RDP (if needed)</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> vm user reset-ssh <span class="dt">\</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> RG-Setco-DC <span class="dt">\</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> DC-Setco-NewTenant</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Check NSG rules</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network nsg rule list <span class="at">--resource-group</span> RG-Setco-DC <span class="at">--nsg-name</span> NSG-DC <span class="at">--output</span> table</span></code></pre></div>
+<hr />
+<h2 id="success-criteria">Success Criteria</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Data sync complete (vendor
+confirmed)</label></li>
+<li><label><input type="checkbox"></input>OS VHD imported
+successfully</label></li>
+<li><label><input type="checkbox"></input>Data disk created from
+FS</label></li>
+<li><label><input type="checkbox"></input>VM boots and runs</label></li>
+<li><label><input type="checkbox"></input>Can RDP to VM</label></li>
+<li><label><input type="checkbox"></input>C: and F: drives
+accessible</label></li>
+<li><label><input type="checkbox"></input>AD services running</label></li>
+<li><label><input type="checkbox"></input>DNS resolving correctly</label></li>
+<li><label><input type="checkbox"></input>All 11 file shares
+created</label></li>
+<li><label><input type="checkbox"></input>dcdiag passes</label></li>
+<li><label><input type="checkbox"></input>Client can access
+shares</label></li>
+<li><label><input type="checkbox"></input>Users can authenticate</label></li>
+<li><label><input type="checkbox"></input>No critical errors in Event
+Viewer</label></li>
+</ul>
+<hr />
+<p><strong>Document Version:</strong> 2.0 (Updated for NinjaOne Access)
+<strong>Created:</strong> 2025-11-17 <strong>Updated:</strong>
+2025-11-17 <strong>Your Environment:</strong> Destination Tenant Owner +
+NinjaOne Access to Source DC <strong>Vendor Environment:</strong> Source
+Azure Tenant Portal Access Only</p>
+</body>
+</html>

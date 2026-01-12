@@ -1,0 +1,556 @@
+========================================
+Share: Crestview-Sharp-Upstairs
+Path: Crestview-Sharp-Upstairs,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: E
+Path: E:\
+NTFS Permissions:
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::E:\
+Owner  : BUILTIN\Administrators
+Group  : NT AUTHORITY\SYSTEM
+Access : Everyone Allow  ReadAndExecute, Synchronize
+         CREATOR OWNER Allow  268435456
+         NT AUTHORITY\SYSTEM Allow  FullControl
+         BUILTIN\Administrators Allow  FullControl
+         BUILTIN\Users Allow  AppendData
+         BUILTIN\Users Allow  CreateFiles
+         BUILTIN\Users Allow  ReadAndExecute, Synchronize
+Audit  : 
+Sddl   : O:BAG:SYD:(A;;0x1200a9;;;WD)(A;OICIIO;GA;;;CO)(A;OICI;FA;;;SY)(A;OICI;FA;;;BA)(A;CI;LC;;;BU)(A;CIIO;DC;;;BU)(A
+         ;OICI;0x1200a9;;;BU)
+
+
+
+========================================
+Share: FTP Data
+Path: E:\FTP Data
+NTFS Permissions:
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::E:\FTP Data
+Owner  : BUILTIN\Administrators
+Group  : SOUTHERN\Domain Users
+Access : Everyone Allow  FullControl
+         BUILTIN\Administrators Allow  FullControl
+         SOUTHERN\Domain Admins Allow  FullControl
+         SOUTHERN\Domain Users Allow  FullControl
+Audit  : 
+Sddl   : O:BAG:DUD:PAI(A;OICI;FA;;;WD)(A;;FA;;;BA)(A;OICI;FA;;;DA)(A;OICI;FA;;;DU)
+
+
+
+========================================
+Share: HomeDirs
+Path: E:\HomeDirs
+NTFS Permissions:
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::E:\HomeDirs
+Owner  : BUILTIN\Administrators
+Group  : SOUTHERN\Domain Users
+Access : SOUTHERN\Administrator Allow  ReadAndExecute, Synchronize
+         SOUTHERN\Domain Admins Allow  FullControl
+         SOUTHERN\Domain Admins Allow  ReadAndExecute, Synchronize
+         SOUTHERN\PJarvis Allow  ReadAndExecute, Synchronize
+         SOUTHERN\JMFSolutions Allow  FullControl
+         SOUTHERN\JMFSolutions Allow  ReadAndExecute, Synchronize
+         SOUTHERN\kcouvillion Allow  ReadAndExecute, Synchronize
+         SOUTHERN\bbuege Allow  ReadAndExecute, Synchronize
+         S-1-5-21-117609710-1303643608-725345543-8107 Allow  FullControl
+         SOUTHERN\lsavio Allow  ReadAndExecute, Synchronize
+         SOUTHERN\lsavio Allow  FullControl
+         SOUTHERN\datatrustinc Allow  FullControl
+         SOUTHERN\datatrustinc Allow  ReadAndExecute, Synchronize
+         SOUTHERN\setcoadmin Allow  FullControl
+         SOUTHERN\setcoadmin Allow  ReadAndExecute, Synchronize
+         SOUTHERN\Tmarsh Allow  ReadAndExecute, Synchronize
+         SOUTHERN\Bdeweese Allow  ReadAndExecute, Synchronize
+         S-1-5-21-117609710-1303643608-725345543-22623 Allow  ReadAndExecute, Synchronize
+         SOUTHERN\wgibson Allow  FullControl
+         SOUTHERN\oc-michael.mccool Allow  FullControl
+         SOUTHERN\kyork Allow  ReadAndExecute, Synchronize
+         SOUTHERN\oberaconnect Allow  FullControl
+         SOUTHERN\mhelms Allow  ReadAndExecute, Synchronize
+Audit  : 
+Sddl   : O:BAG:DUD:PAI(A;;0x1200a9;;;LA)(A;OICI;FA;;;DA)(A;;0x1200a9;;;DA)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-
+         725345543-1128)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-5646)(A;;0x1200a9;;;S-1-5-21-117609710-130
+         3643608-725345543-5646)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-5654)(A;;0x1200a9;;;S-1-5-21-117
+         609710-1303643608-725345543-7644)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-8107)(A;;0x1200a9;;;S-1-
+         5-21-117609710-1303643608-725345543-9138)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-9138)(A;OICI;FA;
+         ;;S-1-5-21-117609710-1303643608-725345543-21608)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-21608)(
+         A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-21609)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-7253455
+         43-21609)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-22616)(A;;0x1200a9;;;S-1-5-21-117609710-130364
+         3608-725345543-22617)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-22623)(A;OICI;FA;;;S-1-5-21-117609
+         710-1303643608-725345543-22624)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-22633)(A;;0x1200a9;;;S-1-5
+         -21-117609710-1303643608-725345543-24120)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-24126)(A;;0x1200
+         a9;;;S-1-5-21-117609710-1303643608-725345543-24127)
+
+
+
+========================================
+Share: HP LaserJet Pro M402-M403 n-dne PCB Checks
+Path: HP LaserJet Pro M402-M403 n-dne PCB Checks,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: HP Photosmart D7400 PanamaCity
+Path: HP Photosmart D7400 PanamaCity,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: HPLaserjet1300-Panama City
+Path: HPLaserjet1300-Panama City,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: HPLaserjet2200-Accounting
+Path: HPLaserjet2200-Accounting,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: Legal
+Path: E:\HomeDirs\Legal
+NTFS Permissions:
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::E:\HomeDirs\Legal
+Owner  : SOUTHERN\Administrator
+Group  : SOUTHERN\Domain Users
+Access : SOUTHERN\Administrator Allow  FullControl
+         SOUTHERN\Domain Admins Allow  FullControl
+         SOUTHERN\gbrannon Allow  FullControl
+         SOUTHERN\GBrannonjr Allow  FullControl
+         SOUTHERN\kcouvillion Allow  FullControl
+         SOUTHERN\mbrannon Allow  FullControl
+         SOUTHERN\mhudson-2 Allow  FullControl
+Audit  : 
+Sddl   : O:LAG:DUD:PAI(A;OICI;FA;;;LA)(A;OICI;FA;;;DA)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-1136)(A;OICI
+         ;FA;;;S-1-5-21-117609710-1303643608-725345543-1137)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-5654)(
+         A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-8131)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-
+         9169)
+
+
+
+========================================
+Share: Lexmark FWB Checks
+Path: Lexmark Fort Walton Check Printer,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: Lexmark XM1100 Series XL DraperJ-30A
+Path: Lexmark XM1100 Series XL DraperJ-30A,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: Lexmark-M3150-Crestview
+Path: Lexmark-M3150-Crestview,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: Lexmark-M3150-Defuniak
+Path: Lexmark-M3150-Defuniak,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: Lexmark-M3150-Destin-Check
+Path: Lexmark-M3150-Destin-Check,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: Lexmark-M3150-FWB
+Path: Lexmark-M3150-FWB,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: Lexmark-M3150-Pace-Check
+Path: Lexmark-M3150-Pace-Check,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: Lexmark-M3150-PanamaCity-check
+Path: Lexmark-M3150-PanamaCity-Check,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: Lexmark-M3150-PanamaCity-Plain
+Path: Lexmark-M3150-PanamaCity-Plain,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: Lexmark-M3150-Pensacola-Check
+Path: Lexmark-M3150-Pensacola-Check,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: Navarre-Back-Lexmark-M3150
+Path: Navarre-Back-Lexmark-M3150,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: Navarre-Back-MX-M6071
+Path: Navarre-Back-MX-M6071,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: NETLOGON
+Path: C:\Windows\SYSVOL\sysvol\SouthernEscrow.com\SCRIPTS
+NTFS Permissions:
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::C:\Windows\SYSVOL\sysvol\SouthernEscrow.com\SCRIPTS
+Owner  : BUILTIN\Administrators
+Group  : NT AUTHORITY\SYSTEM
+Access : CREATOR OWNER Allow  268435456
+         NT AUTHORITY\Authenticated Users Allow  -1610612736
+         NT AUTHORITY\Authenticated Users Allow  ReadAndExecute, Synchronize
+         NT AUTHORITY\SYSTEM Allow  268435456
+         NT AUTHORITY\SYSTEM Allow  FullControl
+         BUILTIN\Administrators Allow  268435456
+         BUILTIN\Administrators Allow  Write, ReadAndExecute, ChangePermissions, TakeOwnership, Synchronize
+         BUILTIN\Server Operators Allow  -1610612736
+         BUILTIN\Server Operators Allow  ReadAndExecute, Synchronize
+Audit  : 
+Sddl   : O:BAG:SYD:PAI(A;OICIIO;GA;;;CO)(A;OICIIO;GXGR;;;AU)(A;;0x1200a9;;;AU)(A;OICIIO;GA;;;SY)(A;;FA;;;SY)(A;OICIIO;G
+         A;;;BA)(A;;0x1e01bf;;;BA)(A;OICIIO;GXGR;;;SO)(A;;0x1200a9;;;SO)
+
+
+
+========================================
+Share: Pensacola Lexmark
+Path: Pensacola Lexmark,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: PostClosing
+Path: E:\PostClosing
+NTFS Permissions:
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::E:\PostClosing
+Owner  : BUILTIN\Administrators
+Group  : SOUTHERN\Domain Users
+Access : SOUTHERN\Domain Admins Allow  FullControl
+         SOUTHERN\GBrannonjr Allow  FullControl
+         SOUTHERN\PostClosers Allow  FullControl
+         SOUTHERN\kcouvillion Allow  FullControl
+         SOUTHERN\cgeiselman Allow  FullControl
+         SOUTHERN\cbrooks Allow  FullControl
+         SOUTHERN\kmcdonald Allow  FullControl
+         SOUTHERN\datatrustinc Allow  FullControl
+         SOUTHERN\oc-theresa.gilbert Allow  FullControl
+         SOUTHERN\oberaconnect Allow  FullControl
+Audit  : 
+Sddl   : O:BAG:DUD:PAI(A;OICI;FA;;;DA)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-1137)(A;OICI;FA;;;S-1-5-21-1
+         17609710-1303643608-725345543-2113)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-5654)(A;OICI;FA;;;S-1-
+         5-21-117609710-1303643608-725345543-9165)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-9202)(A;OICI;FA;
+         ;;S-1-5-21-117609710-1303643608-725345543-21132)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-21608)(A;
+         OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-22632)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-2
+         4126)
+
+
+
+========================================
+Share: Qbooks
+Path: E:\Qbooks
+NTFS Permissions:
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::E:\Qbooks
+Owner  : BUILTIN\Administrators
+Group  : SOUTHERN\Domain Users
+Access : SOUTHERN\Domain Admins Allow  FullControl
+         SOUTHERN\PJarvis Allow  FullControl
+         SOUTHERN\GBrannonjr Allow  FullControl
+         SOUTHERN\kcouvillion Allow  FullControl
+         SOUTHERN\datatrustinc Allow  FullControl
+Audit  : 
+Sddl   : O:BAG:DUD:PAI(A;OICI;FA;;;DA)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-1128)(A;OICI;FA;;;S-1-5-21-1
+         17609710-1303643608-725345543-1137)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-5654)(A;OICI;FA;;;S-1-
+         5-21-117609710-1303643608-725345543-21608)
+
+
+
+========================================
+Share: RICOH-SP5300-PCB
+Path: RICOH-SP5300,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SeaCrestScans
+Path: E:\SeaCrestScans
+NTFS Permissions:
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::E:\SeaCrestScans
+Owner  : BUILTIN\Administrators
+Group  : SOUTHERN\Domain Users
+Access : Everyone Allow  FullControl
+         BUILTIN\Administrators Allow  FullControl
+         BUILTIN\Administrators Allow  FullControl
+         NT AUTHORITY\SYSTEM Allow  FullControl
+         CREATOR OWNER Allow  268435456
+         BUILTIN\Users Allow  ReadAndExecute, Synchronize
+         BUILTIN\Users Allow  AppendData
+         BUILTIN\Users Allow  CreateFiles
+Audit  : 
+Sddl   : O:BAG:DUD:AI(A;OICI;FA;;;WD)(A;;FA;;;BA)(A;OICIID;FA;;;BA)(A;OICIID;FA;;;SY)(A;OICIIOID;GA;;;CO)(A;OICIID;0x12
+         00a9;;;BU)(A;CIID;LC;;;BU)(A;CIID;DC;;;BU)
+
+
+
+========================================
+Share: SetcoDocs
+Path: E:\SetcoDocs
+NTFS Permissions:
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::E:\SetcoDocs
+Owner  : BUILTIN\Administrators
+Group  : SOUTHERN\Domain Users
+Access : Everyone Allow  FullControl
+         BUILTIN\Administrators Allow  FullControl
+         SOUTHERN\gbrannon Allow  ReadAndExecute, Synchronize
+         SOUTHERN\GBrannonjr Allow  ReadAndExecute, Synchronize
+         SOUTHERN\lsavio Allow  ReadAndExecute, Synchronize
+         SOUTHERN\ktoolan Allow  FullControl
+         SOUTHERN\kmcdonald Allow  ReadAndExecute, Synchronize
+         SOUTHERN\datatrustinc Allow  ReadAndExecute, Synchronize
+Audit  : 
+Sddl   : O:BAG:DUD:PAI(A;OICI;FA;;;WD)(A;;FA;;;BA)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-1136)(A;;0x120
+         0a9;;;S-1-5-21-117609710-1303643608-725345543-1137)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-9138
+         )(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-9296)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345
+         543-21132)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-21608)
+
+
+
+========================================
+Share: SHARP MX-B350W PCL6 HudsonLaw
+Path: SHARP MX-B350W PCL6 HudsonLaw,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SHARP MX-M316N-Pensacola
+Path: SHARP MX-M316N-Pensacola,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SHARP MX-M4070 PCL6 DraperJ-30A
+Path: SHARP BP-22C20 PCL6 Draper J 30 A,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SHARP MX-M4070 PCL6 PanamaCity 23rd St
+Path: SHARP UD3 PCL6 (Copy 3),LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SHARP MX-M4071 PCL6 -30A Suite 204
+Path: SHARP UD3 PCL6 30a,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SHARP MX-M4071-Crestview
+Path: SHARP MX-M4071 Crestview,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SHARP MX-M4071-FWB
+Path: SHARP MX-M4071-FWB,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SHARP MX-M4071-Panama-City2
+Path: SHARP MX-M4071-Panama-City2,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SHARP MX-M4071-PostClosing
+Path: SHARP MX-M4071-PostClosing,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SHARP MX-M465N-Destin-Main
+Path: SHARP MX-M465N-Destin-Main,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SHARP MX-M465N-PanamaCityBeach
+Path: SHARP MX-M465N-PanamaCityBeach,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SHARP MX-M5070-Pace
+Path: SHARP MX-M5070-Pace,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SHARP UD3 PCL6
+Path: Navarre-Front-MXM654,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SHARP UD3 PCL6 (Copy 1)
+Path: Navarre-Rec-MXM246N,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SHARP UD3 PCL6 Port St Joe
+Path: SHARP UD3 PCL6 Port St Joe,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SHARP-Destin-Admin
+Path: SHARP MX-C300P PCL6-Destin-Admin,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SHARP-MX-M4070-Defuniak
+Path: SHARP-MX-M4070-Defuniak,LocalsplOnly
+NTFS Permissions:
+========================================
+Share: SYSVOL
+Path: C:\Windows\SYSVOL\sysvol
+NTFS Permissions:
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::C:\Windows\SYSVOL\sysvol
+Owner  : BUILTIN\Administrators
+Group  : NT AUTHORITY\SYSTEM
+Access : CREATOR OWNER Allow  -536084480
+         NT AUTHORITY\Authenticated Users Allow  -1610612736
+         NT AUTHORITY\Authenticated Users Allow  ReadAndExecute, Synchronize
+         NT AUTHORITY\SYSTEM Allow  268435456
+         NT AUTHORITY\SYSTEM Allow  FullControl
+         BUILTIN\Administrators Allow  -536084480
+         BUILTIN\Administrators Allow  Write, ReadAndExecute, ChangePermissions, TakeOwnership, Synchronize
+         BUILTIN\Server Operators Allow  -1610612736
+         BUILTIN\Server Operators Allow  ReadAndExecute, Synchronize
+Audit  : 
+Sddl   : O:BAG:SYD:PAI(A;OICIIO;WDWOGXGWGR;;;CO)(A;OICIIO;GXGR;;;AU)(A;;0x1200a9;;;AU)(A;OICIIO;GA;;;SY)(A;;FA;;;SY)(A;
+         OICIIO;WDWOGXGWGR;;;BA)(A;;0x1e01bf;;;BA)(A;OICIIO;GXGR;;;SO)(A;;0x1200a9;;;SO)
+
+
+
+========================================
+Share: Versacheck
+Path: E:\Versacheck
+NTFS Permissions:
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::E:\Versacheck
+Owner  : BUILTIN\Administrators
+Group  : SOUTHERN\Domain Users
+Access : CREATOR OWNER Allow  FullControl
+         NT AUTHORITY\SYSTEM Allow  FullControl
+         BUILTIN\Administrators Allow  FullControl
+         SOUTHERN\PJarvis Allow  FullControl
+Audit  : 
+Sddl   : O:BAG:DUD:PAI(A;OICIIO;FA;;;CO)(A;OICI;FA;;;SY)(A;OICI;FA;;;BA)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-7253
+         45543-1128)
+
+
+
+========================================
+Share: Whole Life Fitness
+Path: E:\Whole Life Fitness
+NTFS Permissions:
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::E:\Whole Life Fitness
+Owner  : BUILTIN\Administrators
+Group  : G:S-1-5-21-3450599359-2096226002-3553231297-513
+Access : NT AUTHORITY\SYSTEM Allow  FullControl
+         SOUTHERN\Domain Admins Allow  FullControl
+         SOUTHERN\PJarvis Allow  FullControl
+         SOUTHERN\gbrannon Allow  FullControl
+         SOUTHERN\GBrannonjr Allow  FullControl
+         SOUTHERN\brookebrannon Allow  FullControl
+         SOUTHERN\kcouvillion Allow  FullControl
+Audit  : 
+Sddl   : O:BAG:S-1-5-21-3450599359-2096226002-3553231297-513D:PAI(A;OICI;FA;;;SY)(A;OICI;FA;;;DA)(A;OICI;FA;;;S-1-5-21-
+         117609710-1303643608-725345543-1128)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-1136)(A;OICI;FA;;;S-1
+         -5-21-117609710-1303643608-725345543-1137)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-3641)(A;OICI;FA
+         ;;;S-1-5-21-117609710-1303643608-725345543-5654)
+
+
+
+========================================
+Share: worddocs
+Path: E:\NTSYS\worddocs
+NTFS Permissions:
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::E:\NTSYS\worddocs
+Owner  : BUILTIN\Administrators
+Group  : SOUTHERN\Domain Users
+Access : BUILTIN\Administrators Allow  FullControl
+         NT AUTHORITY\SYSTEM Allow  FullControl
+         SOUTHERN\Administrator Allow  FullControl
+         BUILTIN\Administrators Allow  FullControl
+         Everyone Allow  FullControl
+Audit  : 
+Sddl   : O:BAG:DUD:AI(A;;FA;;;BA)(A;OICIID;FA;;;SY)(A;OICIID;FA;;;LA)(A;OICIID;FA;;;BA)(A;OICIID;FA;;;WD)
+
+
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::E:\SetcoDocs
+Owner  : BUILTIN\Administrators
+Group  : SOUTHERN\Domain Users
+Access : Everyone Allow  FullControl
+         BUILTIN\Administrators Allow  FullControl
+         SOUTHERN\gbrannon Allow  ReadAndExecute, Synchronize
+         SOUTHERN\GBrannonjr Allow  ReadAndExecute, Synchronize
+         SOUTHERN\lsavio Allow  ReadAndExecute, Synchronize
+         SOUTHERN\ktoolan Allow  FullControl
+         SOUTHERN\kmcdonald Allow  ReadAndExecute, Synchronize
+         SOUTHERN\datatrustinc Allow  ReadAndExecute, Synchronize
+Audit  : 
+Sddl   : O:BAG:DUD:PAI(A;OICI;FA;;;WD)(A;;FA;;;BA)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-1136)(A;;0x120
+         0a9;;;S-1-5-21-117609710-1303643608-725345543-1137)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-9138
+         )(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-9296)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345
+         543-21132)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-21608)
+
+
+
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::E:\HomeDirs
+Owner  : BUILTIN\Administrators
+Group  : SOUTHERN\Domain Users
+Access : SOUTHERN\Administrator Allow  ReadAndExecute, Synchronize
+         SOUTHERN\Domain Admins Allow  FullControl
+         SOUTHERN\Domain Admins Allow  ReadAndExecute, Synchronize
+         SOUTHERN\PJarvis Allow  ReadAndExecute, Synchronize
+         SOUTHERN\JMFSolutions Allow  FullControl
+         SOUTHERN\JMFSolutions Allow  ReadAndExecute, Synchronize
+         SOUTHERN\kcouvillion Allow  ReadAndExecute, Synchronize
+         SOUTHERN\bbuege Allow  ReadAndExecute, Synchronize
+         S-1-5-21-117609710-1303643608-725345543-8107 Allow  FullControl
+         SOUTHERN\lsavio Allow  ReadAndExecute, Synchronize
+         SOUTHERN\lsavio Allow  FullControl
+         SOUTHERN\datatrustinc Allow  FullControl
+         SOUTHERN\datatrustinc Allow  ReadAndExecute, Synchronize
+         SOUTHERN\setcoadmin Allow  FullControl
+         SOUTHERN\setcoadmin Allow  ReadAndExecute, Synchronize
+         SOUTHERN\Tmarsh Allow  ReadAndExecute, Synchronize
+         SOUTHERN\Bdeweese Allow  ReadAndExecute, Synchronize
+         S-1-5-21-117609710-1303643608-725345543-22623 Allow  ReadAndExecute, Synchronize
+         SOUTHERN\wgibson Allow  FullControl
+         SOUTHERN\oc-michael.mccool Allow  FullControl
+         SOUTHERN\kyork Allow  ReadAndExecute, Synchronize
+         SOUTHERN\oberaconnect Allow  FullControl
+         SOUTHERN\mhelms Allow  ReadAndExecute, Synchronize
+Audit  : 
+Sddl   : O:BAG:DUD:PAI(A;;0x1200a9;;;LA)(A;OICI;FA;;;DA)(A;;0x1200a9;;;DA)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-
+         725345543-1128)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-5646)(A;;0x1200a9;;;S-1-5-21-117609710-130
+         3643608-725345543-5646)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-5654)(A;;0x1200a9;;;S-1-5-21-117
+         609710-1303643608-725345543-7644)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-8107)(A;;0x1200a9;;;S-1-
+         5-21-117609710-1303643608-725345543-9138)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-9138)(A;OICI;FA;
+         ;;S-1-5-21-117609710-1303643608-725345543-21608)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-21608)(
+         A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-21609)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-7253455
+         43-21609)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-22616)(A;;0x1200a9;;;S-1-5-21-117609710-130364
+         3608-725345543-22617)(A;;0x1200a9;;;S-1-5-21-117609710-1303643608-725345543-22623)(A;OICI;FA;;;S-1-5-21-117609
+         710-1303643608-725345543-22624)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-22633)(A;;0x1200a9;;;S-1-5
+         -21-117609710-1303643608-725345543-24120)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-24126)(A;;0x1200
+         a9;;;S-1-5-21-117609710-1303643608-725345543-24127)
+
+
+
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::E:\PostClosing
+Owner  : BUILTIN\Administrators
+Group  : SOUTHERN\Domain Users
+Access : SOUTHERN\Domain Admins Allow  FullControl
+         SOUTHERN\GBrannonjr Allow  FullControl
+         SOUTHERN\PostClosers Allow  FullControl
+         SOUTHERN\kcouvillion Allow  FullControl
+         SOUTHERN\cgeiselman Allow  FullControl
+         SOUTHERN\cbrooks Allow  FullControl
+         SOUTHERN\kmcdonald Allow  FullControl
+         SOUTHERN\datatrustinc Allow  FullControl
+         SOUTHERN\oc-theresa.gilbert Allow  FullControl
+         SOUTHERN\oberaconnect Allow  FullControl
+Audit  : 
+Sddl   : O:BAG:DUD:PAI(A;OICI;FA;;;DA)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-1137)(A;OICI;FA;;;S-1-5-21-1
+         17609710-1303643608-725345543-2113)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-5654)(A;OICI;FA;;;S-1-
+         5-21-117609710-1303643608-725345543-9165)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-9202)(A;OICI;FA;
+         ;;S-1-5-21-117609710-1303643608-725345543-21132)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-21608)(A;
+         OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-22632)(A;OICI;FA;;;S-1-5-21-117609710-1303643608-725345543-2
+         4126)
+
+
+
+
+
+

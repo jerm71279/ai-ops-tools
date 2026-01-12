@@ -1,5 +1,3 @@
-Loaded cached credentials.
-```markdown
 # Standard Operating Procedure: SOP-AV-001
 
 **Title:** Crestron Panel - "Loading Content" Error Troubleshooting
@@ -113,4 +111,3 @@ If the procedure outlined above does not resolve the issue, escalate the ticket 
 |---------|------------|--------|-----------------------------------|
 | 1.0     | 2025-12-02 | Gemini | Initial document creation from source. |
 
-```

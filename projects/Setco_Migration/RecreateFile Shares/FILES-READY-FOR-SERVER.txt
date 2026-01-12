@@ -1,0 +1,106 @@
+================================================================================
+FILE SHARE MIGRATION - F:\ DRIVE VERSION
+Files Ready to Transfer to Your Server
+================================================================================
+
+UPDATED HTML GUIDE:
+-------------------
+✅ File-Share-Migration-Complete-Guide-F-DRIVE.html
+   - Complete guide updated for F:\ drive
+   - All scripts use F:\ instead of E:\
+   - All paths corrected to F:\
+   - Copy this to your server and open in browser
+
+POWERSHELL SCRIPTS (F:\ Drive Version):
+----------------------------------------
+✅ 1-Setup-Directories-F-Drive.ps1
+   - Creates directory structure on F:\
+
+✅ 2-Set-NTFS-Permissions-F-Drive.ps1
+   - Applies NTFS permissions to F:\ folders
+
+✅ 3-Create-SMB-Shares-F-Drive.ps1
+   - Creates SMB shares pointing to F:\ paths
+
+✅ 4-Validate-Configuration-F-Drive.ps1
+   - Validates F:\ directories and shares
+
+LOCATION ON YOUR WSL/LINUX SYSTEM:
+-----------------------------------
+All files are in: /home/mavrick/Projects/
+
+HOW TO TRANSFER TO YOUR SERVER:
+--------------------------------
+
+Option 1: Copy via Windows Explorer (from WSL)
+   1. In Windows Explorer, navigate to:
+      \\wsl$\Ubuntu\home\mavrick\Projects\
+
+   2. Copy these files:
+      - File-Share-Migration-Complete-Guide-F-DRIVE.html
+      - 1-Setup-Directories-F-Drive.ps1
+      - 2-Set-NTFS-Permissions-F-Drive.ps1
+      - 3-Create-SMB-Shares-F-Drive.ps1
+      - 4-Validate-Configuration-F-Drive.ps1
+
+   3. Paste to your server at C:\ps1\
+
+Option 2: Open from WSL and copy to Windows
+   explorer.exe /home/mavrick/Projects
+   Then copy/paste files to your server
+
+Option 3: Use RDP Copy/Paste
+   - Copy files on local machine
+   - RDP into server
+   - Paste into C:\ps1\
+
+QUICK START ON SERVER:
+-----------------------
+Once files are in C:\ps1 on your server:
+
+1. Open PowerShell as Administrator
+2. cd C:\ps1
+3. Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+4. Run in order:
+   .\1-Setup-Directories-F-Drive.ps1
+   .\2-Set-NTFS-Permissions-F-Drive.ps1
+   .\3-Create-SMB-Shares-F-Drive.ps1
+   .\4-Validate-Configuration-F-Drive.ps1
+
+WHAT CHANGED FROM ORIGINAL:
+----------------------------
+✅ All E:\ paths changed to F:\
+✅ Share name "E" changed to "F"
+✅ All drive references updated to F: drive
+✅ HTML guide clearly labeled as F:\ Drive Version
+✅ All directory paths point to F:\
+
+SHARES THAT WILL BE CREATED:
+-----------------------------
+- F                     -> F:\
+- FTP Data              -> F:\FTP Data
+- HomeDirs              -> F:\HomeDirs
+- Legal                 -> F:\HomeDirs\Legal
+- PostClosing           -> F:\PostClosing
+- Qbooks                -> F:\Qbooks
+- SeaCrestScans         -> F:\SeaCrestScans
+- SetcoDocs             -> F:\SetcoDocs
+- Versacheck            -> F:\Versacheck
+- Whole Life Fitness    -> F:\Whole Life Fitness
+- worddocs              -> F:\NTSYS\worddocs
+
+VERIFICATION CHECKLIST:
+-----------------------
+☐ Files transferred to C:\ps1 on server
+☐ PowerShell opened as Administrator
+☐ Execution policy set
+☐ Script 1 completed successfully
+☐ Script 2 completed successfully
+☐ Script 3 completed successfully
+☐ Script 4 shows all green [OK] status
+☐ Test access from client: \\SERVERNAME\HomeDirs
+☐ Verify users can access shares
+
+================================================================================
+Ready to proceed! Transfer the files and run the scripts.
+================================================================================

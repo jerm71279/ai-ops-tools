@@ -1,5 +1,3 @@
-Loaded cached credentials.
-```markdown
 # Standard Operating Procedure: Microsoft Defender Attack Training Simulation
 
 | | |
@@ -73,6 +71,71 @@ The training session will follow the structured agenda below:
      - The operational mechanics and benefits of the Microsoft Defender tool.
      - A live demonstration of how to configure and set up a new simulation.
 
+### 5.3 Technical Procedure: Creating an Attack Simulation
+
+**Prerequisites:**
+-   Microsoft 365 E5 or Microsoft Defender for Office 365 Plan 2 license
+-   Membership in Security Administrator or Attack Simulation Administrator role
+
+**Step-by-Step Configuration:**
+
+1.  **Access the Security Portal:**
+    -   Navigate to: **security.microsoft.com**
+    -   Go to: **Email & collaboration > Attack simulation training**
+
+2.  **Launch New Simulation:**
+    -   Click **Simulations** tab
+    -   Click **+ Launch a simulation**
+
+3.  **Select Technique:**
+    -   Choose attack type:
+      | Technique | Description |
+      |-----------|-------------|
+      | **Credential Harvest** | Fake login page to capture credentials |
+      | **Malware Attachment** | Simulated malicious attachment |
+      | **Link in Attachment** | Malicious link inside a document |
+      | **Link to Malware** | Link that would download malware |
+      | **Drive-by URL** | Link to compromised website |
+
+4.  **Select Payload:**
+    -   Choose from built-in payloads or create custom
+    -   Preview the email and landing page
+    -   Recommended: Start with "Global" payloads for realistic scenarios
+
+5.  **Configure Target Users:**
+    -   **All users** - Full organization test
+    -   **Specific users/groups** - Targeted departments
+    -   Recommended: Start with IT department as pilot
+
+6.  **Assign Training:**
+    -   Select training modules for users who fail
+    -   Set training due date (recommended: 7-14 days)
+    -   Enable training reminders
+
+7.  **Schedule Simulation:**
+    -   Set launch date and time
+    -   Set simulation duration (recommended: 7-30 days)
+    -   Enable/disable repeat offender tracking
+
+8.  **Review and Launch:**
+    -   Review all settings
+    -   Click **Submit** to launch simulation
+
+**Post-Simulation Analysis:**
+
+1.  **View Results:**
+    -   **Simulations** > Select simulation > **Report**
+
+2.  **Key Metrics:**
+    | Metric | Definition | Target |
+    |--------|------------|--------|
+    | Compromised rate | Users who clicked + entered credentials | <10% |
+    | Click rate | Users who clicked the link | <20% |
+    | Reported rate | Users who reported the email | >30% |
+
+3.  **Export Report:**
+    -   Click **Export** for detailed CSV with user-level data
+
 **Part 4: Collaborative Simulation Workshop (60 min)**
    - The Moderator facilitates a collaborative working session with the client team.
    - **Action:** Collaboratively schedule the first official attack simulation.
@@ -88,8 +151,43 @@ The training session will follow the structured agenda below:
    - The Moderator summarizes the key decisions and takeaways from the session.
    - The Moderator confirms the schedule for the first simulation and any subsequent follow-up sessions.
 
-## 6.0 References
+## 6.0 Troubleshooting
+
+| Issue | Cause | Resolution |
+|-------|-------|------------|
+| Cannot access Attack Simulation Training | Insufficient license or permissions | Requires M365 E5 or Defender for Office 365 P2. Verify user has Security Administrator or Attack Simulation Administrator role. |
+| Simulation emails not delivered | Mail flow rules or spam filters | Check Exchange mail flow rules. Verify simulation sender domain not blocked. Check quarantine for simulation emails. |
+| Users report simulation as real phishing | Simulation too realistic or no awareness | Brief users that simulations will occur (without specifics). Add internal banner to simulation emails. |
+| Low click rates (too low to be real) | Users forwarding warnings or tech-savvy audience | Vary simulation timing. Use different payload types. Consider targeted simulations. |
+| Training assignments not appearing | User not in target group or sync delay | Verify user in simulation target. Wait 24 hours for sync. Check user mailbox is active. |
+| Simulation results show 0% | Simulation not started or wrong date range | Verify simulation status is "Completed". Check date filters in report. |
+| Cannot create custom payload | Permission or template issue | Verify Attack Simulation Administrator role. Start with modifying existing payload. |
+| Users cannot access training | Training URL blocked or license issue | Whitelist `*.safelinks.protection.outlook.com` and `*.microsoft.com`. Verify user has license. |
+| Repeat offenders not tracked | Feature not enabled | Enable "Repeat offender" tracking in simulation settings. Runs across multiple simulations. |
+| Simulation scheduled but not launching | Time zone mismatch or approval pending | Verify time zone settings. Check if approval workflow is blocking. |
+
+**Pre-Simulation Checklist:**
+- [ ] Verify M365 E5 or Defender P2 licensing
+- [ ] Confirm admin roles assigned
+- [ ] Test email delivery to pilot group
+- [ ] Whitelist simulation domains if needed
+- [ ] Brief IT helpdesk about upcoming simulation
+- [ ] Prepare response for users who report simulation
+
+**Useful URLs:**
+- Security Portal: https://security.microsoft.com
+- Attack Simulation: https://security.microsoft.com/attacksimulator
+- Training Modules: https://security.microsoft.com/trainingassignments
+
+## 7.0 References
 
 -   Microsoft Defender for Office 365 Documentation
 -   `Microsoft Defender Attack Training Simulation Presentation Plan.docx`
-```
+-   Microsoft Security Portal: https://security.microsoft.com
+
+## 8.0 Revision History
+
+| Version | Date | Author | Description |
+|---------|------|--------|-------------|
+| 1.0 | 2025-12-02 | IT Security Department | Initial document creation. |
+| 1.1 | 2025-12-29 | Jeremy Smith | SME Review: Added Section 5.3 (Technical Procedure for creating simulations). Added Section 6.0 (Troubleshooting) with common issues and pre-simulation checklist. |

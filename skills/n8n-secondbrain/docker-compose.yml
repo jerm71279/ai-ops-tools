@@ -9,7 +9,9 @@ services:
     container_name: n8n
     restart: unless-stopped
     ports:
-      - "127.0.0.1:5678:5678"  # SECURED: Only listen on localhost
+      - "127.0.0.1:5678:5678"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       # Basic Auth (REQUIRED)
       - N8N_BASIC_AUTH_ACTIVE=true

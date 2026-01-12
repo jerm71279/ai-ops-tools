@@ -1,6 +1,6 @@
-# SOP-HYB-001: Hybrid Active Directory Major Components
+# SOP-HYB-001: Hybrid Active Directory Architecture and Management
 
-**Version:** 1.0
+**Version:** 1.1
 **Status:** Final
 **Author:** OberaConnect IT
 **Date:** 2025-12-02
@@ -9,52 +9,192 @@
 
 ## 1.0 Purpose
 
-The purpose of this Standard Operating Procedure (SOP) is to document the major components of the Setco Hybrid Active Directory (AD) environment, which integrates the on-premises Windows Active Directory with Microsoft 365 (M365).
+The purpose of this Standard Operating Procedure (SOP) is to document the major components of a Hybrid Active Directory (AD) environment, which integrates on-premises Windows Active Directory with Microsoft Entra ID (formerly Azure AD) and Microsoft 365 (M365). This document provides guidance for monitoring, maintenance, and troubleshooting.
 
 ## 2.0 Scope
 
-This SOP applies to the management and troubleshooting of the core infrastructure that enables the hybrid AD functionality for Setco. This includes the AD Sync service, Active Directory Federation Services (ADFS), and related DNS configurations.
+This SOP applies to the management and troubleshooting of hybrid identity infrastructure. This includes:
+-   Microsoft Entra Connect (formerly Azure AD Connect) synchronization
+-   Active Directory Federation Services (ADFS)
+-   DNS configurations for federated authentication
+-   Certificate lifecycle management
 
 ## 3.0 Prerequisites
 
 -   Basic understanding of Windows Server Active Directory.
--   Familiarity with Microsoft 365 administration.
+-   Familiarity with Microsoft 365/Entra ID administration.
 -   Knowledge of DNS principles and management.
+-   Access to Entra admin center (entra.microsoft.com).
 
-## 4.0 Procedure
+## 4.0 Architecture Components
 
-### 4.1 Setco-DC01: Active Directory Sync Service
+### 4.1 Directory Synchronization Server (Entra Connect)
 
-1.  **Component:** `Setco-DC01`
-2.  **Role:** Active Directory domain controller responsible for synchronizing user accounts and passwords from the on-premises Windows Active Directory to M365.
-3.  **Service Name:** The synchronization service is named `Microsoft Azure AD Sync`.
-4.  **Sync Direction:** The synchronization is one-way, from the on-premises AD to M365.
-    *   **Important:** Accounts created directly in M365 will not be synchronized back to the on-premises Active Directory.
-5.  **Troubleshooting:** If the AD Sync is not updating correctly, the first step is to attempt a restart of the `Microsoft Azure AD Sync` service on `Setco-DC01`.
+| Attribute | Description |
+|-----------|-------------|
+| **Server Role** | Hosts Microsoft Entra Connect (formerly Azure AD Connect) |
+| **Service Name** | `Microsoft Azure AD Sync` (ADSync) |
+| **Sync Direction** | On-premises AD → Entra ID (one-way by default) |
+| **Sync Frequency** | Every 30 minutes (default) |
 
-### 4.2 Setco-ADFS01: Active Directory Federation Services
+**Key Points:**
+-   Accounts created directly in Entra ID/M365 are NOT synchronized back to on-premises AD.
+-   Password hash sync or pass-through authentication handles credential validation.
+-   The sync server should NOT be a domain controller in production environments.
 
-1.  **Component:** `Setco-ADFS01`
-2.  **Role:** Provides secure, authenticated access to resources for domain-joined devices, web applications, and other systems within the organization's AD, as well as approved third-party systems.
-3.  **Authentication Flow:** M365 communicates with the on-premises AD environment through the ADFS services for authentication purposes.
+**Example Configuration:**
+```
+Server: DC01 (or dedicated sync server)
+Domain: corp.contoso.com
+Entra Tenant: contoso.onmicrosoft.com
+```
 
-### 4.3 Setco DNS Settings: Authentication Discovery
+### 4.2 ADFS Server (Federation Services)
 
-1.  **Mechanism:** Microsoft's authentication services locate the on-premises ADFS server by querying public DNS records for the domain (`setcoservices.com`).
-2.  **DNS Record:** The key record is an `A` record with the name `externalvalidation`.
-3.  **Configuration:** The `externalvalidation.setcoservices.com` `A` record must be set to the external IP address of the ADFS server (`Setco-ADFS01`).
-4.  **Authentication Process:**
-    *   A user attempts to log in to a Microsoft service.
-    *   Microsoft's authenticator identifies the user's domain (e.g., `setcoservices.com`).
-    *   It then looks for the `externalvalidation` `A` record for that domain.
-    *   Authentication requests are directed to the IP address specified in that record, which is the ADFS server. The IP address itself is configured in Azure.
+| Attribute | Description |
+|-----------|-------------|
+| **Server Role** | Active Directory Federation Services |
+| **Purpose** | Federated authentication for SSO |
+| **External Access** | Via Web Application Proxy (WAP) |
 
-## 5.0 Verification
+> **NOTE:** Microsoft recommends migrating from ADFS to Entra ID cloud authentication (Password Hash Sync + Seamless SSO) for reduced complexity and improved security.
 
-1.  **AD Sync Health:** Check the synchronization status in the Microsoft 365 admin center to ensure that the last sync was successful and recent.
-2.  **M365 Login:** Have a test user attempt to log in to the M365 portal. A successful login that redirects to the organization's ADFS login page and then back to M365 confirms that the ADFS and DNS configuration is working.
+### 4.3 DNS Configuration for Federation
 
-## 6.0 Additional Considerations
+For federated authentication, Microsoft's authentication service must locate your ADFS server:
 
--   Any changes to the external IP address of the `Setco-ADFS01` server must be reflected in the `externalvalidation.setcoservices.com` DNS `A` record to avoid authentication failures.
--   The `Microsoft Azure AD Sync` service should be monitored for any stoppage or errors, as this will prevent password and user object changes from being reflected in M365.
+1.  **Required DNS Record:**
+    -   Type: `A` record
+    -   Name: `sts` or as configured in ADFS (e.g., `sts.contoso.com`)
+    -   Value: External IP of ADFS/WAP server
+
+2.  **Authentication Flow:**
+    -   User attempts M365 login
+    -   Microsoft identifies federated domain
+    -   Redirects to organization's ADFS endpoint
+    -   ADFS authenticates against on-premises AD
+    -   Token returned to Microsoft for access
+
+## 5.0 Monitoring and Health Checks
+
+### 5.1 Entra Connect Health Monitoring
+
+1.  **Access Entra Connect Health:**
+    -   Navigate to: **entra.microsoft.com > Identity > Hybrid management > Microsoft Entra Connect > Connect Health**
+    -   Or: **Microsoft 365 Admin Center > Health > Directory sync status**
+
+2.  **Key Metrics to Monitor:**
+    | Metric | Healthy State | Action if Unhealthy |
+    |--------|---------------|---------------------|
+    | Last sync time | Within 3 hours | Check ADSync service, run manual sync |
+    | Sync errors | 0 | Review sync error report, fix attribute conflicts |
+    | Export errors | 0 | Check connector space, verify object permissions |
+    | Password sync | Enabled (if used) | Verify service account, check event logs |
+
+3.  **Manual Sync Commands (PowerShell on sync server):**
+    ```powershell
+    # Check sync status
+    Get-ADSyncScheduler
+
+    # Force delta sync
+    Start-ADSyncSyncCycle -PolicyType Delta
+
+    # Force full sync (use sparingly)
+    Start-ADSyncSyncCycle -PolicyType Initial
+    ```
+
+4.  **Event Logs to Review:**
+    -   Application Log: Source `Directory Synchronization`
+    -   Application Log: Source `ADSync`
+
+### 5.2 ADFS Health Monitoring
+
+1.  **ADFS Event Logs:**
+    -   Event Viewer > Applications and Services Logs > AD FS > Admin
+
+2.  **Test ADFS Connectivity:**
+    ```powershell
+    # From ADFS server
+    Get-AdfsProperties
+    Test-AdfsServiceHealth
+    ```
+
+3.  **External Test:**
+    -   Navigate to: `https://sts.contoso.com/adfs/ls/IdpInitiatedSignon.aspx`
+    -   Should display ADFS sign-in page
+
+## 6.0 Certificate Management (CRITICAL)
+
+### 6.1 ADFS Certificates Overview
+
+| Certificate | Purpose | Location | Typical Validity |
+|-------------|---------|----------|------------------|
+| Service Communications | SSL/TLS for ADFS endpoints | ADFS server | 1-2 years |
+| Token Signing | Signs SAML tokens | ADFS (auto-generated) | 1 year (auto-rollover) |
+| Token Decryption | Decrypts incoming tokens | ADFS (auto-generated) | 1 year (auto-rollover) |
+
+### 6.2 Certificate Renewal Procedure
+
+**For Service Communications Certificate (SSL):**
+
+1.  **Obtain new certificate** from CA (public or internal).
+2.  **Import to ADFS server:**
+    ```powershell
+    # Import certificate to Local Machine\Personal store
+    Import-PfxCertificate -FilePath "C:\certs\newcert.pfx" -CertStoreLocation Cert:\LocalMachine\My -Password (ConvertTo-SecureString -String "password" -AsPlainText -Force)
+    ```
+3.  **Update ADFS to use new certificate:**
+    ```powershell
+    # Get thumbprint of new certificate
+    Get-ChildItem Cert:\LocalMachine\My | Where-Object {$_.Subject -like "*sts.contoso.com*"}
+
+    # Set new certificate
+    Set-AdfsSslCertificate -Thumbprint "<new_thumbprint>"
+    Set-AdfsCertificate -CertificateType Service-Communications -Thumbprint "<new_thumbprint>"
+    ```
+4.  **Restart ADFS service:**
+    ```powershell
+    Restart-Service adfssrv
+    ```
+5.  **Update WAP servers** (if applicable):
+    ```powershell
+    Set-WebApplicationProxySslCertificate -Thumbprint "<new_thumbprint>"
+    ```
+
+### 6.3 Certificate Expiration Monitoring
+
+1.  **Check current certificates:**
+    ```powershell
+    Get-AdfsCertificate | Select-Object CertificateType, Certificate, Thumbprint | Format-Table
+    ```
+
+2.  **Set calendar reminders** 30 days before expiration.
+
+3.  **Enable auto-rollover** for token signing/decryption (enabled by default):
+    ```powershell
+    Set-AdfsProperties -AutoCertificateRollover $true
+    ```
+
+## 7.0 Troubleshooting
+
+| Issue | Symptoms | Resolution |
+|-------|----------|------------|
+| Sync not running | Objects not appearing in Entra ID | Check ADSync service status, run `Start-ADSyncSyncCycle` |
+| Password sync failures | Users can't sign in with new passwords | Check password hash sync status, verify service account |
+| ADFS login fails | Redirect to ADFS times out | Check ADFS service, verify DNS, check firewall rules for 443 |
+| Certificate errors | Browser SSL warnings on ADFS page | Renew SSL certificate per Section 6.2 |
+| "User not found" in M365 | Account exists on-prem but not in cloud | Check sync scope filters, verify OU is in sync |
+| Duplicate object errors | Sync errors for specific users | Check for soft-matched objects, use `IdFix` tool |
+
+## 8.0 Related Documents
+
+-   SOP-AD-001: Active Directory Domain Connection Troubleshooting
+-   SOP-M365-001: Microsoft 365 Governance and Administration
+-   Microsoft Docs: https://learn.microsoft.com/en-us/entra/identity/hybrid/
+
+## 9.0 Revision History
+
+| Version | Date | Author | Description |
+|---------|------|--------|-------------|
+| 1.0 | 2025-12-02 | OberaConnect IT | Initial document creation (Setco-specific). |
+| 1.1 | 2025-12-29 | Jeremy Smith | SME Review: Generalized for reuse across clients. Updated terminology to Entra ID. Added Section 5.0 (Monitoring and Health Checks). Added Section 6.0 (Certificate Management). Added comprehensive troubleshooting table. |

@@ -16,12 +16,15 @@
 | SOP-NET-002 | MikroTik Router Configuration | MikroTik | DRAFT |
 | SOP-NET-003 | Cisco Device VLAN Configuration | Cisco | DRAFT |
 | SOP-NET-005 | Ubiquiti Equipment Configuration | Ubiquiti/UniFi | DRAFT |
+| SOP-NET-007 | SonicWall Config Restore | SonicWall | DRAFT |
+| SOP-NET-008 | UniFi Bulk Deployment | Ubiquiti/UniFi | DRAFT |
 
 ### Microsoft 365 & Azure
 
 | SOP ID | Title | Technology | Status |
 |--------|-------|------------|--------|
 | SOP-AZ-001 | Azure VM Infrastructure Administration | Azure | DRAFT |
+| SOP-AZ-002 | Azure Site-to-Site VPN with SonicWall | Azure/SonicWall | DRAFT |
 | SOP-M365-001 | Microsoft 365 Governance & Administration | M365 | DRAFT |
 | SOP-SP-001 | SharePoint Read-Only Access Configuration | SharePoint/Azure AD | DRAFT |
 | SOP-SP-002 | Adding SharePoint Permissions | SharePoint/Azure AD | DRAFT |
