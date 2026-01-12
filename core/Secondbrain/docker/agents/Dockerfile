@@ -26,6 +26,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY agent_orchestrator.py .
 COPY agent_notebooklm_analyst.py .
 COPY agent_obsidian_manager.py .
+COPY agent_ba.py .
+COPY moe_router.py .
 COPY config.py .
 
 # Copy API server
