@@ -25,7 +25,7 @@ services:
   # ===========================================================================
 
   # ---------------------------------------------------------------------------
-  # Ollama - Local LLM Server (NVIDIA GPU)
+  # Ollama - Local LLM Server (CPU mode, GPU optional)
   # ---------------------------------------------------------------------------
   ollama:
     image: ollama/ollama:latest
@@ -34,15 +34,6 @@ services:
       - "11434:11434"
     volumes:
       - ollama_models:/root/.ollama
-    environment:
-      - NVIDIA_VISIBLE_DEVICES=all
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
     restart: unless-stopped
     networks:
       - oberaconnect-network
@@ -53,7 +44,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 30s
+      start_period: 60s
 
   # ===========================================================================
   # LAYER 2: PERSISTENCE
@@ -362,8 +353,6 @@ services:
     restart: unless-stopped
     networks:
       - oberaconnect-network
-    depends_on:
-      - ollama
     profiles:
       - chat
     healthcheck:

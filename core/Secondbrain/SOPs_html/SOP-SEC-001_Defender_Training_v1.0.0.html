@@ -1,196 +1,217 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OberaConnect Document</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333333;
-            max-width: 8.5in;
-            margin: 0 auto;
-            padding: 0.5in;
-            background: #fff;
-        }
-
-        .header {
-            border-bottom: 3px solid #0066CC;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .logo-img {
-            height: 50px;
-            width: auto;
-        }
-
-        .tagline {
-            font-size: 14px;
-            color: #666666;
-            font-style: italic;
-            margin-left: 2px;
-        }
-
-        .doc-meta {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .doc-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #333333;
-        }
-
-        .doc-date {
-            font-size: 12px;
-            color: #666666;
-        }
-
-        .section {
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #0066CC;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-        }
-
-        .section-content {
-            color: #333333;
-            font-size: 14px;
-        }
-
-        .section-content p {
-            margin-bottom: 10px;
-        }
-
-        .section-content ul {
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
-
-        .section-content li {
-            margin-bottom: 5px;
-        }
-
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 11px;
-            color: #999999;
-            text-align: center;
-        }
-
-        .highlight-box {
-            background: #f5f9ff;
-            border-left: 4px solid #0066CC;
-            padding: 15px;
-            margin: 15px 0;
-        }
-
-        .action-item {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 10px 15px;
-            margin: 10px 0;
-        }
-
-        @media print {
-            body {
-                padding: 0;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOP-SEC-001_Defender_Training_v1.0.0</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo-container">
-            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
-            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
-        </div>
-        <div class="tagline">Technology Solutions for Modern Business</div>
-
-        <div class="doc-meta">
-            <div class="doc-title">SOP-SEC-001 Defender Training v1.0.0</div>
-            <div class="doc-date">Date: [MM/DD/YYYY]</div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Executive Summary</div>
-        <div class="section-content">
-            <table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
+<header id="title-block-header">
+<h1 class="title">SOP-SEC-001_Defender_Training_v1.0.0</h1>
+</header>
+<h1
+id="standard-operating-procedure-microsoft-defender-attack-training-simulation">Standard
+Operating Procedure: Microsoft Defender Attack Training Simulation</h1>
+<table>
 <tbody>
 <tr class="odd">
-<td>**Document ID**</td>
+<td><strong>Document ID</strong></td>
 <td>SOP-SEC-001</td>
 </tr>
 <tr class="even">
-<td>**Version**</td>
+<td><strong>Version</strong></td>
 <td>1.0</td>
 </tr>
 <tr class="odd">
-<td>**Status**</td>
+<td><strong>Status</strong></td>
 <td>Final</td>
 </tr>
 <tr class="even">
-<td>**Date**</td>
+<td><strong>Date</strong></td>
 <td>2025-12-02</td>
 </tr>
 <tr class="odd">
-<td>**Owner**</td>
+<td><strong>Owner</strong></td>
 <td>IT Security Department</td>
 </tr>
 </tbody>
 </table>
-<p>────────────────────────────────────────────────────────────</p>
-<h1 id="purpose">1.0 Purpose</h1>
+<hr />
+<h2 id="purpose">1.0 Purpose</h2>
 <p>To establish a standardized process for conducting Microsoft Defender
 Attack Training Simulations for clients. The primary objectives of this
-procedure are:</p>
-<ul>
-<li><p>To educate client personnel on the identification and risks of
-phishing emails.</p></li>
-<li><p>To demonstrate the capabilities and operation of the Microsoft
-Defender Attack Simulation tool.</p></li>
-<li><p>To collaboratively plan, schedule, and execute attack
-simulations.</p></li>
-<li><p>To review simulation results and provide actionable
-recommendations for improving security posture.</p></li>
-</ul>
-<h1 id="scope">2.0 Scope</h1>
+procedure are: - To educate client personnel on the identification and
+risks of phishing emails. - To demonstrate the capabilities and
+operation of the Microsoft Defender Attack Simulation tool. - To
+collaboratively plan, schedule, and execute attack simulations. - To
+review simulation results and provide actionable recommendations for
+improving security posture.</p>
+<h2 id="scope">2.0 Scope</h2>
 <p>This SOP applies to all IT personnel involved in the planning and
 execution of client-facing security training initiatives. It
 specifically governs the Microsoft Defender Attack Training Simulation
 sessions conducted for clients and their designated security and
 technical teams.</p>
-<h1 id="responsibilities">3.0 Responsibilities</h1>
+<h2 id="responsibilities">3.0 Responsibilities</h2>
 <table>
 <colgroup>
 <col style="width: 50%" />
@@ -198,41 +219,41 @@ technical teams.</p>
 </colgroup>
 <thead>
 <tr class="header">
-<th><strong>Role</strong></th>
-<th><strong>Responsibility</strong></th>
+<th>Role</th>
+<th>Responsibility</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>**Presenter (Phishing Identification)**</td>
+<td><strong>Presenter (Phishing Identification)</strong></td>
 <td>Responsible for developing and delivering the educational
 presentation on identifying phishing attempts, including real-world
 examples and best practices.</td>
 </tr>
 <tr class="even">
-<td>**Presenter (Simulation Overview)**</td>
+<td><strong>Presenter (Simulation Overview)</strong></td>
 <td>Responsible for presenting the overview, benefits, and demonstration
 of the Microsoft Defender Attack Simulation platform.</td>
 </tr>
 <tr class="odd">
-<td>**Moderator/Facilitator**</td>
+<td><strong>Moderator/Facilitator</strong></td>
 <td>Responsible for leading the training session, managing the agenda,
 facilitating discussions, and ensuring session objectives are met.</td>
 </tr>
 <tr class="even">
-<td>**Client Representative(s)**</td>
+<td><strong>Client Representative(s)</strong></td>
 <td>Responsible for collaborating on the scheduling and structure of
 simulations, providing relevant technical context, and participating in
 the training.</td>
 </tr>
 <tr class="odd">
-<td>**All Participants**</td>
+<td><strong>All Participants</strong></td>
 <td>Responsible for confirming availability for the scheduled session
 and reviewing any pre-shared materials.</td>
 </tr>
 </tbody>
 </table>
-<h1 id="definitions">4.0 Definitions</h1>
+<h2 id="definitions">4.0 Definitions</h2>
 <table>
 <colgroup>
 <col style="width: 50%" />
@@ -240,152 +261,285 @@ and reviewing any pre-shared materials.</td>
 </colgroup>
 <thead>
 <tr class="header">
-<th><strong>Term</strong></th>
-<th><strong>Definition</strong></th>
+<th>Term</th>
+<th>Definition</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>**Phishing**</td>
+<td><strong>Phishing</strong></td>
 <td>A fraudulent attempt, usually made through email, to deceive
 individuals into revealing sensitive information such as usernames,
 passwords, and credit card details.</td>
 </tr>
 <tr class="even">
-<td>**Attack Simulation**</td>
+<td><strong>Attack Simulation</strong></td>
 <td>A feature within Microsoft Defender used to run realistic, benign
 cyberattack scenarios (e.g., phishing campaigns) within an organization
 to test security policies and employee awareness.</td>
 </tr>
 </tbody>
 </table>
-<h1 id="procedure">5.0 Procedure</h1>
-<h2 id="phase-1-preparation-and-scheduling">5.1 Phase 1: Preparation and
-Scheduling</h2>
+<h2 id="procedure">5.0 Procedure</h2>
+<h3 id="phase-1-preparation-and-scheduling">5.1 Phase 1: Preparation and
+Scheduling</h3>
 <ol type="1">
-<li><p>**Identify Participants:** The Moderator will identify and list
-the key participants from both the internal team and the client's
-team.</p></li>
-<li><p>**Propose Dates:** The Moderator will propose a minimum of three
-potential dates for the training session to the client.</p></li>
-<li><p>**Finalize Schedule:** Based on participant feedback and client
-convenience, the Moderator will finalize and confirm the session date
-and time.</p></li>
-<li><p>**Collaborate on Logistics:** The Moderator and Presenters will
-engage with the client's technical team to discuss the initial
-structure, focus areas, and goals for the attack simulation.</p></li>
-<li><p>**Prepare Materials:** The designated Presenters will prepare
-their respective presentation materials (Phishing Identification and
-Defender Simulation Overview).</p></li>
-<li><p>**Distribute Materials:** The Moderator will share the agenda and
-any relevant presentation materials with all participants ahead of the
-scheduled session.</p></li>
+<li><strong>Identify Participants:</strong> The Moderator will identify
+and list the key participants from both the internal team and the
+client’s team.</li>
+<li><strong>Propose Dates:</strong> The Moderator will propose a minimum
+of three potential dates for the training session to the client.</li>
+<li><strong>Finalize Schedule:</strong> Based on participant feedback
+and client convenience, the Moderator will finalize and confirm the
+session date and time.</li>
+<li><strong>Collaborate on Logistics:</strong> The Moderator and
+Presenters will engage with the client’s technical team to discuss the
+initial structure, focus areas, and goals for the attack
+simulation.</li>
+<li><strong>Prepare Materials:</strong> The designated Presenters will
+prepare their respective presentation materials (Phishing Identification
+and Defender Simulation Overview).</li>
+<li><strong>Distribute Materials:</strong> The Moderator will share the
+agenda and any relevant presentation materials with all participants
+ahead of the scheduled session.</li>
 </ol>
-<h2 id="phase-2-training-session-execution">5.2 Phase 2: Training
-Session Execution</h2>
+<h3 id="phase-2-training-session-execution">5.2 Phase 2: Training
+Session Execution</h3>
 <p>The training session will follow the structured agenda below:</p>
-<p>Part 1: Welcome and Introductions (10 min)</p>
+<p><strong>Part 1: Welcome and Introductions (10 min)</strong> - The
+Moderator officially starts the meeting and welcomes all attendees. -
+Each participant briefly introduces themselves and their role. - The
+Moderator reviews the objectives and agenda for the session.</p>
+<p><strong>Part 2: Presentation on Identifying Phishing Emails (20
+min)</strong> - The designated Presenter conducts a detailed
+presentation covering: - Key characteristics and red flags of phishing
+emails. - Analysis of real-world phishing examples. - Actionable tips
+and best practices for employees to recognize and report phishing
+attempts.</p>
+<p><strong>Part 3: Presentation on Microsoft Defender Attack Simulation
+(20 min)</strong> - The designated Presenter conducts a presentation and
+demonstration covering: - An overview of the attack simulation concept
+and its value. - The operational mechanics and benefits of the Microsoft
+Defender tool. - A live demonstration of how to configure and set up a
+new simulation.</p>
+<h3 id="technical-procedure-creating-an-attack-simulation">5.3 Technical
+Procedure: Creating an Attack Simulation</h3>
+<p><strong>Prerequisites:</strong> - Microsoft 365 E5 or Microsoft
+Defender for Office 365 Plan 2 license - Membership in Security
+Administrator or Attack Simulation Administrator role</p>
+<p><strong>Step-by-Step Configuration:</strong></p>
+<ol type="1">
+<li><strong>Access the Security Portal:</strong>
 <ul>
-<li><p>The Moderator officially starts the meeting and welcomes all
-attendees.</p></li>
-<li><p>Each participant briefly introduces themselves and their
-role.</p></li>
-<li><p>The Moderator reviews the objectives and agenda for the
-session.</p></li>
-</ul>
-<p>Part 2: Presentation on Identifying Phishing Emails (20 min)</p>
+<li>Navigate to: <strong>security.microsoft.com</strong></li>
+<li>Go to: <strong>Email &amp; collaboration &gt; Attack simulation
+training</strong></li>
+</ul></li>
+<li><strong>Launch New Simulation:</strong>
 <ul>
-<li><p>The designated Presenter conducts a detailed presentation
-covering:</p></li>
-<li><p>Key characteristics and red flags of phishing emails.</p></li>
-<li><p>Analysis of real-world phishing examples.</p></li>
-<li><p>Actionable tips and best practices for employees to recognize and
-report phishing attempts.</p></li>
-</ul>
-<p>Part 3: Presentation on Microsoft Defender Attack Simulation (20
-min)</p>
+<li>Click <strong>Simulations</strong> tab</li>
+<li>Click <strong>+ Launch a simulation</strong></li>
+</ul></li>
+<li><strong>Select Technique:</strong>
 <ul>
-<li><p>The designated Presenter conducts a presentation and
-demonstration covering:</p></li>
-<li><p>An overview of the attack simulation concept and its
-value.</p></li>
-<li><p>The operational mechanics and benefits of the Microsoft Defender
-tool.</p></li>
-<li><p>A live demonstration of how to configure and set up a new
-simulation.</p></li>
-</ul>
-<p>Part 4: Collaborative Simulation Workshop (60 min)</p>
+<li>Choose attack type: | Technique | Description | |———–|————-| |
+<strong>Credential Harvest</strong> | Fake login page to capture
+credentials | | <strong>Malware Attachment</strong> | Simulated
+malicious attachment | | <strong>Link in Attachment</strong> | Malicious
+link inside a document | | <strong>Link to Malware</strong> | Link that
+would download malware | | <strong>Drive-by URL</strong> | Link to
+compromised website |</li>
+</ul></li>
+<li><strong>Select Payload:</strong>
 <ul>
-<li><p>The Moderator facilitates a collaborative working session with
-the client team.</p></li>
-<li><p>**Action:** Collaboratively schedule the first official attack
-simulation.</p></li>
-<li><p>**Action:** Define the structure, payloads, and target groups for
-the simulation.</p></li>
-<li><p>**Action:** Establish a timeline and cadence for future, ongoing
-training sessions.</p></li>
-</ul>
-<p>Part 5: Initial Simulation Results Review (20 min, if applicable)</p>
+<li>Choose from built-in payloads or create custom</li>
+<li>Preview the email and landing page</li>
+<li>Recommended: Start with “Global” payloads for realistic
+scenarios</li>
+</ul></li>
+<li><strong>Configure Target Users:</strong>
 <ul>
-<li><p>If a preliminary simulation has been conducted, the Presenter
-will share the initial results.</p></li>
-<li><p>The team will discuss the implications of the findings and
-potential areas for improvement.</p></li>
-<li><p>A Q&amp;A session is held to address any questions regarding the
-results.</p></li>
-</ul>
-<p>Part 6: Wrap-Up and Next Steps (10 min)</p>
+<li><strong>All users</strong> - Full organization test</li>
+<li><strong>Specific users/groups</strong> - Targeted departments</li>
+<li>Recommended: Start with IT department as pilot</li>
+</ul></li>
+<li><strong>Assign Training:</strong>
 <ul>
-<li><p>The Moderator summarizes the key decisions and takeaways from the
-session.</p></li>
-<li><p>The Moderator confirms the schedule for the first simulation and
-any subsequent follow-up sessions.</p></li>
-</ul>
-<h1 id="references">6.0 References</h1>
+<li>Select training modules for users who fail</li>
+<li>Set training due date (recommended: 7-14 days)</li>
+<li>Enable training reminders</li>
+</ul></li>
+<li><strong>Schedule Simulation:</strong>
 <ul>
-<li><p>Microsoft Defender for Office 365 Documentation</p></li>
-<li><p>`Microsoft Defender Attack Training Simulation Presentation
-Plan.docx`</p></li>
+<li>Set launch date and time</li>
+<li>Set simulation duration (recommended: 7-30 days)</li>
+<li>Enable/disable repeat offender tracking</li>
+</ul></li>
+<li><strong>Review and Launch:</strong>
+<ul>
+<li>Review all settings</li>
+<li>Click <strong>Submit</strong> to launch simulation</li>
+</ul></li>
+</ol>
+<p><strong>Post-Simulation Analysis:</strong></p>
+<ol type="1">
+<li><p><strong>View Results:</strong></p>
+<ul>
+<li><strong>Simulations</strong> &gt; Select simulation &gt;
+<strong>Report</strong></li>
+</ul></li>
+<li><p><strong>Key Metrics:</strong> | Metric | Definition | Target |
+|——–|————|——–| | Compromised rate | Users who clicked + entered
+credentials | &lt;10% | | Click rate | Users who clicked the link |
+&lt;20% | | Reported rate | Users who reported the email | &gt;30%
+|</p></li>
+<li><p><strong>Export Report:</strong></p>
+<ul>
+<li>Click <strong>Export</strong> for detailed CSV with user-level
+data</li>
+</ul></li>
+</ol>
+<p><strong>Part 4: Collaborative Simulation Workshop (60 min)</strong> -
+The Moderator facilitates a collaborative working session with the
+client team. - <strong>Action:</strong> Collaboratively schedule the
+first official attack simulation. - <strong>Action:</strong> Define the
+structure, payloads, and target groups for the simulation. -
+<strong>Action:</strong> Establish a timeline and cadence for future,
+ongoing training sessions.</p>
+<p><strong>Part 5: Initial Simulation Results Review (20 min, <em>if
+applicable</em>)</strong> - If a preliminary simulation has been
+conducted, the Presenter will share the initial results. - The team will
+discuss the implications of the findings and potential areas for
+improvement. - A Q&amp;A session is held to address any questions
+regarding the results.</p>
+<p><strong>Part 6: Wrap-Up and Next Steps (10 min)</strong> - The
+Moderator summarizes the key decisions and takeaways from the session. -
+The Moderator confirms the schedule for the first simulation and any
+subsequent follow-up sessions.</p>
+<h2 id="troubleshooting">6.0 Troubleshooting</h2>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 26%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Issue</th>
+<th>Cause</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cannot access Attack Simulation Training</td>
+<td>Insufficient license or permissions</td>
+<td>Requires M365 E5 or Defender for Office 365 P2. Verify user has
+Security Administrator or Attack Simulation Administrator role.</td>
+</tr>
+<tr class="even">
+<td>Simulation emails not delivered</td>
+<td>Mail flow rules or spam filters</td>
+<td>Check Exchange mail flow rules. Verify simulation sender domain not
+blocked. Check quarantine for simulation emails.</td>
+</tr>
+<tr class="odd">
+<td>Users report simulation as real phishing</td>
+<td>Simulation too realistic or no awareness</td>
+<td>Brief users that simulations will occur (without specifics). Add
+internal banner to simulation emails.</td>
+</tr>
+<tr class="even">
+<td>Low click rates (too low to be real)</td>
+<td>Users forwarding warnings or tech-savvy audience</td>
+<td>Vary simulation timing. Use different payload types. Consider
+targeted simulations.</td>
+</tr>
+<tr class="odd">
+<td>Training assignments not appearing</td>
+<td>User not in target group or sync delay</td>
+<td>Verify user in simulation target. Wait 24 hours for sync. Check user
+mailbox is active.</td>
+</tr>
+<tr class="even">
+<td>Simulation results show 0%</td>
+<td>Simulation not started or wrong date range</td>
+<td>Verify simulation status is “Completed”. Check date filters in
+report.</td>
+</tr>
+<tr class="odd">
+<td>Cannot create custom payload</td>
+<td>Permission or template issue</td>
+<td>Verify Attack Simulation Administrator role. Start with modifying
+existing payload.</td>
+</tr>
+<tr class="even">
+<td>Users cannot access training</td>
+<td>Training URL blocked or license issue</td>
+<td>Whitelist <code>*.safelinks.protection.outlook.com</code> and
+<code>*.microsoft.com</code>. Verify user has license.</td>
+</tr>
+<tr class="odd">
+<td>Repeat offenders not tracked</td>
+<td>Feature not enabled</td>
+<td>Enable “Repeat offender” tracking in simulation settings. Runs
+across multiple simulations.</td>
+</tr>
+<tr class="even">
+<td>Simulation scheduled but not launching</td>
+<td>Time zone mismatch or approval pending</td>
+<td>Verify time zone settings. Check if approval workflow is
+blocking.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pre-Simulation Checklist:</strong> - [ ] Verify M365 E5 or
+Defender P2 licensing - [ ] Confirm admin roles assigned - [ ] Test
+email delivery to pilot group - [ ] Whitelist simulation domains if
+needed - [ ] Brief IT helpdesk about upcoming simulation - [ ] Prepare
+response for users who report simulation</p>
+<p><strong>Useful URLs:</strong> - Security Portal:
+https://security.microsoft.com - Attack Simulation:
+https://security.microsoft.com/attacksimulator - Training Modules:
+https://security.microsoft.com/trainingassignments</p>
+<h2 id="references">7.0 References</h2>
+<ul>
+<li>Microsoft Defender for Office 365 Documentation</li>
+<li><code>Microsoft Defender Attack Training Simulation Presentation Plan.docx</code></li>
+<li>Microsoft Security Portal: https://security.microsoft.com</li>
 </ul>
-
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Details</div>
-        <div class="section-content">
-            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
-
-            <div class="highlight-box">
-                <strong>Key Point:</strong> [Important information to highlight]
-            </div>
-
-            <p>Supporting details:</p>
-            <ul>
-                <li>[Detail item 1]</li>
-                <li>[Detail item 2]</li>
-                <li>[Detail item 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Next Steps</div>
-        <div class="section-content">
-            <div class="action-item">
-                <strong>Action Required:</strong> [Specific action item with owner and deadline]
-            </div>
-
-            <ul>
-                <li>[Next step 1]</li>
-                <li>[Next step 2]</li>
-                <li>[Next step 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="footer">
-        OberaConnect LLC | www.oberaconnect.com | Confidential
-    </div>
+<h2 id="revision-history">8.0 Revision History</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 16%" />
+<col style="width: 22%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Version</th>
+<th>Date</th>
+<th>Author</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0</td>
+<td>2025-12-02</td>
+<td>IT Security Department</td>
+<td>Initial document creation.</td>
+</tr>
+<tr class="even">
+<td>1.1</td>
+<td>2025-12-29</td>
+<td>Jeremy Smith</td>
+<td>SME Review: Added Section 5.3 (Technical Procedure for creating
+simulations). Added Section 6.0 (Troubleshooting) with common issues and
+pre-simulation checklist.</td>
+</tr>
+</tbody>
+</table>
 </body>
 </html>

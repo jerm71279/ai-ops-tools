@@ -21,14 +21,15 @@ WORKDIR /app
 COPY docker/engineering-api/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy tool scripts (from root context)
-COPY engineering_tracker.py .
-COPY daily_engineering_summary.py .
-COPY contract_tracker.py .
-COPY ee_team_dashboard.py .
-COPY ecs_dashboard.py .
-COPY config.py .
-COPY comment_utils.py .
+# Copy core libraries
+COPY core/ ./core/
+
+# Copy tool scripts (from new structure)
+COPY Tools/Dashboards/engineering_tracker.py .
+COPY Tools/Dashboards/daily_engineering_summary.py .
+COPY Tools/Dashboards/contract_tracker.py .
+COPY Tools/Dashboards/ee_team_dashboard.py .
+COPY Tools/Dashboards/ecs_dashboard.py .
 
 # Copy API server
 COPY docker/engineering-api/api_server.py .

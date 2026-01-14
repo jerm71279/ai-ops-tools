@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOP-NET-007_SonicWall_Config_Restore_v1.0.0</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<h1 id="standard-operating-procedure-sop-net-007">Standard Operating
+Procedure: SOP-NET-007</h1>
+<p><strong>Title:</strong> SonicWall Configuration Restore
+<strong>Version:</strong> 1.0 <strong>Author:</strong> Jeremy Smith
+<strong>Date:</strong> 2025-12-29</p>
+<hr />
+<h2 id="purpose">1.0 Purpose</h2>
+<p>To establish a standardized procedure for restoring a SonicWall
+firewall configuration from a backup (.exp) file. This procedure is used
+for disaster recovery, device replacement, or rollback after failed
+changes.</p>
+<h2 id="scope">2.0 Scope</h2>
+<p>This procedure applies to all Network Technicians and Engineers
+responsible for: - Disaster recovery of SonicWall firewalls - Restoring
+configuration after firmware issues - Rolling back failed configuration
+changes - Device replacement (same model only)</p>
+<h2 id="prerequisites">3.0 Prerequisites</h2>
+<ul>
+<li><strong>Backup File:</strong> Valid <code>.exp</code> configuration
+backup file (see SOP-NET-006)</li>
+<li><strong>Access:</strong> Administrative credentials to the SonicWall
+device</li>
+<li><strong>Compatibility:</strong>
+<ul>
+<li>Backup must be from the <strong>same device model</strong> (e.g., TZ
+270 → TZ 270)</li>
+<li>Target firmware should be <strong>same or newer</strong> than backup
+source</li>
+</ul></li>
+<li><strong>Network:</strong> Active connection to the SonicWall
+management interface</li>
+</ul>
+<h2 id="when-to-use-this-procedure">4.0 When to Use This Procedure</h2>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 45%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Scenario</th>
+<th>Use Restore?</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Device bricked after firmware upgrade</td>
+<td>Yes</td>
+<td>Restore after firmware rollback</td>
+</tr>
+<tr class="even">
+<td>Configuration change caused outage</td>
+<td>Yes</td>
+<td>Restore pre-change backup</td>
+</tr>
+<tr class="odd">
+<td>Device RMA/replacement (same model)</td>
+<td>Yes</td>
+<td>Restore to new device</td>
+</tr>
+<tr class="even">
+<td>Moving config to different model</td>
+<td>No</td>
+<td>Manual reconfiguration required</td>
+</tr>
+<tr class="odd">
+<td>Factory reset performed</td>
+<td>Yes</td>
+<td>Restore from backup</td>
+</tr>
+</tbody>
+</table>
+<h2 id="procedure">5.0 Procedure</h2>
+<h3 id="pre-restore-checklist">5.1 Pre-Restore Checklist</h3>
+<ol type="1">
+<li><strong>Verify Backup File:</strong>
+<ul>
+<li>Confirm you have the correct <code>.exp</code> file</li>
+<li>Check file size is reasonable (50KB - 500KB typically)</li>
+<li>Verify file is not corrupted (open in text editor, should show
+XML)</li>
+</ul></li>
+<li><strong>Document Current State:</strong>
+<ul>
+<li>Note current firmware version</li>
+<li>Note current WAN IP (if accessible)</li>
+<li>Export current config as additional backup (if device is
+accessible)</li>
+</ul></li>
+<li><strong>Verify Compatibility:</strong>
+<ul>
+<li>Confirm backup is from same device model</li>
+<li>Confirm target firmware is same or newer than backup source
+firmware</li>
+</ul></li>
+</ol>
+<h3 id="restore-configuration">5.2 Restore Configuration</h3>
+<ol type="1">
+<li><strong>Access SonicWall Management Interface:</strong>
+<ul>
+<li>Navigate to the SonicWall management IP</li>
+<li>Log in with administrative credentials</li>
+<li>If device is factory reset, use default IP
+<code>192.168.168.168</code></li>
+</ul></li>
+<li><strong>Navigate to Import Settings:</strong>
+<ul>
+<li>Go to <strong>Device &gt; Settings &gt; Firmware &amp;
+Backups</strong></li>
+<li>Locate the <strong>Import/Export Configuration</strong> section</li>
+</ul></li>
+<li><strong>Import Configuration:</strong>
+<ul>
+<li>Click <strong>Import Settings</strong> (or <strong>Import
+Configuration</strong>)</li>
+<li>Browse to and select your <code>.exp</code> backup file</li>
+<li>Click <strong>Import</strong></li>
+</ul></li>
+<li><strong>Review Import Summary:</strong>
+<ul>
+<li>Review the import summary showing what will be restored</li>
+<li>Confirm settings look correct</li>
+<li>Click <strong>OK</strong> or <strong>Confirm</strong> to
+proceed</li>
+</ul></li>
+<li><strong>Wait for Reboot:</strong>
+<ul>
+<li>The firewall will automatically reboot to apply configuration</li>
+<li>This typically takes 3-5 minutes</li>
+<li>Do NOT power off during this process</li>
+</ul></li>
+</ol>
+<h3 id="post-restore-verification">5.3 Post-Restore Verification</h3>
+<ol type="1">
+<li><strong>Verify Access:</strong>
+<ul>
+<li>Log back into the management interface</li>
+<li>Note: Management IP may have changed to restored configuration</li>
+</ul></li>
+<li><strong>Verify Critical Settings:</strong>
+<ul class="task-list">
+<li><label><input type="checkbox" />WAN interface configured
+correctly</label></li>
+<li><label><input type="checkbox" />LAN interface and DHCP
+working</label></li>
+<li><label><input type="checkbox" />Internet connectivity
+functional</label></li>
+<li><label><input type="checkbox" />Firewall rules restored</label></li>
+<li><label><input type="checkbox" />VPN configurations (if
+applicable)</label></li>
+</ul></li>
+<li><strong>Re-authenticate Services:</strong>
+<ul>
+<li>Navigate to <strong>Device &gt; Settings &gt;
+MySonicWall</strong></li>
+<li>Re-enter MySonicWall credentials if prompted</li>
+<li>Verify license synchronization</li>
+</ul></li>
+<li><strong>Test Connectivity:</strong>
+<ul>
+<li>Test internet access from LAN</li>
+<li>Test any VPN connections</li>
+<li>Verify critical applications accessible</li>
+</ul></li>
+</ol>
+<h2 id="restore-to-factory-reset-device">6.0 Restore to Factory Reset
+Device</h2>
+<p>If restoring to a device that has been factory reset:</p>
+<ol type="1">
+<li><strong>Connect to Default IP:</strong>
+<ul>
+<li>Set your computer to static IP: <code>192.168.168.2</code></li>
+<li>Connect to firewall LAN port</li>
+<li>Navigate to <code>http://192.168.168.168</code></li>
+</ul></li>
+<li><strong>Complete Initial Setup:</strong>
+<ul>
+<li>Log in with default credentials (<code>admin</code> /
+<code>password</code>)</li>
+<li>Change admin password when prompted</li>
+<li>Select <strong>Manual Setup</strong></li>
+</ul></li>
+<li><strong>Register Device (if needed):</strong>
+<ul>
+<li>Complete device registration per SOP-NET-001 Section 6.2</li>
+<li>Registration must complete before config can be fully applied</li>
+</ul></li>
+<li><strong>Import Configuration:</strong>
+<ul>
+<li>Follow Section 5.2 above</li>
+<li>Note: Some settings may require re-entry (MySonicWall credentials,
+certificates)</li>
+</ul></li>
+</ol>
+<h2 id="restore-to-replacement-device-rma">7.0 Restore to Replacement
+Device (RMA)</h2>
+<p>When replacing a failed device with new hardware (same model):</p>
+<ol type="1">
+<li><strong>Register New Device:</strong>
+<ul>
+<li>Register new device in MySonicWall portal</li>
+<li>Transfer licenses from old device if needed (contact SonicWall
+support)</li>
+</ul></li>
+<li><strong>Update Firmware:</strong>
+<ul>
+<li>Upgrade new device to match firmware version of backup</li>
+<li>Or upgrade to latest stable release</li>
+</ul></li>
+<li><strong>Import Configuration:</strong>
+<ul>
+<li>Follow Section 5.2 above</li>
+</ul></li>
+<li><strong>Update WAN Settings:</strong>
+<ul>
+<li>If WAN IP is static, verify ISP settings are correct</li>
+<li>May need to update MAC address with ISP</li>
+</ul></li>
+<li><strong>Re-establish VPNs:</strong>
+<ul>
+<li>Site-to-site VPNs may need to be re-established</li>
+<li>Notify remote sites of device replacement</li>
+</ul></li>
+</ol>
+<h2 id="troubleshooting">8.0 Troubleshooting</h2>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Issue</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Import fails with error</td>
+<td>1. Verify .exp file not corrupted <br> 2. Check firmware
+compatibility <br> 3. Try different browser</td>
+</tr>
+<tr class="even">
+<td>Cannot access device after restore</td>
+<td>1. Check if management IP changed <br> 2. Connect to LAN and try
+default gateway IP <br> 3. Factory reset and retry</td>
+</tr>
+<tr class="odd">
+<td>Licenses not showing after restore</td>
+<td>1. Re-enter MySonicWall credentials <br> 2. Click Synchronize in
+Licenses section <br> 3. Reboot device</td>
+</tr>
+<tr class="even">
+<td>VPN not connecting after restore</td>
+<td>1. Verify WAN IP correct <br> 2. Re-exchange keys with remote site
+<br> 3. Check firewall rules restored</td>
+</tr>
+<tr class="odd">
+<td>Services not enabled after restore</td>
+<td>1. Sync licenses with MySonicWall <br> 2. Manually enable services
+<br> 3. Verify subscription active</td>
+</tr>
+</tbody>
+</table>
+<h2 id="important-warnings">9.0 Important Warnings</h2>
+<blockquote>
+<p><strong>WARNING:</strong> Restoring a configuration will
+<strong>overwrite all current settings</strong>. Always export current
+configuration before restoring.</p>
+</blockquote>
+<blockquote>
+<p><strong>WARNING:</strong> Configurations are <strong>device-model
+specific</strong>. A TZ 270 backup cannot be restored to a TZ 370 or
+other model.</p>
+</blockquote>
+<blockquote>
+<p><strong>WARNING:</strong> If restoring to older firmware than the
+backup source, some settings may not apply correctly. Always restore to
+same or newer firmware.</p>
+</blockquote>
+<h2 id="related-documents">10.0 Related Documents</h2>
+<ul>
+<li>SOP-NET-001: Initial SonicWall Firewall Setup</li>
+<li>SOP-NET-004: Register Device in MySonicwall</li>
+<li>SOP-NET-006: SonicWall Configuration Backup</li>
+</ul>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>End of Document</strong></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

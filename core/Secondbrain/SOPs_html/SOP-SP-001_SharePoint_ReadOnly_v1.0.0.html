@@ -1,483 +1,585 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OberaConnect Document</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333333;
-            max-width: 8.5in;
-            margin: 0 auto;
-            padding: 0.5in;
-            background: #fff;
-        }
-
-        .header {
-            border-bottom: 3px solid #0066CC;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .logo-img {
-            height: 50px;
-            width: auto;
-        }
-
-        .tagline {
-            font-size: 14px;
-            color: #666666;
-            font-style: italic;
-            margin-left: 2px;
-        }
-
-        .doc-meta {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .doc-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #333333;
-        }
-
-        .doc-date {
-            font-size: 12px;
-            color: #666666;
-        }
-
-        .section {
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #0066CC;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-        }
-
-        .section-content {
-            color: #333333;
-            font-size: 14px;
-        }
-
-        .section-content p {
-            margin-bottom: 10px;
-        }
-
-        .section-content ul {
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
-
-        .section-content li {
-            margin-bottom: 5px;
-        }
-
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 11px;
-            color: #999999;
-            text-align: center;
-        }
-
-        .highlight-box {
-            background: #f5f9ff;
-            border-left: 4px solid #0066CC;
-            padding: 15px;
-            margin: 15px 0;
-        }
-
-        .action-item {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 10px 15px;
-            margin: 10px 0;
-        }
-
-        @media print {
-            body {
-                padding: 0;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOP-SP-001_SharePoint_ReadOnly_v1.0.0</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo-container">
-            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
-            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
-        </div>
-        <div class="tagline">Technology Solutions for Modern Business</div>
-
-        <div class="doc-meta">
-            <div class="doc-title">SOP-SP-001 SharePoint ReadOnly v1.0.0</div>
-            <div class="doc-date">Date: [MM/DD/YYYY]</div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Executive Summary</div>
-        <div class="section-content">
-            <p>────────────────────────────────────────────────────────────</p>
-<h1
+<header id="title-block-header">
+<h1 class="title">SOP-SP-001_SharePoint_ReadOnly_v1.0.0</h1>
+</header>
+<h1 id="standard-operating-procedure-sop-sp-001">Standard Operating
+Procedure: SOP-SP-001</h1>
+<hr />
+<h2
 id="sop-sp-001-sharepoint-read-only-access-configuration">SOP-SP-001:
-SharePoint Read-Only Access Configuration</h1>
+SharePoint Read-Only Access Configuration</h2>
 <table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-</colgroup>
 <thead>
 <tr class="header">
-<th><strong>**Document ID**</strong></th>
-<th><strong>**Version**</strong></th>
-<th><strong>**Effective Date**</strong></th>
-<th><strong>**Author**</strong></th>
+<th style="text-align: left;"><strong>Document ID</strong></th>
+<th style="text-align: left;"><strong>Version</strong></th>
+<th style="text-align: left;"><strong>Effective Date</strong></th>
+<th style="text-align: left;"><strong>Author</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>SOP-SP-001</td>
-<td>1.0</td>
-<td>2025-12-02</td>
-<td>Gemini Agent</td>
+<td style="text-align: left;">SOP-SP-001</td>
+<td style="text-align: left;">1.0</td>
+<td style="text-align: left;">2025-12-02</td>
+<td style="text-align: left;">Gemini Agent</td>
 </tr>
 </tbody>
 </table>
-<h2 id="purpose">1.0 Purpose</h2>
+<h3 id="purpose">1.0 Purpose</h3>
 <p>To establish a standardized and secure procedure for configuring a
 read-only Azure AD application. This application will grant the
 OberaConnect Second Brain system access to download and process
 documents from SharePoint. The procedure is designed to have zero impact
 on existing user permissions, data integrity, or Microsoft 365
 settings.</p>
-<h2 id="scope">2.0 Scope</h2>
+<h3 id="scope">2.0 Scope</h3>
 <p>This SOP applies to all Azure Administrators within OberaConnect who
 are tasked with configuring data access for internal systems. This
 procedure is strictly limited to the creation and configuration of the
-SecondBrain-ReadOnly-SharePoint application.</p>
-<h2 id="responsibilities">3.0 Responsibilities</h2>
+<code>SecondBrain-ReadOnly-SharePoint</code> application.</p>
+<h3 id="responsibilities">3.0 Responsibilities</h3>
 <ul>
-<li><p>**Azure Administrator:** Responsible for executing all steps
-outlined in this SOP, ensuring permissions are correctly configured, and
-securely storing the generated credentials.</p></li>
+<li><strong>Azure Administrator:</strong> Responsible for executing all
+steps outlined in this SOP, ensuring permissions are correctly
+configured, and securely storing the generated credentials.</li>
 </ul>
-<h2 id="prerequisites">4.0 Prerequisites</h2>
+<h3 id="prerequisites">4.0 Prerequisites</h3>
 <ul>
-<li><p>Administrative access to the OberaConnect Azure Portal
-(https://portal.azure.com).</p></li>
-<li><p>Access to the server environment where the Second Brain
-application is hosted to configure environment variables.</p></li>
+<li>Administrative access to the OberaConnect Azure Portal
+(https://portal.azure.com).</li>
+<li>Access to the server environment where the Second Brain application
+is hosted to configure environment variables.</li>
 </ul>
-<h2 id="procedure">5.0 Procedure</h2>
+<h3 id="procedure">5.0 Procedure</h3>
 <p>This procedure is divided into three main parts: App Registration in
 Azure, local credential configuration, and connection testing.</p>
-<h3 id="part-a-azure-app-registration">5.1 Part A: Azure App
-Registration</h3>
-<p>5.1.1 Navigate to Azure App Registrations</p>
-<ol type="1">
-<li><p>Log in to the **Azure Portal**:
-[https://portal.azure.com](https://portal.azure.com)</p></li>
-<li><p>From the left sidebar, select **Azure Active
-Directory**.</p></li>
-<li><p>Select **App registrations**.</p></li>
-<li><p>Click **+ New registration**.</p></li>
-</ol>
-<p>5.1.2 Register the Application</p>
-<ol start="5" type="1">
-<li><p>Fill in the registration form with the following
-details:</p></li>
-</ol>
-<ul>
-<li><p>**Name:** `SecondBrain-ReadOnly-SharePoint`</p></li>
-<li><p>**Supported account types:** Select **Accounts in this
-organizational directory only (OberaConnect only - Single
-tenant)**.</p></li>
-<li><p>**Redirect URI:** Leave this section blank.</p></li>
-</ul>
-<ol start="6" type="1">
-<li><p>Click the **Register** button to create the application.</p></li>
-</ol>
-<p>5.1.3 Record Application Identifiers</p>
-<ol start="7" type="1">
-<li><p>After registration, you will be on the app's overview
-page.</p></li>
-<li><p>Copy and securely store the following values for use in Step
-5.2:</p></li>
-</ol>
-<ul>
-<li><p>`Application (client) ID`</p></li>
-<li><p>`Directory (tenant) ID`</p></li>
-</ul>
-<p>5.1.4 Create a Client Secret</p>
-<ol start="9" type="1">
-<li><p>From the left sidebar, select **Certificates &amp;
-secrets**.</p></li>
-<li><p>Click **+ New client secret**.</p></li>
-<li><p>Provide the following details:</p></li>
-</ol>
-<ul>
-<li><p>**Description:** `SecondBrain Read Access`</p></li>
-<li><p>**Expires:** `24 months` (or as per company policy).</p></li>
-</ul>
-<ol start="12" type="1">
-<li><p>Click **Add**.</p></li>
-<li><p>**CRITICAL:** Immediately copy the **Value** of the client
-secret. This value is only displayed once. Securely store it for use in
-Step 5.2.</p></li>
-</ol>
-<p>5.1.5 Grant Read-Only API Permissions</p>
-<ol start="14" type="1">
-<li><p>From the left sidebar, select **API permissions**.</p></li>
-<li><p>Click **+ Add a permission**.</p></li>
-<li><p>Select **Microsoft Graph**.</p></li>
-<li><p>Select **Application permissions**. **Do not use Delegated
-permissions.**</p></li>
-<li><p>In the "Select permissions" search box, find and check the
-following permissions:</p></li>
-</ol>
-<ul>
-<li><p>`Sites.Read.All`</p></li>
-<li><p>`Files.Read.All`</p></li>
-</ul>
-<ol start="19" type="1">
-<li><p>**VERIFY:** Ensure no "Write," "Manage," or "FullControl"
+<h4 id="part-a-azure-app-registration">5.1 Part A: Azure App
+Registration</h4>
+<p><strong>5.1.1 Navigate to Azure App Registrations</strong> 1. Log in
+to the <strong>Azure Portal</strong>: <a
+href="https://portal.azure.com">https://portal.azure.com</a> 2. From the
+left sidebar, select <strong>Azure Active Directory</strong>. 3. Select
+<strong>App registrations</strong>. 4. Click <strong>+ New
+registration</strong>.</p>
+<p><strong>5.1.2 Register the Application</strong> 1. Fill in the
+registration form with the following details: - <strong>Name:</strong>
+<code>SecondBrain-ReadOnly-SharePoint</code> - <strong>Supported account
+types:</strong> Select <strong>Accounts in this organizational directory
+only (OberaConnect only - Single tenant)</strong>. - <strong>Redirect
+URI:</strong> Leave this section blank. 2. Click the
+<strong>Register</strong> button to create the application.</p>
+<p><strong>5.1.3 Record Application Identifiers</strong> 1. After
+registration, you will be on the app’s overview page. 2. Copy and
+securely store the following values for use in Step 5.2: -
+<code>Application (client) ID</code> -
+<code>Directory (tenant) ID</code></p>
+<p><strong>5.1.4 Create a Client Secret</strong> 1. From the left
+sidebar, select <strong>Certificates &amp; secrets</strong>. 2. Click
+<strong>+ New client secret</strong>. 3. Provide the following details:
+- <strong>Description:</strong> <code>SecondBrain Read Access</code> -
+<strong>Expires:</strong> <code>24 months</code> (or as per company
+policy). 4. Click <strong>Add</strong>. 5. <strong>CRITICAL:</strong>
+Immediately copy the <strong>Value</strong> of the client secret. This
+value is only displayed once. Securely store it for use in Step 5.2.</p>
+<p><strong>5.1.5 Grant Read-Only API Permissions</strong> 1. From the
+left sidebar, select <strong>API permissions</strong>. 2. Click
+<strong>+ Add a permission</strong>. 3. Select <strong>Microsoft
+Graph</strong>. 4. Select <strong>Application permissions</strong>.
+<strong>Do not use Delegated permissions.</strong> 5. In the “Select
+permissions” search box, find and check the following permissions: -
+<code>Sites.Read.All</code> - <code>Files.Read.All</code> 6.
+<strong>VERIFY:</strong> Ensure no “Write,” “Manage,” or “FullControl”
 permissions are added. This application must remain
-**READ-ONLY**.</p></li>
-<li><p>Click **Add permissions**.</p></li>
+<strong>READ-ONLY</strong>. 7. Click <strong>Add
+permissions</strong>.</p>
+<p><strong>5.1.6 Grant Admin Consent</strong> 1. On the API permissions
+page, click the <strong>Grant admin consent for OberaConnect</strong>
+button. 2. A confirmation prompt will appear. Click
+<strong>Yes</strong>. 3. Verify that a green checkmark appears in the
+“Status” column for both permissions.</p>
+<h4 id="part-b-credential-configuration">5.2 Part B: Credential
+Configuration</h4>
+<ol type="1">
+<li>Connect to the WSL/Linux system hosting the application.</li>
+<li>Navigate to the project directory:
+<code>bash     cd /path/to/project</code></li>
+<li>Open the environment variable file for editing:
+<code>bash     nano .env</code></li>
+<li>Add the following lines to the file, replacing the placeholder text
+with the values copied from steps 5.1.3 and 5.1.4:
+<code>bash     # SharePoint Read-Only Access     AZURE_TENANT_ID=your-tenant-id-here     AZURE_CLIENT_ID=your-client-id-here     AZURE_CLIENT_SECRET=your-secret-value-here</code></li>
+<li>Save the file and exit the editor (Ctrl+X, then Y, then Enter).</li>
 </ol>
-<p>5.1.6 Grant Admin Consent</p>
-<ol start="21" type="1">
-<li><p>On the API permissions page, click the **Grant admin consent for
-OberaConnect** button.</p></li>
-<li><p>A confirmation prompt will appear. Click **Yes**.</p></li>
-<li><p>Verify that a green checkmark appears in the "Status" column for
-both permissions.</p></li>
+<h4 id="part-c-connection-testing">5.3 Part C: Connection Testing</h4>
+<ol type="1">
+<li>Ensure you are in the project directory:
+<code>bash     cd /path/to/project</code></li>
+<li>Execute the SharePoint importer script to test the connection:
+<code>bash     ./venv/bin/python sharepoint_importer.py</code></li>
+<li>A successful test will output a list of SharePoint sites, confirming
+the credentials and permissions are correct.</li>
 </ol>
-<h3 id="part-b-credential-configuration">5.2 Part B: Credential
-Configuration</h3>
-<ol start="24" type="1">
-<li><p>Connect to the WSL/Linux system hosting the application.</p></li>
-<li><p>Navigate to the project directory:</p></li>
-</ol>
-<p>`bash</p>
-<p>cd /home/mavrick/Projects/Secondbrain</p>
-<p>`</p>
-<ol start="26" type="1">
-<li><p>Open the environment variable file for editing:</p></li>
-</ol>
-<p>`bash</p>
-<p>nano .env</p>
-<p>`</p>
-<ol start="27" type="1">
-<li><p>Add the following lines to the file, replacing the placeholder
-text with the values copied from steps 5.1.3 and 5.1.4:</p></li>
-</ol>
-<p>`bash</p>
-<p>SharePoint Read-Only Access</p>
-<p>AZURE_TENANT_ID=your-tenant-id-here</p>
-<p>AZURE_CLIENT_ID=your-client-id-here</p>
-<p>AZURE_CLIENT_SECRET=your-secret-value-here</p>
-<p>`</p>
-<ol start="28" type="1">
-<li><p>Save the file and exit the editor (Ctrl+X, then Y, then
-Enter).</p></li>
-</ol>
-<h3 id="part-c-connection-testing">5.3 Part C: Connection Testing</h3>
-<ol start="29" type="1">
-<li><p>Ensure you are in the project directory:</p></li>
-</ol>
-<p>`bash</p>
-<p>cd /home/mavrick/Projects/Secondbrain</p>
-<p>`</p>
-<ol start="30" type="1">
-<li><p>Execute the SharePoint importer script to test the
-connection:</p></li>
-</ol>
-<p>`bash</p>
-<p>./venv/bin/python sharepoint_importer.py</p>
-<p>`</p>
-<ol start="31" type="1">
-<li><p>A successful test will output a list of SharePoint sites,
-confirming the credentials and permissions are correct.</p></li>
-</ol>
-<h2 id="security-compliance">6.0 Security &amp; Compliance</h2>
+<h3 id="security-compliance">6.0 Security &amp; Compliance</h3>
 <ul>
-<li><p>**Capabilities:** The application is strictly limited to reading
-SharePoint sites/libraries and downloading copies of files. It can view
-file metadata.</p></li>
-<li><p>**Restrictions:** The application **CANNOT** modify, delete, or
-create files in SharePoint. It cannot alter permissions, access user
-data (e.g., email), or change any Microsoft 365 settings.</p></li>
-<li><p>**Isolation:** This is a standalone app registration, completely
-isolated from other OberaConnect Azure applications. It uses its own
-credentials and permissions.</p></li>
+<li><strong>Capabilities:</strong> The application is strictly limited
+to reading SharePoint sites/libraries and downloading copies of files.
+It can view file metadata.</li>
+<li><strong>Restrictions:</strong> The application
+<strong>CANNOT</strong> modify, delete, or create files in SharePoint.
+It cannot alter permissions, access user data (e.g., email), or change
+any Microsoft 365 settings.</li>
+<li><strong>Isolation:</strong> This is a standalone app registration,
+completely isolated from other OberaConnect Azure applications. It uses
+its own credentials and permissions.</li>
 </ul>
-<h2 id="revocation-procedure">7.0 Revocation Procedure</h2>
-<p>To revoke access for this application, perform the following
-steps:</p>
-<ol start="32" type="1">
-<li><p>Navigate to **Azure Portal &gt; Azure Active Directory &gt; App
-registrations**.</p></li>
-<li><p>Search for and select `SecondBrain-ReadOnly-SharePoint`.</p></li>
-<li><p>On the application overview page, click **Delete**.</p></li>
-<li><p>Confirm the deletion. Access will be immediately and permanently
-revoked.</p></li>
-</ol>
-<h2 id="verification-checklist">8.0 Verification Checklist</h2>
+<h3 id="revocation-procedure">7.0 Revocation Procedure</h3>
+<p>To revoke access for this application, perform the following steps:
+1. Navigate to <strong>Azure Portal &gt; Azure Active Directory &gt; App
+registrations</strong>. 2. Search for and select
+<code>SecondBrain-ReadOnly-SharePoint</code>. 3. On the application
+overview page, click <strong>Delete</strong>. 4. Confirm the deletion.
+Access will be immediately and permanently revoked.</p>
+<h3 id="verification-checklist">8.0 Verification Checklist</h3>
 <table>
 <colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
+<col style="width: 30%" />
+<col style="width: 30%" />
+<col style="width: 38%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th><strong>Step</strong></th>
-<th><strong>Verification Point</strong></th>
-<th><strong>Completed (✔)</strong></th>
+<th style="text-align: left;">Step</th>
+<th style="text-align: left;">Verification Point</th>
+<th style="text-align: center;">Completed (✔)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1</td>
-<td>App is named `SecondBrain-ReadOnly-SharePoint`.</td>
-<td></td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">App is named
+<code>SecondBrain-ReadOnly-SharePoint</code>.</td>
+<td style="text-align: center;"></td>
 </tr>
 <tr class="even">
-<td>2</td>
-<td>Permissions are **Application permissions**, not Delegated.</td>
-<td></td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Permissions are <strong>Application
+permissions</strong>, not Delegated.</td>
+<td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
-<td>3</td>
-<td>Only `Sites.Read.All` and `Files.Read.All` are granted.</td>
-<td></td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Only <code>Sites.Read.All</code> and
+<code>Files.Read.All</code> are granted.</td>
+<td style="text-align: center;"></td>
 </tr>
 <tr class="even">
-<td>4</td>
-<td>No write, manage, or full control permissions are present.</td>
-<td></td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">No write, manage, or full control
+permissions are present.</td>
+<td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
-<td>5</td>
-<td>Admin consent has been granted (green checkmarks visible).</td>
-<td></td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Admin consent has been granted (green
+checkmarks visible).</td>
+<td style="text-align: center;"></td>
 </tr>
 <tr class="even">
-<td>6</td>
-<td>Client ID, Tenant ID, and Client Secret are copied correctly.</td>
-<td></td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Client ID, Tenant ID, and Client Secret
+are copied correctly.</td>
+<td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
-<td>7</td>
-<td>Credentials have been securely added to the `.env` file.</td>
-<td></td>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">Credentials have been securely added to
+the <code>.env</code> file.</td>
+<td style="text-align: center;"></td>
 </tr>
 <tr class="even">
-<td>8</td>
-<td>The connection test script (`sharepoint_importer.py`) runs
-successfully.</td>
-<td></td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">The connection test script
+(<code>sharepoint_importer.py</code>) runs successfully.</td>
+<td style="text-align: center;"></td>
 </tr>
 </tbody>
 </table>
-<p>────────────────────────────────────────────────────────────</p>
-<h2 id="approval">9.0 Approval</h2>
+<hr />
+<h3 id="troubleshooting">8.1 Troubleshooting</h3>
 <table>
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
+<col style="width: 26%" />
+<col style="width: 26%" />
+<col style="width: 46%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th>Role</th>
-<th>Name</th>
-<th>Signature</th>
+<th>Issue</th>
+<th>Cause</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“Insufficient privileges to complete the operation”</td>
+<td>Admin consent not granted or not propagated</td>
+<td>Go to API Permissions, click “Grant admin consent”. Wait 5-10
+minutes for propagation.</td>
+</tr>
+<tr class="even">
+<td>“Failed to get access token”</td>
+<td>Incorrect credentials in <code>.env</code></td>
+<td>Verify AZURE_TENANT_ID, AZURE_CLIENT_ID, and AZURE_CLIENT_SECRET are
+correct. Check for extra spaces/characters.</td>
+</tr>
+<tr class="odd">
+<td>“AADSTS700016: Application not found”</td>
+<td>Wrong tenant ID or app deleted</td>
+<td>Verify tenant ID matches your Azure AD. Check app registration still
+exists.</td>
+</tr>
+<tr class="even">
+<td>“The specified client secret has expired”</td>
+<td>Client secret expired</td>
+<td>Create new client secret in Azure Portal &gt; Certificates &amp;
+secrets. Update <code>.env</code>.</td>
+</tr>
+<tr class="odd">
+<td>“Access denied” to specific site</td>
+<td>Site-level permissions restrict app access</td>
+<td>App has tenant-wide read, but site admins can block. Check site
+permissions or use delegated flow.</td>
+</tr>
+<tr class="even">
+<td>Connection timeout</td>
+<td>Network/firewall blocking Azure endpoints</td>
+<td>Verify outbound HTTPS to <code>login.microsoftonline.com</code> and
+<code>graph.microsoft.com</code>.</td>
+</tr>
+<tr class="odd">
+<td>“Resource does not exist”</td>
+<td>Wrong site ID or site deleted</td>
+<td>Verify site ID using Graph Explorer:
+<code>GET /sites?search=sitename</code>.</td>
+</tr>
+<tr class="even">
+<td>Empty file list returned</td>
+<td>No files in library or wrong drive ID</td>
+<td>Verify drive ID. Check library has files. Try listing root:
+<code>/drives/{drive-id}/root/children</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Diagnostic Commands:</strong></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test authentication</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST <span class="st">&quot;https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/token&quot;</span> <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&quot;client_id={client_id}&amp;scope=https://graph.microsoft.com/.default&amp;client_secret={secret}&amp;grant_type=client_credentials&quot;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Test Graph API access (with token)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-H</span> <span class="st">&quot;Authorization: Bearer {token}&quot;</span> <span class="st">&quot;https://graph.microsoft.com/v1.0/sites&quot;</span></span></code></pre></div>
+<p><strong>Python Test Script:</strong></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> azure.identity <span class="im">import</span> ClientSecretCredential</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> msgraph.core <span class="im">import</span> GraphClient</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>credential <span class="op">=</span> ClientSecretCredential(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    tenant_id<span class="op">=</span>os.getenv(<span class="st">&quot;AZURE_TENANT_ID&quot;</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    client_id<span class="op">=</span>os.getenv(<span class="st">&quot;AZURE_CLIENT_ID&quot;</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    client_secret<span class="op">=</span>os.getenv(<span class="st">&quot;AZURE_CLIENT_SECRET&quot;</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> GraphClient(credential<span class="op">=</span>credential)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> client.get(<span class="st">&#39;/sites&#39;</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result.json())</span></code></pre></div>
+<hr />
+<h3 id="revision-history">9.0 Revision History</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 16%" />
+<col style="width: 22%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Version</th>
 <th>Date</th>
+<th>Author</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>**Document Owner**</td>
-<td></td>
-<td></td>
-<td></td>
+<td>1.0</td>
+<td>2025-12-02</td>
+<td>Gemini Agent</td>
+<td>Initial document creation.</td>
 </tr>
 <tr class="even">
-<td>**Approved By**</td>
-<td></td>
-<td></td>
-<td></td>
+<td>1.1</td>
+<td>2025-12-29</td>
+<td>Jeremy Smith</td>
+<td>SME Review: Added Section 8.1 (Troubleshooting) with common Azure AD
+app and Graph API issues. Added diagnostic commands.</td>
 </tr>
 </tbody>
 </table>
-
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Details</div>
-        <div class="section-content">
-            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
-
-            <div class="highlight-box">
-                <strong>Key Point:</strong> [Important information to highlight]
-            </div>
-
-            <p>Supporting details:</p>
-            <ul>
-                <li>[Detail item 1]</li>
-                <li>[Detail item 2]</li>
-                <li>[Detail item 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Next Steps</div>
-        <div class="section-content">
-            <div class="action-item">
-                <strong>Action Required:</strong> [Specific action item with owner and deadline]
-            </div>
-
-            <ul>
-                <li>[Next step 1]</li>
-                <li>[Next step 2]</li>
-                <li>[Next step 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="footer">
-        OberaConnect LLC | www.oberaconnect.com | Confidential
-    </div>
+<hr />
+<h3 id="approval">10.0 Approval</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Role</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Signature</th>
+<th style="text-align: left;">Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Document Owner</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Approved By</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
 </body>
 </html>

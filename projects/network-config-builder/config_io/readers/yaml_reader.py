@@ -16,7 +16,7 @@ from core.models import (
     NetworkConfig, VendorType, DeploymentType,
     CustomerInfo, WANConfig, LANConfig, DHCPConfig,
     VLANConfig, WirelessConfig, SecurityConfig,
-    FirewallRule, PortForward, VPNConfig
+    FirewallRule, PortForward, VPNConfig, SiteToSiteVPNConfig
 )
 from core.exceptions import ValidationError
 
@@ -125,6 +125,11 @@ class YAMLConfigReader:
         if 'security' in data:
             security = YAMLConfigReader._parse_security(data['security'])
 
+        # Parse VPN configurations
+        vpn = []
+        if 'vpn' in data:
+            vpn = [YAMLConfigReader._parse_vpn(v) for v in data['vpn']]
+
         # Parse vendor-specific configs
         mikrotik_config = data.get('mikrotik_config', data.get('mikrotik', {}))
         sonicwall_config = data.get('sonicwall_config', data.get('sonicwall', {}))
@@ -141,6 +146,7 @@ class YAMLConfigReader:
             vlans=vlans,
             wireless=wireless,
             security=security,
+            vpn=vpn,
             mikrotik_config=mikrotik_config,
             sonicwall_config=sonicwall_config,
             ubiquiti_config=ubiquiti_config
@@ -226,4 +232,46 @@ class YAMLConfigReader:
             admin_password=data['admin_password'],
             allowed_management_ips=data.get('allowed_management_ips', []),
             disable_unused_services=data.get('disable_unused_services', True)
+        )
+
+    @staticmethod
+    def _parse_vpn(data: Dict[str, Any]) -> VPNConfig:
+        """Parse VPN configuration"""
+        site_to_site = None
+        if data.get('type') == 'site-to-site' and 'site_to_site' in data:
+            s2s = data['site_to_site']
+            site_to_site = SiteToSiteVPNConfig(
+                name=s2s['name'],
+                peer_wan_ip=s2s['peer_wan_ip'],
+                local_network=s2s['local_network'],
+                remote_network=s2s['remote_network'],
+                preshared_key=s2s['preshared_key'],
+                ike_version=s2s.get('ike_version', '2'),
+                ike_encryption=s2s.get('ike_encryption', 'aes256'),
+                ike_authentication=s2s.get('ike_authentication', 'sha256'),
+                ike_dh_group=s2s.get('ike_dh_group', '14'),
+                ike_lifetime=s2s.get('ike_lifetime', 28800),
+                ipsec_encryption=s2s.get('ipsec_encryption', 'aes256'),
+                ipsec_authentication=s2s.get('ipsec_authentication', 'sha256'),
+                ipsec_pfs_group=s2s.get('ipsec_pfs_group', '14'),
+                ipsec_lifetime=s2s.get('ipsec_lifetime', 3600),
+                local_wan_ip=s2s.get('local_wan_ip'),
+                dead_peer_detection=s2s.get('dead_peer_detection', True),
+                nat_traversal=s2s.get('nat_traversal', True),
+                enabled=s2s.get('enabled', True),
+                # NAT VPN settings for overlapping subnets
+                nat_vpn=s2s.get('nat_vpn', False),
+                local_translated=s2s.get('local_translated'),
+                remote_translated=s2s.get('remote_translated')
+            )
+
+        return VPNConfig(
+            type=data.get('type', 'ipsec'),
+            name=data.get('name', ''),
+            peer_ip=data.get('peer_ip'),
+            local_subnet=data.get('local_subnet'),
+            remote_subnet=data.get('remote_subnet'),
+            preshared_key=data.get('preshared_key'),
+            site_to_site=site_to_site,
+            config=data.get('config', {})
         )

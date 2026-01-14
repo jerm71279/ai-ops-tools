@@ -1,0 +1,73 @@
+# MikroTik Configuration for Customer 205923
+# Location: Foley, AL
+# Customer Type: /INT/205923//UIF/
+# Generated: 2026-01-08
+
+vendor: mikrotik
+device_model: MikroTik Router
+
+customer:
+  name: "DC Lawn Foley"
+  site: "Foley, AL"
+  contact: "INT-UIF-205923"
+  notes: "Uniti Fiber - Calix ONT Port 1"
+
+deployment_type: router_only
+
+wan:
+  interface: ether1
+  mode: static
+  ip: 142.190.216.114
+  netmask: 30
+  gateway: 142.190.216.113
+  dns:
+    - 142.190.111.111
+    - 142.190.222.222
+
+lan:
+  interface: bridge-lan
+  ip: 10.54.8.1
+  netmask: 24
+  dhcp:
+    enabled: true
+    pool_start: 10.54.8.100
+    pool_end: 10.54.8.200
+    lease_time: 24h
+    dns_servers:
+      - 142.190.111.111
+      - 142.190.222.222
+
+security:
+  admin_username: admin
+  admin_password: "!yeloFnwalCD"
+  allowed_management_ips:
+    - 10.54.8.0/24
+    - 142.190.216.112/30
+  disable_unused_services: true
+
+# MikroTik-specific settings
+mikrotik:
+  # LAN ports to add to bridge (RB4011 has ether2-10 + sfp)
+  lan_ports:
+    - ether2
+    - ether3
+    - ether4
+    - ether5
+    - ether6
+    - ether7
+    - ether8
+    - ether9
+    - ether10
+  timezone: America/Chicago
+  enable_wan_winbox: true
+  enable_wan_ssh: false
+  enable_mac_discovery_lan: true
+  bandwidth_test: false
+
+# UniFi Site Manager
+unifi:
+  site_id: "eddc3e21-63a7-4d73-aaad-c988fdbafc27"
+  inform_url: "http://eddc3e21-63a7-4d73-aaad-c988fdbafc27.unifi-hosting.ui.com:8080/inform"
+  devices:
+    - type: U6
+      description: "Access Point"

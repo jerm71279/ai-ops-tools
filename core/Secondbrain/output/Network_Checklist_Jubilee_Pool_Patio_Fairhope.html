@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Checklist - Jubilee Pool & Patio of Fairhope</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--gray-100); color: var(--gray-800); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        header h1 { font-size: 1.75rem; margin-bottom: 8px; }
+        header p { opacity: 0.9; font-size: 0.95rem; }
+        .meta-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+        .meta-item { background: rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; }
+        .meta-item label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.8; }
+        .meta-item span { display: block; font-weight: 600; margin-top: 4px; font-family: monospace; }
+        .progress-bar { background: var(--gray-200); border-radius: 999px; height: 12px; margin: 20px 0; overflow: hidden; }
+        .progress-fill { background: linear-gradient(90deg, var(--success) 0%, #34d399 100%); height: 100%; width: 0%; border-radius: 999px; transition: width 0.3s ease; }
+        .progress-text { text-align: center; font-weight: 600; color: var(--gray-600); margin-bottom: 24px; }
+        .section { background: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--gray-100); }
+        .section-header h2 { font-size: 1.25rem; color: var(--gray-800); }
+        .section-badge { background: var(--gray-100); color: var(--gray-600); padding: 4px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 500; }
+        table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.9rem; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--gray-200); }
+        th { background: var(--gray-50); font-weight: 600; color: var(--gray-700); }
+        tr:hover { background: var(--gray-50); }
+        .circuit-highlight { background: linear-gradient(135deg, #ebf8ff 0%, #e0f2fe 100%); }
+        .circuit-highlight td { font-family: monospace; font-weight: 600; }
+        .findings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
+        .finding-card { background: var(--gray-50); border-radius: 8px; padding: 16px; border-left: 4px solid var(--primary); }
+        .finding-card.critical { border-left-color: var(--danger); }
+        .finding-card.moderate { border-left-color: var(--warning); }
+        .finding-card.info { border-left-color: var(--primary); }
+        .checklist-item { display: flex; align-items: flex-start; padding: 14px; margin: 8px 0; border-radius: 8px; border: 1px solid var(--gray-200); background: white; }
+        .checklist-item:hover { background: var(--gray-50); border-color: var(--gray-300); }
+        .checklist-item.completed { background: #ecfdf5; border-color: #a7f3d0; }
+        .checklist-item.completed .item-text { color: var(--gray-600); }
+        .checkbox { width: 24px; height: 24px; border: 2px solid var(--gray-300); border-radius: 6px; margin-right: 14px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
+        .checkbox:hover { border-color: var(--primary); }
+        .checklist-item.completed .checkbox { background: var(--success); border-color: var(--success); }
+        .checkbox svg { width: 14px; height: 14px; stroke-width: 3; opacity: 0; }
+        .checklist-item.completed .checkbox svg { opacity: 1; color: white; }
+        .item-content { flex: 1; }
+        .item-text { font-weight: 600; font-size: 0.95rem; }
+        .item-details { font-size: 0.85rem; color: var(--gray-600); margin-top: 6px; background: var(--gray-50); padding: 8px 12px; border-radius: 6px; font-family: monospace; }
+        .item-details strong { color: var(--gray-800); }
+        .recommendation { margin-top: 10px; border: 1px dashed var(--gray-300); border-radius: 8px; overflow: hidden; }
+        .recommendation-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); cursor: pointer; user-select: none; }
+        .recommendation-header:hover { background: linear-gradient(135deg, #fde68a 0%, #fcd34d 100%); }
+        .recommendation-title { font-size: 0.8rem; font-weight: 600; color: var(--gray-700); display: flex; align-items: center; gap: 6px; }
+        .recommendation-title::before { content: "💡"; font-size: 0.9rem; }
+        .recommendation-toggle { font-size: 0.75rem; color: var(--gray-600); display: flex; align-items: center; gap: 4px; }
+        .recommendation-toggle svg { width: 16px; height: 16px; transition: transform 0.2s; }
+        .recommendation.expanded .recommendation-toggle svg { transform: rotate(180deg); }
+        .recommendation-content { display: none; padding: 12px; background: #fffbeb; font-size: 0.85rem; }
+        .recommendation.expanded .recommendation-content { display: block; }
+        .recommendation-content ul { margin: 8px 0 8px 20px; color: var(--gray-700); }
+        .recommendation-content li { margin: 4px 0; }
+        .accept-btn { margin-top: 10px; padding: 6px 14px; background: var(--success); color: white; border: none; border-radius: 6px; font-size: 0.8rem; font-weight: 500; cursor: pointer; }
+        .accept-btn:hover { background: #059669; }
+        .recommendation.accepted .recommendation-header { background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); }
+        .recommendation.accepted .recommendation-title::before { content: "✅"; }
+        .recommendation.accepted .accept-btn { display: none; }
+        .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; margin: 16px 0; }
+        .summary-card { background: var(--gray-50); padding: 16px; border-radius: 8px; text-align: center; }
+        .summary-card .number { font-size: 2rem; font-weight: 700; color: var(--primary); }
+        .summary-card .label { font-size: 0.75rem; color: var(--gray-600); text-transform: uppercase; }
+        .sign-off { background: var(--gray-50); padding: 20px; border-radius: 8px; margin-top: 16px; }
+        .sign-off input { width: 100%; padding: 10px; border: 2px solid var(--gray-200); border-radius: 6px; margin-top: 8px; font-size: 0.95rem; }
+        .sign-off input:focus { outline: none; border-color: var(--primary); }
+        .btn { padding: 10px 20px; border-radius: 8px; font-weight: 500; cursor: pointer; border: none; transition: all 0.2s; margin-right: 8px; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-secondary { background: var(--gray-200); color: var(--gray-700); }
+        .alert-banner { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b; border-radius: 8px; padding: 16px; margin-bottom: 20px; }
+        .alert-banner h3 { color: #92400e; margin-bottom: 8px; }
+        .alert-banner p { color: #78350f; font-size: 0.9rem; }
+        @media print { .no-print { display: none; } .section { break-inside: avoid; } .recommendation-content { display: block !important; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Network Installation Checklist</h1>
+        <p>Jubilee Pool & Patio of Fairhope</p>
+        <div class="meta-info">
+            <div class="meta-item"><label>WAN IP</label><span>208.114.201.50</span></div>
+            <div class="meta-item"><label>ISP</label><span>Unity Fiber</span></div>
+            <div class="meta-item"><label>LAN Gateway</label><span>192.168.0.1</span></div>
+            <div class="meta-item"><label>Subnet</label><span>192.168.0.0/24</span></div>
+            <div class="meta-item"><label>Router</label><span>MikroTik RB4011iGS+</span></div>
+            <div class="meta-item"><label>Devices</label><span>16 found</span></div>
+        </div>
+    </header>
+
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-text"><span id="progressText">0</span> of <span id="totalTasks">0</span> tasks complete</div>
+    
+    <div class="section">
+        <div class="section-header"><h2>Circuit & Network Information</h2></div>
+        <table>
+            <tr><th>Item</th><th>Value</th></tr>
+            <tr class="circuit-highlight"><td>WAN IP Address</td><td>208.114.201.50/30</td></tr>
+            <tr><td>WAN Gateway</td><td>208.114.201.49</td></tr>
+            <tr><td>ISP Provider</td><td>Unity Fiber</td></tr>
+            <tr><td>Gateway Device</td><td>MikroTik RB4011iGS+ (Serial: HG109PY9F34)</td></tr>
+            <tr><td>Local Gateway IP</td><td>192.168.0.1</td></tr>
+            <tr><td>LAN Subnet</td><td>192.168.0.0/24 (VLAN 10)</td></tr>
+            <tr><td>Guest Subnet</td><td>10.10.20.0/24 (VLAN 20)</td></tr>
+            <tr><td>WinBox Port</td><td>8899</td></tr>
+            <tr><td>DNS Servers</td><td>8.8.8.8, 8.8.4.4, 9.9.9.9</td></tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <div class="section-header"><h2>Device Summary</h2></div>
+        <div class="summary-grid">
+            <div class="summary-card"><div class="number">16</div><div class="label">Total</div></div>
+            <div class="summary-card"><div class="number">2</div><div class="label">Routers</div></div>
+            <div class="summary-card"><div class="number">4</div><div class="label">WiFi APs</div></div>
+            <div class="summary-card"><div class="number">2</div><div class="label">Printers</div></div>
+            <div class="summary-card"><div class="number">3</div><div class="label">Phones</div></div>
+            <div class="summary-card"><div class="number">1</div><div class="label">POS</div></div>
+            <div class="summary-card"><div class="number">2</div><div class="label">Ubiquiti</div></div>
+            <div class="summary-card"><div class="number">2</div><div class="label">Unknown</div></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header"><h2>Security Observations</h2></div>
+        <div class="findings-grid">
+            <div class="finding-card moderate"><p>MikroTik router has bandwidth-test service exposed (port 2000)</p></div>
+            <div class="finding-card moderate"><p>MikroTik AP WinBox management exposed (port 8291)</p></div>
+            <div class="finding-card moderate"><p>HP printers have web admin exposed (ports 80, 443)</p></div>
+            <div class="finding-card moderate"><p>Ubiquiti devices have SSH exposed (port 22)</p></div>
+            <div class="finding-card info"><p>Apple device detected at .239 (iPhone/iPad)</p></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header"><h2>Phase 1: Discovery & Documentation</h2><span class="section-badge phase-badge">0/0</span></div>
+        
+        <div class="checklist-item completed">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Conduct network discovery scan</div>
+                <div class="item-details">
+                    <strong>Completed:</strong> December 15, 2025<br>
+                    <strong>Target:</strong> 192.168.0.0/24<br>
+                    <strong>Hosts Found:</strong> 16
+                </div>
+            </div>
+        </div>
+
+        <div class="checklist-item completed">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Document ISP circuit information</div>
+                <div class="item-details">
+                    <strong>ISP:</strong> Unity Fiber<br>
+                    <strong>WAN IP:</strong> 208.114.201.50/30<br>
+                    <strong>WAN Gateway:</strong> 208.114.201.49<br>
+                    <strong>Router:</strong> MikroTik RB4011iGS+ @ 192.168.0.1
+                </div>
+            </div>
+        </div>
+
+        <div class="checklist-item completed">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Identify network infrastructure</div>
+                <div class="item-details"><strong>Routers (2):</strong><br>
+                    • 192.168.0.1 - MikroTik Router (Gateway)<br>
+                    • 192.168.0.246 - MikroTik Wireless AP (RouterOS 7.18.2)<br>
+                    <strong>WiFi APs (3 Ubiquiti):</strong><br>
+                    • 192.168.0.219, .243, .245 - Ubiquiti APs<br>
+                    <strong>Ubiquiti Devices (2):</strong><br>
+                    • 192.168.0.252, .253 - Ubiquiti (SSH/HTTPS)
+                </div>
+            </div>
+        </div>
+
+        <div class="checklist-item completed">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Identify printers</div>
+                <div class="item-details"><strong>Count:</strong> 2 HP printers<br>
+                    • 192.168.0.240 - HPI2A41A6<br>
+                    • 192.168.0.242 - HPI29678C<br>
+                </div>
+            </div>
+        </div>
+
+        <div class="checklist-item completed">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Identify VoIP phones</div>
+                <div class="item-details"><strong>Count:</strong> 3 Grandstream phones<br>
+                    • 192.168.0.247 - Grandstream<br>
+                    • 192.168.0.248 - Grandstream<br>
+                    • 192.168.0.249 - Grandstream<br>
+                </div>
+            </div>
+        </div>
+
+        <div class="checklist-item completed">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Identify POS terminals</div>
+                <div class="item-details"><strong>Count:</strong> 1 Clover POS<br>
+                    • 192.168.0.235 - Clover Network POS<br>
+                </div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Assess physical infrastructure</div>
+                <div class="item-details"><strong>Tasks:</strong> Cabling, rack space, AP locations, power/UPS</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-header"><h2>Phase 2: Router & Firewall Configuration</h2><span class="section-badge phase-badge">0/0</span></div>
+        
+        <div class="checklist-item completed">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Configure router/firewall</div>
+                <div class="item-details">
+                    <strong>Device:</strong> MikroTik RB4011iGS+ (Serial: HG109PY9F34)<br>
+                    <strong>WAN IP:</strong> 208.114.201.50/30<br>
+                    <strong>WAN Gateway:</strong> 208.114.201.49<br>
+                    <strong>LAN Gateway:</strong> 192.168.0.1<br>
+                    <strong>WinBox:</strong> 208.114.201.50:8899<br>
+                    <strong>Login:</strong> Ob3raConn3ct
+                </div>
+            </div>
+        </div>
+
+        <div class="checklist-item completed">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Configure VLANs</div>
+                <div class="item-details">
+                    <strong>VLAN 10 (LAN):</strong> 192.168.0.0/24 - DHCP .20-.254<br>
+                    <strong>VLAN 20 (GUEST):</strong> 10.10.20.0/24 - DHCP .10-.254
+                </div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Configure firewall rules</div>
+                <div class="item-details"><strong>Address security findings:</strong><br>
+                    • MikroTik bandwidth-test service exposed (port 2000)<br>
+                    • MikroTik AP WinBox management exposed (port 8291)<br>
+                    • HP printers web admin exposed (ports 80, 443)<br>
+                    • Ubiquiti devices SSH exposed (port 22)<br>
+                </div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Configure WiFi SSIDs</div>
+                <div class="recommendation" id="rec-wifi">
+                    <div class="recommendation-header" onclick="toggleRecommendation('rec-wifi')">
+                        <span class="recommendation-title">Recommended SSIDs</span>
+                        <span class="recommendation-toggle">Show <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 9l-7 7-7-7"/></svg></span>
+                    </div>
+                    <div class="recommendation-content">
+                        <ul>
+                            <li><strong>JubileePool-Fairhope-Staff</strong> - WPA3, VLAN 20</li>
+                            <li><strong>JubileePool-Fairhope-Voice</strong> - WPA2, VLAN 30</li>
+                            <li><strong>JubileePool-Fairhope-Guest</strong> - Captive Portal, VLAN 40</li>
+                        </ul>
+                        <button class="accept-btn" onclick="acceptRecommendation('rec-wifi')">Accept Recommendation</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-header"><h2>Phase 3: Endpoint Configuration</h2><span class="section-badge phase-badge">0/0</span></div>
+
+        <div class="checklist-item">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Configure VoIP phones</div>
+                <div class="item-details"><strong>Phones (3 Grandstream):</strong><br>
+                    • 192.168.0.247 - Grandstream<br>
+                    • 192.168.0.248 - Grandstream<br>
+                    • 192.168.0.249 - Grandstream<br>
+                </div>
+            </div>
+        </div>
+
+        <div class="checklist-item">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Configure printer(s)</div>
+                <div class="item-details"><strong>Printers (2 HP):</strong><br>
+                    • 192.168.0.240 - HPI2A41A6 (Ports: 80, 443, 631, 9100)<br>
+                    • 192.168.0.242 - HPI29678C (Ports: 80, 443, 631, 9100)<br>
+                </div>
+            </div>
+        </div>
+
+        <div class="checklist-item">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Configure POS terminal</div>
+                <div class="item-details"><strong>POS (1 Clover):</strong><br>
+                    • 192.168.0.235 - Clover Network POS<br>
+                </div>
+            </div>
+        </div>
+
+        <div class="checklist-item">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Identify unknown devices</div>
+                <div class="item-details"><strong>Unknown (2):</strong><br>
+                    • 192.168.0.233 - MAC: D6:AE:A7:F1:22:41 (Randomized)<br>
+                    • 192.168.0.239 - Apple device (iPhone/iPad)<br>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-header"><h2>Phase 4: Testing & Validation</h2><span class="section-badge phase-badge">0/0</span></div>
+        
+        <div class="checklist-item">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Test internet connectivity</div>
+                <div class="item-details"><strong>WAN IP:</strong> 208.114.201.50<br><strong>Test from:</strong> LAN (192.168.0.x) and Guest (10.10.20.x)</div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Verify VLAN isolation</div>
+                <div class="item-details"><strong>Test:</strong> Guest cannot reach internal, Voice QoS working</div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Test WiFi coverage & roaming</div>
+                <div class="item-details"><strong>Test:</strong> Signal strength, roaming, speed test</div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Verify all devices accessible</div>
+                <div class="item-details"><strong>Devices:</strong> 2 printers, 3 phones, 1 POS, 4 APs, 2 routers</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-header"><h2>Phase 5: Documentation & Handoff</h2><span class="section-badge phase-badge">0/0</span></div>
+        
+        <div class="checklist-item">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Document credentials in Keeper</div>
+                <div class="recommendation" id="rec-creds">
+                    <div class="recommendation-header" onclick="toggleRecommendation('rec-creds')">
+                        <span class="recommendation-title">Credentials to Document</span>
+                        <span class="recommendation-toggle">Show <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 9l-7 7-7-7"/></svg></span>
+                    </div>
+                    <div class="recommendation-content">
+                        <ul><li>Router/Firewall admin</li><li>WiFi passwords (Staff, Guest)</li><li>Switch management</li><li>Printer admin</li></ul>
+                        <button class="accept-btn" onclick="acceptRecommendation('rec-creds')">Accept</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Add to UniFi Site Manager</div>
+                <div class="item-details"><strong>Site:</strong> Jubilee Pool & Patio of Fairhope<br><strong>WAN:</strong> 208.114.201.50<br><strong>Note:</strong> MikroTik + Ubiquiti hybrid (3 UniFi APs)</div>
+            </div>
+        </div>
+
+        <div class="checklist-item">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Add devices to NinjaOne</div>
+                <div class="item-details"><strong>Org:</strong> Jubilee Pool & Patio<br><strong>Note:</strong> No Windows workstations found at this location</div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Upload documentation to SharePoint</div>
+                <div class="item-details"><strong>Path:</strong> OberaConnect Technical &gt; Jubilee Pool & Patio of Fairhope &gt; Technical Docs</div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox" onclick="toggleItem(this.parentElement)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor"/></svg></div>
+            <div class="item-content">
+                <div class="item-text">Customer sign-off</div>
+                <div class="item-details"><strong>Customer:</strong> Jubilee Pool & Patio of Fairhope</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-header"><h2>Sign-Off</h2></div>
+        <div class="sign-off">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                <div><label style="font-weight:600;">Technician Name</label><input type="text" id="techName" placeholder="Enter name"></div>
+                <div><label style="font-weight:600;">Date Completed</label><input type="text" id="dateCompleted" placeholder="MM/DD/YYYY"></div>
+                <div><label style="font-weight:600;">Customer Representative</label><input type="text" id="custName" placeholder="Customer name"></div>
+                <div><label style="font-weight:600;">Customer Signature</label><input type="text" id="custSig" placeholder="Signature"></div>
+            </div>
+        </div>
+        <div style="margin-top:20px;" class="no-print">
+            <button class="btn btn-primary" onclick="window.print()">Print Checklist</button>
+            <button class="btn btn-secondary" onclick="saveProgress()">Save Progress</button>
+        </div>
+    </div>
+    
+    <p style="color:var(--gray-600);font-size:0.8rem;margin-top:30px;text-align:center;">
+        Generated: 2026-01-07 | Source: ClientSiteInfo.xlsx + Network Scan December 15, 2025<br>
+        OberaConnect Technical Documentation
+    </p>
+</div>
+
+<script>
+const storageKey = "jubilee-pool-patio-of-fairhope-checklist";
+function toggleItem(el) { el.classList.toggle('completed'); updateProgress(); saveToLocalStorage(); }
+function toggleRecommendation(id) {
+    const rec = document.getElementById(id);
+    rec.classList.toggle('expanded');
+    const toggle = rec.querySelector('.recommendation-toggle');
+    toggle.innerHTML = rec.classList.contains('expanded') 
+        ? 'Hide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 9l-7 7-7-7"/></svg>'
+        : 'Show <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 9l-7 7-7-7"/></svg>';
+    saveToLocalStorage();
+}
+function acceptRecommendation(id) { document.getElementById(id).classList.add('accepted'); saveToLocalStorage(); }
+function updateProgress() {
+    const items = document.querySelectorAll('.checklist-item');
+    const completed = document.querySelectorAll('.checklist-item.completed');
+    const pct = Math.round((completed.length / items.length) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressText').textContent = completed.length;
+    document.getElementById('totalTasks').textContent = items.length;
+    document.querySelectorAll('.section').forEach(section => {
+        const badge = section.querySelector('.phase-badge');
+        if (badge) {
+            const phaseItems = section.querySelectorAll('.checklist-item');
+            const phaseCompleted = section.querySelectorAll('.checklist-item.completed');
+            badge.textContent = phaseCompleted.length + '/' + phaseItems.length;
+        }
+    });
+}
+function saveToLocalStorage() {
+    const items = document.querySelectorAll('.checklist-item');
+    const state = Array.from(items).map(el => el.classList.contains('completed'));
+    const recs = {};
+    document.querySelectorAll('.recommendation').forEach(rec => {
+        recs[rec.id] = { expanded: rec.classList.contains('expanded'), accepted: rec.classList.contains('accepted') };
+    });
+    const formData = {
+        techName: document.getElementById('techName').value,
+        dateCompleted: document.getElementById('dateCompleted').value,
+        custName: document.getElementById('custName').value,
+        custSig: document.getElementById('custSig').value
+    };
+    localStorage.setItem(storageKey, JSON.stringify({state, recs, formData}));
+}
+function loadFromLocalStorage() {
+    const saved = localStorage.getItem(storageKey);
+    if (saved) {
+        const {state, recs, formData} = JSON.parse(saved);
+        const items = document.querySelectorAll('.checklist-item');
+        items.forEach((el, i) => { if (state && state[i]) el.classList.add('completed'); });
+        if (recs) {
+            Object.keys(recs).forEach(id => {
+                const rec = document.getElementById(id);
+                if (rec && recs[id].expanded) {
+                    rec.classList.add('expanded');
+                    rec.querySelector('.recommendation-toggle').innerHTML = 'Hide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 9l-7 7-7-7"/></svg>';
+                }
+                if (rec && recs[id].accepted) rec.classList.add('accepted');
+            });
+        }
+        if (formData) {
+            if (formData.techName) document.getElementById('techName').value = formData.techName;
+            if (formData.dateCompleted) document.getElementById('dateCompleted').value = formData.dateCompleted;
+            if (formData.custName) document.getElementById('custName').value = formData.custName;
+            if (formData.custSig) document.getElementById('custSig').value = formData.custSig;
+        }
+    }
+    updateProgress();
+}
+function saveProgress() { saveToLocalStorage(); alert('Progress saved!'); }
+document.querySelectorAll('.sign-off input').forEach(input => { input.addEventListener('change', saveToLocalStorage); });
+document.addEventListener('DOMContentLoaded', loadFromLocalStorage);
+</script>
+</body>
+</html>

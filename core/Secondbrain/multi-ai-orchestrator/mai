@@ -64,19 +64,21 @@ def cmd_status(args):
     """Check status of all AI providers"""
     print("\n🤖 Multi-AI Orchestrator Status\n")
     print("-" * 50)
-    
+
     providers = [
         ("Claude CLI", AIProvider.CLAUDE, "Code, configs, reasoning"),
         ("Gemini CLI", AIProvider.GEMINI, "Large docs, video, audio"),
+        ("Grok CLI", AIProvider.GROK, "Real-time info, alt perspectives"),
         ("Fara-7B", AIProvider.FARA, "Web automation, portals"),
     ]
-    
+
     for name, provider, desc in providers:
         client = AIClientFactory.get_client(provider)
         status = "✅ Available" if client.is_available else "❌ Not found"
         print(f"{name:15} {status:20} ({desc})")
-    
+
     print("-" * 50)
+    print("\n🏛️  AI Council: ./mai council status")
     print()
 
 
@@ -247,16 +249,16 @@ def cmd_workflow(args):
 def cmd_chain(args):
     """Run a custom chain of AI calls"""
     from lib import PipelineBuilder
-    
+
     # Parse chain definition from JSON
     try:
         chain_def = json.loads(args.chain_json)
     except json.JSONDecodeError as e:
         print(f"❌ Invalid JSON: {e}")
         sys.exit(1)
-    
+
     builder = PipelineBuilder(args.name or "custom_chain")
-    
+
     for step in chain_def.get("steps", []):
         provider = AIProvider[step["provider"].upper()]
         builder.step(
@@ -265,13 +267,126 @@ def cmd_chain(args):
             prompt=step["prompt"],
             description=step.get("description", "")
         )
-    
+
     pipeline = builder.build()
-    
+
     initial_context = chain_def.get("context", {})
     result = pipeline.execute(initial_context)
-    
+
     print(json.dumps(result.to_dict(), indent=2))
+
+
+def cmd_council(args):
+    """Run AI Council deliberation"""
+    from lib.council import AICouncil
+
+    council = AICouncil()
+
+    # Status command
+    if args.council_action == "status":
+        status = council.get_status()
+        print("\n🏛️  AI Council Status\n")
+        print("-" * 50)
+        for member in status["members"]:
+            available = "✅" if member["available"] else "❌"
+            print(f"  {member['provider']:10} {available} {member['role']}")
+        print("-" * 50)
+        print(f"  Active: {status['active_members']}/{status['total_members']}")
+        print(f"  Synthesizer: {status['synthesizer']}")
+        print()
+        return
+
+    # Deliberate command
+    elif args.council_action == "ask":
+        if not args.question:
+            print("❌ Error: --question required")
+            sys.exit(1)
+
+        print(f"\n🏛️  AI Council Deliberating...\n")
+        print(f"Question: {args.question}\n")
+        print("-" * 60)
+
+        result = council.deliberate(args.question)
+
+        if args.format == "markdown":
+            print(result.to_markdown())
+        elif args.format == "json":
+            print(json.dumps(result.to_dict(), indent=2))
+        else:
+            print(f"\n📊 Consensus: {result.consensus}\n")
+            print(result.summary)
+
+    # 5-Layer tool review
+    elif args.council_action == "review-tool":
+        if not args.tool_name or not args.description:
+            print("❌ Error: --tool-name and --description required")
+            sys.exit(1)
+
+        code = ""
+        if args.files:
+            for f in args.files:
+                try:
+                    with open(f, 'r') as file:
+                        code += f"\n# === {f} ===\n{file.read()}\n"
+                except:
+                    pass
+
+        print(f"\n🏛️  AI Council 5-Layer Review: {args.tool_name}\n")
+        print("-" * 60)
+
+        result = council.review_tool_5layer(
+            tool_name=args.tool_name,
+            description=args.description,
+            code_or_docs=code
+        )
+
+        if args.format == "markdown":
+            print(result.to_markdown())
+        elif args.format == "json":
+            print(json.dumps(result.to_dict(), indent=2))
+        else:
+            print(f"\n📊 Consensus: {result.consensus}\n")
+            print(result.summary)
+
+    # 5-Layer idea review
+    elif args.council_action == "review-idea":
+        if not args.idea_name or not args.description:
+            print("❌ Error: --idea-name and --description required")
+            sys.exit(1)
+
+        print(f"\n🏛️  AI Council 5-Layer Idea Review: {args.idea_name}\n")
+        print("-" * 60)
+
+        result = council.review_idea_5layer(
+            idea_name=args.idea_name,
+            description=args.description,
+            target_integration=args.target or ""
+        )
+
+        if args.format == "markdown":
+            print(result.to_markdown())
+        elif args.format == "json":
+            print(json.dumps(result.to_dict(), indent=2))
+        else:
+            print(f"\n📊 Consensus: {result.consensus}\n")
+            print(result.summary)
+
+    # Morning standup
+    elif args.council_action == "standup":
+        print(f"\n🏛️  AI Council Morning Standup\n")
+        print("-" * 60)
+
+        result = council.morning_standup(
+            yesterday_summary=args.yesterday or "",
+            today_priorities=args.today or "",
+            blockers=args.blockers or ""
+        )
+
+        print(result.summary)
+
+    else:
+        print("❌ Unknown council action. Use: status, ask, review-tool, review-idea, standup")
+        sys.exit(1)
 
 
 def main():
@@ -344,7 +459,25 @@ Examples:
     chain_parser.add_argument('chain_json', help='JSON definition of the chain')
     chain_parser.add_argument('-n', '--name', help='Chain name')
     chain_parser.set_defaults(func=cmd_chain)
-    
+
+    # Council command
+    council_parser = subparsers.add_parser('council', help='AI Council - multi-AI deliberation')
+    council_parser.add_argument('council_action',
+                                choices=['status', 'ask', 'review-tool', 'review-idea', 'standup'],
+                                help='Council action')
+    council_parser.add_argument('-q', '--question', help='Question for council (ask)')
+    council_parser.add_argument('--tool-name', help='Tool name (review-tool)')
+    council_parser.add_argument('--idea-name', help='Idea name (review-idea)')
+    council_parser.add_argument('-d', '--description', help='Description (review-tool/review-idea)')
+    council_parser.add_argument('--target', help='Target integration point (review-idea)')
+    council_parser.add_argument('-f', '--files', nargs='+', help='Files to include')
+    council_parser.add_argument('--format', choices=['text', 'markdown', 'json'],
+                                default='text', help='Output format')
+    council_parser.add_argument('--yesterday', help='Yesterday summary (standup)')
+    council_parser.add_argument('--today', help='Today priorities (standup)')
+    council_parser.add_argument('--blockers', help='Current blockers (standup)')
+    council_parser.set_defaults(func=cmd_council)
+
     args = parser.parse_args()
     setup_logging(args.verbose)
     

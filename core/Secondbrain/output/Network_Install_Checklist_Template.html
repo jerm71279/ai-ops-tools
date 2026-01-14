@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Installation Checklist - Template</title>
+    <style>
+        @page { size: A4; margin: 1.5cm; }
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: white; color: var(--gray-800); line-height: 1.5; font-size: 11pt; }
+        .container { max-width: 100%; padding: 0; }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+        header h1 { font-size: 18pt; margin-bottom: 4px; }
+        header p { opacity: 0.9; font-size: 10pt; }
+        .meta-info { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.2); }
+        .meta-item { background: rgba(255,255,255,0.1); padding: 8px 12px; border-radius: 6px; flex: 1; min-width: 140px; }
+        .meta-item label { font-size: 8pt; text-transform: uppercase; opacity: 0.8; display: block; }
+        .meta-item span { font-weight: 600; font-family: monospace; font-size: 10pt; }
+        .meta-item input { border: none; border-bottom: 1px solid rgba(255,255,255,0.5); background: transparent; color: white; font-family: monospace; font-size: 10pt; width: 100%; margin-top: 2px; }
+        
+        .section { background: white; border: 1px solid var(--gray-200); border-radius: 8px; padding: 16px; margin-bottom: 12px; page-break-inside: avoid; }
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--gray-100); }
+        .section-header h2 { font-size: 12pt; color: var(--gray-800); }
+        .section-badge { background: var(--gray-100); color: var(--gray-600); padding: 2px 8px; border-radius: 999px; font-size: 9pt; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 10pt; }
+        th, td { padding: 8px; text-align: left; border: 1px solid var(--gray-200); }
+        th { background: var(--gray-50); font-weight: 600; color: var(--gray-700); }
+        .input-cell { min-width: 200px; }
+        .input-cell input { border: none; border-bottom: 1px dotted var(--gray-400); width: 100%; padding: 2px; font-family: monospace; }
+        
+        .summary-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+        .summary-card { background: var(--gray-50); padding: 10px; border-radius: 6px; text-align: center; flex: 1; min-width: 80px; border: 1px solid var(--gray-200); }
+        .summary-card .number { font-size: 16pt; font-weight: 700; color: var(--primary); }
+        .summary-card .label { font-size: 8pt; color: var(--gray-600); text-transform: uppercase; }
+        .summary-card input { border: none; border-bottom: 1px dotted var(--gray-400); width: 50px; text-align: center; font-size: 16pt; font-weight: 700; color: var(--primary); font-family: inherit; }
+        
+        .checklist-item { display: flex; align-items: flex-start; padding: 8px; margin: 4px 0; border-radius: 6px; border: 1px solid var(--gray-200); }
+        .checkbox { width: 18px; height: 18px; border: 2px solid var(--gray-300); border-radius: 4px; margin-right: 10px; flex-shrink: 0; }
+        .item-content { flex: 1; }
+        .item-text { font-weight: 600; font-size: 10pt; }
+        .item-details { font-size: 9pt; color: var(--gray-600); margin-top: 4px; background: var(--gray-50); padding: 6px 8px; border-radius: 4px; }
+        .item-details input { border: none; border-bottom: 1px dotted var(--gray-400); font-family: monospace; font-size: 9pt; min-width: 150px; }
+        .item-details strong { color: var(--gray-700); }
+        .device-row { margin: 2px 0; padding-left: 10px; }
+        .device-row input { border: none; border-bottom: 1px dotted var(--gray-400); font-family: monospace; font-size: 9pt; width: 200px; }
+        
+        .recommendation { margin-top: 6px; border: 1px dashed var(--gray-300); border-radius: 6px; padding: 8px; background: #fffbeb; font-size: 9pt; }
+        .recommendation-title { font-weight: 600; color: var(--gray-700); margin-bottom: 4px; }
+        .recommendation ul { margin: 4px 0 0 16px; color: var(--gray-600); }
+        .recommendation li { margin: 2px 0; }
+        
+        .sign-off { background: var(--gray-50); padding: 12px; border-radius: 6px; margin-top: 8px; }
+        .sign-off-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .sign-off-item label { font-weight: 600; font-size: 9pt; display: block; margin-bottom: 2px; }
+        .sign-off-item input { width: 100%; padding: 6px; border: 1px solid var(--gray-300); border-radius: 4px; }
+        
+        .footer { color: var(--gray-600); font-size: 8pt; margin-top: 16px; text-align: center; border-top: 1px solid var(--gray-200); padding-top: 8px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Network Installation Checklist</h1>
+        <p><input type="text" placeholder="Customer Name" style="width: 300px;"></p>
+        <div class="meta-info">
+            <div class="meta-item"><label>WAN IP</label><input type="text" placeholder="0.0.0.0"></div>
+            <div class="meta-item"><label>ISP</label><input type="text" placeholder="Provider"></div>
+            <div class="meta-item"><label>LAN Gateway</label><input type="text" placeholder="0.0.0.0"></div>
+            <div class="meta-item"><label>Subnet</label><input type="text" placeholder="0.0.0.0/24"></div>
+            <div class="meta-item"><label>Devices</label><input type="text" placeholder="0"></div>
+        </div>
+    </header>
+    
+    <div class="section">
+        <div class="section-header"><h2>Circuit & Network Information</h2></div>
+        <table>
+            <tr><th style="width:200px;">Item</th><th class="input-cell">Value</th></tr>
+            <tr><td>WAN IP Address</td><td class="input-cell"><input type="text"></td></tr>
+            <tr><td>ISP Provider</td><td class="input-cell"><input type="text"></td></tr>
+            <tr><td>Gateway Device</td><td class="input-cell"><input type="text"></td></tr>
+            <tr><td>Local Gateway IP</td><td class="input-cell"><input type="text"></td></tr>
+            <tr><td>LAN Subnet</td><td class="input-cell"><input type="text"></td></tr>
+            <tr><td>Router Login</td><td class="input-cell"><input type="text"></td></tr>
+            <tr><td>Circuit ID</td><td class="input-cell"><input type="text"></td></tr>
+            <tr><td>Account Number</td><td class="input-cell"><input type="text"></td></tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <div class="section-header"><h2>Device Summary</h2></div>
+        <div class="summary-grid">
+            <div class="summary-card"><input type="text" placeholder="0"><div class="label">Total</div></div>
+            <div class="summary-card"><input type="text" placeholder="0"><div class="label">PCs</div></div>
+            <div class="summary-card"><input type="text" placeholder="0"><div class="label">Printers</div></div>
+            <div class="summary-card"><input type="text" placeholder="0"><div class="label">Phones</div></div>
+            <div class="summary-card"><input type="text" placeholder="0"><div class="label">Network</div></div>
+            <div class="summary-card"><input type="text" placeholder="0"><div class="label">Unknown</div></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header"><h2>Phase 1: Discovery & Documentation</h2><span class="section-badge">0/6</span></div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Conduct network discovery scan</div>
+                <div class="item-details">
+                    <strong>Date:</strong> <input type="text" placeholder="MM/DD/YYYY">
+                    <strong>Target:</strong> <input type="text" placeholder="192.168.1.0/24">
+                    <strong>Hosts:</strong> <input type="text" placeholder="0" style="width:50px;">
+                </div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Document ISP circuit information</div>
+                <div class="item-details">
+                    <strong>WAN:</strong> <input type="text" placeholder="0.0.0.0">
+                    <strong>ISP:</strong> <input type="text" placeholder="Provider">
+                    <strong>Gateway:</strong> <input type="text" placeholder="0.0.0.0">
+                </div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Identify workstations</div>
+                <div class="item-details">
+                    <strong>Count:</strong> <input type="text" placeholder="0" style="width:50px;"><br>
+                    <div class="device-row">• <input type="text" placeholder="IP - Hostname"></div>
+                    <div class="device-row">• <input type="text" placeholder="IP - Hostname"></div>
+                    <div class="device-row">• <input type="text" placeholder="IP - Hostname"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Identify printers</div>
+                <div class="item-details">
+                    <strong>Count:</strong> <input type="text" placeholder="0" style="width:50px;"><br>
+                    <div class="device-row">• <input type="text" placeholder="IP - Model"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Identify VoIP phones</div>
+                <div class="item-details">
+                    <strong>Count:</strong> <input type="text" placeholder="0" style="width:50px;"><br>
+                    <div class="device-row">• <input type="text" placeholder="IP - Model"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Assess physical infrastructure</div>
+                <div class="item-details">Cabling, rack space, AP mounting locations, power/UPS</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-header"><h2>Phase 2: Router & Firewall Configuration</h2><span class="section-badge">0/4</span></div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Configure router/firewall</div>
+                <div class="item-details">
+                    <strong>Gateway:</strong> <input type="text" placeholder="0.0.0.0">
+                    <strong>Device:</strong> <input type="text" placeholder="Model">
+                    <strong>Login:</strong> <input type="text" placeholder="username">
+                </div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Configure VLANs</div>
+                <div class="item-details"><strong>Current:</strong> <input type="text" placeholder="Flat network"></div>
+                <div class="recommendation">
+                    <div class="recommendation-title">Recommended VLAN Layout:</div>
+                    <ul>
+                        <li>VLAN 10 - Management</li>
+                        <li>VLAN 20 - Data/Workstations</li>
+                        <li>VLAN 30 - Voice</li>
+                        <li>VLAN 40 - Guest</li>
+                        <li>VLAN 50 - IoT/Printers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Configure firewall rules</div>
+                <div class="item-details">Address security findings from scan</div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Configure WiFi SSIDs</div>
+                <div class="recommendation">
+                    <div class="recommendation-title">Recommended SSIDs:</div>
+                    <ul>
+                        <li>CustomerName-Staff (WPA3, VLAN 20)</li>
+                        <li>CustomerName-Voice (WPA2, VLAN 30)</li>
+                        <li>CustomerName-Guest (Captive Portal, VLAN 40)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-header"><h2>Phase 3: Endpoint Configuration</h2><span class="section-badge">0/4</span></div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Install NinjaOne agent on workstations</div>
+                <div class="item-details">
+                    <div class="device-row">• <input type="text" placeholder="IP - Hostname"></div>
+                    <div class="device-row">• <input type="text" placeholder="IP - Hostname"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Configure VoIP phones</div>
+                <div class="item-details">
+                    <div class="device-row">• <input type="text" placeholder="IP - Model"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Configure printer(s)</div>
+                <div class="item-details">
+                    <div class="device-row">• <input type="text" placeholder="IP - Model"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Identify unknown devices</div>
+                <div class="item-details">
+                    <div class="device-row">• <input type="text" placeholder="IP - MAC"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-header"><h2>Phase 4: Testing & Validation</h2><span class="section-badge">0/4</span></div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Test internet connectivity</div>
+                <div class="item-details"><strong>WAN IP:</strong> <input type="text" placeholder="0.0.0.0"> Test from all VLANs</div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Verify VLAN isolation</div>
+                <div class="item-details">Guest cannot reach internal, Voice QoS working</div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Test WiFi coverage & roaming</div>
+                <div class="item-details">Signal strength, roaming, speed test</div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Verify all devices accessible</div>
+                <div class="item-details">All PCs, printers, phones reachable</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-header"><h2>Phase 5: Documentation & Handoff</h2><span class="section-badge">0/5</span></div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Document credentials in Keeper</div>
+                <div class="item-details">Router/Firewall, WiFi passwords, Switch management, Printer admin</div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Add to UniFi Site Manager</div>
+                <div class="item-details"><strong>Site:</strong> <input type="text" placeholder="Customer Name"></div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Add devices to NinjaOne</div>
+                <div class="item-details"><strong>Org:</strong> <input type="text" placeholder="Customer Name"></div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Upload documentation to SharePoint</div>
+                <div class="item-details">OberaConnect Technical > Customer > Technical Docs</div>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div class="item-content">
+                <div class="item-text">Customer sign-off</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-header"><h2>Sign-Off</h2></div>
+        <div class="sign-off">
+            <div class="sign-off-grid">
+                <div class="sign-off-item"><label>Technician Name</label><input type="text"></div>
+                <div class="sign-off-item"><label>Date Completed</label><input type="text"></div>
+                <div class="sign-off-item"><label>Customer Representative</label><input type="text"></div>
+                <div class="sign-off-item"><label>Customer Signature</label><input type="text"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        OberaConnect Technical Documentation | Template Version: 2026-01-07
+    </div>
+</div>
+</body>
+</html>

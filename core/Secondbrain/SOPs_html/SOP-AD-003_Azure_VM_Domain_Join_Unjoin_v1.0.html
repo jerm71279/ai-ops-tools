@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOP-AD-003: Azure VM Domain Join and Unjoin</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="/dev/null" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">SOP-AD-003: Azure VM Domain Join and Unjoin</h1>
+</header>
+<h1
+id="standard-operating-procedure-azure-vm-domain-join-and-unjoin">Standard
+Operating Procedure: Azure VM Domain Join and Unjoin</h1>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>Document ID:</strong></td>
+<td>SOP-AD-003</td>
+</tr>
+<tr class="even">
+<td><strong>Title:</strong></td>
+<td>Azure VM Domain Join and Unjoin Operations</td>
+</tr>
+<tr class="odd">
+<td><strong>Category:</strong></td>
+<td>Active Directory</td>
+</tr>
+<tr class="even">
+<td><strong>Version:</strong></td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td><strong>Status:</strong></td>
+<td>Draft</td>
+</tr>
+<tr class="even">
+<td><strong>Author:</strong></td>
+<td>OberaConnect</td>
+</tr>
+<tr class="odd">
+<td><strong>Creation Date:</strong></td>
+<td>2026-01-12</td>
+</tr>
+<tr class="even">
+<td><strong>Approval Date:</strong></td>
+<td>Pending</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="purpose">1.0 Purpose</h3>
+<p>This procedure documents the standard process for joining Windows
+Virtual Machines to an Active Directory domain or removing (unjoining)
+them from a domain within Azure tenant environments. This ensures
+consistent, secure, and documented domain membership changes across
+managed infrastructure.</p>
+<h3 id="scope">2.0 Scope</h3>
+<p>This SOP applies to: - Windows Server VMs hosted in Azure (IaaS) -
+Domain join operations to on-premises or Azure-hosted Active Directory -
+Domain unjoin operations for decommissioning, migration, or
+troubleshooting - OberaConnect technicians and system administrators</p>
+<h3 id="definitions">3.0 Definitions</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 66%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>AD</strong></td>
+<td>Active Directory - Microsoft directory service for Windows domain
+networks</td>
+</tr>
+<tr class="even">
+<td><strong>Domain Controller (DC)</strong></td>
+<td>Server that responds to authentication requests within a Windows
+domain</td>
+</tr>
+<tr class="odd">
+<td><strong>FQDN</strong></td>
+<td>Fully Qualified Domain Name (e.g., server.domain.com)</td>
+</tr>
+<tr class="even">
+<td><strong>NetBIOS</strong></td>
+<td>Legacy naming convention for Windows networks</td>
+</tr>
+<tr class="odd">
+<td><strong>SID</strong></td>
+<td>Security Identifier - unique identifier for security principals</td>
+</tr>
+<tr class="even">
+<td><strong>Workgroup</strong></td>
+<td>Peer-to-peer network configuration (non-domain)</td>
+</tr>
+<tr class="odd">
+<td><strong>Azure Run Command</strong></td>
+<td>Azure feature to execute scripts on VMs without RDP</td>
+</tr>
+</tbody>
+</table>
+<h3 id="roles-responsibilities">4.0 Roles &amp; Responsibilities</h3>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 72%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Role</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Technician</strong></td>
+<td>Execute domain join/unjoin operations, document changes</td>
+</tr>
+<tr class="even">
+<td><strong>Domain Administrator</strong></td>
+<td>Provide domain credentials, approve membership changes</td>
+</tr>
+<tr class="odd">
+<td><strong>Azure Administrator</strong></td>
+<td>Ensure VM accessibility and proper networking</td>
+</tr>
+<tr class="even">
+<td><strong>Change Manager</strong></td>
+<td>Approve changes in production environments</td>
+</tr>
+</tbody>
+</table>
+<h3 id="prerequisites">5.0 Prerequisites</h3>
+<h4 id="for-domain-join">5.1 For Domain Join</h4>
+<ul class="task-list">
+<li><label><input type="checkbox" />Azure VM is running and
+accessible</label></li>
+<li><label><input type="checkbox" />VM has network connectivity to
+Domain Controller(s)</label></li>
+<li><label><input type="checkbox" />DNS configured to resolve domain (DC
+IP as primary DNS)</label></li>
+<li><label><input type="checkbox" />Required ports open (see Section
+5.3)</label></li>
+<li><label><input type="checkbox" />Domain Administrator credentials
+available</label></li>
+<li><label><input type="checkbox" />Computer account pre-staged in AD
+(optional but recommended)</label></li>
+<li><label><input type="checkbox" />Target OU identified for computer
+object placement</label></li>
+</ul>
+<h4 id="for-domain-unjoin">5.2 For Domain Unjoin</h4>
+<ul class="task-list">
+<li><label><input type="checkbox" />Azure VM is running and
+accessible</label></li>
+<li><label><input type="checkbox" />Local Administrator account
+credentials available</label></li>
+<li><label><input type="checkbox" />Domain Administrator credentials
+(for clean removal)</label></li>
+<li><label><input type="checkbox" />VM snapshot taken for rollback
+capability</label></li>
+<li><label><input type="checkbox" />Users notified of service
+impact</label></li>
+<li><label><input type="checkbox" />No active user sessions on the
+server</label></li>
+</ul>
+<h4 id="required-network-ports">5.3 Required Network Ports</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Port</th>
+<th>Protocol</th>
+<th>Service</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>53</td>
+<td>TCP/UDP</td>
+<td>DNS</td>
+</tr>
+<tr class="even">
+<td>88</td>
+<td>TCP/UDP</td>
+<td>Kerberos</td>
+</tr>
+<tr class="odd">
+<td>135</td>
+<td>TCP</td>
+<td>RPC Endpoint Mapper</td>
+</tr>
+<tr class="even">
+<td>389</td>
+<td>TCP/UDP</td>
+<td>LDAP</td>
+</tr>
+<tr class="odd">
+<td>445</td>
+<td>TCP</td>
+<td>SMB</td>
+</tr>
+<tr class="even">
+<td>464</td>
+<td>TCP/UDP</td>
+<td>Kerberos Password Change</td>
+</tr>
+<tr class="odd">
+<td>636</td>
+<td>TCP</td>
+<td>LDAPS</td>
+</tr>
+<tr class="even">
+<td>3268</td>
+<td>TCP</td>
+<td>Global Catalog</td>
+</tr>
+<tr class="odd">
+<td>3269</td>
+<td>TCP</td>
+<td>Global Catalog SSL</td>
+</tr>
+<tr class="even">
+<td>49152-65535</td>
+<td>TCP</td>
+<td>RPC Dynamic Ports</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="procedure">6.0 Procedure</h3>
+<h2 id="part-a-domain-join-procedure">Part A: Domain Join Procedure</h2>
+<h4 id="pre-join-verification">6.1 Pre-Join Verification</h4>
+<p><strong>Step 1: Verify VM Status</strong></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Azure CLI - Check VM is running</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> vm get-instance-view <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>RESOURCE_GROUP<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>VM_NAME<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--query</span> <span class="st">&quot;instanceView.statuses[?starts_with(code, &#39;PowerState&#39;)].displayStatus&quot;</span> <span class="dt">\</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> tsv</span></code></pre></div>
+<p>Expected output: <code>VM running</code></p>
+<p><strong>Step 2: Verify Network Connectivity to Domain
+Controller</strong></p>
+<p>Via Azure Run Command:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> vm run-command invoke <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>RESOURCE_GROUP<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>VM_NAME<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--command-id</span> RunPowerShellScript <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--scripts</span> <span class="st">&quot;Test-NetConnection -ComputerName &lt;DC_IP_OR_FQDN&gt; -Port 389&quot;</span></span></code></pre></div>
+<p>Or via RDP/PowerShell on VM:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test LDAP connectivity</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Test<span class="op">-</span>NetConnection <span class="op">-</span>ComputerName <span class="op">&lt;</span>DC_IP_OR_FQDN<span class="op">&gt;</span> <span class="op">-</span>Port 389</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Test DNS resolution</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Resolve<span class="op">-</span>DnsName <span class="op">&lt;</span>DOMAIN_FQDN<span class="op">&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Test all required ports</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="va">$ports</span> <span class="op">=</span> @<span class="op">(</span>53<span class="op">,</span> 88<span class="op">,</span> 135<span class="op">,</span> 389<span class="op">,</span> 445<span class="op">,</span> 636<span class="op">,</span> 3268<span class="op">)</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> <span class="op">(</span><span class="va">$port</span> <span class="kw">in</span> <span class="va">$ports</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    Test<span class="op">-</span>NetConnection <span class="op">-</span>ComputerName <span class="op">&lt;</span>DC_IP<span class="op">&gt;</span> <span class="op">-</span>Port <span class="va">$port</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>Step 3: Configure DNS Settings</strong></p>
+<p>Ensure VM DNS points to Domain Controller:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View current DNS settings</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>DnsClientServerAddress <span class="op">-</span>InterfaceAlias <span class="st">&quot;Ethernet*&quot;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set DNS to Domain Controller (if needed)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>Set<span class="op">-</span>DnsClientServerAddress <span class="op">-</span>InterfaceAlias <span class="st">&quot;Ethernet&quot;</span> <span class="op">-</span>ServerAddresses <span class="st">&quot;&lt;DC_IP&gt;&quot;</span><span class="op">,</span><span class="st">&quot;&lt;SECONDARY_DC_IP&gt;&quot;</span></span></code></pre></div>
+<h4 id="execute-domain-join">6.2 Execute Domain Join</h4>
+<p><strong>Method 1: PowerShell (Recommended)</strong></p>
+<p>Via Azure Run Command:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> vm run-command invoke <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>RESOURCE_GROUP<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>VM_NAME<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--command-id</span> RunPowerShellScript <span class="dt">\</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--scripts</span> <span class="st">&quot;Add-Computer -DomainName &#39;&lt;DOMAIN_FQDN&gt;&#39; -OUPath &#39;OU=Servers,DC=domain,DC=com&#39; -Credential (New-Object PSCredential(&#39;&lt;DOMAIN&gt;\&lt;ADMIN_USER&gt;&#39;, (ConvertTo-SecureString &#39;&lt;PASSWORD&gt;&#39; -AsPlainText -Force))) -Restart -Force&quot;</span></span></code></pre></div>
+<p>Via RDP/PowerShell on VM (interactive):</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join domain with specific OU placement</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Add-Computer</span> <span class="op">-</span>DomainName <span class="st">&quot;domain.com&quot;</span> `</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span>OUPath <span class="st">&quot;OU=Servers,DC=domain,DC=com&quot;</span> `</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span>Credential <span class="op">(</span><span class="fu">Get-Credential</span><span class="op">)</span> `</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span>Restart <span class="op">-</span>Force</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># OR simple join (places in default Computers container)</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">Add-Computer</span> <span class="op">-</span>DomainName <span class="st">&quot;domain.com&quot;</span> <span class="op">-</span>Credential <span class="op">(</span><span class="fu">Get-Credential</span><span class="op">)</span> <span class="op">-</span>Restart</span></code></pre></div>
+<p><strong>Method 2: System Properties GUI (via RDP)</strong></p>
+<ol type="1">
+<li>Connect to VM via RDP or Azure Bastion</li>
+<li>Open <strong>System Properties</strong>: <code>sysdm.cpl</code></li>
+<li>Click <strong>Computer Name</strong> tab</li>
+<li>Click <strong>Change…</strong></li>
+<li>Select <strong>Domain</strong> radio button</li>
+<li>Enter domain name (e.g., <code>domain.com</code>)</li>
+<li>Click <strong>OK</strong></li>
+<li>Enter Domain Administrator credentials when prompted</li>
+<li>Click <strong>OK</strong> on success message</li>
+<li>Restart the server when prompted</li>
+</ol>
+<h4 id="post-join-verification">6.3 Post-Join Verification</h4>
+<p><strong>Step 1: Verify Domain Membership</strong></p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check domain membership</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">(</span><span class="fu">Get-WmiObject</span> Win32_ComputerSystem<span class="op">)</span> <span class="op">|</span> <span class="fu">Select-Object</span> Name<span class="op">,</span> Domain<span class="op">,</span> PartOfDomain</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected output:</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Name          Domain         PartOfDomain</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ----          ------         ------------</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># SERVERNAME    domain.com     True</span></span></code></pre></div>
+<p><strong>Step 2: Verify Computer Object in AD</strong></p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># From Domain Controller or machine with RSAT</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-ADComputer</span> <span class="op">-</span>Identity <span class="st">&quot;&lt;COMPUTER_NAME&gt;&quot;</span> <span class="op">|</span> <span class="fu">Select-Object</span> Name<span class="op">,</span> DistinguishedName<span class="op">,</span> Enabled</span></code></pre></div>
+<p><strong>Step 3: Test Domain Authentication</strong></p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test user authentication</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>runas <span class="op">/</span>user<span class="op">:</span>DOMAIN\username <span class="st">&quot;cmd.exe&quot;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Test group policy application</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>gpupdate <span class="op">/</span>force</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>gpresult <span class="op">/</span><span class="fu">r</span></span></code></pre></div>
+<p><strong>Step 4: Verify DNS Registration</strong></p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Force DNS registration</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>ipconfig <span class="op">/</span>registerdns</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify A record exists</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>Resolve<span class="op">-</span>DnsName <span class="op">&lt;</span>COMPUTER_NAME<span class="op">&gt;.&lt;</span>DOMAIN_FQDN<span class="op">&gt;</span></span></code></pre></div>
+<hr />
+<h2 id="part-b-domain-unjoin-procedure">Part B: Domain Unjoin
+Procedure</h2>
+<h4 id="pre-unjoin-preparation">6.4 Pre-Unjoin Preparation</h4>
+<p><strong>Step 1: Take VM Snapshot (Critical)</strong></p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create snapshot for rollback</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> snapshot create <span class="dt">\</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>RESOURCE_GROUP<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="st">&quot;&lt;VM_NAME&gt;-PreUnjoin-</span><span class="va">$(</span><span class="fu">date</span> +%Y%m%d<span class="va">)</span><span class="st">&quot;</span> <span class="dt">\</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--source</span> <span class="st">&quot;/subscriptions/&lt;SUB_ID&gt;/resourceGroups/&lt;RG&gt;/providers/Microsoft.Compute/disks/&lt;OS_DISK_NAME&gt;&quot;</span></span></code></pre></div>
+<p><strong>Step 2: Document Current Configuration</strong></p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export current configuration</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="va">$config</span> <span class="op">=</span> @<span class="op">{</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    ComputerName <span class="op">=</span> <span class="va">$env</span><span class="op">:</span>COMPUTERNAME</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    Domain <span class="op">=</span> <span class="op">(</span><span class="fu">Get-WmiObject</span> Win32_ComputerSystem<span class="op">).</span><span class="fu">Domain</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    IPAddress <span class="op">=</span> <span class="op">(</span>Get<span class="op">-</span>NetIPAddress <span class="op">-</span>AddressFamily IPv4 <span class="op">|</span> <span class="fu">Where-Object</span> <span class="op">{</span><span class="va">$_</span><span class="op">.</span><span class="fu">InterfaceAlias</span> <span class="op">-</span>like <span class="st">&quot;Ethernet*&quot;</span><span class="op">}).</span><span class="fu">IPAddress</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    DNS <span class="op">=</span> <span class="op">(</span>Get<span class="op">-</span>DnsClientServerAddress <span class="op">-</span>InterfaceAlias <span class="st">&quot;Ethernet*&quot;</span> <span class="op">-</span>AddressFamily IPv4<span class="op">).</span><span class="fu">ServerAddresses</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    DateTime <span class="op">=</span> <span class="fu">Get-Date</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="va">$config</span> <span class="op">|</span> <span class="fu">ConvertTo-Json</span> <span class="op">|</span> <span class="fu">Out-File</span> <span class="st">&quot;C:\PreUnjoinConfig.json&quot;</span></span></code></pre></div>
+<p><strong>Step 3: Verify Local Administrator Access</strong></p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure local admin account is enabled and password is known</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>LocalUser <span class="op">-</span>Name <span class="st">&quot;Administrator&quot;</span> <span class="op">|</span> <span class="fu">Select-Object</span> Name<span class="op">,</span> Enabled</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Enable if disabled</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>Enable<span class="op">-</span>LocalUser <span class="op">-</span>Name <span class="st">&quot;Administrator&quot;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Set password if needed (do this BEFORE unjoin!)</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>Set<span class="op">-</span>LocalUser <span class="op">-</span>Name <span class="st">&quot;Administrator&quot;</span> <span class="op">-</span>Password <span class="op">(</span><span class="fu">ConvertTo-SecureString</span> <span class="st">&quot;&lt;PASSWORD&gt;&quot;</span> <span class="op">-</span>AsPlainText <span class="op">-</span>Force<span class="op">)</span></span></code></pre></div>
+<p><strong>Step 4: Check for Active Sessions</strong></p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List active sessions</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>query user</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># List open file handles (if file server)</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>SmbOpenFile <span class="op">|</span> <span class="fu">Select-Object</span> ClientComputerName<span class="op">,</span> Path</span></code></pre></div>
+<h4 id="execute-domain-unjoin">6.5 Execute Domain Unjoin</h4>
+<p><strong>Method 1: PowerShell - Clean Unjoin
+(Recommended)</strong></p>
+<p>This method properly removes the computer account from AD:</p>
+<p>Via Azure Run Command:</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> vm run-command invoke <span class="dt">\</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>RESOURCE_GROUP<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>VM_NAME<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--command-id</span> RunPowerShellScript <span class="dt">\</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--scripts</span> <span class="st">&quot;Remove-Computer -UnjoinDomainCredential (New-Object PSCredential(&#39;&lt;DOMAIN&gt;\&lt;ADMIN_USER&gt;&#39;, (ConvertTo-SecureString &#39;&lt;PASSWORD&gt;&#39; -AsPlainText -Force))) -WorkgroupName &#39;WORKGROUP&#39; -Force -Restart&quot;</span></span></code></pre></div>
+<p>Via RDP/PowerShell on VM (interactive):</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean unjoin - removes computer object from AD</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Remove-Computer</span> <span class="op">-</span>UnjoinDomainCredential <span class="op">(</span><span class="fu">Get-Credential</span><span class="op">)</span> <span class="op">-</span>WorkgroupName <span class="st">&quot;WORKGROUP&quot;</span> <span class="op">-</span>Force <span class="op">-</span>Restart</span></code></pre></div>
+<p><strong>Method 2: PowerShell - Force Unjoin (When DC
+Unavailable)</strong></p>
+<p>Use when Domain Controller is not accessible:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Force unjoin without contacting DC (computer object remains in AD)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Remove-Computer</span> <span class="op">-</span>WorkgroupName <span class="st">&quot;WORKGROUP&quot;</span> <span class="op">-</span>Force <span class="op">-</span>Restart</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: Manually delete computer object from AD later</span></span></code></pre></div>
+<p><strong>Method 3: System Properties GUI (via RDP)</strong></p>
+<ol type="1">
+<li>Connect to VM via RDP or Azure Bastion</li>
+<li>Open <strong>System Properties</strong>: <code>sysdm.cpl</code></li>
+<li>Click <strong>Computer Name</strong> tab</li>
+<li>Click <strong>Change…</strong></li>
+<li>Select <strong>Workgroup</strong> radio button</li>
+<li>Enter workgroup name (e.g., <code>WORKGROUP</code>)</li>
+<li>Click <strong>OK</strong></li>
+<li>Enter Domain Administrator credentials when prompted</li>
+<li>Click <strong>OK</strong> on success message</li>
+<li>Restart the server when prompted</li>
+</ol>
+<h4 id="post-unjoin-tasks">6.6 Post-Unjoin Tasks</h4>
+<p><strong>Step 1: Verify Workgroup Membership</strong></p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify no longer domain-joined</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">(</span><span class="fu">Get-WmiObject</span> Win32_ComputerSystem<span class="op">)</span> <span class="op">|</span> <span class="fu">Select-Object</span> Name<span class="op">,</span> Domain<span class="op">,</span> PartOfDomain</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected output:</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Name          Domain      PartOfDomain</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ----          ------      ------------</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># SERVERNAME    WORKGROUP   False</span></span></code></pre></div>
+<p><strong>Step 2: Update DNS Settings (if needed)</strong></p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change DNS to public DNS or other servers</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>Set<span class="op">-</span>DnsClientServerAddress <span class="op">-</span>InterfaceAlias <span class="st">&quot;Ethernet&quot;</span> <span class="op">-</span>ServerAddresses <span class="st">&quot;8.8.8.8&quot;</span><span class="op">,</span><span class="st">&quot;8.8.4.4&quot;</span></span></code></pre></div>
+<p><strong>Step 3: Clean Up AD Computer Object (if force
+unjoin)</strong></p>
+<p>From Domain Controller:</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find and remove stale computer object</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-ADComputer</span> <span class="op">-</span>Identity <span class="st">&quot;&lt;COMPUTER_NAME&gt;&quot;</span> <span class="op">|</span> <span class="fu">Remove-ADComputer</span> <span class="op">-</span>Confirm<span class="op">:</span><span class="va">$false</span></span></code></pre></div>
+<p><strong>Step 4: Remove Cached Domain Credentials</strong></p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clear cached credentials</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>cmdkey <span class="op">/</span>list</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>cmdkey <span class="op">/</span>delete<span class="op">:</span>Domain<span class="op">:</span>target<span class="op">=&lt;</span>DOMAIN_NAME<span class="op">&gt;</span></span></code></pre></div>
+<hr />
+<h3 id="verification-quality-checks">7.0 Verification &amp; Quality
+Checks</h3>
+<h4 id="domain-join-verification-checklist">7.1 Domain Join Verification
+Checklist</h4>
+<ul class="task-list">
+<li><label><input type="checkbox" /><code>PartOfDomain</code> returns
+<code>True</code></label></li>
+<li><label><input type="checkbox" />Computer object exists in correct OU
+in AD</label></li>
+<li><label><input type="checkbox" />DNS A record created for
+computer</label></li>
+<li><label><input type="checkbox" />Domain users can authenticate to
+server</label></li>
+<li><label><input type="checkbox" />Group Policy applies successfully
+(<code>gpresult /r</code>)</label></li>
+<li><label><input type="checkbox" />Server appears in AD Users and
+Computers</label></li>
+</ul>
+<h4 id="domain-unjoin-verification-checklist">7.2 Domain Unjoin
+Verification Checklist</h4>
+<ul class="task-list">
+<li><label><input type="checkbox" /><code>PartOfDomain</code> returns
+<code>False</code></label></li>
+<li><label><input type="checkbox" />Domain shows as
+<code>WORKGROUP</code></label></li>
+<li><label><input type="checkbox" />Local Administrator login
+works</label></li>
+<li><label><input type="checkbox" />Computer object removed from AD (if
+clean unjoin)</label></li>
+<li><label><input type="checkbox" />DNS settings updated
+appropriately</label></li>
+<li><label><input type="checkbox" />Services using domain accounts are
+reconfigured or stopped</label></li>
+</ul>
+<hr />
+<h3 id="troubleshooting">8.0 Troubleshooting</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Issue</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“The specified domain either does not exist or could not be
+contacted”</td>
+<td>Verify DNS points to DC, test port 389 connectivity, check firewall
+rules</td>
+</tr>
+<tr class="even">
+<td>“Access is denied” during join</td>
+<td>Verify domain admin credentials, check if user has “Add workstations
+to domain” permission</td>
+</tr>
+<tr class="odd">
+<td>“The machine account quota has been exceeded”</td>
+<td>Contact domain admin to increase quota or pre-stage computer
+account</td>
+</tr>
+<tr class="even">
+<td>Computer object in wrong OU</td>
+<td>Move object in AD Users and Computers, or unjoin/rejoin with
+<code>-OUPath</code> parameter</td>
+</tr>
+<tr class="odd">
+<td>Can’t unjoin - DC unavailable</td>
+<td>Use force unjoin method, manually clean up AD object later</td>
+</tr>
+<tr class="even">
+<td>Local admin account locked after unjoin</td>
+<td>Boot to Safe Mode, use Azure Serial Console, or restore from
+snapshot</td>
+</tr>
+<tr class="odd">
+<td>“The trust relationship between this workstation and the primary
+domain failed”</td>
+<td>Unjoin and rejoin the domain, or reset computer account in AD</td>
+</tr>
+<tr class="even">
+<td>Group Policy not applying after join</td>
+<td>Run <code>gpupdate /force</code>, verify DNS, check OU GPO
+links</td>
+</tr>
+<tr class="odd">
+<td>Azure Run Command times out</td>
+<td>Increase timeout, use Azure Bastion/RDP instead</td>
+</tr>
+</tbody>
+</table>
+<h3 id="azure-specific-troubleshooting">8.1 Azure-Specific
+Troubleshooting</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Issue</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VM not starting after domain join</td>
+<td>Check boot diagnostics, may need to restore from snapshot</td>
+</tr>
+<tr class="even">
+<td>Network connectivity lost after join</td>
+<td>Review NSG rules, verify no conflicting IP addresses</td>
+</tr>
+<tr class="odd">
+<td>Run Command returns “VM not running”</td>
+<td>Start VM first:
+<code>az vm start --resource-group &lt;RG&gt; --name &lt;VM&gt;</code></td>
+</tr>
+<tr class="even">
+<td>DNS not resolving after Azure VNet change</td>
+<td>Restart VM, flush DNS: <code>ipconfig /flushdns</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="related-documents">9.0 Related Documents</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Document</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SOP-AD-001</td>
+<td>Domain Troubleshooting</td>
+</tr>
+<tr class="even">
+<td>SOP-AD-002</td>
+<td>Mac AD Integration</td>
+</tr>
+<tr class="odd">
+<td>SOP-AZ-001</td>
+<td>Azure VM Administration</td>
+</tr>
+<tr class="even">
+<td>SOP-NET-xxx</td>
+<td>Network Firewall Port Configuration</td>
+</tr>
+</tbody>
+</table>
+<h3 id="external-references">9.1 External References</h3>
+<ul>
+<li><a
+href="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/deploy/install-active-directory-domain-services--level-100-">Microsoft:
+Join a Computer to a Domain</a></li>
+<li><a
+href="https://docs.microsoft.com/en-us/azure/virtual-machines/run-command-overview">Azure
+Run Command Documentation</a></li>
+<li><a
+href="https://docs.microsoft.com/en-us/troubleshoot/windows-server/identity/config-firewall-for-ad-domains-and-trusts">Active
+Directory Ports and Protocols</a></li>
+</ul>
+<hr />
+<h3 id="revision-history">10.0 Revision History</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Version</th>
+<th>Date</th>
+<th>Author</th>
+<th>Change Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0</td>
+<td>2026-01-12</td>
+<td>OberaConnect</td>
+<td>Initial document creation</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="approval">11.0 Approval</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Role</th>
+<th>Signature</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>Technical Lead</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Operations Manager</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="appendix-a-quick-reference-commands">Appendix A: Quick Reference
+Commands</h3>
+<h4 id="domain-join-one-liner">Domain Join (One-Liner)</h4>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Add-Computer</span> <span class="op">-</span>DomainName <span class="st">&quot;domain.com&quot;</span> <span class="op">-</span>Credential <span class="op">(</span><span class="fu">Get-Credential</span><span class="op">)</span> <span class="op">-</span>Restart <span class="op">-</span>Force</span></code></pre></div>
+<h4 id="domain-unjoin-one-liner">Domain Unjoin (One-Liner)</h4>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Remove-Computer</span> <span class="op">-</span>UnjoinDomainCredential <span class="op">(</span><span class="fu">Get-Credential</span><span class="op">)</span> <span class="op">-</span>WorkgroupName <span class="st">&quot;WORKGROUP&quot;</span> <span class="op">-</span>Force <span class="op">-</span>Restart</span></code></pre></div>
+<h4 id="check-domain-status">Check Domain Status</h4>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">(</span><span class="fu">Get-WmiObject</span> Win32_ComputerSystem<span class="op">).</span><span class="fu">Domain</span></span></code></pre></div>
+<h4 id="azure-cli---run-command-template">Azure CLI - Run Command
+Template</h4>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> vm run-command invoke <span class="at">--resource-group</span> <span class="op">&lt;</span>RG<span class="op">&gt;</span> --name <span class="op">&lt;</span>VM<span class="op">&gt;</span> --command-id RunPowerShellScript <span class="at">--scripts</span> <span class="st">&quot;&lt;POWERSHELL_COMMAND&gt;&quot;</span></span></code></pre></div>
+</body>
+</html>

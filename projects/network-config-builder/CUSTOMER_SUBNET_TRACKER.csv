@@ -3,3 +3,4 @@ Customer ID,Customer Name,Allocated Subnet Block,Configured LAN Subnet,LAN Gatew
 SFWS002,Spanish Fort Water System,10.54.4.0/24 - 10.54.7.0/24,10.54.4.0/24,10.54.4.1,10.54.4.200-254,[TBD],[TBD],SFWB_Main,[TBD],2025-12-02,Active,Main office location
 SFWS003,Spanish Fort Water System,10.54.4.0/24 - 10.54.7.0/24,10.54.5.0/24,10.54.5.1,10.54.5.200-254,[TBD],[TBD],SFWB_Rockwell,[TBD],2025-12-04,Active,Second site - Rockwell location
 SFWS004,Spanish Fort Water System,10.54.4.0/24 - 10.54.7.0/24,10.54.6.0/24,10.54.6.1,10.54.6.200-254,[TBD],[TBD],SFWB_WT RD,[TBD],2025-12-04,Active,Third site - WT RD location
+205923,DC Lawn Foley,10.54.8.0/24 - 10.54.11.0/24,10.54.8.0/24,10.54.8.1,10.54.8.100-200,142.190.216.114/30,142.190.216.113,"Foley, AL",/INT/205923//UIF/,2026-01-08,Active,"Uniti Fiber, Calix ONT Port 1"

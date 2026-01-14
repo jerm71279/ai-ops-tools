@@ -25,6 +25,7 @@ logger = logging.getLogger(__name__)
 class AIProvider(Enum):
     CLAUDE = "claude"
     GEMINI = "gemini"
+    GROK = "grok"
     FARA = "fara"
 
 
@@ -379,11 +380,68 @@ class FaraCLI(BaseAIClient):
         )
 
 
+class GrokCLI(BaseAIClient):
+    """
+    Grok CLI wrapper (xAI)
+
+    Best for:
+    - Real-time information (X/Twitter integration)
+    - Conversational responses
+    - Current events analysis
+    - Alternative perspective on technical decisions
+    """
+
+    def __init__(self, timeout: int = 300):
+        super().__init__(timeout)
+
+    @property
+    def provider(self) -> AIProvider:
+        return AIProvider.GROK
+
+    def _check_availability(self) -> bool:
+        stdout, stderr, code = self._run_command(["which", "grok"])
+        return code == 0
+
+    def execute(
+        self,
+        prompt: str,
+        files: Optional[List[str]] = None,
+        **kwargs
+    ) -> AIResponse:
+        """
+        Execute Grok CLI with prompt
+
+        Args:
+            prompt: The user prompt
+            files: List of file paths to include
+        """
+        cmd = ["grok", "-p", prompt]
+
+        if files:
+            for f in files:
+                if Path(f).exists():
+                    cmd.extend(["--file", f])
+
+        logger.debug(f"Executing Grok CLI: {' '.join(cmd)}")
+        stdout, stderr, code = self._run_command(cmd)
+
+        success = code == 0 and stdout
+
+        return AIResponse(
+            provider=self.provider,
+            success=success,
+            content=stdout.strip() if success else "",
+            raw_output=stdout,
+            error=stderr if not success else None,
+            metadata={"files_included": files or []}
+        )
+
+
 class AIClientFactory:
     """Factory for creating AI clients"""
-    
+
     _clients: Dict[AIProvider, BaseAIClient] = {}
-    
+
     @classmethod
     def get_client(cls, provider: AIProvider, **kwargs) -> BaseAIClient:
         """Get or create an AI client for the specified provider"""
@@ -392,6 +450,8 @@ class AIClientFactory:
                 cls._clients[provider] = ClaudeCLI(**kwargs)
             elif provider == AIProvider.GEMINI:
                 cls._clients[provider] = GeminiCLI(**kwargs)
+            elif provider == AIProvider.GROK:
+                cls._clients[provider] = GrokCLI(**kwargs)
             elif provider == AIProvider.FARA:
                 cls._clients[provider] = FaraCLI(**kwargs)
             else:

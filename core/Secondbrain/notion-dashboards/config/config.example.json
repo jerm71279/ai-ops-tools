@@ -1,0 +1,33 @@
+{
+    "notion_token": "secret_YOUR_NOTION_INTEGRATION_TOKEN",
+    "databases": {
+        "customer_status": "YOUR_CUSTOMER_STATUS_DB_ID",
+        "daily_health": "YOUR_DAILY_HEALTH_DB_ID",
+        "azure_pipeline": "YOUR_AZURE_PIPELINE_DB_ID",
+        "runbook_library": "YOUR_RUNBOOK_LIBRARY_DB_ID",
+        "config_changes": "YOUR_CONFIG_CHANGES_DB_ID",
+        "deployments": "YOUR_DEPLOYMENTS_DB_ID",
+        "devices": "YOUR_DEVICES_DB_ID",
+        "device_issues": "YOUR_DEVICE_ISSUES_DB_ID"
+    },
+    "unifi": {
+        "site_manager_url": "https://unifi.ui.com",
+        "api_token": "YOUR_UNIFI_API_TOKEN"
+    },
+    "ninjaone": {
+        "api_url": "https://app.ninjarmm.com/api/v2",
+        "client_id": "YOUR_NINJAONE_CLIENT_ID",
+        "client_secret": "YOUR_NINJAONE_CLIENT_SECRET"
+    },
+    "settings": {
+        "wifi_signal_threshold_dbm": -65,
+        "health_score_warning_threshold": 70,
+        "health_score_critical_threshold": 50
+    },
+    "maker_checker": {
+        "enabled": true,
+        "health_drop_threshold": 15,
+        "bulk_change_threshold": 10,
+        "require_rollback_for_high_risk": true
+    }
+}

@@ -1,196 +1,222 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OberaConnect Document</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333333;
-            max-width: 8.5in;
-            margin: 0 auto;
-            padding: 0.5in;
-            background: #fff;
-        }
-
-        .header {
-            border-bottom: 3px solid #0066CC;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .logo-img {
-            height: 50px;
-            width: auto;
-        }
-
-        .tagline {
-            font-size: 14px;
-            color: #666666;
-            font-style: italic;
-            margin-left: 2px;
-        }
-
-        .doc-meta {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .doc-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #333333;
-        }
-
-        .doc-date {
-            font-size: 12px;
-            color: #666666;
-        }
-
-        .section {
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #0066CC;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-        }
-
-        .section-content {
-            color: #333333;
-            font-size: 14px;
-        }
-
-        .section-content p {
-            margin-bottom: 10px;
-        }
-
-        .section-content ul {
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
-
-        .section-content li {
-            margin-bottom: 5px;
-        }
-
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 11px;
-            color: #999999;
-            text-align: center;
-        }
-
-        .highlight-box {
-            background: #f5f9ff;
-            border-left: 4px solid #0066CC;
-            padding: 15px;
-            margin: 15px 0;
-        }
-
-        .action-item {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 10px 15px;
-            margin: 10px 0;
-        }
-
-        @media print {
-            body {
-                padding: 0;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOP-AZ-001_Azure_VM_Admin_v1.0.0</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo-container">
-            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
-            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
-        </div>
-        <div class="tagline">Technology Solutions for Modern Business</div>
-
-        <div class="doc-meta">
-            <div class="doc-title">SOP-AZ-001 Azure VM Admin v1.0.0</div>
-            <div class="doc-date">Date: [MM/DD/YYYY]</div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Executive Summary</div>
-        <div class="section-content">
-            <p>────────────────────────────────────────────────────────────</p>
-<h2 id="document-control">**DOCUMENT CONTROL**</h2>
+<header id="title-block-header">
+<h1 class="title">SOP-AZ-001_Azure_VM_Admin_v1.0.0</h1>
+</header>
+<h1 id="standard-operating-procedure-sop-az-001">Standard Operating
+Procedure: SOP-AZ-001</h1>
+<hr />
+<h3 id="document-control"><strong>DOCUMENT CONTROL</strong></h3>
 <table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
 <tbody>
 <tr class="odd">
-<td>**SOP ID**</td>
-<td>SOP-AZ-001</td>
+<td style="text-align: left;"><strong>SOP ID</strong></td>
+<td style="text-align: left;">SOP-AZ-001</td>
 </tr>
 <tr class="even">
-<td>**Title**</td>
-<td>Azure VM Infrastructure Administration</td>
+<td style="text-align: left;"><strong>Title</strong></td>
+<td style="text-align: left;">Azure VM Infrastructure
+Administration</td>
 </tr>
 <tr class="odd">
-<td>**Version**</td>
-<td>1.0</td>
+<td style="text-align: left;"><strong>Version</strong></td>
+<td style="text-align: left;">1.0</td>
 </tr>
 <tr class="even">
-<td>**Status**</td>
-<td>Final</td>
+<td style="text-align: left;"><strong>Status</strong></td>
+<td style="text-align: left;">Final</td>
 </tr>
 <tr class="odd">
-<td>**Author**</td>
-<td>IT Department</td>
+<td style="text-align: left;"><strong>Author</strong></td>
+<td style="text-align: left;">IT Department</td>
 </tr>
 <tr class="even">
-<td>**Approver**</td>
-<td>IT Management</td>
+<td style="text-align: left;"><strong>Approver</strong></td>
+<td style="text-align: left;">IT Management</td>
 </tr>
 <tr class="odd">
-<td>**Effective Date**</td>
-<td>2025-12-02</td>
+<td style="text-align: left;"><strong>Effective Date</strong></td>
+<td style="text-align: left;">2025-12-02</td>
 </tr>
 </tbody>
 </table>
-<p>────────────────────────────────────────────────────────────</p>
-<h2 id="purpose">**1.0 PURPOSE**</h2>
+<hr />
+<h3 id="purpose"><strong>1.0 PURPOSE</strong></h3>
 <p>To establish a standardized process for the secure and efficient
 administration, migration, and management of Azure Virtual Machines
 (VMs) and related compute infrastructure. This SOP ensures consistency,
 high availability, and adherence to security best practices.</p>
-<h2 id="scope">**2.0 SCOPE**</h2>
+<h3 id="scope"><strong>2.0 SCOPE</strong></h3>
 <p>This SOP applies to all IT personnel responsible for deploying,
 managing, and securing the Azure VM environment. It covers procedures
 for VM migration, load balancing, ADFS management, network
 troubleshooting, topology management, and identity/access control.</p>
-<h2 id="responsibilities">**3.0 RESPONSIBILITIES**</h2>
+<h3 id="responsibilities"><strong>3.0 RESPONSIBILITIES</strong></h3>
 <table>
 <colgroup>
 <col style="width: 50%" />
@@ -198,275 +224,247 @@ troubleshooting, topology management, and identity/access control.</p>
 </colgroup>
 <thead>
 <tr class="header">
-<th><strong>Role</strong></th>
-<th><strong>Responsibility</strong></th>
+<th style="text-align: left;">Role</th>
+<th style="text-align: left;">Responsibility</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>**IT Administrators**</td>
-<td>Execution of the procedures outlined in this SOP, including VM
-management, migration, and monitoring.</td>
+<td style="text-align: left;"><strong>IT Administrators</strong></td>
+<td style="text-align: left;">Execution of the procedures outlined in
+this SOP, including VM management, migration, and monitoring.</td>
 </tr>
 <tr class="even">
-<td>**Network Team**</td>
-<td>Management of Azure networking components, including VNet, NSGs,
-Load Balancers, and topology.</td>
+<td style="text-align: left;"><strong>Network Team</strong></td>
+<td style="text-align: left;">Management of Azure networking components,
+including VNet, NSGs, Load Balancers, and topology.</td>
 </tr>
 <tr class="odd">
-<td>**Security Team**</td>
-<td>Auditing and enforcement of RBAC, MFA, and other security policies.
-Management of Azure AD PIM.</td>
+<td style="text-align: left;"><strong>Security Team</strong></td>
+<td style="text-align: left;">Auditing and enforcement of RBAC, MFA, and
+other security policies. Management of Azure AD PIM.</td>
 </tr>
 <tr class="even">
-<td>**IT Management**</td>
-<td>Ensuring compliance with this SOP, approving significant changes,
-and allocating necessary resources.</td>
+<td style="text-align: left;"><strong>IT Management</strong></td>
+<td style="text-align: left;">Ensuring compliance with this SOP,
+approving significant changes, and allocating necessary resources.</td>
 </tr>
 </tbody>
 </table>
-<p>────────────────────────────────────────────────────────────</p>
-<h2 id="procedure">**4.0 PROCEDURE**</h2>
-<h3 id="virtual-machine-migration">**4.1 Virtual Machine
-Migration**</h3>
+<hr />
+<h3 id="procedure"><strong>4.0 PROCEDURE</strong></h3>
+<h4 id="virtual-machine-migration"><strong>4.1 Virtual Machine
+Migration</strong></h4>
 <p>This procedure outlines the steps for migrating on-premises VMs to
 Azure using Azure Migrate.</p>
 <ol type="1">
-<li><p>**Preparation and Assessment:**</p></li>
-</ol>
+<li><strong>Preparation and Assessment:</strong>
 <ul>
-<li><p>In the Azure Portal, navigate to **Azure Migrate** and create a
-new project.</p></li>
-<li><p>Select the appropriate migration scenario (e.g., VMware, Hyper-V,
-physical).</p></li>
-<li><p>Perform discovery and assessment using Azure Migrate tools to
+<li>In the Azure Portal, navigate to <strong>Azure Migrate</strong> and
+create a new project.</li>
+<li>Select the appropriate migration scenario (e.g., VMware, Hyper-V,
+physical).</li>
+<li>Perform discovery and assessment using Azure Migrate tools to
 evaluate VM dependencies, sizing, and readiness. Utilize the
-**Dependency Visualizer** for a comprehensive dependency map.</p></li>
-</ul>
-<ol start="2" type="1">
-<li><p>**Set Up Azure Migrate Appliance:**</p></li>
-</ol>
+<strong>Dependency Visualizer</strong> for a comprehensive dependency
+map.</li>
+</ul></li>
+<li><strong>Set Up Azure Migrate Appliance:</strong>
 <ul>
-<li><p>Deploy the Azure Migrate appliance (OVA or setup file) in the
-on-premises environment.</p></li>
-<li><p>Register the appliance with the Azure Migrate project and allow
-it to complete discovery.</p></li>
-</ul>
-<ol start="3" type="1">
-<li><p>**Configure Replication:**</p></li>
-</ol>
+<li>Deploy the Azure Migrate appliance (OVA or setup file) in the
+on-premises environment.</li>
+<li>Register the appliance with the Azure Migrate project and allow it
+to complete discovery.</li>
+</ul></li>
+<li><strong>Configure Replication:</strong>
 <ul>
-<li><p>In the Azure Migrate project, select the VMs to be
-replicated.</p></li>
-<li><p>Configure target settings: Azure subscription, region, resource
-group, VM size, and availability options (Availability
-Zone/Set).</p></li>
-<li><p>Define target disk types and select which disks to
-replicate.</p></li>
-<li><p>If applicable, enable **Azure Hybrid Benefit** to reduce
-licensing costs.</p></li>
-</ul>
-<ol start="4" type="1">
-<li><p>**Start and Monitor Replication:**</p></li>
-</ol>
+<li>In the Azure Migrate project, select the VMs to be replicated.</li>
+<li>Configure target settings: Azure subscription, region, resource
+group, VM size, and availability options (Availability Zone/Set).</li>
+<li>Define target disk types and select which disks to replicate.</li>
+<li>If applicable, enable <strong>Azure Hybrid Benefit</strong> to
+reduce licensing costs.</li>
+</ul></li>
+<li><strong>Start and Monitor Replication:</strong>
 <ul>
-<li><p>Initiate replication for the selected VMs.</p></li>
-<li><p>Monitor replication health and status through the Azure Migrate
-portal.</p></li>
-</ul>
-<ol start="5" type="1">
-<li><p>**Conduct Test Migration:**</p></li>
-</ol>
+<li>Initiate replication for the selected VMs.</li>
+<li>Monitor replication health and status through the Azure Migrate
+portal.</li>
+</ul></li>
+<li><strong>Conduct Test Migration:</strong>
 <ul>
-<li><p>Perform a test migration on replicated VMs to create a sandboxed
-test environment in Azure.</p></li>
-<li><p>Verify VM boot, network connectivity, and application
-functionality within the test environment. This step does not impact
-production workloads.</p></li>
-</ul>
-<ol start="6" type="1">
-<li><p>**Perform Full Migration (Cutover):**</p></li>
-</ol>
+<li>Perform a test migration on replicated VMs to create a sandboxed
+test environment in Azure.</li>
+<li>Verify VM boot, network connectivity, and application functionality
+within the test environment. This step does not impact production
+workloads.</li>
+</ul></li>
+<li><strong>Perform Full Migration (Cutover):</strong>
 <ul>
-<li><p>Schedule and perform the final cutover. This transitions the
-Azure VMs to the production environment.</p></li>
-<li><p>Shut down the on-premises source VMs.</p></li>
-<li><p>Update DNS records, firewall rules, and application connection
-strings to point to the new Azure VMs.</p></li>
-</ul>
-<ol start="7" type="1">
-<li><p>**Post-Migration Validation and Optimization:**</p></li>
-</ol>
+<li>Schedule and perform the final cutover. This transitions the Azure
+VMs to the production environment.</li>
+<li>Shut down the on-premises source VMs.</li>
+<li>Update DNS records, firewall rules, and application connection
+strings to point to the new Azure VMs.</li>
+</ul></li>
+<li><strong>Post-Migration Validation and Optimization:</strong>
 <ul>
-<li><p>Verify the health, performance, and connectivity of the newly
-migrated VMs in Azure.</p></li>
-<li><p>Implement **Azure Backup** for the VMs.</p></li>
-<li><p>Configure monitoring and alerting using **Azure Log
-Analytics**.</p></li>
-<li><p>Optimize VM sizes and disk types based on post-migration
-performance data to manage costs effectively.</p></li>
-<li><p>Implement **Just-in-Time (JIT) VM Access** to enhance security by
-controlling port access.</p></li>
-</ul>
-<h3 id="load-balancing">**4.2 Load Balancing**</h3>
-<ol start="8" type="1">
-<li><p>**Deployment:**</p></li>
+<li>Verify the health, performance, and connectivity of the newly
+migrated VMs in Azure.</li>
+<li>Implement <strong>Azure Backup</strong> for the VMs.</li>
+<li>Configure monitoring and alerting using <strong>Azure Log
+Analytics</strong>.</li>
+<li>Optimize VM sizes and disk types based on post-migration performance
+data to manage costs effectively.</li>
+<li>Implement <strong>Just-in-Time (JIT) VM Access</strong> to enhance
+security by controlling port access.</li>
+</ul></li>
 </ol>
+<h4 id="load-balancing"><strong>4.2 Load Balancing</strong></h4>
+<ol type="1">
+<li><strong>Deployment:</strong>
 <ul>
-<li><p>Deploy **Azure Load Balancer** (for Layer 4 traffic) or **Azure
-Application Gateway** (for Layer 7 traffic) to distribute traffic across
-VM instances.</p></li>
-</ul>
-<ol start="9" type="1">
-<li><p>**Configuration (for Windows Clusters):**</p></li>
+<li>Deploy <strong>Azure Load Balancer</strong> (for Layer 4 traffic) or
+<strong>Azure Application Gateway</strong> (for Layer 7 traffic) to
+distribute traffic across VM instances.</li>
+</ul></li>
+<li><strong>Configuration (for Windows Clusters):</strong>
+<ul>
+<li>Use PowerShell to configure the <code>AutoBalancerMode</code> and
+<code>AutoBalancerLevel</code> for VM clusters.
+<ul>
+<li><code>AutoBalancerMode</code>: <code>0</code> (Disabled),
+<code>1</code> (On Join), <code>2</code> (Always)</li>
+<li><code>AutoBalancerLevel</code>: <code>1</code> (Low - move at 80%
+host load), <code>2</code> (Medium - move at 70%), <code>3</code> (High
+- move above 5% average).</li>
+</ul></li>
+<li><strong>PowerShell Commands:</strong>
+<code>powershell     (Get-Cluster).AutoBalancerMode = &lt;value&gt;     (Get-Cluster).AutoBalancerLevel = &lt;value&gt;</code></li>
+</ul></li>
 </ol>
+<h4 id="adfs-management"><strong>4.3 ADFS Management</strong></h4>
+<ol type="1">
+<li><strong>Security:</strong>
 <ul>
-<li><p>Use PowerShell to configure the `AutoBalancerMode` and
-`AutoBalancerLevel` for VM clusters.</p></li>
-<li><p>`AutoBalancerMode`: `0` (Disabled), `1` (On Join), `2`
-(Always)</p></li>
-<li><p>`AutoBalancerLevel`: `1` (Low - move at 80% host load), `2`
-(Medium - move at 70%), `3` (High - move above 5% average).</p></li>
-<li><p>**PowerShell Commands:**</p></li>
-</ul>
-<p>`powershell</p>
-<p>(Get-Cluster).AutoBalancerMode = &lt;value&gt;</p>
-<p>(Get-Cluster).AutoBalancerLevel = &lt;value&gt;</p>
-<p>`</p>
-<h3 id="adfs-management">**4.3 ADFS Management**</h3>
-<ol start="10" type="1">
-<li><p>**Security:**</p></li>
+<li>Isolate ADFS servers from direct internet access. Use Web
+Application Proxy (WAP) for external federation.</li>
+<li>Protect ADFS servers behind internal firewalls and apply regular
+security patches.</li>
+<li>Enforce the principle of least privilege for service accounts.</li>
+</ul></li>
+<li><strong>Modernization:</strong>
+<ul>
+<li>Evaluate migrating from ADFS to <strong>Azure AD</strong> for
+identity federation to reduce on-premises complexity and improve
+resilience.</li>
+</ul></li>
 </ol>
+<h4 id="network-troubleshooting"><strong>4.4 Network
+Troubleshooting</strong></h4>
+<ol type="1">
+<li><strong>Monitoring:</strong>
 <ul>
-<li><p>Isolate ADFS servers from direct internet access. Use Web
-Application Proxy (WAP) for external federation.</p></li>
-<li><p>Protect ADFS servers behind internal firewalls and apply regular
-security patches.</p></li>
-<li><p>Enforce the principle of least privilege for service
-accounts.</p></li>
-</ul>
-<ol start="11" type="1">
-<li><p>**Modernization:**</p></li>
-</ol>
+<li>Use <strong>Azure Network Watcher</strong> to diagnose VM
+connectivity, packet loss, and latency issues.</li>
+<li>Leverage <strong>Azure Log Analytics</strong> for real-time network
+traffic analysis.</li>
+</ul></li>
+<li><strong>Diagnostics:</strong>
 <ul>
-<li><p>Evaluate migrating from ADFS to **Azure AD** for identity
-federation to reduce on-premises complexity and improve
-resilience.</p></li>
-</ul>
-<h3 id="network-troubleshooting">**4.4 Network Troubleshooting**</h3>
-<ol start="12" type="1">
-<li><p>**Monitoring:**</p></li>
-</ol>
-<ul>
-<li><p>Use **Azure Network Watcher** to diagnose VM connectivity, packet
-loss, and latency issues.</p></li>
-<li><p>Leverage **Azure Log Analytics** for real-time network traffic
-analysis.</p></li>
-</ul>
-<ol start="13" type="1">
-<li><p>**Diagnostics:**</p></li>
-</ol>
-<ul>
-<li><p>Review network topology, VNet peering, Network Security Groups
+<li>Review network topology, VNet peering, Network Security Groups
 (NSGs), User-Defined Routes (UDRs), and VPN configurations when
-troubleshooting connectivity.</p></li>
-</ul>
-<h3 id="topology-management">**4.5 Topology Management**</h3>
-<ol start="14" type="1">
-<li><p>**Design:**</p></li>
+troubleshooting connectivity.</li>
+</ul></li>
 </ol>
+<h4 id="topology-management"><strong>4.5 Topology
+Management</strong></h4>
+<ol type="1">
+<li><strong>Design:</strong>
 <ul>
-<li><p>Follow Azure reference architectures (e.g., Hub-Spoke, Virtual
-WAN) for scalable and secure network design.</p></li>
-<li><p>Use discrete resource groups for logical segmentation of compute,
-storage, and networking resources.</p></li>
-</ul>
-<ol start="15" type="1">
-<li><p>**High Availability:**</p></li>
+<li>Follow Azure reference architectures (e.g., Hub-Spoke, Virtual WAN)
+for scalable and secure network design.</li>
+<li>Use discrete resource groups for logical segmentation of compute,
+storage, and networking resources.</li>
+</ul></li>
+<li><strong>High Availability:</strong>
+<ul>
+<li>Distribute VM instances and related services across multiple
+Availability Zones.</li>
+</ul></li>
+<li><strong>Automation:</strong>
+<ul>
+<li>Automate infrastructure deployments using <strong>ARM
+templates</strong> or <strong>Bicep</strong>.</li>
+<li>Integrate templates with a version control system (e.g., Git) for
+repeatable and documented infrastructure management.</li>
+</ul></li>
 </ol>
+<h4 id="security-and-access-control"><strong>4.6 Security and Access
+Control</strong></h4>
+<h5 id="role-based-access-control-rbac"><strong>4.6.1 Role-Based Access
+Control (RBAC)</strong></h5>
+<ol type="1">
+<li><strong>Principle:</strong>
 <ul>
-<li><p>Distribute VM instances and related services across multiple
-Availability Zones.</p></li>
-</ul>
-<ol start="16" type="1">
-<li><p>**Automation:**</p></li>
+<li>Assign permissions using role assignments that consist of a
+<strong>security principal</strong> (user/group), a <strong>role
+definition</strong> (permissions), and a <strong>scope</strong>
+(resource/group/subscription).</li>
+</ul></li>
+<li><strong>Implementation:</strong>
+<ul>
+<li>Assign roles based on the principle of <strong>least
+privilege</strong>. Use built-in roles (e.g.,
+<code>Virtual Machine Contributor</code>) where possible, or create
+custom roles for specific needs.</li>
+<li><strong>Assign roles to Azure AD groups</strong> rather than
+individual users to simplify management.</li>
+</ul></li>
+<li><strong>Procedure (Portal):</strong>
+<ul>
+<li>Navigate to the resource and select <strong>Access control
+(IAM)</strong>.</li>
+<li>Click <strong>Add &gt; Add role assignment</strong>, select the
+desired role, and assign it to the appropriate security group or
+user.</li>
+</ul></li>
+<li><strong>Auditing:</strong>
+<ul>
+<li>Periodically audit role assignments to remove obsolete or excessive
+permissions.</li>
+<li>Limit the number of users with the <code>Owner</code> role on
+subscriptions.</li>
+<li>Use <strong>Azure AD Privileged Identity Management (PIM)</strong>
+to enable just-in-time (JIT) privileged access and time-bound role
+activations.</li>
+</ul></li>
 </ol>
+<h5 id="multi-factor-authentication-mfa"><strong>4.6.2 Multi-Factor
+Authentication (MFA)</strong></h5>
+<ol type="1">
+<li><strong>Enforcement:</strong>
 <ul>
-<li><p>Automate infrastructure deployments using **ARM templates** or
-**Bicep**.</p></li>
-<li><p>Integrate templates with a version control system (e.g., Git) for
-repeatable and documented infrastructure management.</p></li>
-</ul>
-<h3 id="security-and-access-control">**4.6 Security and Access
-Control**</h3>
-<p>##### 4.6.1 Role-Based Access Control (RBAC)</p>
-<ol start="17" type="1">
-<li><p>**Principle:**</p></li>
+<li>Enforce MFA on all user accounts, especially those with privileged
+roles.</li>
+</ul></li>
+<li><strong>Policy:</strong>
+<ul>
+<li>Use <strong>Azure AD Conditional Access</strong> policies to require
+MFA based on conditions like user location, device compliance, or
+sign-in risk.</li>
+<li>Ensure compliance with Microsoft’s requirement for MFA on all Azure
+resource management operations.</li>
+</ul></li>
+<li><strong>Monitoring:</strong>
+<ul>
+<li>Enable logging and alerting to monitor sign-in activity, detect MFA
+bypass attempts, and investigate suspicious behavior.</li>
+</ul></li>
 </ol>
-<ul>
-<li><p>Assign permissions using role assignments that consist of a
-**security principal** (user/group), a **role definition**
-(permissions), and a **scope** (resource/group/subscription).</p></li>
-</ul>
-<ol start="18" type="1">
-<li><p>**Implementation:**</p></li>
-</ol>
-<ul>
-<li><p>Assign roles based on the principle of **least privilege**. Use
-built-in roles (e.g., `Virtual Machine Contributor`) where possible, or
-create custom roles for specific needs.</p></li>
-<li><p>**Assign roles to Azure AD groups** rather than individual users
-to simplify management.</p></li>
-</ul>
-<ol start="19" type="1">
-<li><p>**Procedure (Portal):**</p></li>
-</ol>
-<ul>
-<li><p>Navigate to the resource and select **Access control
-(IAM)**.</p></li>
-<li><p>Click **Add &gt; Add role assignment**, select the desired role,
-and assign it to the appropriate security group or user.</p></li>
-</ul>
-<ol start="20" type="1">
-<li><p>**Auditing:**</p></li>
-</ol>
-<ul>
-<li><p>Periodically audit role assignments to remove obsolete or
-excessive permissions.</p></li>
-<li><p>Limit the number of users with the `Owner` role on
-subscriptions.</p></li>
-<li><p>Use **Azure AD Privileged Identity Management (PIM)** to enable
-just-in-time (JIT) privileged access and time-bound role
-activations.</p></li>
-</ul>
-<p>##### 4.6.2 Multi-Factor Authentication (MFA)</p>
-<ol start="21" type="1">
-<li><p>**Enforcement:**</p></li>
-</ol>
-<ul>
-<li><p>Enforce MFA on all user accounts, especially those with
-privileged roles.</p></li>
-</ul>
-<ol start="22" type="1">
-<li><p>**Policy:**</p></li>
-</ol>
-<ul>
-<li><p>Use **Azure AD Conditional Access** policies to require MFA based
-on conditions like user location, device compliance, or sign-in
-risk.</p></li>
-<li><p>Ensure compliance with Microsoft's requirement for MFA on all
-Azure resource management operations.</p></li>
-</ul>
-<ol start="23" type="1">
-<li><p>**Monitoring:**</p></li>
-</ol>
-<ul>
-<li><p>Enable logging and alerting to monitor sign-in activity, detect
-MFA bypass attempts, and investigate suspicious behavior.</p></li>
-</ul>
-<p>────────────────────────────────────────────────────────────</p>
-<h2 id="quick-reference-cheatsheet">**5.0 QUICK REFERENCE
-CHEATSHEET**</h2>
+<hr />
+<h3 id="quick-reference-cheatsheet"><strong>5.0 QUICK REFERENCE
+CHEATSHEET</strong></h3>
 <table>
 <colgroup>
 <col style="width: 33%" />
@@ -475,129 +473,100 @@ CHEATSHEET**</h2>
 </colgroup>
 <thead>
 <tr class="header">
-<th><strong>Task</strong></th>
-<th><strong>Tool / Command</strong></th>
-<th><strong>Best Practice</strong></th>
+<th style="text-align: left;">Task</th>
+<th style="text-align: left;">Tool / Command</th>
+<th style="text-align: left;">Best Practice</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>**Discover/Assess VMs**</td>
-<td>Azure Migrate, Dependency Visualizer</td>
-<td>Map all dependencies before migration.</td>
+<td style="text-align: left;"><strong>Discover/Assess VMs</strong></td>
+<td style="text-align: left;">Azure Migrate, Dependency Visualizer</td>
+<td style="text-align: left;">Map all dependencies before
+migration.</td>
 </tr>
 <tr class="even">
-<td>**Test Migration**</td>
-<td>Azure Migrate: Test Migration</td>
-<td>Validate all applications before cutover.</td>
+<td style="text-align: left;"><strong>Test Migration</strong></td>
+<td style="text-align: left;">Azure Migrate: Test Migration</td>
+<td style="text-align: left;">Validate all applications before
+cutover.</td>
 </tr>
 <tr class="odd">
-<td>**Load Balancing (PS)**</td>
-<td>`(Get-Cluster).AutoBalancerMode = &lt;value&gt;`</td>
-<td>Set to `1` (On Join) or `2` (Always).</td>
+<td style="text-align: left;"><strong>Load Balancing (PS)</strong></td>
+<td
+style="text-align: left;"><code>(Get-Cluster).AutoBalancerMode = &lt;value&gt;</code></td>
+<td style="text-align: left;">Set to <code>1</code> (On Join) or
+<code>2</code> (Always).</td>
 </tr>
 <tr class="even">
-<td>**LB Aggressiveness (PS)**</td>
-<td>`(Get-Cluster).AutoBalancerLevel = &lt;value&gt;`</td>
-<td>Use `1` (Low), `2` (Medium), or `3` (High).</td>
+<td style="text-align: left;"><strong>LB Aggressiveness
+(PS)</strong></td>
+<td
+style="text-align: left;"><code>(Get-Cluster).AutoBalancerLevel = &lt;value&gt;</code></td>
+<td style="text-align: left;">Use <code>1</code> (Low), <code>2</code>
+(Medium), or <code>3</code> (High).</td>
 </tr>
 <tr class="odd">
-<td>**Assign RBAC Role (CLI)**</td>
-<td>`az role assignment create`</td>
-<td>Script assignments for automation and consistency.</td>
+<td style="text-align: left;"><strong>Assign RBAC Role
+(CLI)</strong></td>
+<td
+style="text-align: left;"><code>az role assignment create</code></td>
+<td style="text-align: left;">Script assignments for automation and
+consistency.</td>
 </tr>
 <tr class="even">
-<td>**ADFS Security**</td>
-<td>Harden ADFS, use WAP</td>
-<td>Eliminate direct public internet exposure.</td>
+<td style="text-align: left;"><strong>ADFS Security</strong></td>
+<td style="text-align: left;">Harden ADFS, use WAP</td>
+<td style="text-align: left;">Eliminate direct public internet
+exposure.</td>
 </tr>
 <tr class="odd">
-<td>**Network Troubleshooting**</td>
-<td>Azure Network Watcher, Log Analytics</td>
-<td>Monitor connectivity, routing, and packet loss.</td>
+<td style="text-align: left;"><strong>Network
+Troubleshooting</strong></td>
+<td style="text-align: left;">Azure Network Watcher, Log Analytics</td>
+<td style="text-align: left;">Monitor connectivity, routing, and packet
+loss.</td>
 </tr>
 <tr class="even">
-<td>**Topology Management**</td>
-<td>ARM/Bicep Templates</td>
-<td>Automate deployments; use Hub-Spoke design.</td>
+<td style="text-align: left;"><strong>Topology Management</strong></td>
+<td style="text-align: left;">ARM/Bicep Templates</td>
+<td style="text-align: left;">Automate deployments; use Hub-Spoke
+design.</td>
 </tr>
 <tr class="odd">
-<td>**Enable PIM**</td>
-<td>Azure AD &gt; Privileged Identity Management</td>
-<td>Implement Just-In-Time (JIT) privileged access.</td>
+<td style="text-align: left;"><strong>Enable PIM</strong></td>
+<td style="text-align: left;">Azure AD &gt; Privileged Identity
+Management</td>
+<td style="text-align: left;">Implement Just-In-Time (JIT) privileged
+access.</td>
 </tr>
 <tr class="even">
-<td>**Enable MFA**</td>
-<td>Azure AD &gt; Conditional Access</td>
-<td>Enforce MFA for all users, especially administrators.</td>
+<td style="text-align: left;"><strong>Enable MFA</strong></td>
+<td style="text-align: left;">Azure AD &gt; Conditional Access</td>
+<td style="text-align: left;">Enforce MFA for all users, especially
+administrators.</td>
 </tr>
 </tbody>
 </table>
-<p>────────────────────────────────────────────────────────────</p>
-<h2 id="revision-history">**6.0 REVISION HISTORY**</h2>
+<hr />
+<h3 id="revision-history"><strong>6.0 REVISION HISTORY</strong></h3>
 <table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-</colgroup>
 <thead>
 <tr class="header">
-<th>Version</th>
-<th>Date</th>
-<th>Author</th>
-<th>Description of Change</th>
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">Date</th>
+<th style="text-align: left;">Author</th>
+<th style="text-align: left;">Description of Change</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1.0</td>
-<td>2025-12-02</td>
-<td>IT Department</td>
-<td>Initial document creation.</td>
+<td style="text-align: left;">1.0</td>
+<td style="text-align: left;">2025-12-02</td>
+<td style="text-align: left;">IT Department</td>
+<td style="text-align: left;">Initial document creation.</td>
 </tr>
 </tbody>
 </table>
-
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Details</div>
-        <div class="section-content">
-            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
-
-            <div class="highlight-box">
-                <strong>Key Point:</strong> [Important information to highlight]
-            </div>
-
-            <p>Supporting details:</p>
-            <ul>
-                <li>[Detail item 1]</li>
-                <li>[Detail item 2]</li>
-                <li>[Detail item 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Next Steps</div>
-        <div class="section-content">
-            <div class="action-item">
-                <strong>Action Required:</strong> [Specific action item with owner and deadline]
-            </div>
-
-            <ul>
-                <li>[Next step 1]</li>
-                <li>[Next step 2]</li>
-                <li>[Next step 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="footer">
-        OberaConnect LLC | www.oberaconnect.com | Confidential
-    </div>
 </body>
 </html>

@@ -1,389 +1,696 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OberaConnect Document</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333333;
-            max-width: 8.5in;
-            margin: 0 auto;
-            padding: 0.5in;
-            background: #fff;
-        }
-
-        .header {
-            border-bottom: 3px solid #0066CC;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .logo-img {
-            height: 50px;
-            width: auto;
-        }
-
-        .tagline {
-            font-size: 14px;
-            color: #666666;
-            font-style: italic;
-            margin-left: 2px;
-        }
-
-        .doc-meta {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .doc-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #333333;
-        }
-
-        .doc-date {
-            font-size: 12px;
-            color: #666666;
-        }
-
-        .section {
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #0066CC;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-        }
-
-        .section-content {
-            color: #333333;
-            font-size: 14px;
-        }
-
-        .section-content p {
-            margin-bottom: 10px;
-        }
-
-        .section-content ul {
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
-
-        .section-content li {
-            margin-bottom: 5px;
-        }
-
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 11px;
-            color: #999999;
-            text-align: center;
-        }
-
-        .highlight-box {
-            background: #f5f9ff;
-            border-left: 4px solid #0066CC;
-            padding: 15px;
-            margin: 15px 0;
-        }
-
-        .action-item {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 10px 15px;
-            margin: 10px 0;
-        }
-
-        @media print {
-            body {
-                padding: 0;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOP-NET-002_MikroTik_Config_v1.0.0</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo-container">
-            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
-            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
-        </div>
-        <div class="tagline">Technology Solutions for Modern Business</div>
-
-        <div class="doc-meta">
-            <div class="doc-title">SOP-NET-002 MikroTik Config v1.0.0</div>
-            <div class="doc-date">Date: [MM/DD/YYYY]</div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Executive Summary</div>
-        <div class="section-content">
-            <table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
+<header id="title-block-header">
+<h1 class="title">SOP-NET-002_MikroTik_Config_v1.0.0</h1>
+</header>
+<h1 id="standard-operating-procedure-network-configuration">Standard
+Operating Procedure: Network Configuration</h1>
+<table>
 <tbody>
 <tr class="odd">
-<td>**Document ID:**</td>
+<td><strong>Document ID:</strong></td>
 <td>SOP-NET-002</td>
 </tr>
 <tr class="even">
-<td>**Title:**</td>
+<td><strong>Title:</strong></td>
 <td>MikroTik Router Configuration</td>
 </tr>
 <tr class="odd">
-<td>**Version:**</td>
-<td>1.0</td>
+<td><strong>Version:</strong></td>
+<td>1.1</td>
 </tr>
 <tr class="even">
-<td>**Status:**</td>
+<td><strong>Status:</strong></td>
 <td>Final</td>
 </tr>
 <tr class="odd">
-<td>**Author:**</td>
+<td><strong>Author:</strong></td>
 <td>System Administrator</td>
 </tr>
 <tr class="even">
-<td>**Approved By:**</td>
+<td><strong>Approved By:</strong></td>
 <td>Director of Technology</td>
 </tr>
 <tr class="odd">
-<td>**Effective Date:**</td>
+<td><strong>Effective Date:</strong></td>
 <td>2025-12-02</td>
 </tr>
 </tbody>
 </table>
-<p>────────────────────────────────────────────────────────────</p>
-<h1 id="purpose">1.0 Purpose</h1>
+<hr />
+<h2 id="purpose">1.0 Purpose</h2>
 <p>The purpose of this Standard Operating Procedure (SOP) is to provide
 a standardized, step-by-step guide for the basic configuration of
 MikroTik routers. Adhering to this procedure ensures that all routers
 are set up with consistent, secure, and reliable settings.</p>
-<h1 id="scope">2.0 Scope</h1>
+<h2 id="scope">2.0 Scope</h2>
 <p>This SOP applies to all IT personnel and network engineers
 responsible for deploying and managing MikroTik routers within the
-organization's infrastructure. This document covers the initial setup
+organization’s infrastructure. This document covers the initial setup
 and essential configuration components. Advanced or client-specific
 configurations are outside the scope of this document.</p>
-<h1 id="responsibilities">3.0 Responsibilities</h1>
+<h2 id="responsibilities">3.0 Responsibilities</h2>
 <ul>
-<li><p>**Network Engineers / IT Technicians:** Responsible for executing
-the procedures outlined in this document.</p></li>
-<li><p>**Director of Technology:** Responsible for reviewing and
-approving this SOP and any subsequent revisions.</p></li>
+<li><strong>Network Engineers / IT Technicians:</strong> Responsible for
+executing the procedures outlined in this document.</li>
+<li><strong>Director of Technology:</strong> Responsible for reviewing
+and approving this SOP and any subsequent revisions.</li>
 </ul>
-<h1 id="prerequisites">4.0 Prerequisites</h1>
+<h2 id="prerequisites">4.0 Prerequisites</h2>
 <ul>
-<li><p>Physical or remote access to the MikroTik router.</p></li>
-<li><p>Access to the MikroTik WinBox utility.</p></li>
-<li><p>Knowledge of the client's network requirements, including WAN IP
-information, and internal IP schema.</p></li>
+<li>Physical or remote access to the MikroTik router.</li>
+<li>Access to the MikroTik WinBox utility (download from
+mikrotik.com).</li>
+<li>Knowledge of the client’s network requirements, including WAN IP
+information, and internal IP schema.</li>
+<li>Default credentials: username <code>admin</code>, password is blank
+(empty) on new devices.</li>
 </ul>
-<h1 id="procedure">5.0 Procedure</h1>
+<h2 id="procedure">5.0 Procedure</h2>
 <p>This procedure outlines the key configuration steps to be performed
-in the MikroTik router's interface, typically using WinBox.</p>
-<h2 id="system-identity">5.1 System: Identity</h2>
-<p>Set a unique and identifiable name for the router.</p>
+in the MikroTik router’s interface, typically using WinBox.</p>
+<h3 id="initial-security-configuration-critical">5.1 Initial Security
+Configuration (CRITICAL)</h3>
+<blockquote>
+<p><strong>IMPORTANT:</strong> Complete these steps FIRST on any new or
+factory-reset device before proceeding with network configuration.</p>
+</blockquote>
+<h4 id="change-admin-password">5.1.1 Change Admin Password</h4>
 <ol type="1">
-<li><p>Navigate to **System &gt; Identity**.</p></li>
-<li><p>Set the `Identity` field to a descriptive name related to the
-client or location (e.g., `ClientName-Router`).</p></li>
+<li>Navigate to <strong>System &gt; Users</strong>.</li>
+<li>Double-click the <code>admin</code> user.</li>
+<li>Click <strong>Password</strong> and set a strong password (minimum
+12 characters, mixed case, numbers, symbols).</li>
+<li>Click <strong>OK</strong> to save.</li>
 </ol>
-<h2 id="interfaces">5.2 Interfaces</h2>
+<p><strong>CLI alternative:</strong></p>
+<pre><code>/user set admin password=&quot;YourSecurePassword123!&quot;</code></pre>
+<h4 id="set-system-identity">5.1.2 Set System Identity</h4>
+<ol type="1">
+<li>Navigate to <strong>System &gt; Identity</strong>.</li>
+<li>Set the <code>Identity</code> field to a descriptive name related to
+the client or location (e.g., <code>ClientName-Router</code>).</li>
+</ol>
+<h4 id="configure-time-and-ntp">5.1.3 Configure Time and NTP</h4>
+<ol type="1">
+<li>Navigate to <strong>System &gt; Clock</strong>.</li>
+<li>Set the correct <strong>Time Zone</strong>.</li>
+<li>Navigate to <strong>System &gt; NTP Client</strong>.</li>
+<li>Enable the NTP Client.</li>
+<li>Set NTP Servers: <code>time.google.com</code> and
+<code>pool.ntp.org</code>.</li>
+</ol>
+<p><strong>CLI alternative:</strong></p>
+<pre><code>/system clock set time-zone-name=America/Chicago
+/system ntp client set enabled=yes servers=time.google.com,pool.ntp.org</code></pre>
+<h3 id="interfaces">5.2 Interfaces</h3>
 <p>Review and manage the physical and virtual interfaces.</p>
-<ol start="3" type="1">
-<li><p>Navigate to **Interfaces**.</p></li>
-<li><p>Disable any unused physical ports.</p></li>
-<li><p>If required, create VLANs by clicking the **Add (+)** button and
-selecting **VLAN**. Assign a `Name`, `VLAN ID`, and associate it with a
-physical `Interface`.</p></li>
+<ol type="1">
+<li>Navigate to <strong>Interfaces</strong>.</li>
+<li>Disable any unused physical ports.</li>
+<li>If required, create VLANs by clicking the <strong>Add (+)</strong>
+button and selecting <strong>VLAN</strong>. Assign a <code>Name</code>,
+<code>VLAN ID</code>, and associate it with a physical
+<code>Interface</code>.</li>
 </ol>
-<h2 id="bridge">5.3 Bridge</h2>
+<h3 id="bridge">5.3 Bridge</h3>
 <p>Create a bridge to logically group multiple interfaces (e.g., for a
 single LAN segment).</p>
-<ol start="6" type="1">
-<li><p>Navigate to **Bridge**.</p></li>
-<li><p>On the **Bridge** tab, click **Add (+)** to create a new
-bridge.</p></li>
-<li><p>On the **Ports** tab, click **Add (+)** to assign interfaces
-(physical ports or VLANs) to the newly created bridge.</p></li>
+<ol type="1">
+<li>Navigate to <strong>Bridge</strong>.</li>
+<li>On the <strong>Bridge</strong> tab, click <strong>Add (+)</strong>
+to create a new bridge.</li>
+<li>On the <strong>Ports</strong> tab, click <strong>Add (+)</strong> to
+assign interfaces (physical ports or VLANs) to the newly created
+bridge.</li>
 </ol>
-<h2 id="ip-addresses">5.4 IP: Addresses</h2>
-<p>Assign IP addresses to the router's interfaces.</p>
-<ol start="9" type="1">
-<li><p>Navigate to **IP &gt; Addresses**.</p></li>
-<li><p>Click **Add (+)** to assign an IP address.</p></li>
-<li><p>Specify the `Address` with its subnet (e.g.,
-`192.168.1.1/24`).</p></li>
-<li><p>Assign it to the correct `Interface` (e.g., the WAN port, a LAN
-bridge, or a VLAN).</p></li>
-<li><p>Repeat for all necessary interfaces (WAN, LAN, etc.).</p></li>
+<h3 id="ip-addresses">5.4 IP: Addresses</h3>
+<p>Assign IP addresses to the router’s interfaces.</p>
+<ol type="1">
+<li>Navigate to <strong>IP &gt; Addresses</strong>.</li>
+<li>Click <strong>Add (+)</strong> to assign an IP address.</li>
+<li>Specify the <code>Address</code> with its subnet (e.g.,
+<code>192.168.1.1/24</code>).</li>
+<li>Assign it to the correct <code>Interface</code> (e.g., the WAN port,
+a LAN bridge, or a VLAN).</li>
+<li>Repeat for all necessary interfaces (WAN, LAN, etc.).</li>
 </ol>
-<h2 id="ip-dhcp-client">5.5 IP: DHCP Client</h2>
+<h3 id="ip-dhcp-client">5.5 IP: DHCP Client</h3>
 <p>Configure the WAN interface to receive an IP address automatically if
 a static IP is not provided by the ISP.</p>
-<ol start="14" type="1">
-<li><p>Navigate to **IP &gt; DHCP Client**.</p></li>
-<li><p>Click **Add (+)**.</p></li>
-<li><p>Set the `Interface` to the primary WAN port (e.g.,
-`ether1`).</p></li>
-<li><p>Ensure this is only used if the WAN IP is dynamic.</p></li>
+<ol type="1">
+<li>Navigate to <strong>IP &gt; DHCP Client</strong>.</li>
+<li>Click <strong>Add (+)</strong>.</li>
+<li>Set the <code>Interface</code> to the primary WAN port (e.g.,
+<code>ether1</code>).</li>
+<li>Ensure this is only used if the WAN IP is dynamic.</li>
 </ol>
-<h2 id="ip-pool">5.6 IP: Pool</h2>
+<h3 id="ip-pool">5.6 IP: Pool</h3>
 <p>Define the range of IP addresses to be distributed by the DHCP
 server.</p>
-<ol start="18" type="1">
-<li><p>Navigate to **IP &gt; Pool**.</p></li>
-<li><p>Click **Add (+)**.</p></li>
-<li><p>Assign a `Name` to the pool (e.g., `lan-pool`).</p></li>
-<li><p>Define the `Addresses` range. Format:
-`192.168.1.20-192.168.1.200`.</p></li>
+<ol type="1">
+<li>Navigate to <strong>IP &gt; Pool</strong>.</li>
+<li>Click <strong>Add (+)</strong>.</li>
+<li>Assign a <code>Name</code> to the pool (e.g.,
+<code>lan-pool</code>).</li>
+<li>Define the <code>Addresses</code> range. Format:
+<code>192.168.1.20-192.168.1.200</code>.</li>
 </ol>
-<h2 id="ip-dhcp-server">5.7 IP: DHCP Server</h2>
+<h3 id="ip-dhcp-server">5.7 IP: DHCP Server</h3>
 <p>Configure the DHCP server to assign IP addresses to client devices on
 the LAN.</p>
-<ol start="22" type="1">
-<li><p>Navigate to **IP &gt; DHCP Server**.</p></li>
-<li><p>On the **DHCP** tab, click **Add (+)**.</p></li>
-<li><p>Configure the server instance:</p></li>
-</ol>
+<ol type="1">
+<li>Navigate to <strong>IP &gt; DHCP Server</strong>.</li>
+<li>On the <strong>DHCP</strong> tab, click <strong>Add
+(+)</strong>.</li>
+<li>Configure the server instance:
 <ul>
-<li><p>**Name:** A descriptive name for the server.</p></li>
-<li><p>**Interface:** The LAN bridge or interface the server will listen
-on.</p></li>
-<li><p>**Address Pool:** Select the pool created in step 5.6.</p></li>
-</ul>
-<ol start="25" type="1">
-<li><p>Navigate to the **Networks** tab and click **Add (+)**.</p></li>
-<li><p>Define the network details:</p></li>
-</ol>
+<li><strong>Name:</strong> A descriptive name for the server.</li>
+<li><strong>Interface:</strong> The LAN bridge or interface the server
+will listen on.</li>
+<li><strong>Address Pool:</strong> Select the pool created in step
+5.6.</li>
+</ul></li>
+<li>Navigate to the <strong>Networks</strong> tab and click <strong>Add
+(+)</strong>.</li>
+<li>Define the network details:
 <ul>
-<li><p>**Address:** The network address and subnet (e.g.,
-`192.168.1.0/24`).</p></li>
-<li><p>**Gateway:** The router's LAN IP address (e.g.,
-`192.168.1.1`).</p></li>
-<li><p>**DNS Servers:** The DNS servers to be provided to
-clients.</p></li>
-</ul>
-<ol start="27" type="1">
-<li><p>Navigate to the **Leases** tab to view active leases. Static
-leases can be created here by assigning an IP to a specific MAC
-address.</p></li>
+<li><strong>Address:</strong> The network address and subnet (e.g.,
+<code>192.168.1.0/24</code>).</li>
+<li><strong>Gateway:</strong> The router’s LAN IP address (e.g.,
+<code>192.168.1.1</code>).</li>
+<li><strong>DNS Servers:</strong> The DNS servers to be provided to
+clients.</li>
+</ul></li>
+<li>Navigate to the <strong>Leases</strong> tab to view active leases.
+Static leases can be created here by assigning an IP to a specific MAC
+address.</li>
 </ol>
-<h2 id="ip-dns">5.8 IP: DNS</h2>
+<h3 id="ip-dns">5.8 IP: DNS</h3>
 <p>Configure the DNS servers that the router itself will use for
 resolution.</p>
-<ol start="28" type="1">
-<li><p>Navigate to **IP &gt; DNS**.</p></li>
-<li><p>In the `Servers` field, enter the IP addresses of the primary and
-secondary DNS servers.</p></li>
+<ol type="1">
+<li>Navigate to <strong>IP &gt; DNS</strong>.</li>
+<li>In the <code>Servers</code> field, enter the IP addresses of the
+primary and secondary DNS servers.</li>
 </ol>
-<h2 id="ip-routes">5.9 IP: Routes</h2>
+<h3 id="ip-routes">5.9 IP: Routes</h3>
 <p>Ensure a default route exists for outbound internet traffic. This is
 often added automatically but should be verified.</p>
-<ol start="30" type="1">
-<li><p>Navigate to **IP &gt; Routes**.</p></li>
-<li><p>Check for a route where `Dst. Address` is `0.0.0.0/0`.</p></li>
-<li><p>If it does not exist, click **Add (+)** and create it:</p></li>
-</ol>
+<ol type="1">
+<li>Navigate to <strong>IP &gt; Routes</strong>.</li>
+<li>Check for a route where <code>Dst. Address</code> is
+<code>0.0.0.0/0</code>.</li>
+<li>If it does not exist, click <strong>Add (+)</strong> and create it:
 <ul>
-<li><p>**Dst. Address:** `0.0.0.0/0`</p></li>
-<li><p>**Gateway:** The ISP's gateway IP address (the WAN
-gateway).</p></li>
-</ul>
-<h2 id="ip-firewall---nat">5.10 IP: Firewall - NAT</h2>
+<li><strong>Dst. Address:</strong> <code>0.0.0.0/0</code></li>
+<li><strong>Gateway:</strong> The ISP’s gateway IP address (the WAN
+gateway).</li>
+</ul></li>
+</ol>
+<h3 id="ip-firewall---nat">5.10 IP: Firewall - NAT</h3>
 <p>Configure Network Address Translation (NAT) to allow devices on the
 internal network to access the internet.</p>
-<ol start="33" type="1">
-<li><p>Navigate to **IP &gt; Firewall &gt; NAT**.</p></li>
-<li><p>Click **Add (+)** to create a new rule.</p></li>
-<li><p>In the **General** tab:</p></li>
-</ol>
+<ol type="1">
+<li>Navigate to <strong>IP &gt; Firewall &gt; NAT</strong>.</li>
+<li>Click <strong>Add (+)</strong> to create a new rule.</li>
+<li>In the <strong>General</strong> tab:
 <ul>
-<li><p>**Chain:** `srcnat`</p></li>
-<li><p>**Out. Interface:** Set to the primary WAN port (e.g.,
-`ether1`).</p></li>
-</ul>
-<ol start="36" type="1">
-<li><p>In the **Action** tab:</p></li>
-</ol>
+<li><strong>Chain:</strong> <code>srcnat</code></li>
+<li><strong>Out. Interface:</strong> Set to the primary WAN port (e.g.,
+<code>ether1</code>).</li>
+</ul></li>
+<li>In the <strong>Action</strong> tab:
 <ul>
-<li><p>**Action:** `masquerade`</p></li>
-</ul>
-<h2 id="ip-firewall---firewall-rules">5.11 IP: Firewall - Firewall
-Rules</h2>
-<p>Implement basic firewall rules to block common unsolicited inbound
-traffic.</p>
-<ol start="37" type="1">
-<li><p>Navigate to **IP &gt; Firewall &gt; Firewall Rules**.</p></li>
-<li><p>Create rules to drop inbound traffic on the WAN interface for the
-following ports. For each rule, set **Chain**=`input`, **In.
-Interface**=`ether1` (or your WAN port), and **Action**=`drop`.</p></li>
+<li><strong>Action:</strong> <code>masquerade</code></li>
+</ul></li>
 </ol>
+<h3 id="ip-firewall---filter-rules-critical">5.11 IP: Firewall - Filter
+Rules (CRITICAL)</h3>
+<blockquote>
+<p><strong>IMPORTANT:</strong> Proper firewall rules are essential for
+security. Rules are processed in order - connection tracking rules MUST
+come first.</p>
+</blockquote>
+<p>Navigate to <strong>IP &gt; Firewall &gt; Filter Rules</strong> and
+create the following rules in this exact order:</p>
+<h4 id="input-chain-traffic-to-the-router">5.11.1 Input Chain (Traffic
+TO the Router)</h4>
 <table>
 <colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 5%" />
+<col style="width: 11%" />
+<col style="width: 30%" />
+<col style="width: 23%" />
+<col style="width: 13%" />
+<col style="width: 15%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th><strong>Protocol</strong></th>
-<th><strong>Destination Port</strong></th>
+<th>#</th>
+<th>Chain</th>
+<th>Connection State</th>
+<th>In Interface</th>
+<th>Action</th>
+<th>Comment</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>UDP</td>
-<td>53, 123, 161</td>
+<td>1</td>
+<td>input</td>
+<td>established,related</td>
+<td>-</td>
+<td>accept</td>
+<td>Allow established connections</td>
 </tr>
 <tr class="even">
-<td>TCP</td>
-<td>21, 22, 23, 53, 80, 443, 8080, 2000</td>
+<td>2</td>
+<td>input</td>
+<td>invalid</td>
+<td>-</td>
+<td>drop</td>
+<td>Drop invalid packets</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>input</td>
+<td>-</td>
+<td>ether1 (WAN)</td>
+<td>drop</td>
+<td>Drop all other WAN input</td>
 </tr>
 </tbody>
 </table>
-<h2 id="ip-services">5.12 IP: Services</h2>
-<p>Disable non-essential services and change the port for WinBox to
-enhance security.</p>
-<ol start="39" type="1">
-<li><p>Navigate to **IP &gt; Services**.</p></li>
-<li><p>Disable all services **except for `winbox`**.</p></li>
-<li><p>Double-click on `winbox` and change the `Port` to
-`8899`.</p></li>
+<h4 id="forward-chain-traffic-through-the-router">5.11.2 Forward Chain
+(Traffic THROUGH the Router)</h4>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 11%" />
+<col style="width: 30%" />
+<col style="width: 23%" />
+<col style="width: 13%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Chain</th>
+<th>Connection State</th>
+<th>In Interface</th>
+<th>Action</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>4</td>
+<td>forward</td>
+<td>established,related</td>
+<td>-</td>
+<td>accept</td>
+<td>Allow established connections</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>forward</td>
+<td>invalid</td>
+<td>-</td>
+<td>drop</td>
+<td>Drop invalid packets</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>forward</td>
+<td>new</td>
+<td>ether1 (WAN)</td>
+<td>drop</td>
+<td>Drop new connections from WAN</td>
+</tr>
+</tbody>
+</table>
+<h4 id="cli-commands-recommended">5.11.3 CLI Commands (Recommended)</h4>
+<pre><code>/ip firewall filter
+
+# Input chain - traffic to the router
+add chain=input connection-state=established,related action=accept comment=&quot;Accept established/related&quot;
+add chain=input connection-state=invalid action=drop comment=&quot;Drop invalid&quot;
+add chain=input in-interface=ether1 action=drop comment=&quot;Drop all other WAN input&quot;
+
+# Forward chain - traffic through the router
+add chain=forward connection-state=established,related action=accept comment=&quot;Accept established/related&quot;
+add chain=forward connection-state=invalid action=drop comment=&quot;Drop invalid&quot;
+add chain=forward connection-state=new in-interface=ether1 action=drop comment=&quot;Drop new from WAN&quot;</code></pre>
+<h4 id="optional-allow-specific-management-access">5.11.4 Optional:
+Allow Specific Management Access</h4>
+<p>If remote management is needed from specific IPs, add BEFORE the drop
+rules:</p>
+<pre><code>/ip firewall filter
+add chain=input src-address=YOUR.MANAGEMENT.IP.HERE dst-port=8899 protocol=tcp action=accept comment=&quot;Allow WinBox from trusted IP&quot; place-before=2</code></pre>
+<h3 id="ip-services-security-hardening">5.12 IP: Services (Security
+Hardening)</h3>
+<p>Disable non-essential services and restrict management access.</p>
+<ol type="1">
+<li>Navigate to <strong>IP &gt; Services</strong>.</li>
+<li>Disable the following services by selecting and clicking the
+<strong>X</strong> (disable) button:
+<ul>
+<li><code>telnet</code> (port 23) - insecure, use SSH instead</li>
+<li><code>ftp</code> (port 21) - insecure</li>
+<li><code>www</code> (port 80) - use www-ssl instead if web access
+needed</li>
+<li><code>api</code> (port 8728) - disable unless specifically
+required</li>
+<li><code>api-ssl</code> (port 8729) - disable unless specifically
+required</li>
+</ul></li>
+<li>Configure <code>winbox</code>:
+<ul>
+<li>Double-click <code>winbox</code></li>
+<li>Change <strong>Port</strong> to <code>8899</code> (non-standard
+port)</li>
+<li>Set <strong>Available From</strong> to restrict access to trusted
+networks (e.g., <code>10.0.0.0/8</code> or specific management IPs)</li>
+</ul></li>
+<li>If SSH access is needed:
+<ul>
+<li>Keep <code>ssh</code> enabled</li>
+<li>Change port from default 22 to non-standard (e.g.,
+<code>2222</code>)</li>
+<li>Set <strong>Available From</strong> to trusted networks only</li>
+</ul></li>
 </ol>
-<h2 id="tools-telnetssh">5.13 Tools: Telnet/SSH</h2>
-<p>The Telnet/SSH client can be used for initial setup of other network
-devices, such as access points.</p>
-<ol start="42" type="1">
-<li><p>Navigate to **Tools &gt; Telnet** or **Tools &gt; SSH**.</p></li>
-<li><p>Enter the IP address of the device you need to
-configure.</p></li>
+<p><strong>CLI commands:</strong></p>
+<pre><code>/ip service
+set telnet disabled=yes
+set ftp disabled=yes
+set www disabled=yes
+set api disabled=yes
+set api-ssl disabled=yes
+set winbox port=8899 address=10.0.0.0/8
+set ssh port=2222 address=10.0.0.0/8</code></pre>
+<h3 id="configuration-backup">5.13 Configuration Backup</h3>
+<p>Always export configuration after completing setup.</p>
+<ol type="1">
+<li>Navigate to <strong>Files</strong>.</li>
+<li>Click <strong>Backup</strong> to create a binary backup (.backup
+file).</li>
+<li>For human-readable export, open <strong>Terminal</strong> and run:
+<code>/export file=router-config</code></li>
+<li>Download backup files via WinBox drag-and-drop or FTP.</li>
 </ol>
-<h1 id="revision-history">6.0 Revision History</h1>
+<p><strong>Backup types:</strong> - <code>.backup</code> - Binary,
+includes passwords, restore to same hardware only - <code>.rsc</code>
+(export) - Plain text script, portable, passwords excluded by
+default</p>
+<p><strong>CLI backup commands:</strong></p>
+<pre><code># Binary backup (includes passwords)
+/system backup save name=ClientName-backup
+
+# Text export (portable, excludes sensitive data)
+/export file=ClientName-export
+
+# Text export with sensitive data
+/export file=ClientName-export-full hide-sensitive=no</code></pre>
+<h3 id="routeros-upgrade">5.14 RouterOS Upgrade</h3>
+<p>Check and upgrade RouterOS firmware regularly.</p>
+<ol type="1">
+<li>Navigate to <strong>System &gt; Packages</strong>.</li>
+<li>Click <strong>Check For Updates</strong>.</li>
+<li>If update available, review the changelog.</li>
+<li>Click <strong>Download &amp; Install</strong> (router will
+reboot).</li>
+</ol>
+<p><strong>CLI alternative:</strong></p>
+<pre><code>/system package update check-for-updates
+/system package update install</code></pre>
+<blockquote>
+<p><strong>NOTE:</strong> For major version upgrades (e.g., 6.x to 7.x),
+review migration guide at mikrotik.com first.</p>
+</blockquote>
+<h3 id="troubleshooting">5.15 Troubleshooting</h3>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 26%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Issue</th>
+<th>Cause</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cannot connect via WinBox</td>
+<td>Wrong IP, firewall blocking, or WinBox service disabled</td>
+<td>Use MAC address connection in WinBox. Check IP &gt; Services for
+WinBox status. Verify Available From restrictions.</td>
+</tr>
+<tr class="even">
+<td>Router not reachable after firewall changes</td>
+<td>Firewall rules blocking management access</td>
+<td>Use MAC-WinBox to connect. Check input chain rules. Add accept rule
+for WinBox port before drop rule.</td>
+</tr>
+<tr class="odd">
+<td>No internet after NAT configuration</td>
+<td>Masquerade not on correct interface or missing default route</td>
+<td>Verify masquerade Out Interface = WAN. Check IP &gt; Routes for
+0.0.0.0/0 route to gateway.</td>
+</tr>
+<tr class="even">
+<td>DHCP clients not getting addresses</td>
+<td>DHCP server not enabled or wrong interface</td>
+<td>Check IP &gt; DHCP Server. Verify server is on correct
+bridge/interface. Check address pool.</td>
+</tr>
+<tr class="odd">
+<td>Slow performance</td>
+<td>CPU overload, bad cables, or hardware issues</td>
+<td>Check System &gt; Resources for CPU usage. Check interface errors
+with <code>/interface print stats</code>.</td>
+</tr>
+<tr class="even">
+<td>Cannot SSH to router</td>
+<td>SSH disabled or port changed</td>
+<td>Check IP &gt; Services. Verify SSH is enabled and note port number.
+Check Available From restrictions.</td>
+</tr>
+<tr class="odd">
+<td>Password forgotten</td>
+<td>N/A</td>
+<td>Physical access required. Use Netinstall to reset (erases
+config).</td>
+</tr>
+<tr class="even">
+<td>WinBox connection drops</td>
+<td>Idle timeout or network issues</td>
+<td>Check System &gt; Identity (session timeout). Use keepalive or
+reconnect.</td>
+</tr>
+<tr class="odd">
+<td>VLANs not working</td>
+<td>Bridge VLAN filtering misconfigured</td>
+<td>Verify <code>/interface bridge vlan print</code>. Check pvid on
+ports. Ensure VLAN filtering is enabled on bridge.</td>
+</tr>
+<tr class="even">
+<td>Firmware upgrade fails</td>
+<td>Insufficient storage or incompatible package</td>
+<td>Check System &gt; Resources for free space. Download correct package
+for architecture (arm, mipsbe, etc.).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Diagnostic Commands:</strong></p>
+<pre><code># Check system resources
+/system resource print
+
+# View interface status and errors
+/interface print stats
+
+# Check active connections
+/ip firewall connection print
+
+# View logs
+/log print
+
+# Test connectivity
+/tool ping 8.8.8.8
+/tool traceroute 8.8.8.8
+
+# Check CPU usage by process
+/tool profile</code></pre>
+<h2 id="revision-history">6.0 Revision History</h2>
 <table>
 <colgroup>
 <col style="width: 25%" />
@@ -393,60 +700,31 @@ configure.</p></li>
 </colgroup>
 <thead>
 <tr class="header">
-<th>Version</th>
-<th>Date</th>
-<th>Author</th>
-<th>Change Description</th>
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">Date</th>
+<th style="text-align: left;">Author</th>
+<th style="text-align: left;">Change Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1.0</td>
-<td>2025-12-02</td>
-<td>System Administrator</td>
-<td>Initial document creation.</td>
+<td style="text-align: left;">1.0</td>
+<td style="text-align: left;">2025-12-02</td>
+<td style="text-align: left;">System Administrator</td>
+<td style="text-align: left;">Initial document creation.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1.1</td>
+<td style="text-align: left;">2025-12-29</td>
+<td style="text-align: left;">Jeremy Smith</td>
+<td style="text-align: left;">SME Review: Added Section 5.1 (Initial
+Security - admin password, NTP). Rewrote Section 5.11 with proper
+connection tracking firewall rules. Enhanced Section 5.12 with service
+restriction by source IP. Added Section 5.13 (Backup) and 5.14 (RouterOS
+Upgrade). Added Section 5.15 (Troubleshooting) with common issues and
+diagnostic commands.</td>
 </tr>
 </tbody>
 </table>
-
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Details</div>
-        <div class="section-content">
-            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
-
-            <div class="highlight-box">
-                <strong>Key Point:</strong> [Important information to highlight]
-            </div>
-
-            <p>Supporting details:</p>
-            <ul>
-                <li>[Detail item 1]</li>
-                <li>[Detail item 2]</li>
-                <li>[Detail item 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Next Steps</div>
-        <div class="section-content">
-            <div class="action-item">
-                <strong>Action Required:</strong> [Specific action item with owner and deadline]
-            </div>
-
-            <ul>
-                <li>[Next step 1]</li>
-                <li>[Next step 2]</li>
-                <li>[Next step 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="footer">
-        OberaConnect LLC | www.oberaconnect.com | Confidential
-    </div>
 </body>
 </html>

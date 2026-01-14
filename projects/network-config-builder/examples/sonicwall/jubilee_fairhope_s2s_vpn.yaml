@@ -1,0 +1,105 @@
+# Jubilee Pool & Patio - Fairhope Location
+# SonicWall TZ270 Configuration with Site-to-Site VPN to Daphne
+#
+# Network Details:
+#   WAN: Uniti Fiber
+#   WAN IP: 208.114.201.50/30
+#   LAN: 10.54.8.0/24
+#
+# VPN Peer (Daphne):
+#   WAN IP: 104.191.238.177
+#   LAN: 10.54.9.0/24
+
+vendor: sonicwall
+device_model: TZ270
+
+customer:
+  name: Jubilee Pool and Patio
+  site: Fairhope
+  contact: Jubilee Pool & Patio
+  notes: Multi-site customer - Site-to-Site VPN to Daphne location
+
+deployment_type: firewall
+
+wan:
+  interface: X0
+  mode: static
+  ip: 208.114.201.50
+  netmask: 30
+  gateway: 208.114.201.49
+  dns:
+    - 68.94.156.1
+    - 68.94.157.1
+
+lan:
+  interface: X1
+  ip: 192.168.0.1
+  netmask: 24
+  dhcp:
+    enabled: true
+    pool_start: 192.168.0.20
+    pool_end: 192.168.0.254
+    lease_time: 1d
+    dns_servers:
+      - 8.8.8.8
+      - 8.8.4.4
+
+vlans:
+  - id: 20
+    name: GUEST
+    subnet: 10.10.20.0/24
+    isolation: true
+    dhcp: true
+    dhcp_config:
+      enabled: true
+      pool_start: 10.10.20.10
+      pool_end: 10.10.20.254
+      lease_time: 1d
+      dns_servers:
+        - 10.10.20.1
+
+vpn:
+  - type: site-to-site
+    name: Jubilee_Fairhope_to_Daphne
+    site_to_site:
+      name: Jubilee_Fairhope_to_Daphne
+      peer_wan_ip: 104.191.238.177
+      # NAT VPN - both sites have 192.168.0.0/24, use translated addresses
+      local_network: 192.168.0.0/24
+      local_translated: 10.254.2.0/24    # Fairhope appears as this to Daphne
+      remote_network: 192.168.0.0/24
+      remote_translated: 10.254.1.0/24   # Daphne appears as this to Fairhope
+      nat_vpn: true
+      preshared_key: "JubileePool_S2S_VPN_2025!"
+      local_wan_ip: 208.114.201.50
+
+      # IKE Phase 1 (Main Mode) - MUST MATCH DAPHNE SETTINGS
+      ike_version: "2"
+      ike_encryption: aes256
+      ike_authentication: sha256
+      ike_dh_group: "14"
+      ike_lifetime: 28800
+
+      # IPSec Phase 2 (Quick Mode) - MUST MATCH DAPHNE SETTINGS
+      ipsec_encryption: aes256
+      ipsec_authentication: sha256
+      ipsec_pfs_group: "none"
+      ipsec_lifetime: 3600
+
+      # Options
+      dead_peer_detection: true
+      nat_traversal: true
+      enabled: true
+
+security:
+  admin_username: swadmin
+  admin_password: "JubileeFairhope_Admin_2025!"
+  allowed_management_ips:
+    - 192.168.0.0/24
+    - 10.254.1.0/24  # Allow management from Daphne via NAT VPN
+  disable_unused_services: true
+
+sonicwall_config:
+  enable_ssl_vpn: false
+  enable_content_filtering: true
+  enable_intrusion_prevention: true

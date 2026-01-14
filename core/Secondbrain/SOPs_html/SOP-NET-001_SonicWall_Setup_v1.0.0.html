@@ -1,440 +1,499 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OberaConnect Document</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333333;
-            max-width: 8.5in;
-            margin: 0 auto;
-            padding: 0.5in;
-            background: #fff;
-        }
-
-        .header {
-            border-bottom: 3px solid #0066CC;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .logo-img {
-            height: 50px;
-            width: auto;
-        }
-
-        .tagline {
-            font-size: 14px;
-            color: #666666;
-            font-style: italic;
-            margin-left: 2px;
-        }
-
-        .doc-meta {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .doc-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #333333;
-        }
-
-        .doc-date {
-            font-size: 12px;
-            color: #666666;
-        }
-
-        .section {
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #0066CC;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-        }
-
-        .section-content {
-            color: #333333;
-            font-size: 14px;
-        }
-
-        .section-content p {
-            margin-bottom: 10px;
-        }
-
-        .section-content ul {
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
-
-        .section-content li {
-            margin-bottom: 5px;
-        }
-
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 11px;
-            color: #999999;
-            text-align: center;
-        }
-
-        .highlight-box {
-            background: #f5f9ff;
-            border-left: 4px solid #0066CC;
-            padding: 15px;
-            margin: 15px 0;
-        }
-
-        .action-item {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 10px 15px;
-            margin: 10px 0;
-        }
-
-        @media print {
-            body {
-                padding: 0;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOP-NET-001_SonicWall_Setup_v1.0.0</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo-container">
-            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
-            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
-        </div>
-        <div class="tagline">Technology Solutions for Modern Business</div>
-
-        <div class="doc-meta">
-            <div class="doc-title">SOP-NET-001 SonicWall Setup v1.0.0</div>
-            <div class="doc-date">Date: [MM/DD/YYYY]</div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Executive Summary</div>
-        <div class="section-content">
-            <table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
+<header id="title-block-header">
+<h1 class="title">SOP-NET-001_SonicWall_Setup_v1.0.0</h1>
+</header>
+<h1
+id="standard-operating-procedure-initial-sonicwall-firewall-setup">Standard
+Operating Procedure: Initial SonicWall Firewall Setup</h1>
+<table>
 <tbody>
 <tr class="odd">
-<td>**Document ID:**</td>
+<td><strong>Document ID:</strong></td>
 <td>SOP-NET-001</td>
 </tr>
 <tr class="even">
-<td>**Title:**</td>
+<td><strong>Title:</strong></td>
 <td>Initial SonicWall Firewall Setup</td>
 </tr>
 <tr class="odd">
-<td>**Category:**</td>
+<td><strong>Category:</strong></td>
 <td>Network Administration</td>
 </tr>
 <tr class="even">
-<td>**Version:**</td>
-<td>1.0</td>
+<td><strong>Version:</strong></td>
+<td>1.4</td>
 </tr>
 <tr class="odd">
-<td>**Status:**</td>
+<td><strong>Status:</strong></td>
 <td>Final</td>
 </tr>
 <tr class="even">
-<td>**Author:**</td>
+<td><strong>Author:</strong></td>
 <td>System</td>
 </tr>
 <tr class="odd">
-<td>**Creation Date:**</td>
+<td><strong>Creation Date:</strong></td>
 <td>2025-12-02</td>
 </tr>
 <tr class="even">
-<td>**Approval Date:**</td>
+<td><strong>Approval Date:</strong></td>
 <td>2025-12-02</td>
 </tr>
 </tbody>
 </table>
-<p>────────────────────────────────────────────────────────────</p>
-<h2 id="purpose">1.0 Purpose</h2>
+<hr />
+<h3 id="purpose">1.0 Purpose</h3>
 <p>To establish a standardized, repeatable process for the initial
 out-of-the-box configuration of a new SonicWall firewall, ensuring all
 baseline security and system settings are applied before deployment.</p>
-<h2 id="scope">2.0 Scope</h2>
+<h3 id="scope">2.0 Scope</h3>
 <p>This SOP applies to all Network Technicians responsible for deploying
 new SonicWall firewalls for clients. It covers the process from device
 registration to the final pre-installation configuration step.</p>
-<h2 id="definitions">3.0 Definitions</h2>
+<h3 id="definitions">3.0 Definitions</h3>
 <ul>
-<li><p>**SOP:** Standard Operating Procedure</p></li>
-<li><p>**WAN:** Wide Area Network; the port connecting to the
-internet.</p></li>
-<li><p>**LAN:** Local Area Network; the port for the internal
-network.</p></li>
-<li><p>**MySonicwall Portal:** The official online portal for managing
-SonicWall device licenses, registration, and firmware.</p></li>
-<li><p>**GUI:** Graphical User Interface.</p></li>
-<li><p>**DNS:** Domain Name System.</p></li>
-<li><p>**IPS:** Intrusion Prevention System.</p></li>
-<li><p>**Geo-IP:** IP address filtering based on geographic
-location.</p></li>
+<li><strong>SOP:</strong> Standard Operating Procedure</li>
+<li><strong>WAN:</strong> Wide Area Network; the port connecting to the
+internet.</li>
+<li><strong>LAN:</strong> Local Area Network; the port for the internal
+network.</li>
+<li><strong>MySonicwall Portal:</strong> The official online portal for
+managing SonicWall device licenses, registration, and firmware.</li>
+<li><strong>GUI:</strong> Graphical User Interface.</li>
+<li><strong>DNS:</strong> Domain Name System.</li>
+<li><strong>IPS:</strong> Intrusion Prevention System.</li>
+<li><strong>Geo-IP:</strong> IP address filtering based on geographic
+location.</li>
 </ul>
-<h2 id="roles-responsibilities">4.0 Roles &amp; Responsibilities</h2>
+<h3 id="roles-responsibilities">4.0 Roles &amp; Responsibilities</h3>
 <ul>
-<li><p>**Network Technician/Engineer:** Responsible for executing all
-steps outlined in this SOP, ensuring the firewall is correctly
-configured for on-site installation.</p></li>
+<li><strong>Network Technician/Engineer:</strong> Responsible for
+executing all steps outlined in this SOP, ensuring the firewall is
+correctly configured for on-site installation.</li>
 </ul>
-<h2 id="prerequisites">5.0 Prerequisites</h2>
+<h3 id="prerequisites">5.0 Prerequisites</h3>
 <ul>
-<li><p>A new SonicWall firewall device.</p></li>
-<li><p>Access to the MySonicwall portal with valid credentials.</p></li>
-<li><p>A computer with an Ethernet port.</p></li>
-<li><p>Two Ethernet cables.</p></li>
-<li><p>Client's network circuit information sheet (containing static IP,
-subnet, gateway).</p></li>
+<li>A new SonicWall firewall device.</li>
+<li>Access to the MySonicwall portal with valid credentials.</li>
+<li>A computer with an Ethernet port.</li>
+<li>Two Ethernet cables.</li>
+<li>Client’s network circuit information sheet (containing static IP,
+subnet, gateway).</li>
 </ul>
-<p>────────────────────────────────────────────────────────────</p>
-<h2 id="procedure">6.0 Procedure</h2>
-<h3 id="initial-connection-and-access">6.1 Initial Connection and
-Access</h3>
+<hr />
+<h3 id="procedure">6.0 Procedure</h3>
+<h4 id="initial-connection-and-access">6.1 Initial Connection and
+Access</h4>
 <ol type="1">
-<li><p>**Register Device:** Log in to the MySonicwall portal and
-register the new firewall device if it has not been done
-already.</p></li>
-<li><p>**Connect Hardware:**</p></li>
-</ol>
+<li><strong>Register Device:</strong> Log in to the MySonicwall portal
+and register the new firewall device if it has not been done
+already.</li>
+<li><strong>Connect Hardware:</strong>
 <ul>
-<li><p>Connect the firewall's **WAN (X1)** port to an active internet
-connection.</p></li>
-<li><p>Connect your computer's Ethernet port to the firewall's **LAN
-(X0)** port.</p></li>
-</ul>
-<ol start="3" type="1">
-<li><p>**Power On:** Power on the SonicWall and wait for the status
-lights for both WAN and LAN ports to turn solid green.</p></li>
-<li><p>**Configure Static IP:** On your computer, manually configure the
-IPv4 network adapter settings as follows:</p></li>
-</ol>
+<li>Connect the firewall’s <strong>WAN (X1)</strong> port to an active
+internet connection.</li>
+<li>Connect your computer’s Ethernet port to the firewall’s <strong>LAN
+(X0)</strong> port.</li>
+</ul></li>
+<li><strong>Power On:</strong> Power on the SonicWall and wait for the
+status lights for both WAN and LAN ports to turn solid green.</li>
+<li><strong>Configure Static IP:</strong> On your computer, manually
+configure the IPv4 network adapter settings as follows:
 <ul>
-<li><p>**IP address:** `192.168.168.2`</p></li>
-<li><p>**Subnet mask:** `255.255.255.0`</p></li>
-<li><p>**Default gateway:** `192.168.168.168`</p></li>
-<li><p>**DNS Server:** `8.8.8.8` (or any other public DNS)</p></li>
-</ul>
-<ol start="5" type="1">
-<li><p>**Log In to Firewall:**</p></li>
-</ol>
+<li><strong>IP address:</strong> <code>192.168.168.2</code></li>
+<li><strong>Subnet mask:</strong> <code>255.255.255.0</code></li>
+<li><strong>Default gateway:</strong> <code>192.168.168.168</code></li>
+<li><strong>DNS Server:</strong> <code>8.8.8.8</code> (or any other
+public DNS)</li>
+</ul></li>
+<li><strong>Log In to Firewall:</strong>
 <ul>
-<li><p>Open a web browser in incognito/private mode and navigate to
-`http://192.168.168.168`.</p></li>
-<li><p>Use the default credentials to log in:</p></li>
-<li><p>**Username:** `admin`</p></li>
-<li><p>**Password:** `password`</p></li>
-<li><p>You will be prompted to change the administrator password. Set a
-new, secure password.</p></li>
-<li><p>When prompted for setup type, select **Manual Setup**.</p></li>
-</ul>
-<h3 id="system-configuration-and-firmware-update">6.2 System
-Configuration and Firmware Update</h3>
-<ol start="6" type="1">
-<li><p>**Sync Licenses:** Navigate to **System &gt; Licenses**. Log in
-with your MySonicwall credentials to synchronize the device registration
-and service licenses.</p></li>
-<li><p>**Set Firewall Name:** Go to **System &gt; Administration**. Set
-a descriptive name for the firewall (e.g., `Obera-Fairhope`).</p></li>
-<li><p>**Configure Admin Timeout:**</p></li>
-</ol>
+<li>Open a web browser in incognito/private mode and navigate to
+<code>http://192.168.168.168</code>.</li>
+<li>Use the default credentials to log in:
 <ul>
-<li><p>On the same page, under **Login/Multiple Administrators**, change
-**Log out the Admin after inactivity (minutes)** to `60`.</p></li>
-</ul>
-<ol start="9" type="1">
-<li><p>**Verify Management Ports:** Select the **Management** tab.
-Ensure **HTTP Port** is `80` and **HTTPS Port** is `443`.</p></li>
-<li><p>**Download Latest Firmware:**</p></li>
+<li><strong>Username:</strong> <code>admin</code></li>
+<li><strong>Password:</strong> <code>password</code></li>
+</ul></li>
+<li>You will be prompted to change the administrator password. Set a
+new, secure password.</li>
+<li>When prompted for setup type, select <strong>Manual
+Setup</strong>.</li>
+</ul></li>
 </ol>
+<h4 id="device-registration-verification-critical---before-firmware">6.2
+Device Registration Verification (CRITICAL - Before Firmware)</h4>
+<blockquote>
+<p><strong>IMPORTANT:</strong> Device registration MUST be fully
+verified before attempting firmware upload. Firmware upload will fail
+with “Device not registered” error if this step is incomplete.</p>
+</blockquote>
+<ol type="1">
+<li><strong>Check Registration Status on Firewall:</strong>
 <ul>
-<li><p>Go to the MySonicwall portal and select the firewall.</p></li>
-<li><p>Navigate to the **Firmware** tab and download the latest stable
-firmware release (`.sig` file).</p></li>
-</ul>
-<ol start="11" type="1">
-<li><p>**Update Firmware:**</p></li>
+<li>Navigate to <strong>Device &gt; Settings &gt; MySonicWall</strong>
+(or <strong>System &gt; Administration &gt; MySonicWall</strong>).</li>
+<li>If status shows “Not Registered”, proceed to step 2.</li>
+<li>If status shows “Registered”, skip to Section 6.3.</li>
+</ul></li>
+<li><strong>Obtain Registration Code from MySonicWall Portal:</strong>
+<ul>
+<li>Log in to <a
+href="https://mysonicwall.com">mysonicwall.com</a>.</li>
+<li>Navigate to <strong>My Products</strong> and click on the registered
+device.</li>
+<li>Locate the <strong>Registration Code</strong> in the device
+details.</li>
+<li>If device is not yet registered in portal, register it first using
+the Serial Number and Authentication Code from the firewall.</li>
+</ul></li>
+<li><strong>Enter Registration Code on Firewall:</strong>
+<ul>
+<li>On the firewall’s MySonicWall page, enter the <strong>Registration
+Code</strong> obtained from the portal.</li>
+<li>Click <strong>Register</strong> or <strong>Submit</strong>.</li>
+<li>Wait for confirmation message.</li>
+</ul></li>
+<li><strong>Verify Registration Complete:</strong>
+<ul>
+<li>Refresh the page and confirm status shows “Registered”.</li>
+<li>Navigate to <strong>Device &gt; Settings &gt; Licenses</strong> and
+verify licenses are synchronized.</li>
+<li><strong>Do NOT proceed to firmware update until registration is
+confirmed.</strong></li>
+</ul></li>
+<li><strong>Troubleshooting Registration:</strong>
+<ul>
+<li>If registration fails, restart the firewall and retry.</li>
+<li>Ensure firewall has internet access (WAN connected and
+routing).</li>
+<li>Verify MySonicWall account has the device under correct tenant.</li>
+</ul></li>
 </ol>
+<h4 id="system-configuration">6.3 System Configuration</h4>
+<ol type="1">
+<li><strong>Set Firewall Name:</strong> Go to <strong>Device &gt;
+Settings &gt; Administration</strong>. Set a descriptive name for the
+firewall (e.g., <code>Obera-Fairhope</code>).</li>
+<li><strong>Configure Admin Timeout:</strong>
 <ul>
-<li><p>Return to the firewall GUI and navigate to **System &gt; Firmware
-and Backups**.</p></li>
-<li><p>Click **Upload Firmware** and select the `.sig` file you
-downloaded.</p></li>
-<li><p>**Important:** Check the box to create a backup of your current
-settings before proceeding.</p></li>
-<li><p>After the upload completes, click the **Boot** button next to the
-newly uploaded firmware version with the "Reboot with current settings"
-option.</p></li>
-<li><p>The firewall will reboot, which can take 3-5 minutes.</p></li>
-</ul>
-<h3 id="security-services-configuration">6.3 Security Services
-Configuration</h3>
-<p>After the firewall reboots, log back in and configure the following
-security settings. Click Accept at the bottom of each page to save
-changes.</p>
-<ol start="12" type="1">
-<li><p>**UDP Flood Protection:**</p></li>
+<li>On the same page, under <strong>Login/Multiple
+Administrators</strong>, change <strong>Log out the Admin after
+inactivity (minutes)</strong> to <code>60</code>.</li>
+</ul></li>
+<li><strong>Configure Time Zone and NTP:</strong>
+<ul>
+<li>Navigate to <strong>Device &gt; Settings &gt; Time</strong>.</li>
+<li>Set <strong>Time Zone</strong> to the client’s local time zone
+(e.g., <code>America/Chicago</code> for Central).</li>
+<li>Enable <strong>Use NTP to set time</strong>.</li>
+<li>Set <strong>NTP Server 1</strong> to
+<code>time.google.com</code>.</li>
+<li>Set <strong>NTP Server 2</strong> to <code>pool.ntp.org</code>.</li>
+<li>Click <strong>Accept</strong> to save.</li>
+<li><strong>Note:</strong> Accurate time is critical for logging,
+certificates, and security event correlation.</li>
+</ul></li>
+<li><strong>Enable Remote Management:</strong> Navigate to
+<strong>Network &gt; System &gt; Interfaces</strong>. Edit the
+<strong>X1 (WAN)</strong> interface. Under <strong>Management</strong>,
+enable <strong>HTTPS</strong> only. Leave HTTP and Ping disabled for
+security.</li>
 </ol>
+<h4 id="firmware-update">6.4 Firmware Update</h4>
+<blockquote>
+<p><strong>IMPORTANT:</strong> Always check the firmware upgrade path in
+the Release Notes before upgrading. Direct upgrades across major
+versions may not be supported.</p>
+</blockquote>
+<ol type="1">
+<li><strong>Check Current Firmware Version:</strong>
 <ul>
-<li><p>Navigate to **Firewall Settings &gt; Flood Protection**.</p></li>
-<li><p>Select the **UDP** tab.</p></li>
-<li><p>Check **Enable UDP Flood Protection**.</p></li>
-<li><p>From the **UDP Flood Attack Protection Destination List**
-dropdown, select **LAN Subnets**.</p></li>
-</ul>
-<ol start="13" type="1">
-<li><p>**AppFlow Reporting:**</p></li>
+<li>Note the current version from the Dashboard or <strong>Device &gt;
+Settings &gt; Firmware &amp; Backups</strong>.</li>
+<li>Example: <code>7.0.1-5165</code></li>
+</ul></li>
+<li><strong>Download Release Notes and Check Upgrade Path:</strong>
+<ul>
+<li>Go to the MySonicwall portal and select the firewall.</li>
+<li>Navigate to the <strong>Downloads</strong> tab.</li>
+<li>Download the <strong>Release Notes PDF</strong> for the target
+firmware version.</li>
+<li>Search for “upgrade path” or “supported upgrade” in the Release
+Notes.</li>
+<li><strong>Key Rule:</strong> If jumping multiple major versions (e.g.,
+7.0.x to 7.3.x), stepped upgrades may be required.</li>
+</ul></li>
+<li><strong>Determine Upgrade Path:</strong>
+<ul>
+<li><strong>Single step OK:</strong> Minor version upgrades within same
+major version (e.g., 7.0.1 → 7.0.3).</li>
+<li><strong>Stepped upgrade required:</strong> Major version jumps -
+download intermediate firmware versions.</li>
+<li>Example stepped path: <code>7.0.1 → 7.3.0 → 7.3.1</code></li>
+</ul></li>
+<li><strong>Download Required Firmware:</strong>
+<ul>
+<li>Download all required <code>.sig</code> files from MySonicwall
+portal.</li>
+<li>For stepped upgrades, download each intermediate version.</li>
+</ul></li>
+<li><strong>Export Configuration Backup:</strong>
+<ul>
+<li>Navigate to <strong>Device &gt; Settings &gt; Firmware &amp;
+Backups</strong>.</li>
+<li>Click <strong>Export Settings</strong> and save the
+<code>.exp</code> file.</li>
+<li><strong>Store backup securely</strong> - see SOP-NET-006.</li>
+<li><strong>WARNING:</strong> Once upgraded to newer major version,
+downgrade may not be supported.</li>
+</ul></li>
+<li><strong>Upload and Apply Firmware:</strong>
+<ul>
+<li>Click <strong>Upload Firmware</strong> and select the
+<code>.sig</code> file.</li>
+<li>If registration error occurs, return to Section 6.2.</li>
+<li>After upload completes, click <strong>Boot Uploaded
+Firmware</strong>.</li>
+<li>Select “Boot with current configuration”.</li>
+<li>The firewall will reboot (3-10 minutes).</li>
+</ul></li>
+<li><strong>Verify Upgrade and Repeat if Stepped:</strong>
+<ul>
+<li>Log back in after reboot.</li>
+<li>Confirm new firmware version on Dashboard.</li>
+<li>Test basic connectivity (internet, management access).</li>
+<li><strong>If stepped upgrade:</strong> Repeat steps 5-7 for each
+intermediate version until target version reached.</li>
+</ul></li>
 </ol>
+<h4 id="network-dns-configuration">6.5 Network DNS Configuration</h4>
+<ol type="1">
+<li>Navigate to <strong>Network &gt; DNS</strong>.</li>
+<li>Select <strong>Specify DNS Servers Manually</strong>.</li>
+<li>Configure DNS entries based on the client’s environment:
 <ul>
-<li><p>Navigate to **AppFlow &gt; Flow Reporting &gt;
-Settings**.</p></li>
-<li><p>Toggle on **Enable Real-Time Data Collection**.</p></li>
-<li><p>Toggle on **Enable AppFlow to Local Collector**.</p></li>
-<li><p>Click **Accept**. The firewall will reboot to apply this change.
-Log back in after it comes back online.</p></li>
-</ul>
-<ol start="14" type="1">
-<li><p>**Gateway Anti-Virus:**</p></li>
+<li><strong>With Domain Controllers:</strong> Set DNS Server 1 and 2 to
+the client’s primary and secondary domain controllers. Set DNS Server 3
+to a public DNS (e.g., <code>8.8.8.8</code>).</li>
+<li><strong>Without Domain Controllers:</strong> Set DNS servers to the
+ISP-provided DNS or a reliable public DNS service (e.g.,
+<code>8.8.8.8</code>, <code>1.1.1.1</code>).</li>
+</ul></li>
 </ol>
+<h4 id="final-wan-interface-configuration">6.6 Final WAN Interface
+Configuration</h4>
+<blockquote>
+<p><strong>WARNING:</strong> Executing this final step will reconfigure
+the WAN (X1) interface, and you will lose access to the firewall’s
+management GUI until it is physically installed at the client’s site.
+Ensure all previous configuration steps are completed and verified
+before proceeding.</p>
+</blockquote>
+<ol type="1">
+<li>Navigate to <strong>Network &gt; Interfaces</strong>.</li>
+<li>Locate the <strong>X1 (WAN)</strong> interface and click the pencil
+icon to edit it.</li>
+<li>Refer to the client’s circuit sheet for the following information:
 <ul>
-<li><p>Navigate to **Security &gt; Gateway Anti-Virus**.</p></li>
-<li><p>Check **Enable Gateway Anti-Virus**.</p></li>
-<li><p>Check **Enable Inbound and Outbound Inspection** for all listed
-protocols.</p></li>
-</ul>
-<ol start="15" type="1">
-<li><p>**Intrusion Prevention (IPS):**</p></li>
+<li>Set <strong>IP Assignment</strong> to <strong>Static</strong>.</li>
+<li>Enter the <strong>IP Address</strong> (first usable IP from the
+client’s static block).</li>
+<li>Enter the <strong>Subnet Mask</strong>.</li>
+<li>Enter the <strong>Default Gateway</strong>.</li>
+<li>Set the <strong>DNS Server(s)</strong> to either the client’s domain
+controllers or public DNS (e.g., <code>8.8.8.8</code>,
+<code>1.1.1.1</code>).</li>
+</ul></li>
+<li>Under the <strong>Management</strong> section for the X1 interface:
+<ul>
+<li>Enable <strong>HTTPS</strong> for remote management.</li>
+<li>Leave <strong>Ping</strong> disabled unless required for external
+monitoring tools.</li>
+<li><strong>Security Note:</strong> Enabling Ping on WAN allows ICMP
+reconnaissance. Only enable if client requires it for monitoring.</li>
+</ul></li>
+<li>Click <strong>Accept</strong> to save the changes. Access to the GUI
+will be lost. The firewall is now ready for on-site installation.</li>
 </ol>
+<hr />
+<h3 id="verification-quality-checks">7.0 Verification &amp; Quality
+Checks</h3>
 <ul>
-<li><p>Navigate to **Security &gt; Intrusion Prevention**.</p></li>
-<li><p>Check **Enable IPS**.</p></li>
-<li><p>Set **High Priority Attacks** to **Prevent All**.</p></li>
-<li><p>Set **Medium Priority Attacks** to **Prevent All**.</p></li>
-<li><p>Set **Low Priority Attacks** to **Detect All**.</p></li>
+<li>Confirm the device is registered and all licenses are active in the
+MySonicwall portal.</li>
+<li>Verify the firmware has been updated to the latest stable
+release.</li>
+<li>Confirm the WAN interface settings are transcribed correctly from
+the client circuit sheet before clicking the final ‘Accept’.</li>
 </ul>
-<ol start="16" type="1">
-<li><p>**Anti-Spyware:**</p></li>
-</ol>
-<ul>
-<li><p>Navigate to **Security &gt; Anti-Spyware**.</p></li>
-<li><p>Check **Enable Anti-Spyware**.</p></li>
-<li><p>Set **High Priority Attacks** to **Prevent All**.</p></li>
-<li><p>Set **Medium Priority Attacks** to **Prevent All**.</p></li>
-<li><p>Set **Low Priority Attacks** to **Detect All**.</p></li>
-<li><p>Ensure all protocols are selected for inspection.</p></li>
-</ul>
-<ol start="17" type="1">
-<li><p>**Geo-IP Filter:**</p></li>
-</ol>
-<ul>
-<li><p>Navigate to **Security &gt; Geo-IP Filter**.</p></li>
-<li><p>Check **Block connections to/from countries selected in Countries
-tab**.</p></li>
-<li><p>Go to the **Countries** tab and select high-risk countries to
-block (e.g., China, Russia, North Korea, Iran).</p></li>
-<li><p>Check **Block all unknown countries**.</p></li>
-<li><p>From the **Geo-IP Exclusion Object** dropdown, select **Default
-Geo-IP and Botnet Exclusion Group**.</p></li>
-</ul>
-<ol start="18" type="1">
-<li><p>**Botnet Filter:**</p></li>
-</ol>
-<ul>
-<li><p>Navigate to **Security &gt; Botnet Filter**.</p></li>
-<li><p>Check **Block connections to/from botnet command and control
-servers**.</p></li>
-</ul>
-<h3 id="network-dns-configuration">6.4 Network DNS Configuration</h3>
-<ol start="19" type="1">
-<li><p>Navigate to **Network &gt; DNS**.</p></li>
-<li><p>Select **Specify DNS Servers Manually**.</p></li>
-<li><p>Configure DNS entries based on the client's environment:</p></li>
-</ol>
-<ul>
-<li><p>**With Domain Controllers:** Set DNS Server 1 and 2 to the
-client's primary and secondary domain controllers. Set DNS Server 3 to a
-public DNS (e.g., `8.8.8.8`).</p></li>
-<li><p>**Without Domain Controllers:** Set DNS servers to the
-ISP-provided DNS or a reliable public DNS service (e.g., `8.8.8.8`,
-`1.1.1.1`).</p></li>
-</ul>
-<h3 id="final-wan-interface-configuration">6.5 Final WAN Interface
-Configuration</h3>
-<p>&gt; WARNING: Executing this final step will reconfigure the WAN (X1)
-interface, and you will lose access to the firewall's management GUI
-until it is physically installed at the client's site. Ensure all
-previous configuration steps are completed and verified before
-proceeding.</p>
-<ol start="22" type="1">
-<li><p>Navigate to **Network &gt; Interfaces**.</p></li>
-<li><p>Locate the **X1 (WAN)** interface and click the pencil icon to
-edit it.</p></li>
-<li><p>Refer to the client's circuit sheet for the following
-information:</p></li>
-</ol>
-<ul>
-<li><p>Set **IP Assignment** to **Static**.</p></li>
-<li><p>Enter the **IP Address** (first usable IP from the client's
-static block).</p></li>
-<li><p>Enter the **Subnet Mask**.</p></li>
-<li><p>Enter the **Default Gateway**.</p></li>
-<li><p>Set the **DNS Server(s)** to either the client's domain
-controllers or public DNS, as determined in step 6.4.</p></li>
-</ul>
-<ol start="25" type="1">
-<li><p>Under the **Management** section for the X1 interface, ensure
-both **HTTPS** and **Ping** are checked to allow remote management and
-diagnostics.</p></li>
-<li><p>Click **Accept** to save the changes. Access to the GUI will be
-lost. The firewall is now ready for on-site installation.</p></li>
-</ol>
-<p>────────────────────────────────────────────────────────────</p>
-<h2 id="verification-quality-checks">7.0 Verification &amp; Quality
-Checks</h2>
-<ul>
-<li><p>Confirm the device is registered and all licenses are active in
-the MySonicwall portal.</p></li>
-<li><p>Verify the firmware has been updated to the latest stable
-release.</p></li>
-<li><p>Double-check that all security services (AV, IPS, Geo-IP, Botnet)
-are enabled and configured as per Section 6.3.</p></li>
-<li><p>Confirm the WAN interface settings are transcribed correctly from
-the client circuit sheet before clicking the final 'Accept'.</p></li>
-</ul>
-<h2 id="troubleshooting">8.0 Troubleshooting</h2>
+<h3 id="troubleshooting">8.0 Troubleshooting</h3>
 <table>
 <colgroup>
 <col style="width: 50%" />
@@ -442,35 +501,59 @@ the client circuit sheet before clicking the final 'Accept'.</p></li>
 </colgroup>
 <thead>
 <tr class="header">
-<th><strong>Issue</strong></th>
-<th><strong>Resolution</strong></th>
+<th>Issue</th>
+<th>Resolution</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Cannot access login page at 192.168.168.168.</td>
-<td>1. Verify your computer's static IP settings match Section 6.1.
-&lt;br&gt; 2. Ensure the Ethernet cable is securely connected to the LAN
-(X0) port. &lt;br&gt; 3. Confirm the firewall's LAN light is green.</td>
+<td>1. Verify your computer’s static IP settings match Section 6.1. <br>
+2. Ensure the Ethernet cable is securely connected to the LAN (X0) port.
+<br> 3. Confirm the firewall’s LAN light is green.</td>
 </tr>
 <tr class="even">
 <td>Licenses fail to synchronize.</td>
 <td>1. Ensure the WAN port is connected to an active internet
-connection. &lt;br&gt; 2. Verify the MySonicwall portal credentials are
-correct. &lt;br&gt; 3. Reboot the firewall and try again.</td>
+connection. <br> 2. Verify the MySonicwall portal credentials are
+correct. <br> 3. Reboot the firewall and try again.</td>
 </tr>
 <tr class="odd">
 <td>Lost access after WAN configuration.</td>
 <td>This is expected behavior. The device must now be installed on-site
 to be accessed via its new WAN or LAN IP address.</td>
 </tr>
+<tr class="even">
+<td>Firmware upload fails with “Device not registered”.</td>
+<td>1. Complete Section 6.2 registration verification. <br> 2. Get
+Registration Code from MySonicWall portal. <br> 3. Enter code on
+firewall’s MySonicWall page. <br> 4. Restart firewall if sync
+fails.</td>
+</tr>
+<tr class="odd">
+<td>“Serial number registered to another account” error.</td>
+<td>Device is registered under different MySonicWall account (e.g.,
+different tenant). Log into correct account or contact SonicWall support
+for transfer.</td>
+</tr>
+<tr class="even">
+<td>Firmware upgrade fails or bricks device.</td>
+<td>1. Firewall will auto-rollback to backup firmware. <br> 2. Check
+release notes for required upgrade path. <br> 3. May need stepped
+upgrades (e.g., 7.0→7.3.0→7.3.1).</td>
+</tr>
 </tbody>
 </table>
-<h2 id="related-documents">9.0 Related Documents</h2>
+<h3 id="related-documents">9.0 Related Documents</h3>
 <ul>
-<li><p>Client Network Circuit Information Sheet</p></li>
+<li>Client Network Circuit Information Sheet</li>
+<li>SOP-NET-004: Register Device in MySonicwall</li>
+<li>SOP-NET-006: SonicWall Configuration Backup</li>
+<li>SOP-NET-007: SonicWall Configuration Restore</li>
+<li>SonicOS Release Notes (download from MySonicWall for each firmware
+version)</li>
 </ul>
-<h2 id="revision-history">10.0 Revision History</h2>
+<h3 id="revision-history">10.0 Revision History</h3>
 <table>
 <colgroup>
 <col style="width: 25%" />
@@ -480,10 +563,10 @@ to be accessed via its new WAN or LAN IP address.</td>
 </colgroup>
 <thead>
 <tr class="header">
-<th><strong>Version</strong></th>
-<th><strong>Date</strong></th>
-<th><strong>Author</strong></th>
-<th><strong>Change Description</strong></th>
+<th>Version</th>
+<th>Date</th>
+<th>Author</th>
+<th>Change Description</th>
 </tr>
 </thead>
 <tbody>
@@ -493,16 +576,42 @@ to be accessed via its new WAN or LAN IP address.</td>
 <td>System</td>
 <td>Initial document creation from source material.</td>
 </tr>
+<tr class="even">
+<td>1.1</td>
+<td>2025-12-29</td>
+<td>Jeremy Smith</td>
+<td>Added Section 6.2 for device registration verification before
+firmware upload. Expanded Section 6.4 with firmware upgrade path
+checking, stepped upgrade process, and release notes review. Lessons
+learned from Jubilee Pool &amp; Spa deployment.</td>
+</tr>
+<tr class="odd">
+<td>1.2</td>
+<td>2025-12-29</td>
+<td>Jeremy Smith</td>
+<td>Removed Security Services Configuration and Network DNS
+Configuration sections (will be separate SOP). Renumbered Final WAN
+Interface Configuration to 6.5.</td>
+</tr>
+<tr class="even">
+<td>1.3</td>
+<td>2025-12-29</td>
+<td>Jeremy Smith</td>
+<td>Added back Section 6.5 Network DNS Configuration. Renumbered Final
+WAN Interface Configuration to 6.6.</td>
+</tr>
+<tr class="odd">
+<td>1.4</td>
+<td>2025-12-29</td>
+<td>Jeremy Smith</td>
+<td>SME Review: Added NTP/Time Zone configuration in Section 6.3.
+Updated WAN management to disable Ping by default (security hardening).
+Clarified remote management security notes.</td>
+</tr>
 </tbody>
 </table>
-<h2 id="approval">11.0 Approval</h2>
+<h3 id="approval">11.0 Approval</h3>
 <table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th>Name</th>
@@ -520,45 +629,5 @@ to be accessed via its new WAN or LAN IP address.</td>
 </tr>
 </tbody>
 </table>
-
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Details</div>
-        <div class="section-content">
-            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
-
-            <div class="highlight-box">
-                <strong>Key Point:</strong> [Important information to highlight]
-            </div>
-
-            <p>Supporting details:</p>
-            <ul>
-                <li>[Detail item 1]</li>
-                <li>[Detail item 2]</li>
-                <li>[Detail item 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Next Steps</div>
-        <div class="section-content">
-            <div class="action-item">
-                <strong>Action Required:</strong> [Specific action item with owner and deadline]
-            </div>
-
-            <ul>
-                <li>[Next step 1]</li>
-                <li>[Next step 2]</li>
-                <li>[Next step 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="footer">
-        OberaConnect LLC | www.oberaconnect.com | Confidential
-    </div>
 </body>
 </html>

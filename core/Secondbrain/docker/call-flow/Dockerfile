@@ -21,13 +21,15 @@ WORKDIR /app
 COPY docker/call-flow/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy tool scripts (from root context)
-COPY call_flow_processor.py .
-COPY call_flow_generator.py .
-COPY call_flow_web.py .
-COPY call_flow_web_auth.py .
-COPY config.py .
-COPY contract_tracker.py .
+# Copy core libraries
+COPY core/ ./core/
+
+# Copy tool scripts (from new structure)
+COPY Tools/Call-Flow/call_flow_processor.py .
+COPY Tools/Call-Flow/call_flow_generator.py .
+COPY Tools/Call-Flow/call_flow_web.py .
+COPY Tools/Call-Flow/call_flow_web_auth.py .
+COPY Tools/Dashboards/contract_tracker.py .
 
 # Create data directories and fix ownership
 RUN mkdir -p /app/data/call_flows /app/data/templates && chown -R app:app /app

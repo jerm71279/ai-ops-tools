@@ -1,402 +1,545 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OberaConnect Document</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333333;
-            max-width: 8.5in;
-            margin: 0 auto;
-            padding: 0.5in;
-            background: #fff;
-        }
-
-        .header {
-            border-bottom: 3px solid #0066CC;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .logo-img {
-            height: 50px;
-            width: auto;
-        }
-
-        .tagline {
-            font-size: 14px;
-            color: #666666;
-            font-style: italic;
-            margin-left: 2px;
-        }
-
-        .doc-meta {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .doc-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #333333;
-        }
-
-        .doc-date {
-            font-size: 12px;
-            color: #666666;
-        }
-
-        .section {
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #0066CC;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-        }
-
-        .section-content {
-            color: #333333;
-            font-size: 14px;
-        }
-
-        .section-content p {
-            margin-bottom: 10px;
-        }
-
-        .section-content ul {
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
-
-        .section-content li {
-            margin-bottom: 5px;
-        }
-
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 11px;
-            color: #999999;
-            text-align: center;
-        }
-
-        .highlight-box {
-            background: #f5f9ff;
-            border-left: 4px solid #0066CC;
-            padding: 15px;
-            margin: 15px 0;
-        }
-
-        .action-item {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 10px 15px;
-            margin: 10px 0;
-        }
-
-        @media print {
-            body {
-                padding: 0;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOP-NET-003_Cisco_VLAN_v1.0.0</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo-container">
-            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
-            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
-        </div>
-        <div class="tagline">Technology Solutions for Modern Business</div>
-
-        <div class="doc-meta">
-            <div class="doc-title">SOP-NET-003 Cisco VLAN v1.0.0</div>
-            <div class="doc-date">Date: [MM/DD/YYYY]</div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Executive Summary</div>
-        <div class="section-content">
-            <p>────────────────────────────────────────────────────────────</p>
-<h2 id="document-control">**1.0 Document Control**</h2>
+<header id="title-block-header">
+<h1 class="title">SOP-NET-003_Cisco_VLAN_v1.0.0</h1>
+</header>
+<h1 id="sop-net-003-cisco-device-vlan-configuration">SOP-NET-003: Cisco
+Device VLAN Configuration</h1>
+<hr />
+<h3 id="document-control"><strong>1.0 Document Control</strong></h3>
 <table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
 <tbody>
 <tr class="odd">
-<td>**ID**</td>
+<td><strong>ID</strong></td>
 <td>SOP-NET-003</td>
 </tr>
 <tr class="even">
-<td>**Version**</td>
-<td>1.0</td>
+<td><strong>Version</strong></td>
+<td>1.1</td>
 </tr>
 <tr class="odd">
-<td>**Status**</td>
+<td><strong>Status</strong></td>
 <td>Final</td>
 </tr>
 <tr class="even">
-<td>**Author**</td>
+<td><strong>Author</strong></td>
 <td>OberaConnect IT</td>
 </tr>
 <tr class="odd">
-<td>**Date**</td>
+<td><strong>Date</strong></td>
 <td>2025-12-02</td>
 </tr>
 <tr class="even">
-<td>**Approved By**</td>
+<td><strong>Approved By</strong></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<p>────────────────────────────────────────────────────────────</p>
-<h2 id="purpose">**2.0 Purpose**</h2>
+<hr />
+<h3 id="purpose"><strong>2.0 Purpose</strong></h3>
 <p>To define the standard procedure for configuring, verifying, and
 managing Virtual Local Area Networks (VLANs) on Cisco switches to ensure
 network segmentation and security.</p>
-<p>────────────────────────────────────────────────────────────</p>
-<h2 id="scope">**3.0 Scope**</h2>
+<hr />
+<h3 id="scope"><strong>3.0 Scope</strong></h3>
 <p>This SOP applies to all network administration personnel responsible
 for configuring and managing Cisco network infrastructure within the
 organization.</p>
-<p>────────────────────────────────────────────────────────────</p>
-<h2 id="prerequisites">**4.0 Prerequisites**</h2>
+<hr />
+<h3 id="prerequisites"><strong>4.0 Prerequisites</strong></h3>
 <ul>
-<li><p>**Access:** Administrative access to the target Cisco switch via
-console cable or SSH.</p></li>
-<li><p>**Credentials:** Valid username and password with privileges to
-make configuration changes.</p></li>
-<li><p>**Network Knowledge:** Understanding of the network design,
-including required VLAN IDs, names, and port assignments.</p></li>
+<li><strong>Access:</strong> Administrative access to the target Cisco
+switch via console cable or SSH.</li>
+<li><strong>Credentials:</strong> Valid username and password with
+privileges to make configuration changes.</li>
+<li><strong>Network Knowledge:</strong> Understanding of the network
+design, including required VLAN IDs, names, and port assignments.</li>
 </ul>
-<p>────────────────────────────────────────────────────────────</p>
-<h2 id="procedure">**5.0 Procedure**</h2>
-<h3 id="access-the-switch">**5.1 Access the Switch**</h3>
+<hr />
+<h3 id="procedure"><strong>5.0 Procedure</strong></h3>
+<h4 id="access-the-switch"><strong>5.1 Access the Switch</strong></h4>
 <ol type="1">
-<li><p>Connect to the switch using your preferred method (console or
-SSH).</p></li>
+<li>Connect to the switch using your preferred method (console or SSH).
+<code>bash     ssh admin@&lt;switch-ip-address&gt;</code></li>
+<li>Enter your credentials when prompted.</li>
 </ol>
-<p>`bash</p>
-<p>ssh admin@&lt;switch-ip-address&gt;</p>
-<p>`</p>
-<ol start="2" type="1">
-<li><p>Enter your credentials when prompted.</p></li>
+<h4 id="enter-global-configuration-mode"><strong>5.2 Enter Global
+Configuration Mode</strong></h4>
+<ol type="1">
+<li>Enter privileged EXEC mode. <code>enable</code></li>
+<li>Enter global configuration mode.
+<code>configure terminal</code></li>
 </ol>
-<h3 id="enter-global-configuration-mode">**5.2 Enter Global
-Configuration Mode**</h3>
-<ol start="3" type="1">
-<li><p>Enter privileged EXEC mode.</p></li>
+<h4 id="configure-vtp-mode-critical"><strong>5.2.1 Configure VTP Mode
+(CRITICAL)</strong></h4>
+<blockquote>
+<p><strong>IMPORTANT:</strong> Always set VTP mode to prevent unintended
+VLAN propagation across the network.</p>
+</blockquote>
+<ol type="1">
+<li><p>Set VTP mode to transparent (recommended for most
+deployments):</p>
+<pre><code>    vtp mode transparent
+    ```
+Or disable VTP entirely (Cisco IOS 15.x+):</code></pre>
+<pre><code>vtp mode off
+```</code></pre></li>
 </ol>
-<p>`</p>
-<p>enable</p>
-<p>`</p>
-<ol start="4" type="1">
-<li><p>Enter global configuration mode.</p></li>
+<p><strong>VTP Mode Options:</strong> | Mode | Description | Use Case |
+|——|————-|———-| | <code>transparent</code> | Does not participate in VTP
+but passes VTP messages | Recommended default | | <code>off</code> |
+Completely disables VTP | Highest security | | <code>server</code> | Can
+create/modify VLANs, propagates to clients | Only in controlled
+environments | | <code>client</code> | Receives VLAN info from servers |
+Legacy deployments |</p>
+<blockquote>
+<p><strong>WARNING:</strong> Using <code>server</code> or
+<code>client</code> mode in an uncontrolled environment can cause VLAN
+database overwrites if a switch with a higher revision number is
+connected.</p>
+</blockquote>
+<h4 id="create-and-name-vlans"><strong>5.3 Create and Name
+VLANs</strong></h4>
+<ol type="1">
+<li><p>Create a new VLAN and enter the VLAN configuration sub-mode.</p>
+<pre><code>    vlan &lt;VLAN_ID&gt;
+    ```
+*Example:*</code></pre>
+<pre><code>vlan 10
+```</code></pre></li>
+<li><p>Assign a descriptive name to the VLAN.</p>
+<pre><code>    name &lt;VLAN_Name&gt;
+    ```
+*Example:*</code></pre>
+<pre><code>name VLAN_SALES
+```</code></pre></li>
+<li><p>Exit the VLAN configuration sub-mode. <code>exit</code></p></li>
+<li><p>Repeat steps 5.3.1 - 5.3.3 for each required VLAN.
+<em>Example:</em>
+<code>vlan 20     name VLAN_HR     exit</code></p></li>
 </ol>
-<p>`</p>
-<p>configure terminal</p>
-<p>`</p>
-<h3 id="create-and-name-vlans">**5.3 Create and Name VLANs**</h3>
-<ol start="5" type="1">
-<li><p>Create a new VLAN and enter the VLAN configuration
-sub-mode.</p></li>
+<h4 id="assign-access-ports-to-vlans"><strong>5.4 Assign Access Ports to
+VLANs</strong></h4>
+<ol type="1">
+<li><p>Select the interface or range of interfaces to configure.</p>
+<pre><code>    interface range &lt;interface_type&gt; &lt;port_range&gt;
+    ```
+*Example:*</code></pre>
+<pre><code>interface range fastEthernet 0/1 - 12
+```</code></pre></li>
+<li><p>Set the port mode to <code>access</code>.
+<code>switchport mode access</code></p></li>
+<li><p>Assign the port to the desired VLAN.</p>
+<pre><code>    switchport access vlan &lt;VLAN_ID&gt;
+    ```
+*Example:*</code></pre>
+<pre><code>switchport access vlan 10
+```</code></pre></li>
+<li><p><strong>Enable Spanning-Tree PortFast</strong> (allows immediate
+port activation for end devices):
+<code>spanning-tree portfast</code></p></li>
+<li><p><strong>Enable BPDU Guard</strong> (protects against rogue
+switches): <code>spanning-tree bpduguard enable</code></p></li>
+<li><p>Exit the interface configuration sub-mode.
+<code>exit</code></p></li>
 </ol>
-<p>`</p>
-<p>vlan &lt;VLAN_ID&gt;</p>
-<p>`</p>
-<p>Example:</p>
-<p>`</p>
-<p>vlan 10</p>
-<p>`</p>
-<ol start="6" type="1">
-<li><p>Assign a descriptive name to the VLAN.</p></li>
+<p><strong>Complete Access Port Configuration Example:</strong></p>
+<pre><code>interface range gigabitEthernet 0/1 - 24
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ exit</code></pre>
+<blockquote>
+<p><strong>NOTE:</strong> PortFast and BPDU Guard should ONLY be enabled
+on access ports connected to end devices (PCs, printers, phones). Never
+enable on ports connecting to other switches.</p>
+</blockquote>
+<h4 id="configure-trunk-ports-if-required"><strong>5.5 Configure Trunk
+Ports (If Required)</strong></h4>
+<p><em>This step is necessary when connecting to another switch or a
+device that needs to handle traffic from multiple VLANs.</em></p>
+<ol type="1">
+<li><p>Select the interface to configure as a trunk.</p>
+<pre><code>    interface &lt;interface_type&gt; &lt;port&gt;
+    ```
+*Example:*</code></pre>
+<pre><code>interface gigabitEthernet 0/1
+```</code></pre></li>
+<li><p>Set the port mode to <code>trunk</code>.
+<code>switchport mode trunk</code></p></li>
+<li><p><strong>Disable DTP negotiation</strong> (security best
+practice): <code>switchport nonegotiate</code></p></li>
+<li><p><strong>Change native VLAN from default</strong> (security -
+prevents VLAN hopping attacks):</p>
+<pre><code>    switchport trunk native vlan &lt;unused_vlan_id&gt;
+    ```
+*Example (use an unused VLAN like 999):*</code></pre>
+<pre><code>switchport trunk native vlan 999
+```</code></pre></li>
+<li><p>Specify which VLANs are allowed on the trunk (always limit to
+required VLANs):</p>
+<pre><code>    switchport trunk allowed vlan &lt;vlan_list&gt;
+    ```
+*Example:*</code></pre>
+<pre><code>switchport trunk allowed vlan 10,20,30
+```</code></pre></li>
+<li><p>Exit the interface configuration sub-mode.
+<code>exit</code></p></li>
 </ol>
-<p>`</p>
-<p>name &lt;VLAN_Name&gt;</p>
-<p>`</p>
-<p>Example:</p>
-<p>`</p>
-<p>name VLAN_SALES</p>
-<p>`</p>
-<ol start="7" type="1">
-<li><p>Exit the VLAN configuration sub-mode.</p></li>
+<p><strong>Complete Trunk Port Configuration Example:</strong></p>
+<pre><code>interface gigabitEthernet 0/48
+ switchport mode trunk
+ switchport nonegotiate
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,20,30
+ exit</code></pre>
+<blockquote>
+<p><strong>SECURITY NOTE:</strong> - <code>nonegotiate</code> prevents
+DTP attacks where an attacker could negotiate a trunk - Changing native
+VLAN from 1 prevents VLAN hopping attacks - Always limit allowed VLANs
+to only those required</p>
+</blockquote>
+<h4 id="configure-management-vlan-and-ip-address"><strong>5.6 Configure
+Management VLAN and IP Address</strong></h4>
+<p>Set up switch management access via a dedicated VLAN.</p>
+<ol type="1">
+<li><p>Create a management VLAN (if not already created):
+<code>vlan 99     name MGMT     exit</code></p></li>
+<li><p>Configure the Switch Virtual Interface (SVI) for management:
+<code>interface vlan 99     ip address 10.0.99.10 255.255.255.0     no shutdown     exit</code></p></li>
+<li><p>Set the default gateway:
+<code>ip default-gateway 10.0.99.1</code></p></li>
+<li><p>Restrict management access to specific VLANs (optional but
+recommended):</p>
+<pre><code>line vty 0 15
+access-class MGMT-ACCESS in
+exit
+
+ip access-list standard MGMT-ACCESS
+permit 10.0.99.0 0.0.0.255
+deny any
+exit</code></pre></li>
 </ol>
-<p>`</p>
-<p>exit</p>
-<p>`</p>
-<ol start="8" type="1">
-<li><p>Repeat steps 5.3.1 - 5.3.3 for each required VLAN.</p></li>
-</ol>
-<p>Example:</p>
-<p>`</p>
-<p>vlan 20</p>
-<p>name VLAN_HR</p>
-<p>exit</p>
-<p>`</p>
-<h3 id="assign-access-ports-to-vlans">**5.4 Assign Access Ports to
-VLANs**</h3>
-<ol start="9" type="1">
-<li><p>Select the interface or range of interfaces to
-configure.</p></li>
-</ol>
-<p>`</p>
-<p>interface range &lt;interface_type&gt; &lt;port_range&gt;</p>
-<p>`</p>
-<p>Example:</p>
-<p>`</p>
-<p>interface range fastEthernet 0/1 - 12</p>
-<p>`</p>
-<ol start="10" type="1">
-<li><p>Set the port mode to `access`.</p></li>
-</ol>
-<p>`</p>
-<p>switchport mode access</p>
-<p>`</p>
-<ol start="11" type="1">
-<li><p>Assign the port to the desired VLAN.</p></li>
-</ol>
-<p>`</p>
-<p>switchport access vlan &lt;VLAN_ID&gt;</p>
-<p>`</p>
-<p>Example:</p>
-<p>`</p>
-<p>switchport access vlan 10</p>
-<p>`</p>
-<ol start="12" type="1">
-<li><p>Exit the interface configuration sub-mode.</p></li>
-</ol>
-<p>`</p>
-<p>exit</p>
-<p>`</p>
-<h3 id="configure-trunk-ports-if-required">**5.5 Configure Trunk Ports
-(If Required)**</h3>
-<p>This step is necessary when connecting to another switch or a device
-that needs to handle traffic from multiple VLANs.</p>
-<ol start="13" type="1">
-<li><p>Select the interface to configure as a trunk.</p></li>
-</ol>
-<p>`</p>
-<p>interface &lt;interface_type&gt; &lt;port&gt;</p>
-<p>`</p>
-<p>Example:</p>
-<p>`</p>
-<p>interface gigabitEthernet 0/1</p>
-<p>`</p>
-<ol start="14" type="1">
-<li><p>Set the port mode to `trunk`.</p></li>
-</ol>
-<p>`</p>
-<p>switchport mode trunk</p>
-<p>`</p>
-<ol start="15" type="1">
-<li><p>(Optional but Recommended) Specify which VLANs are allowed on the
-trunk.</p></li>
-</ol>
-<p>`</p>
-<p>switchport trunk allowed vlan &lt;vlan_list&gt;</p>
-<p>`</p>
-<p>Example:</p>
-<p>`</p>
-<p>switchport trunk allowed vlan 10,20</p>
-<p>`</p>
-<ol start="16" type="1">
-<li><p>Exit the interface configuration sub-mode.</p></li>
-</ol>
-<p>`</p>
-<p>exit</p>
-<p>`</p>
-<p>────────────────────────────────────────────────────────────</p>
-<h2 id="verification">**6.0 Verification**</h2>
+<blockquote>
+<p><strong>NOTE:</strong> Using a dedicated management VLAN (not VLAN 1)
+is a security best practice. Management traffic should be isolated from
+user traffic.</p>
+</blockquote>
+<hr />
+<h3 id="verification"><strong>6.0 Verification</strong></h3>
 <p>Use the following commands from privileged EXEC mode to verify the
 configuration.</p>
-<ol start="17" type="1">
-<li><p>**Display VLAN Information:**</p></li>
-</ol>
+<ol type="1">
+<li><strong>Display VLAN Information:</strong>
 <ul>
-<li><p>Check that VLANs are created and ports are assigned
-correctly.</p></li>
+<li>Check that VLANs are created and ports are assigned correctly.</li>
 </ul>
-<p>`</p>
-<p>show vlan brief</p>
-<p>`</p>
-<ol start="18" type="1">
-<li><p>**Display Trunk Port Information:**</p></li>
-</ol>
+<pre><code>show vlan brief</code></pre></li>
+<li><strong>Display Trunk Port Information:</strong>
 <ul>
-<li><p>Verify that trunk ports are active and allowing the correct
-VLANs.</p></li>
+<li>Verify that trunk ports are active and allowing the correct
+VLANs.</li>
 </ul>
-<p>`</p>
-<p>show interfaces trunk</p>
-<p>`</p>
-<p>────────────────────────────────────────────────────────────</p>
-<h2 id="save-configuration">**7.0 Save Configuration**</h2>
+<pre><code>show interfaces trunk</code></pre></li>
+</ol>
+<hr />
+<h3 id="save-configuration"><strong>7.0 Save Configuration</strong></h3>
 <p>To ensure the configuration persists after a device reboot, save the
 running configuration to the startup configuration.</p>
-<ol start="19" type="1">
+<ol type="1">
 <li><p>From privileged EXEC mode, execute one of the following
-commands:</p></li>
-</ol>
-<p>`</p>
-<p>write memory</p>
-<p>`</p>
-<p>or</p>
-<p>`</p>
-<p>copy running-config startup-config</p>
-<p>`</p>
-<ol start="20" type="1">
+commands:</p>
+<pre><code>    write memory
+    ```
+*or*</code></pre>
+<pre><code>copy running-config startup-config
+```</code></pre></li>
 <li><p>Confirm the save when prompted.</p></li>
 </ol>
-<p>────────────────────────────────────────────────────────────</p>
-<h2 id="contingencyrollback">**8.0 Contingency/Rollback**</h2>
+<hr />
+<h3 id="contingencyrollback"><strong>8.0
+Contingency/Rollback</strong></h3>
 <ul>
-<li><p>**To remove a VLAN:**</p></li>
+<li><p><strong>To remove a VLAN:</strong></p>
+<pre><code>configure terminal
+no vlan &lt;VLAN_ID&gt;
+exit</code></pre></li>
+<li><p><strong>To reset a port to its default state:</strong></p>
+<pre><code>configure terminal
+default interface &lt;interface_type&gt; &lt;port&gt;
+exit</code></pre></li>
+<li><p><strong>To revert all changes:</strong> If changes have not been
+saved, reboot the switch without saving the configuration.</p></li>
 </ul>
-<p>`</p>
-<p>configure terminal</p>
-<p>no vlan &lt;VLAN_ID&gt;</p>
-<p>exit</p>
-<p>`</p>
-<ul>
-<li><p>**To reset a port to its default state:**</p></li>
-</ul>
-<p>`</p>
-<p>configure terminal</p>
-<p>default interface &lt;interface_type&gt; &lt;port&gt;</p>
-<p>exit</p>
-<p>`</p>
-<ul>
-<li><p>**To revert all changes:** If changes have not been saved, reboot
-the switch without saving the configuration.</p></li>
-</ul>
-<p>────────────────────────────────────────────────────────────</p>
-<h2 id="revision-history">**9.0 Revision History**</h2>
+<hr />
+<h3 id="troubleshooting"><strong>8.1 Troubleshooting</strong></h3>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 26%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Issue</th>
+<th>Cause</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VLAN not showing in <code>show vlan brief</code></td>
+<td>VLAN not created or VTP client mode</td>
+<td>Create VLAN manually. Check VTP mode (<code>show vtp status</code>).
+Set to transparent if needed.</td>
+</tr>
+<tr class="even">
+<td>Port not in correct VLAN</td>
+<td>Access VLAN not set or port in trunk mode</td>
+<td>Verify with <code>show interface switchport</code>. Set
+<code>switchport mode access</code> and
+<code>switchport access vlan X</code>.</td>
+</tr>
+<tr class="odd">
+<td>Trunk not passing VLANs</td>
+<td>VLANs not allowed on trunk</td>
+<td>Check <code>show interface trunk</code>. Add VLANs with
+<code>switchport trunk allowed vlan add X</code>.</td>
+</tr>
+<tr class="even">
+<td>Devices can’t communicate across VLANs</td>
+<td>No inter-VLAN routing</td>
+<td>Requires Layer 3 switch with SVIs or external router. Configure
+routing between VLANs.</td>
+</tr>
+<tr class="odd">
+<td>STP blocking port unexpectedly</td>
+<td>Loop detected or BPDU received on portfast port</td>
+<td>Check <code>show spanning-tree</code>. If BPDU guard triggered,
+remove unauthorized switch and <code>shut</code>/<code>no shut</code>
+port.</td>
+</tr>
+<tr class="even">
+<td>Native VLAN mismatch</td>
+<td>Different native VLANs on trunk ends</td>
+<td>Verify native VLAN matches on both ends
+(<code>show interface trunk</code>). Set same native VLAN.</td>
+</tr>
+<tr class="odd">
+<td>VTP not syncing VLANs</td>
+<td>VTP domain mismatch or password</td>
+<td>Check <code>show vtp status</code>. Ensure domain name and password
+match. Consider transparent mode.</td>
+</tr>
+<tr class="even">
+<td>Cannot access switch management</td>
+<td>Wrong VLAN or no IP on SVI</td>
+<td>Verify management VLAN SVI has IP
+(<code>show ip interface brief</code>). Check default gateway.</td>
+</tr>
+<tr class="odd">
+<td>Port err-disabled</td>
+<td>Security violation, BPDU guard, or port security</td>
+<td>Check <code>show interface status err-disabled</code>. Fix cause,
+then <code>shut</code> / <code>no shut</code>.</td>
+</tr>
+<tr class="even">
+<td>Slow network performance</td>
+<td>Spanning-tree convergence or duplex mismatch</td>
+<td>Check <code>show spanning-tree</code> for blocking ports. Verify
+duplex/speed with <code>show interface status</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Diagnostic Commands:</strong></p>
+<pre><code>! View all VLANs
+show vlan brief
+
+! Check port VLAN assignment
+show interface &lt;interface&gt; switchport
+
+! View trunk status
+show interface trunk
+
+! Check spanning-tree
+show spanning-tree vlan &lt;vlan_id&gt;
+
+! View VTP status
+show vtp status
+
+! Check interface errors
+show interface &lt;interface&gt; | include errors|CRC|collision
+
+! View MAC address table
+show mac address-table vlan &lt;vlan_id&gt;</code></pre>
+<hr />
+<h3 id="revision-history"><strong>9.0 Revision History</strong></h3>
 <table>
 <colgroup>
 <col style="width: 25%" />
@@ -419,47 +562,17 @@ the switch without saving the configuration.</p></li>
 <td>OberaConnect IT</td>
 <td>Initial document creation from source.</td>
 </tr>
+<tr class="even">
+<td>1.1</td>
+<td>2025-12-29</td>
+<td>Jeremy Smith</td>
+<td>SME Review: Added VTP mode configuration (5.2.1). Added
+Spanning-Tree PortFast and BPDU Guard for access ports. Added trunk
+security (nonegotiate, native VLAN change). Added Management VLAN
+section (5.6). Added Section 8.1 (Troubleshooting) with common issues
+and diagnostic commands.</td>
+</tr>
 </tbody>
 </table>
-
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Details</div>
-        <div class="section-content">
-            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
-
-            <div class="highlight-box">
-                <strong>Key Point:</strong> [Important information to highlight]
-            </div>
-
-            <p>Supporting details:</p>
-            <ul>
-                <li>[Detail item 1]</li>
-                <li>[Detail item 2]</li>
-                <li>[Detail item 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Next Steps</div>
-        <div class="section-content">
-            <div class="action-item">
-                <strong>Action Required:</strong> [Specific action item with owner and deadline]
-            </div>
-
-            <ul>
-                <li>[Next step 1]</li>
-                <li>[Next step 2]</li>
-                <li>[Next step 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="footer">
-        OberaConnect LLC | www.oberaconnect.com | Confidential
-    </div>
 </body>
 </html>

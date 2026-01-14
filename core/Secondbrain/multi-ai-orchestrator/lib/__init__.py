@@ -8,6 +8,7 @@ from .ai_clients import (
     BaseAIClient,
     ClaudeCLI,
     GeminiCLI,
+    GrokCLI,
     FaraCLI,
     AIClientFactory,
     select_best_client
@@ -27,10 +28,11 @@ from .orchestrator import (
 __all__ = [
     # Clients
     "AIProvider",
-    "AIResponse", 
+    "AIResponse",
     "BaseAIClient",
     "ClaudeCLI",
     "GeminiCLI",
+    "GrokCLI",
     "FaraCLI",
     "AIClientFactory",
     "select_best_client",

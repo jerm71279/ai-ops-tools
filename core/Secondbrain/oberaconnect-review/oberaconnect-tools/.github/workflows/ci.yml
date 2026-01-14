@@ -1,0 +1,181 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+env:
+  PYTHON_VERSION: "3.11"
+
+jobs:
+  lint:
+    name: Lint & Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run ruff (linting)
+        run: ruff check .
+
+      - name: Run ruff (formatting check)
+        run: ruff format --check .
+
+      - name: Run mypy (type checking)
+        run: mypy . --ignore-missing-imports
+
+  test:
+    name: Test (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run tests with coverage
+        run: |
+          pytest tests/ -v --cov=. --cov-report=xml --cov-report=term-missing
+
+      - name: Upload coverage to Codecov
+        if: matrix.python-version == '3.11'
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.xml
+          fail_ci_if_error: false
+          verbose: true
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run bandit (security linting)
+        run: |
+          bandit -r . -x ./tests -f json -o bandit-report.json || true
+          bandit -r . -x ./tests
+
+      - name: Check for vulnerable dependencies
+        run: |
+          pip install pip-audit
+          pip-audit --desc || true
+
+      - name: Upload bandit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bandit-security-report
+          path: bandit-report.json
+          retention-days: 30
+
+  build:
+    name: Build Package
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install build tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install build
+
+      - name: Build package
+        run: python -m build
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 7
+
+  integration-test:
+    name: Integration Test (Demo Mode)
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run integration tests in demo mode
+        env:
+          OBERACONNECT_DEMO: "true"
+        run: |
+          # Test that the package imports correctly
+          python -c "from oberaconnect_tools.unifi import UniFiAnalyzer, get_client; print('UniFi imports OK')"
+          python -c "from oberaconnect_tools.ninjaone import get_client; print('NinjaOne imports OK')"
+          python -c "from oberaconnect_tools.common import validate_operation, audit_log; print('Common imports OK')"
+
+          # Test demo mode clients
+          python -c "
+          from oberaconnect_tools.unifi import get_client
+          client = get_client(demo=True)
+          sites = client.get_sites()
+          print(f'Demo mode: {len(sites)} sites loaded')
+          assert len(sites) > 0, 'No demo sites loaded'
+          "
+
+          # Test analyzer
+          python -c "
+          from oberaconnect_tools.unifi import get_client, UniFiAnalyzer
+          client = get_client(demo=True)
+          sites = client.get_sites()
+          analyzer = UniFiAnalyzer(sites)
+          summary = analyzer.summary()
+          print(f'Fleet summary: {summary.total_sites} sites, {summary.total_devices} devices')
+          "
+
+          echo "All integration tests passed!"

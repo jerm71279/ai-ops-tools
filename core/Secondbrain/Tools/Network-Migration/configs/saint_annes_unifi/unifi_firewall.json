@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "generator": "Network Migration Toolkit",
+    "customer": "Saint Annes Terrance",
+    "generated_date": "2026-01-09 16:28:49",
+    "total_rules": 4
+  },
+  "firewall_rules": [
+    {
+      "name": "Block-Dangerous-TCP-WAN",
+      "action": "drop",
+      "rule_index": 2001,
+      "enabled": true,
+      "protocol": "tcp",
+      "protocol_match_excepted": false,
+      "src_firewallgroup_ids": [],
+      "dst_firewallgroup_ids": [],
+      "dst_port": "21,22,23,80,443,2000,8080",
+      "ruleset": "WAN_IN"
+    },
+    {
+      "name": "Block-Dangerous-UDP-WAN",
+      "action": "drop",
+      "rule_index": 2002,
+      "enabled": true,
+      "protocol": "udp",
+      "protocol_match_excepted": false,
+      "src_firewallgroup_ids": [],
+      "dst_firewallgroup_ids": [],
+      "dst_port": "53,123,161",
+      "ruleset": "WAN_IN"
+    },
+    {
+      "name": "Rule-1",
+      "action": "drop",
+      "rule_index": 3000,
+      "enabled": true,
+      "dst_port": "21,22,23,2000",
+      "ruleset": "WAN_IN"
+    },
+    {
+      "name": "Rule-2",
+      "action": "drop",
+      "rule_index": 3001,
+      "enabled": true,
+      "protocol": "udp",
+      "dst_port": "161",
+      "ruleset": "WAN_IN"
+    }
+  ]
+}

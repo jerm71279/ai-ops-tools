@@ -22,19 +22,16 @@ WORKDIR /app
 COPY docker/agents/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy tool scripts (from root context)
-COPY agent_orchestrator.py .
-COPY agent_notebooklm_analyst.py .
-COPY agent_obsidian_manager.py .
-COPY agent_ba.py .
-COPY moe_router.py .
-COPY config.py .
+# Copy core libraries
+COPY core/ ./core/
+
+# Copy tool scripts (from new structure)
+COPY Tools/Agents/agent_orchestrator.py .
+COPY Tools/Agents/agent_notebooklm_analyst.py .
+COPY Tools/Agents/agent_obsidian_manager.py .
 
 # Copy API server
 COPY docker/agents/api_server.py .
-
-# Copy data files (BA agent data)
-COPY data/ba_agent_data.json /app/data/ba_agent_data.json
 
 # Create data directories and fix ownership
 RUN mkdir -p /app/data/agents /app/data/mcp && chown -R app:app /app

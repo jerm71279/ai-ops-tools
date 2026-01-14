@@ -1,8 +1,6 @@
 """
 Layer 3: Orchestration Layer - Main Implementation
 Coordinates pipeline execution and workflow management
-
-Includes maker_checker validation for risk-based operation approval.
 """
 
 import asyncio
@@ -13,8 +11,6 @@ from ..core.base import AIRequest, AIResponse, LayerInterface, TaskStatus, State
 from ..core.config import AIConfig
 from ..core.logging import get_logger
 from ..core.exceptions import OrchestrationError, PipelineError
-
-from .validator import OrchestrationValidator, classify_risk, create_validator
 
 
 class OrchestrationLayer(LayerInterface):
@@ -54,13 +50,6 @@ class OrchestrationLayer(LayerInterface):
 
         # Execution semaphore
         self._semaphore = asyncio.Semaphore(self._max_parallel)
-
-        # Validation (maker_checker integration)
-        validation_config = orch_config.get("validation", {})
-        self._validator = create_validator(
-            enabled=validation_config.get("enabled", True),
-            auto_approve_level=validation_config.get("auto_approve_level", "medium")
-        )
 
     async def initialize(self) -> bool:
         """Initialize the orchestration layer"""
@@ -146,20 +135,7 @@ class OrchestrationLayer(LayerInterface):
                 if self._checkpoint_enabled:
                     checkpoint_id = self._create_checkpoint(request)
 
-                # Step 3: Validate request (maker_checker)
-                approved, validation_msg, validation_result = self._validator.validate(request, strategy)
-                if not approved:
-                    self.logger.warning(f"Request {request.request_id[:8]} rejected by validator: {validation_msg}")
-                    return AIResponse(
-                        request_id=request.request_id,
-                        success=False,
-                        content=f"Request rejected by validation: {validation_msg}",
-                        status=TaskStatus.FAILED,
-                        executed_by="L3:Orchestration:Validator",
-                        artifacts={"validation_result": validation_result.__dict__ if validation_result else None}
-                    )
-
-                # Step 4: Execute based on strategy
+                # Step 3: Execute based on strategy
                 try:
                     if strategy["type"] == "workflow":
                         response = await self._execute_workflow(request, strategy)

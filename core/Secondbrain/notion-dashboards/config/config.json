@@ -1,0 +1,35 @@
+{
+    "notion_token": "${NOTION_TOKEN}",
+    "databases": {
+        "customer_status": "aaf71a772af44a788314be5675669171",
+        "daily_health": "3638fea42ecd400cb5925b67b567f702",
+        "azure_pipeline": "01fc2c0349084d6984c3050188b97177",
+        "runbook_library": "ea03a579be6c44248409fe31a9a21c4f",
+        "config_changes": "",
+        "deployments": "",
+        "devices": "",
+        "device_issues": "2dc3808671fb81b39391cd513e6c416f"
+    },
+    "unifi": {
+        "site_manager_url": "https://api.ui.com",
+        "api_token": "${UNIFI_API_KEY}"
+    },
+    "ninjaone": {
+        "api_url": "https://us2.ninjarmm.com/api/v2",
+        "client_id": "${NINJAONE_CLIENT_ID}",
+        "client_secret": "${NINJAONE_CLIENT_SECRET}"
+    },
+    "settings": {
+        "wifi_signal_threshold_dbm": -65,
+        "health_score_warning_threshold": 70,
+        "health_score_critical_threshold": 50,
+        "dry_run": false,
+        "verbose": false
+    },
+    "maker_checker": {
+        "enabled": true,
+        "health_drop_threshold": 15,
+        "bulk_change_threshold": 10,
+        "require_rollback_for_high_risk": true
+    }
+}

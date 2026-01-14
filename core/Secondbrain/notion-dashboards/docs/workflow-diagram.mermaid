@@ -1,0 +1,127 @@
+flowchart TB
+    subgraph SOURCES["INFRASTRUCTURE DATA SOURCES"]
+        UNIFI["UniFi Site Manager<br/>98 Sites - 492 Devices"]
+        NINJA["NinjaOne RMM<br/>Endpoints and Alerts"]
+        AZURE["Azure Tenant<br/>VPNs - VMs - Identity"]
+        MIKROTIK_HW["MikroTik Routers<br/>Legacy Sites"]
+        SONIC_HW["SonicWall Firewalls<br/>Legacy Sites"]
+    end
+
+    subgraph VM["AZURE LINUX VM - UNIFIED AUTOMATION HUB"]
+        subgraph OBERATOOLS["oberaconnect-tools Package"]
+            direction TB
+            MIKROTIK_SCRIPT["mikrotik-config-builder<br/>Generate and Deploy Configs"]
+            SONIC_SCRIPT["sonicwall-scripts<br/>Firewall Automation"]
+            NETTOOLS["network-troubleshooter<br/>Discovery and Assessment"]
+            SKILLS["custom-skills<br/>Reusable Patterns"]
+        end
+        
+        subgraph NOTIONPKG["notion-dashboards Package"]
+            direction TB
+            WRAPPER["notion_client_wrapper.py<br/>SDK Connection Layer"]
+            CUSTOMER_SYNC["customer_status_sync.py"]
+            HEALTH_SYNC["daily_health_sync.py"]
+            PIPELINE_SYNC["azure_pipeline_sync.py"]
+            RUNBOOK_SYNC["runbook_manager.py"]
+            CONFIG_SYNC["config_change_sync.py<br/>NEW - Logs All Changes"]
+        end
+
+        CRON["Cron Scheduler<br/>Scheduled Jobs"]
+        WEBHOOK["Webhook Listener<br/>Real-time Events"]
+    end
+
+    subgraph NOTION["NOTION WORKSPACE - SINGLE SOURCE OF TRUTH"]
+        subgraph OPERATIONS["Operations Databases"]
+            SITES_DB[("Customer Sites<br/>98 Locations")]
+            HEALTH_DB[("Daily Health<br/>Historical Snapshots")]
+            DEVICES_DB[("Network Devices<br/>All Hardware Inventory")]
+            ALERTS_DB[("Active Alerts<br/>Cross-Platform")]
+        end
+
+        subgraph CHANGES["Change Management"]
+            CONFIG_DB[("Config Changes<br/>Audit Trail")]
+            DEPLOY_DB[("Deployments<br/>MikroTik - SonicWall - UniFi")]
+        end
+
+        subgraph KNOWLEDGE["Knowledge Base"]
+            AZURE_DB[("Azure Pipeline<br/>75 Services")]
+            RUNBOOK_DB[("Runbooks and SOPs")]
+            TEMPLATES_DB[("Config Templates<br/>Reusable Patterns")]
+        end
+
+        subgraph AIENGINE["Notion 3.0 AI Layer"]
+            INSTRUCTIONS["Custom Instructions<br/>IT Operations Context"]
+            AGENT["AI Agent<br/>Natural Language Interface"]
+            AUTOFILL["AI Autofill<br/>Auto-Classify and Score"]
+        end
+    end
+
+    subgraph USERS["OBERACONNECT TEAM"]
+        MAVERICK["Maverick<br/>Network Engineer"]
+        DIRECTOR["Director"]
+        FIELD["Field Techs"]
+        TEAM["Support Team"]
+    end
+
+    %% Data Collection Flow
+    UNIFI -->|API 15min| CUSTOMER_SYNC
+    NINJA -->|API hourly| HEALTH_SYNC
+    AZURE -->|API hourly| PIPELINE_SYNC
+
+    %% oberaconnect-tools Integration
+    MIKROTIK_HW -->|SSH| MIKROTIK_SCRIPT
+    SONIC_HW -->|API| SONIC_SCRIPT
+    NETTOOLS -->|Discovery Data| DEVICES_DB
+
+    %% Config changes logged to Notion
+    MIKROTIK_SCRIPT -->|Log Deploy| CONFIG_SYNC
+    SONIC_SCRIPT -->|Log Deploy| CONFIG_SYNC
+    CONFIG_SYNC -->|Write| CONFIG_DB
+    CONFIG_SYNC -->|Write| DEPLOY_DB
+
+    %% Scheduled sync to Notion
+    CRON -->|6 AM| CUSTOMER_SYNC
+    CRON -->|6 AM| HEALTH_SYNC
+    CRON -->|Hourly| CONFIG_SYNC
+
+    %% Real-time events
+    WEBHOOK -->|Alert Trigger| ALERTS_DB
+
+    %% Write to databases
+    CUSTOMER_SYNC -->|Upsert| SITES_DB
+    HEALTH_SYNC -->|Insert Daily| HEALTH_DB
+    PIPELINE_SYNC -->|Update| AZURE_DB
+    RUNBOOK_SYNC -->|Manage| RUNBOOK_DB
+
+    %% Templates flow back to tools
+    TEMPLATES_DB -->|Pull Config| MIKROTIK_SCRIPT
+    TEMPLATES_DB -->|Pull Config| SONIC_SCRIPT
+
+    %% AI reads everything
+    SITES_DB --> AGENT
+    HEALTH_DB --> AGENT
+    DEVICES_DB --> AGENT
+    ALERTS_DB --> AGENT
+    CONFIG_DB --> AGENT
+    DEPLOY_DB --> AGENT
+    AZURE_DB --> AGENT
+    RUNBOOK_DB --> AGENT
+
+    INSTRUCTIONS --> AGENT
+    AGENT --> AUTOFILL
+
+    %% Users interact
+    MAVERICK <-->|CLI Commands| OBERATOOLS
+    MAVERICK <-->|Questions| AGENT
+    DIRECTOR <-->|Reports| AGENT
+    FIELD <-->|Lookup| AGENT
+    TEAM <-->|Troubleshoot| AGENT
+
+    %% Styling
+    style SOURCES fill:#e3f2fd,stroke:#1565c0
+    style VM fill:#fff8e1,stroke:#ff8f00
+    style OBERATOOLS fill:#ffe0b2,stroke:#e65100
+    style NOTIONPKG fill:#fff3e0,stroke:#ff8f00
+    style NOTION fill:#f3e5f5,stroke:#8e24aa
+    style AIENGINE fill:#e8f5e9,stroke:#43a047
+    style USERS fill:#fce4ec,stroke:#d81b60

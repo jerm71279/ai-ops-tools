@@ -145,7 +145,6 @@
 <p>Version: 1.0</p>
 <p>Author: Jeremy Smith</p>
 <p>Date: 2025-12-05</p>
-<p>────────────────────────────────────────────────────────────</p>
 <h1 id="purpose">1.0 Purpose</h1>
 <p>To establish a standardized procedure for exporting and securely
 storing SonicWall firewall configuration backups before deployment,
@@ -164,11 +163,11 @@ customer)</p></li>
 </ul>
 <h1 id="prerequisites">3.0 Prerequisites</h1>
 <ul>
-<li><p>**Access:** Administrative credentials to the SonicWall
+<li><p>Access: Administrative credentials to the SonicWall
 device</p></li>
-<li><p>**Keeper Access:** Valid credentials to the Obera Connect Keeper
+<li><p>Keeper Access: Valid credentials to the Obera Connect Keeper
 vault</p></li>
-<li><p>**Network:** Active connection to the SonicWall management
+<li><p>Network: Active connection to the SonicWall management
 interface</p></li>
 </ul>
 <h1 id="backup-file-naming-convention">4.0 Backup File Naming
@@ -192,7 +191,7 @@ SFWB, SETC, GRLE)</p>
 <h2 id="export-configuration-from-sonicwall">5.1 Export Configuration
 from SonicWall</h2>
 <ol type="1">
-<li><p>**Log In to SonicWall:**</p></li>
+<li><p>Log In to SonicWall:</p></li>
 </ol>
 <ul>
 <li><p>Open a web browser and navigate to the SonicWall management
@@ -200,29 +199,29 @@ IP</p></li>
 <li><p>Log in with administrative credentials</p></li>
 </ul>
 <ol start="2" type="1">
-<li><p>**Navigate to Backup Settings:**</p></li>
+<li><p>Navigate to Backup Settings:</p></li>
 </ol>
 <ul>
-<li><p>Go to **Device &gt; Settings &gt; Firmware &amp;
-Backups**</p></li>
-<li><p>Alternatively: **System &gt; Firmware and Backups** (older
+<li><p>Go to Device &gt; Settings &gt; Firmware &amp;
+Backups</p></li>
+<li><p>Alternatively: System &gt; Firmware and Backups (older
 firmware)</p></li>
 </ul>
 <ol start="3" type="1">
-<li><p>**Export Configuration:**</p></li>
+<li><p>Export Configuration:</p></li>
 </ol>
 <ul>
-<li><p>Locate the **Import/Export Configuration** section</p></li>
-<li><p>Click **Export Configuration**</p></li>
+<li><p>Locate the Import/Export Configuration section</p></li>
+<li><p>Click Export Configuration</p></li>
 <li><p>When prompted, choose to include or exclude the
 following:</p></li>
-<li><p>**Include Certificates:** Yes (recommended)</p></li>
-<li><p>**Include VPN Keys:** Yes (if VPN configured)</p></li>
+<li><p>Include Certificates: Yes (recommended)</p></li>
+<li><p>Include VPN Keys: Yes (if VPN configured)</p></li>
 <li><p>Save the `.exp` file using the naming convention in Section
 4.0</p></li>
 </ul>
 <ol start="4" type="1">
-<li><p>**Verify Export:**</p></li>
+<li><p>Verify Export:</p></li>
 </ol>
 <ul>
 <li><p>Confirm the file downloaded successfully</p></li>
@@ -235,7 +234,7 @@ Configuration in Keeper (Manual Process)</h2>
 <p>&gt; Note: API automation via Keeper Secrets Manager (KSM) is pending
 approval. Until KSM is enabled, use the manual process below.</p>
 <ol start="5" type="1">
-<li><p>**Log In to Keeper:**</p></li>
+<li><p>Log In to Keeper:</p></li>
 </ol>
 <ul>
 <li><p>Access Keeper vault at
@@ -243,27 +242,27 @@ approval. Until KSM is enabled, use the manual process below.</p>
 <li><p>Or use Keeper desktop/browser extension</p></li>
 </ul>
 <ol start="6" type="1">
-<li><p>**Navigate to Firewalls Folder:**</p></li>
+<li><p>Navigate to Firewalls Folder:</p></li>
 </ol>
 <ul>
-<li><p>In **My Vault**, locate the **Firewalls** shared folder</p></li>
+<li><p>In My Vault, locate the Firewalls shared folder</p></li>
 <li><p>This is the central repository for all firewall
 configurations</p></li>
 </ul>
 <ol start="7" type="1">
-<li><p>**Create New Record:**</p></li>
+<li><p>Create New Record:</p></li>
 </ol>
 <ul>
-<li><p>Click **+ Create New**</p></li>
-<li><p>Select **Login** or **File** record type</p></li>
+<li><p>Click + Create New</p></li>
+<li><p>Select Login or File record type</p></li>
 <li><p>Fill in the following fields:</p></li>
-<li><p>**Title:** `[CustomerCode] - SonicWall [Model] Config -
+<li><p>Title: `[CustomerCode] - SonicWall [Model] Config -
 [Date]`</p></li>
 <li><p>Example: `SFWB - SonicWall TZ270 Config - 2025-12-05`</p></li>
-<li><p>**Attachments:** Upload the `.exp` file</p></li>
+<li><p>Attachments: Upload the `.exp` file</p></li>
 </ul>
 <ol start="8" type="1">
-<li><p>**Add Metadata in Notes:**</p></li>
+<li><p>Add Metadata in Notes:</p></li>
 </ol>
 <p>`</p>
 <p>Customer: Spanish Fort Water Board (SFWB)</p>
@@ -277,7 +276,7 @@ configurations</p></li>
 <p>Verified: Yes</p>
 <p>`</p>
 <ol start="9" type="1">
-<li><p>**Rename Downloaded File (Optional):**</p></li>
+<li><p>Rename Downloaded File (Optional):</p></li>
 </ol>
 <ul>
 <li><p>SonicWall exports with default naming like:</p></li>
@@ -290,7 +289,7 @@ configurations</p></li>
 <p>SFWB_TZ270_2025-12-05_preshipment.exp</p>
 <h2 id="verify-backup-integrity">5.3 Verify Backup Integrity</h2>
 <ol start="10" type="1">
-<li><p>**File Validation:**</p></li>
+<li><p>File Validation:</p></li>
 </ol>
 <ul>
 <li><p>Open the `.exp` file in a text editor</p></li>
@@ -300,7 +299,7 @@ corrupted)</p></li>
 header</p></li>
 </ul>
 <ol start="11" type="1">
-<li><p>**Document in Keeper Notes:**</p></li>
+<li><p>Document in Keeper Notes:</p></li>
 </ol>
 <ul>
 <li><p>Add verification status: `Verified: Yes`</p></li>
@@ -324,11 +323,11 @@ date)</p></li>
 <p>If configuration restore is needed:</p>
 <ol start="12" type="1">
 <li><p>Access SonicWall management interface</p></li>
-<li><p>Navigate to **Device &gt; Settings &gt; Firmware &amp;
-Backups**</p></li>
-<li><p>Click **Import Configuration**</p></li>
+<li><p>Navigate to Device &gt; Settings &gt; Firmware &amp;
+Backups</p></li>
+<li><p>Click Import Configuration</p></li>
 <li><p>Browse to and select the `.exp` file from Keeper</p></li>
-<li><p>Click **Import**</p></li>
+<li><p>Click Import</p></li>
 <li><p>Review import summary and confirm</p></li>
 <li><p>Device will reboot to apply configuration</p></li>
 </ol>
@@ -443,9 +442,7 @@ keepercommander`</p></li>
 <li><p>Keeper Commander Docs:
 https://docs.keeper.io/secrets-manager/commander-cli</p></li>
 </ul>
-<p>────────────────────────────────────────────────────────────</p>
 <p>End of Document</p>
-<p>────────────────────────────────────────────────────────────</p>
 
         </div>
     </div>
@@ -460,12 +457,7 @@ https://docs.keeper.io/secrets-manager/commander-cli</p></li>
             </div>
 
             <p>Supporting details:</p>
-            <ul>
-                <li>[Detail item 1]</li>
-                <li>[Detail item 2]</li>
-                <li>[Detail item 3]</li>
-            </ul>
-        </div>
+                    </div>
     </div>
 
     <div class="section">

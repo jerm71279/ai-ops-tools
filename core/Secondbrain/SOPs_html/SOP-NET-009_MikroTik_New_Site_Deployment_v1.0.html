@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOP-NET-009_MikroTik_New_Site_Deployment_v1.0</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="/dev/null" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">SOP-NET-009_MikroTik_New_Site_Deployment_v1.0</h1>
+</header>
+<h1
+id="standard-operating-procedure-mikrotik-new-site-deployment">Standard
+Operating Procedure: MikroTik New Site Deployment</h1>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>Document ID:</strong></td>
+<td>SOP-NET-009</td>
+</tr>
+<tr class="even">
+<td><strong>Title:</strong></td>
+<td>MikroTik New Site Deployment</td>
+</tr>
+<tr class="odd">
+<td><strong>Category:</strong></td>
+<td>Network Infrastructure</td>
+</tr>
+<tr class="even">
+<td><strong>Version:</strong></td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td><strong>Status:</strong></td>
+<td>Draft</td>
+</tr>
+<tr class="even">
+<td><strong>Author:</strong></td>
+<td>OberaConnect</td>
+</tr>
+<tr class="odd">
+<td><strong>Creation Date:</strong></td>
+<td>2026-01-12</td>
+</tr>
+<tr class="even">
+<td><strong>Approval Date:</strong></td>
+<td>Pending</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="purpose">1.0 Purpose</h3>
+<p>This procedure documents the complete workflow for deploying a new
+customer site with a MikroTik router and UniFi access points. It covers
+subnet allocation, configuration generation, router setup, and AP
+adoption using OberaConnect’s network-config-builder tooling.</p>
+<h3 id="scope">2.0 Scope</h3>
+<p>This SOP applies to: - New customer site deployments with MikroTik
+routers - OberaConnect technicians performing network installations -
+Sites using the 10.54.x.x subnet allocation scheme - Deployments with
+UniFi access points managed via UniFi Site Manager</p>
+<h3 id="definitions">3.0 Definitions</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>RouterOS</strong></td>
+<td>MikroTik’s proprietary operating system</td>
+</tr>
+<tr class="even">
+<td><strong>Winbox</strong></td>
+<td>MikroTik’s GUI management application</td>
+</tr>
+<tr class="odd">
+<td><strong>router.rsc</strong></td>
+<td>RouterOS script file for importing configuration</td>
+</tr>
+<tr class="even">
+<td><strong>Inform URL</strong></td>
+<td>UniFi controller adoption URL for APs</td>
+</tr>
+<tr class="odd">
+<td><strong>DHCP</strong></td>
+<td>Dynamic Host Configuration Protocol</td>
+</tr>
+<tr class="even">
+<td><strong>NAT</strong></td>
+<td>Network Address Translation</td>
+</tr>
+<tr class="odd">
+<td><strong>Bridge</strong></td>
+<td>Layer 2 network bridge combining multiple interfaces</td>
+</tr>
+</tbody>
+</table>
+<h3 id="roles-responsibilities">4.0 Roles &amp; Responsibilities</h3>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 72%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Role</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Network Technician</strong></td>
+<td>Execute deployment, configure equipment</td>
+</tr>
+<tr class="even">
+<td><strong>Project Manager</strong></td>
+<td>Coordinate with customer, schedule installation</td>
+</tr>
+<tr class="odd">
+<td><strong>NOC</strong></td>
+<td>Monitor site health post-deployment</td>
+</tr>
+</tbody>
+</table>
+<h3 id="prerequisites">5.0 Prerequisites</h3>
+<h4 id="information-required">5.1 Information Required</h4>
+<ul class="task-list">
+<li><label><input type="checkbox" />Customer name and site
+location</label></li>
+<li><label><input type="checkbox" />ISP circuit details (WAN IP,
+gateway, DNS servers)</label></li>
+<li><label><input type="checkbox" />Circuit ID from ISP</label></li>
+<li><label><input type="checkbox" />MikroTik router model (determines
+LAN port configuration)</label></li>
+<li><label><input type="checkbox" />UniFi AP model(s) to be
+deployed</label></li>
+</ul>
+<h4 id="equipment-required">5.2 Equipment Required</h4>
+<ul class="task-list">
+<li><label><input type="checkbox" />MikroTik router (factory reset or
+new)</label></li>
+<li><label><input type="checkbox" />UniFi access point(s)</label></li>
+<li><label><input type="checkbox" />Ethernet cables</label></li>
+<li><label><input type="checkbox" />Laptop with Winbox
+installed</label></li>
+<li><label><input type="checkbox" />Console cable (optional
+backup)</label></li>
+</ul>
+<h4 id="access-required">5.3 Access Required</h4>
+<ul class="task-list">
+<li><label><input type="checkbox" />Physical access to site or bench
+setup</label></li>
+<li><label><input type="checkbox" />UniFi Site Manager account
+(unifi.ui.com)</label></li>
+<li><label><input type="checkbox" />network-config-builder tooling
+access</label></li>
+</ul>
+<hr />
+<h3 id="procedure">6.0 Procedure</h3>
+<h2 id="phase-1-subnet-allocation">Phase 1: Subnet Allocation</h2>
+<h4 id="check-available-subnet-block">6.1 Check Available Subnet
+Block</h4>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/mavrick/Projects/network-config-builder</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> subnet_allocator.py summary</span></code></pre></div>
+<p>Review output to see next available block in the 10.54.x.x/16
+range.</p>
+<h4 id="allocate-customer-subnet">6.2 Allocate Customer Subnet</h4>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> subnet_allocator.py allocate <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--customer-id</span> <span class="st">&quot;&lt;CIRCUIT_ID&gt;&quot;</span> <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--customer-name</span> <span class="st">&quot;&lt;CUSTOMER_NAME&gt;&quot;</span> <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--wan-ip</span> <span class="st">&quot;&lt;WAN_IP&gt;/&lt;CIDR&gt;&quot;</span> <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--wan-gateway</span> <span class="st">&quot;&lt;GATEWAY_IP&gt;&quot;</span> <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--location</span> <span class="st">&quot;&lt;CITY&gt;, &lt;STATE&gt;&quot;</span> <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--circuit-id</span> <span class="st">&quot;&lt;FULL_CIRCUIT_ID&gt;&quot;</span></span></code></pre></div>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> subnet_allocator.py allocate <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--customer-id</span> <span class="st">&quot;205923&quot;</span> <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--customer-name</span> <span class="st">&quot;DC Lawn Foley&quot;</span> <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--wan-ip</span> <span class="st">&quot;142.190.216.114/30&quot;</span> <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--wan-gateway</span> <span class="st">&quot;142.190.216.113&quot;</span> <span class="dt">\</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--location</span> <span class="st">&quot;Foley, AL&quot;</span> <span class="dt">\</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--circuit-id</span> <span class="st">&quot;/INT/205923//UIF/&quot;</span></span></code></pre></div>
+<p>This allocates 4 consecutive /24 blocks (only first is configured
+initially).</p>
+<hr />
+<h2 id="phase-2-configuration-generation">Phase 2: Configuration
+Generation</h2>
+<h4 id="create-customer-directory">6.3 Create Customer Directory</h4>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> customers/<span class="op">&lt;</span>CUSTOMER_FOLDER<span class="op">&gt;</span>/configs</span></code></pre></div>
+<h4 id="create-customer_config.yaml">6.4 Create
+customer_config.yaml</h4>
+<p>Create
+<code>customers/&lt;CUSTOMER_FOLDER&gt;/customer_config.yaml</code>:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">customer</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;&lt;CUSTOMER_NAME&gt;&quot;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">site</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;&lt;SITE_NAME&gt;&quot;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">circuit_id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;&lt;CIRCUIT_ID&gt;&quot;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">wan</span><span class="kw">:</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> static</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">interface</span><span class="kw">:</span><span class="at"> ether1</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">address</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;&lt;WAN_IP&gt;/&lt;CIDR&gt;&quot;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">gateway</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;&lt;GATEWAY_IP&gt;&quot;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dns_servers</span><span class="kw">:</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;&lt;PRIMARY_DNS&gt;&quot;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;&lt;SECONDARY_DNS&gt;&quot;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lan</span><span class="kw">:</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">interface</span><span class="kw">:</span><span class="at"> bridge-lan</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">address</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;10.54.X.1/24&quot;</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dhcp</span><span class="kw">:</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pool_start</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;10.54.X.100&quot;</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pool_end</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;10.54.X.200&quot;</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">lease_time</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;24h&quot;</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">security</span><span class="kw">:</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">admin_password</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;&lt;SECURE_PASSWORD&gt;&quot;</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="fu">mikrotik</span><span class="kw">:</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">lan_ports</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">ether2</span><span class="kw">,</span><span class="at"> ether3</span><span class="kw">,</span><span class="at"> ether4</span><span class="kw">,</span><span class="at"> ether5</span><span class="kw">,</span><span class="at"> ether6</span><span class="kw">,</span><span class="at"> ether7</span><span class="kw">,</span><span class="at"> ether8</span><span class="kw">,</span><span class="at"> ether9</span><span class="kw">,</span><span class="at"> ether10</span><span class="kw">]</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">timezone</span><span class="kw">:</span><span class="at"> America/Chicago</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">enable_wan_winbox</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">enable_wan_ssh</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">enable_mac_discovery_lan</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">bandwidth_test</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="fu">unifi</span><span class="kw">:</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">site_id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;&lt;UNIFI_SITE_ID&gt;&quot;</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">inform_url</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;http://&lt;SITE_ID&gt;.unifi-hosting.ui.com:8080/inform&quot;</span></span></code></pre></div>
+<h4 id="generate-router-configuration">6.5 Generate Router
+Configuration</h4>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./network-config</span> generate <span class="dt">\</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-i</span> customers/<span class="op">&lt;</span>CUSTOMER_FOLDER<span class="op">&gt;</span>/customer_config.yaml <span class="dt">\</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> customers/<span class="op">&lt;</span>CUSTOMER_FOLDER<span class="op">&gt;</span>/configs <span class="dt">\</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-v</span></span></code></pre></div>
+<p>This generates <code>router.rsc</code> with all required
+sections.</p>
+<hr />
+<h2 id="phase-3-router-preparation">Phase 3: Router Preparation</h2>
+<h4 id="factory-reset-router-if-previously-used">6.6 Factory Reset
+Router (If Previously Used)</h4>
+<ol type="1">
+<li>Power off the router</li>
+<li>Hold reset button while powering on</li>
+<li>Continue holding for ~5 seconds until LEDs flash</li>
+<li>Release - router will boot to factory defaults</li>
+</ol>
+<h4 id="initial-connection">6.7 Initial Connection</h4>
+<p><strong>Option A: Winbox via Neighbors (default config only)</strong>
+1. Connect laptop to any LAN port (ether2-10) 2. Open Winbox 3. Click
+“Neighbors” tab 4. Select router by MAC address 5. Login:
+<code>admin</code> / (check device label for default password or
+blank)</p>
+<p><strong>Option B: Direct IP (after default config)</strong> 1.
+Connect laptop to any LAN port 2. Get DHCP address (192.168.88.x range)
+3. Winbox to <code>192.168.88.1</code> 4. Login: <code>admin</code> /
+(device label password)</p>
+<h4 id="remove-default-configuration">6.8 Remove Default
+Configuration</h4>
+<p>When prompted “Do you want to remove default config?”: - Select
+<strong>YES</strong> to remove default bridge configuration - This is
+<strong>CRITICAL</strong> - default config bridges ALL ports including
+WAN</p>
+<hr />
+<h2 id="phase-4-router-configuration">Phase 4: Router Configuration</h2>
+<h4 id="remove-ether1-from-bridge-if-default-config-persists">6.9 Remove
+ether1 from Bridge (If Default Config Persists)</h4>
+<p>If ether1 is still bridged after factory reset:</p>
+<pre class="routeros"><code>/interface bridge port remove [find interface=ether1]
+/ip dhcp-client remove [find]</code></pre>
+<p>Verify:</p>
+<pre class="routeros"><code>/interface bridge port print</code></pre>
+<p>ether1 should NOT appear in list.</p>
+<h4 id="import-configuration">6.10 Import Configuration</h4>
+<p><strong>Method A: Full .rsc Import</strong> 1. Upload
+<code>router.rsc</code> to router (Files in Winbox, drag and drop) 2.
+Execute:</p>
+<pre class="routeros"><code>/import file-name=router.rsc</code></pre>
+<p><strong>Method B: Terminal Paste (Sectioned)</strong></p>
+<p>Paste configuration in sections for better troubleshooting:</p>
+<p><strong>Section 1: System Identity</strong></p>
+<pre class="routeros"><code>/system identity set name=&quot;&lt;CUSTOMER_NAME&gt;&quot;
+/system clock set time-zone-name=America/Chicago</code></pre>
+<p><strong>Section 2: WAN Configuration</strong></p>
+<pre class="routeros"><code>/ip address add address=&lt;WAN_IP&gt;/&lt;CIDR&gt; interface=ether1 comment=&quot;WAN&quot;
+/ip route add gateway=&lt;GATEWAY_IP&gt; comment=&quot;Default Gateway&quot;</code></pre>
+<p><strong>Section 3: LAN Bridge</strong></p>
+<pre class="routeros"><code>/interface bridge add name=bridge-lan comment=&quot;LAN Bridge&quot;
+:do { /interface bridge port add bridge=bridge-lan interface=ether2 } on-error={}
+:do { /interface bridge port add bridge=bridge-lan interface=ether3 } on-error={}
+:do { /interface bridge port add bridge=bridge-lan interface=ether4 } on-error={}
+:do { /interface bridge port add bridge=bridge-lan interface=ether5 } on-error={}
+/ip address add address=10.54.X.1/24 interface=bridge-lan comment=&quot;LAN Gateway&quot;</code></pre>
+<p><strong>Section 4: DNS</strong></p>
+<pre class="routeros"><code>/ip dns set servers=&lt;DNS1&gt;,&lt;DNS2&gt; allow-remote-requests=yes</code></pre>
+<p><strong>Section 5: DHCP Server</strong></p>
+<pre class="routeros"><code>/ip pool add name=lan-pool ranges=10.54.X.100-10.54.X.200
+/ip dhcp-server add name=lan-dhcp interface=bridge-lan address-pool=lan-pool lease-time=24h disabled=no
+/ip dhcp-server network add address=10.54.X.0/24 gateway=10.54.X.1 dns-server=&lt;DNS1&gt;,&lt;DNS2&gt;</code></pre>
+<p><strong>Section 6: NAT</strong></p>
+<pre class="routeros"><code>/ip firewall nat add chain=srcnat out-interface=ether1 action=masquerade comment=&quot;NAT LAN to WAN&quot;</code></pre>
+<p><strong>Section 7: Firewall Input Chain</strong></p>
+<pre class="routeros"><code>/ip firewall filter add chain=input connection-state=established,related action=accept
+/ip firewall filter add chain=input connection-state=invalid action=drop
+/ip firewall filter add chain=input in-interface=bridge-lan action=accept
+/ip firewall filter add chain=input in-interface=ether1 protocol=icmp action=accept
+/ip firewall filter add chain=input in-interface=ether1 protocol=tcp dst-port=8291 action=accept comment=&quot;WAN Winbox&quot;
+/ip firewall filter add chain=input in-interface=ether1 action=drop</code></pre>
+<p><strong>Section 8: Firewall Forward Chain</strong></p>
+<pre class="routeros"><code>/ip firewall filter add chain=forward connection-state=established,related action=accept
+/ip firewall filter add chain=forward connection-state=invalid action=drop
+/ip firewall filter add chain=forward in-interface=bridge-lan action=accept
+/ip firewall filter add chain=forward in-interface=ether1 connection-state=new action=drop</code></pre>
+<p><strong>Section 9: Services</strong></p>
+<pre class="routeros"><code>/ip service set winbox disabled=no
+/ip service set ssh address=10.54.X.0/24 disabled=no
+/ip service set telnet disabled=yes
+/ip service set ftp disabled=yes
+/ip service set www disabled=yes
+/ip service set api disabled=yes
+/ip service set api-ssl disabled=yes</code></pre>
+<p><strong>Section 10: MAC Discovery (LAN Only)</strong></p>
+<pre class="routeros"><code>/interface list add name=LAN
+/interface list member add list=LAN interface=bridge-lan
+/tool mac-server set allowed-interface-list=LAN
+/tool mac-server mac-winbox set allowed-interface-list=LAN
+/ip neighbor discovery-settings set discover-interface-list=LAN
+/tool bandwidth-server set enabled=no</code></pre>
+<p><strong>Section 11: Admin Password</strong></p>
+<pre class="routeros"><code>:do { /user set admin password=&quot;&lt;PASSWORD&gt;&quot; } on-error={ /user add name=admin password=&quot;&lt;PASSWORD&gt;&quot; group=full }</code></pre>
+<hr />
+<h2 id="phase-5-verification">Phase 5: Verification</h2>
+<h4 id="verify-wan-connectivity">6.11 Verify WAN Connectivity</h4>
+<pre class="routeros"><code>/ping 8.8.8.8 count=5
+/ping google.com count=5</code></pre>
+<h4 id="verify-lan-configuration">6.12 Verify LAN Configuration</h4>
+<pre class="routeros"><code>/ip address print
+/interface bridge port print
+/ip dhcp-server print
+/ip pool print</code></pre>
+<h4 id="test-remote-access">6.13 Test Remote Access</h4>
+<p>From external network: - Winbox to <code>&lt;WAN_IP&gt;:8291</code> -
+Should connect successfully</p>
+<h4 id="create-backup">6.14 Create Backup</h4>
+<pre class="routeros"><code>/system backup save name=&lt;CUSTOMER&gt;-initial-config
+/export file=&lt;CUSTOMER&gt;-initial-config</code></pre>
+<p>Download both files via Winbox Files menu.</p>
+<hr />
+<h2 id="phase-6-unifi-ap-adoption">Phase 6: UniFi AP Adoption</h2>
+<h4 id="create-site-in-unifi-site-manager">6.15 Create Site in UniFi
+Site Manager</h4>
+<ol type="1">
+<li>Login to <a href="https://unifi.ui.com">unifi.ui.com</a></li>
+<li>Click “Add Site”</li>
+<li>Enter site name matching customer</li>
+<li>Copy the Site ID from URL</li>
+</ol>
+<h4 id="adopt-access-point">6.16 Adopt Access Point</h4>
+<ol type="1">
+<li>Connect AP to LAN port on MikroTik</li>
+<li>Wait for AP to get DHCP address</li>
+<li>SSH to AP:</li>
+</ol>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> ubnt@<span class="op">&lt;</span>AP_IP<span class="op">&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Default password: ubnt</span></span></code></pre></div>
+<ol start="4" type="1">
+<li>Set inform URL:</li>
+</ol>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">set-inform</span> http://<span class="op">&lt;</span>SITE_ID<span class="op">&gt;</span>.unifi-hosting.ui.com:8080/inform</span></code></pre></div>
+<ol start="5" type="1">
+<li>In UniFi Site Manager:
+<ul>
+<li>Device appears in “Pending Adoption”</li>
+<li>Click “Adopt”</li>
+<li>Wait for provisioning to complete</li>
+</ul></li>
+</ol>
+<h4 id="configure-wifi">6.17 Configure WiFi</h4>
+<ol type="1">
+<li>In UniFi Site Manager</li>
+<li>Go to Settings &gt; WiFi</li>
+<li>Create network(s) as required</li>
+<li>Apply to site</li>
+</ol>
+<hr />
+<h3 id="verification-quality-checks">7.0 Verification &amp; Quality
+Checks</h3>
+<h4 id="deployment-checklist">7.1 Deployment Checklist</h4>
+<ul class="task-list">
+<li><label><input type="checkbox" />Router identity set
+correctly</label></li>
+<li><label><input type="checkbox" />WAN IP responds to ping from
+internet</label></li>
+<li><label><input type="checkbox" />LAN clients get DHCP addresses in
+correct range</label></li>
+<li><label><input type="checkbox" />NAT working (LAN clients can browse
+internet)</label></li>
+<li><label><input type="checkbox" />Winbox accessible from WAN
+IP</label></li>
+<li><label><input type="checkbox" />SSH restricted to LAN
+only</label></li>
+<li><label><input type="checkbox" />Firewall rules in place (6 input, 4
+forward)</label></li>
+<li><label><input type="checkbox" />Router backup saved and
+downloaded</label></li>
+<li><label><input type="checkbox" />UniFi AP adopted and
+online</label></li>
+<li><label><input type="checkbox" />WiFi broadcasting and clients can
+connect</label></li>
+<li><label><input type="checkbox" />Site added to
+monitoring</label></li>
+</ul>
+<hr />
+<h3 id="troubleshooting">8.0 Troubleshooting</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Issue</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Winbox can’t find router in neighbors</td>
+<td>MAC discovery disabled by security config. Connect via direct IP
+instead.</td>
+</tr>
+<tr class="even">
+<td>“Username or password wrong” after import</td>
+<td>Password command may have failed. Try default label password, or
+factory reset if needed.</td>
+</tr>
+<tr class="odd">
+<td>WAN not working after config</td>
+<td>Check if ether1 is still bridged:
+<code>/interface bridge port print</code>. Remove if present.</td>
+</tr>
+<tr class="even">
+<td>DHCP not assigning addresses</td>
+<td>Verify pool exists: <code>/ip pool print</code>. Check server is
+enabled: <code>/ip dhcp-server print</code>.</td>
+</tr>
+<tr class="odd">
+<td>Can’t ping internet from LAN</td>
+<td>Check NAT rule exists: <code>/ip firewall nat print</code>. Verify
+masquerade on srcnat chain.</td>
+</tr>
+<tr class="even">
+<td>AP not appearing for adoption</td>
+<td>Verify AP has IP in LAN range. SSH to AP and run
+<code>set-inform</code> command manually.</td>
+</tr>
+<tr class="odd">
+<td>Locked out after config import</td>
+<td>Router restricts access to configured IP ranges. Connect from LAN to
+regain access.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="related-documents">9.0 Related Documents</h3>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Document</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SOP-NET-002</td>
+<td>MikroTik Configuration (general)</td>
+</tr>
+<tr class="even">
+<td>SOP-NET-005</td>
+<td>Ubiquiti Equipment Configuration</td>
+</tr>
+<tr class="odd">
+<td>SOP-NET-008</td>
+<td>UniFi Bulk Deployment</td>
+</tr>
+<tr class="even">
+<td>SUBNET_ALLOCATION_SCHEME.md</td>
+<td>Customer subnet allocation documentation</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="revision-history">10.0 Revision History</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Version</th>
+<th>Date</th>
+<th>Author</th>
+<th>Change Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0</td>
+<td>2026-01-12</td>
+<td>OberaConnect</td>
+<td>Initial document creation</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="approval">11.0 Approval</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Role</th>
+<th>Signature</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>Technical Lead</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Operations Manager</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="appendix-a-mikrotik-model-lan-port-reference">Appendix A:
+MikroTik Model LAN Port Reference</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>LAN Ports</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RB4011iGS+RM</td>
+<td>ether2-ether10, sfp-sfpplus1</td>
+</tr>
+<tr class="even">
+<td>hEX S (RB760iGS)</td>
+<td>ether2-ether5</td>
+</tr>
+<tr class="odd">
+<td>hAP ac2</td>
+<td>ether2-ether5</td>
+</tr>
+<tr class="even">
+<td>CCR1009</td>
+<td>ether2-ether8</td>
+</tr>
+</tbody>
+</table>
+<h3 id="appendix-b-common-mikrotik-default-passwords">Appendix B: Common
+MikroTik Default Passwords</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Scenario</th>
+<th>Username</th>
+<th>Password</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Factory new (older models)</td>
+<td>admin</td>
+<td>(blank)</td>
+</tr>
+<tr class="even">
+<td>Factory new (newer models)</td>
+<td>admin</td>
+<td>Device label password</td>
+</tr>
+<tr class="odd">
+<td>After “Remove Config”</td>
+<td>admin</td>
+<td>(blank)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="appendix-c-quick-reference-commands">Appendix C: Quick Reference
+Commands</h3>
+<pre class="routeros"><code># Check current config
+/export
+
+# View interfaces
+/interface print
+
+# View IP addresses
+/ip address print
+
+# View firewall rules
+/ip firewall filter print
+/ip firewall nat print
+
+# View DHCP leases
+/ip dhcp-server lease print
+
+# Backup configuration
+/system backup save name=backup
+/export file=backup
+
+# Factory reset
+/system reset-configuration no-defaults=yes</code></pre>
+</body>
+</html>

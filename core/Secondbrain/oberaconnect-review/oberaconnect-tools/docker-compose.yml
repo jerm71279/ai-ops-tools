@@ -1,0 +1,79 @@
+# OberaConnect Tools - Docker Compose Configuration
+#
+# Usage:
+#   # Development (with hot reload)
+#   docker-compose up
+#
+#   # Production
+#   docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#
+#   # Demo mode (no API credentials needed)
+#   OBERACONNECT_DEMO=true docker-compose up
+
+version: '3.8'
+
+services:
+  # ============== API Server ==============
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: oberaconnect-api
+    ports:
+      - "5000:5000"
+    environment:
+      # API Credentials (set in .env file or environment)
+      - UNIFI_API_KEY=${UNIFI_API_KEY:-}
+      - NINJAONE_CLIENT_ID=${NINJAONE_CLIENT_ID:-}
+      - NINJAONE_CLIENT_SECRET=${NINJAONE_CLIENT_SECRET:-}
+      - NINJAONE_BASE_URL=https://us2.ninjarmm.com
+
+      # Redis connection
+      - REDIS_URL=redis://redis:6379/0
+
+      # Logging
+      - LOG_FORMAT=json
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+
+      # Demo mode (set to true for testing without credentials)
+      - OBERACONNECT_DEMO=${OBERACONNECT_DEMO:-false}
+
+      # Cache settings
+      - CACHE_ENABLED=true
+      - CACHE_DEFAULT_TTL=300
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - oberaconnect
+
+  # ============== Redis Cache ==============
+  redis:
+    image: redis:7-alpine
+    container_name: oberaconnect-redis
+    command: redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+    networks:
+      - oberaconnect
+
+networks:
+  oberaconnect:
+    driver: bridge
+
+volumes:
+  redis_data:
+    driver: local

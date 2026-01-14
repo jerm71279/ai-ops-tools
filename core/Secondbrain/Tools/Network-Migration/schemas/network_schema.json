@@ -1,0 +1,270 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://oberaconnect.com/schemas/network-migration/v1",
+  "title": "Network Migration Schema",
+  "description": "Universal schema for network device migration (MikroTik/SonicWall -> UniFi)",
+  "type": "object",
+  "required": ["metadata", "networks"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "description": "Configuration metadata",
+      "required": ["customer_name", "source_platform"],
+      "properties": {
+        "customer_name": {
+          "type": "string",
+          "description": "Customer/site name"
+        },
+        "source_platform": {
+          "type": "string",
+          "enum": ["mikrotik", "sonicwall"],
+          "description": "Source device platform"
+        },
+        "source_device": {
+          "type": "string",
+          "description": "Source device model"
+        },
+        "source_firmware": {
+          "type": "string",
+          "description": "Source device firmware version"
+        },
+        "device_name": {
+          "type": "string",
+          "description": "Device hostname/identity"
+        },
+        "serial_number": {
+          "type": "string",
+          "description": "Device serial number"
+        },
+        "wan_interface": {
+          "type": "string",
+          "description": "WAN interface name"
+        },
+        "wan_ip": {
+          "type": "string",
+          "description": "WAN IP address with CIDR"
+        },
+        "wan_gateway": {
+          "type": "string",
+          "description": "WAN gateway IP"
+        },
+        "parsed_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date config was parsed"
+        },
+        "total_networks": {
+          "type": "integer",
+          "description": "Total number of networks/VLANs"
+        }
+      }
+    },
+    "networks": {
+      "type": "array",
+      "description": "Network/VLAN configurations",
+      "items": {
+        "type": "object",
+        "required": ["name", "vlan_id"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Network name"
+          },
+          "vlan_id": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4094,
+            "description": "VLAN ID (0 for native/untagged)"
+          },
+          "subnet": {
+            "type": "string",
+            "description": "Network subnet in CIDR notation"
+          },
+          "gateway": {
+            "type": "string",
+            "description": "Gateway IP address"
+          },
+          "dhcp_enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "DHCP server enabled"
+          },
+          "dhcp_start": {
+            "type": "string",
+            "description": "DHCP range start IP"
+          },
+          "dhcp_stop": {
+            "type": "string",
+            "description": "DHCP range end IP"
+          },
+          "dns_servers": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "DNS servers for DHCP clients"
+          },
+          "purpose": {
+            "type": "string",
+            "enum": ["corporate", "guest", "iot", "management", "voip"],
+            "default": "corporate",
+            "description": "Network purpose (affects UniFi settings)"
+          },
+          "network_isolation": {
+            "type": "boolean",
+            "default": false,
+            "description": "Isolate network from other LANs"
+          }
+        }
+      }
+    },
+    "firewall_rules": {
+      "type": "array",
+      "description": "Firewall filter rules",
+      "items": {
+        "type": "object",
+        "required": ["action", "chain"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Rule name/comment"
+          },
+          "action": {
+            "type": "string",
+            "enum": ["accept", "drop", "reject"],
+            "description": "Rule action"
+          },
+          "chain": {
+            "type": "string",
+            "enum": ["input", "forward", "output"],
+            "description": "Firewall chain"
+          },
+          "protocol": {
+            "type": "string",
+            "enum": ["tcp", "udp", "icmp", "any"],
+            "description": "Protocol"
+          },
+          "dst_ports": {
+            "type": "array",
+            "items": {"type": "integer"},
+            "description": "Destination ports"
+          },
+          "src_ports": {
+            "type": "array",
+            "items": {"type": "integer"},
+            "description": "Source ports"
+          },
+          "in_interface": {
+            "type": "string",
+            "description": "Incoming interface (wan/lan)"
+          },
+          "out_interface": {
+            "type": "string",
+            "description": "Outgoing interface"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Rule comment"
+          }
+        }
+      }
+    },
+    "nat_rules": {
+      "type": "array",
+      "description": "NAT rules",
+      "items": {
+        "type": "object",
+        "required": ["action", "chain"],
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["masquerade", "src-nat", "dst-nat"],
+            "description": "NAT action"
+          },
+          "chain": {
+            "type": "string",
+            "enum": ["srcnat", "dstnat"],
+            "description": "NAT chain"
+          },
+          "out_interface": {
+            "type": "string"
+          },
+          "in_interface": {
+            "type": "string"
+          },
+          "dst_address": {
+            "type": "string"
+          },
+          "to_address": {
+            "type": "string"
+          },
+          "to_port": {
+            "type": "string"
+          },
+          "protocol": {
+            "type": "string"
+          },
+          "comment": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "port_forwards": {
+      "type": "array",
+      "description": "Port forwarding rules",
+      "items": {
+        "type": "object",
+        "required": ["to_address", "dst_port"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Rule name"
+          },
+          "dst_port": {
+            "type": ["integer", "string"],
+            "description": "External port"
+          },
+          "to_address": {
+            "type": "string",
+            "description": "Internal IP address"
+          },
+          "to_port": {
+            "type": ["integer", "string"],
+            "description": "Internal port"
+          },
+          "protocol": {
+            "type": "string",
+            "enum": ["tcp", "udp", "tcp_udp"],
+            "default": "tcp"
+          }
+        }
+      }
+    },
+    "static_dhcp_leases": {
+      "type": "array",
+      "description": "Static DHCP reservations",
+      "items": {
+        "type": "object",
+        "required": ["mac_address", "ip_address"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Device name"
+          },
+          "mac_address": {
+            "type": "string",
+            "pattern": "^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$",
+            "description": "MAC address"
+          },
+          "ip_address": {
+            "type": "string",
+            "description": "Reserved IP address"
+          },
+          "network": {
+            "type": "string",
+            "description": "Associated network name"
+          }
+        }
+      }
+    }
+  }
+}

@@ -21,15 +21,17 @@ WORKDIR /app
 COPY docker/data-processing/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy tool scripts (from root context)
-COPY sharepoint_importer.py .
-COPY slack_importer.py .
-COPY slab_importer.py .
-COPY slab_scraper.py .
-COPY download_sharepoint.py .
-COPY download_all_sharepoint.py .
-COPY sync_sharepoint.py .
-COPY config.py .
+# Copy core libraries
+COPY core/ ./core/
+
+# Copy tool scripts (from new structure)
+COPY Tools/SharePoint-Sync/sharepoint_importer.py .
+COPY Tools/Data-Processing/slack_importer.py .
+COPY Tools/Data-Processing/slab_importer.py .
+COPY Tools/Data-Processing/slab_scraper.py .
+COPY Tools/SharePoint-Sync/download_sharepoint.py .
+COPY Tools/SharePoint-Sync/download_all_sharepoint.py .
+COPY Tools/SharePoint-Sync/sync_sharepoint.py .
 
 # Copy API server
 COPY docker/data-processing/api_server.py .

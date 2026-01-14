@@ -1,281 +1,566 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OberaConnect Document</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333333;
-            max-width: 8.5in;
-            margin: 0 auto;
-            padding: 0.5in;
-            background: #fff;
-        }
-
-        .header {
-            border-bottom: 3px solid #0066CC;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .logo-img {
-            height: 50px;
-            width: auto;
-        }
-
-        .tagline {
-            font-size: 14px;
-            color: #666666;
-            font-style: italic;
-            margin-left: 2px;
-        }
-
-        .doc-meta {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .doc-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #333333;
-        }
-
-        .doc-date {
-            font-size: 12px;
-            color: #666666;
-        }
-
-        .section {
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #0066CC;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-        }
-
-        .section-content {
-            color: #333333;
-            font-size: 14px;
-        }
-
-        .section-content p {
-            margin-bottom: 10px;
-        }
-
-        .section-content ul {
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
-
-        .section-content li {
-            margin-bottom: 5px;
-        }
-
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 11px;
-            color: #999999;
-            text-align: center;
-        }
-
-        .highlight-box {
-            background: #f5f9ff;
-            border-left: 4px solid #0066CC;
-            padding: 15px;
-            margin: 15px 0;
-        }
-
-        .action-item {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 10px 15px;
-            margin: 10px 0;
-        }
-
-        @media print {
-            body {
-                padding: 0;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOP-HYB-001_Hybrid_AD_v1.0.0</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo-container">
-            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
-            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
-        </div>
-        <div class="tagline">Technology Solutions for Modern Business</div>
-
-        <div class="doc-meta">
-            <div class="doc-title">SOP-HYB-001 Hybrid AD v1.0.0</div>
-            <div class="doc-date">Date: [MM/DD/YYYY]</div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Executive Summary</div>
-        <div class="section-content">
-            <p>Version: 1.0</p>
-<p>Status: Final</p>
-<p>Author: OberaConnect IT</p>
-<p>Date: 2025-12-02</p>
-<p>────────────────────────────────────────────────────────────</p>
-<h1 id="purpose">1.0 Purpose</h1>
+<header id="title-block-header">
+<h1 class="title">SOP-HYB-001_Hybrid_AD_v1.0.0</h1>
+</header>
+<h1
+id="sop-hyb-001-hybrid-active-directory-architecture-and-management">SOP-HYB-001:
+Hybrid Active Directory Architecture and Management</h1>
+<p><strong>Version:</strong> 1.1 <strong>Status:</strong> Final
+<strong>Author:</strong> OberaConnect IT <strong>Date:</strong>
+2025-12-02</p>
+<hr />
+<h2 id="purpose">1.0 Purpose</h2>
 <p>The purpose of this Standard Operating Procedure (SOP) is to document
-the major components of the Setco Hybrid Active Directory (AD)
-environment, which integrates the on-premises Windows Active Directory
-with Microsoft 365 (M365).</p>
-<h1 id="scope">2.0 Scope</h1>
-<p>This SOP applies to the management and troubleshooting of the core
-infrastructure that enables the hybrid AD functionality for Setco. This
-includes the AD Sync service, Active Directory Federation Services
-(ADFS), and related DNS configurations.</p>
-<h1 id="prerequisites">3.0 Prerequisites</h1>
+the major components of a Hybrid Active Directory (AD) environment,
+which integrates on-premises Windows Active Directory with Microsoft
+Entra ID (formerly Azure AD) and Microsoft 365 (M365). This document
+provides guidance for monitoring, maintenance, and troubleshooting.</p>
+<h2 id="scope">2.0 Scope</h2>
+<p>This SOP applies to the management and troubleshooting of hybrid
+identity infrastructure. This includes: - Microsoft Entra Connect
+(formerly Azure AD Connect) synchronization - Active Directory
+Federation Services (ADFS) - DNS configurations for federated
+authentication - Certificate lifecycle management</p>
+<h2 id="prerequisites">3.0 Prerequisites</h2>
 <ul>
-<li><p>Basic understanding of Windows Server Active Directory.</p></li>
-<li><p>Familiarity with Microsoft 365 administration.</p></li>
-<li><p>Knowledge of DNS principles and management.</p></li>
+<li>Basic understanding of Windows Server Active Directory.</li>
+<li>Familiarity with Microsoft 365/Entra ID administration.</li>
+<li>Knowledge of DNS principles and management.</li>
+<li>Access to Entra admin center (entra.microsoft.com).</li>
 </ul>
-<h1 id="procedure">4.0 Procedure</h1>
-<h2 id="setco-dc01-active-directory-sync-service">4.1 Setco-DC01: Active
-Directory Sync Service</h2>
+<h2 id="architecture-components">4.0 Architecture Components</h2>
+<h3 id="directory-synchronization-server-entra-connect">4.1 Directory
+Synchronization Server (Entra Connect)</h3>
+<table>
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Server Role</strong></td>
+<td>Hosts Microsoft Entra Connect (formerly Azure AD Connect)</td>
+</tr>
+<tr class="even">
+<td><strong>Service Name</strong></td>
+<td><code>Microsoft Azure AD Sync</code> (ADSync)</td>
+</tr>
+<tr class="odd">
+<td><strong>Sync Direction</strong></td>
+<td>On-premises AD → Entra ID (one-way by default)</td>
+</tr>
+<tr class="even">
+<td><strong>Sync Frequency</strong></td>
+<td>Every 30 minutes (default)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Points:</strong> - Accounts created directly in Entra
+ID/M365 are NOT synchronized back to on-premises AD. - Password hash
+sync or pass-through authentication handles credential validation. - The
+sync server should NOT be a domain controller in production
+environments.</p>
+<p><strong>Example Configuration:</strong></p>
+<pre><code>Server: DC01 (or dedicated sync server)
+Domain: corp.contoso.com
+Entra Tenant: contoso.onmicrosoft.com</code></pre>
+<h3 id="adfs-server-federation-services">4.2 ADFS Server (Federation
+Services)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Server Role</strong></td>
+<td>Active Directory Federation Services</td>
+</tr>
+<tr class="even">
+<td><strong>Purpose</strong></td>
+<td>Federated authentication for SSO</td>
+</tr>
+<tr class="odd">
+<td><strong>External Access</strong></td>
+<td>Via Web Application Proxy (WAP)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>NOTE:</strong> Microsoft recommends migrating from ADFS to
+Entra ID cloud authentication (Password Hash Sync + Seamless SSO) for
+reduced complexity and improved security.</p>
+</blockquote>
+<h3 id="dns-configuration-for-federation">4.3 DNS Configuration for
+Federation</h3>
+<p>For federated authentication, Microsoft’s authentication service must
+locate your ADFS server:</p>
 <ol type="1">
-<li><p>**Component:** `Setco-DC01`</p></li>
-<li><p>**Role:** Active Directory domain controller responsible for
-synchronizing user accounts and passwords from the on-premises Windows
-Active Directory to M365.</p></li>
-<li><p>**Service Name:** The synchronization service is named `Microsoft
-Azure AD Sync`.</p></li>
-<li><p>**Sync Direction:** The synchronization is one-way, from the
-on-premises AD to M365.</p></li>
-</ol>
+<li><strong>Required DNS Record:</strong>
 <ul>
-<li><p>**Important:** Accounts created directly in M365 will not be
-synchronized back to the on-premises Active Directory.</p></li>
-</ul>
-<ol start="5" type="1">
-<li><p>**Troubleshooting:** If the AD Sync is not updating correctly,
-the first step is to attempt a restart of the `Microsoft Azure AD Sync`
-service on `Setco-DC01`.</p></li>
-</ol>
-<h2 id="setco-adfs01-active-directory-federation-services">4.2
-Setco-ADFS01: Active Directory Federation Services</h2>
-<ol start="6" type="1">
-<li><p>**Component:** `Setco-ADFS01`</p></li>
-<li><p>**Role:** Provides secure, authenticated access to resources for
-domain-joined devices, web applications, and other systems within the
-organization's AD, as well as approved third-party systems.</p></li>
-<li><p>**Authentication Flow:** M365 communicates with the on-premises
-AD environment through the ADFS services for authentication
-purposes.</p></li>
-</ol>
-<h2 id="setco-dns-settings-authentication-discovery">4.3 Setco DNS
-Settings: Authentication Discovery</h2>
-<ol start="9" type="1">
-<li><p>**Mechanism:** Microsoft's authentication services locate the
-on-premises ADFS server by querying public DNS records for the domain
-(`setcoservices.com`).</p></li>
-<li><p>**DNS Record:** The key record is an `A` record with the name
-`externalvalidation`.</p></li>
-<li><p>**Configuration:** The `externalvalidation.setcoservices.com` `A`
-record must be set to the external IP address of the ADFS server
-(`Setco-ADFS01`).</p></li>
-<li><p>**Authentication Process:**</p></li>
-</ol>
+<li>Type: <code>A</code> record</li>
+<li>Name: <code>sts</code> or as configured in ADFS (e.g.,
+<code>sts.contoso.com</code>)</li>
+<li>Value: External IP of ADFS/WAP server</li>
+</ul></li>
+<li><strong>Authentication Flow:</strong>
 <ul>
-<li><p>A user attempts to log in to a Microsoft service.</p></li>
-<li><p>Microsoft's authenticator identifies the user's domain (e.g.,
-`setcoservices.com`).</p></li>
-<li><p>It then looks for the `externalvalidation` `A` record for that
-domain.</p></li>
-<li><p>Authentication requests are directed to the IP address specified
-in that record, which is the ADFS server. The IP address itself is
-configured in Azure.</p></li>
-</ul>
-<h1 id="verification">5.0 Verification</h1>
-<ol start="13" type="1">
-<li><p>**AD Sync Health:** Check the synchronization status in the
-Microsoft 365 admin center to ensure that the last sync was successful
-and recent.</p></li>
-<li><p>**M365 Login:** Have a test user attempt to log in to the M365
-portal. A successful login that redirects to the organization's ADFS
-login page and then back to M365 confirms that the ADFS and DNS
-configuration is working.</p></li>
+<li>User attempts M365 login</li>
+<li>Microsoft identifies federated domain</li>
+<li>Redirects to organization’s ADFS endpoint</li>
+<li>ADFS authenticates against on-premises AD</li>
+<li>Token returned to Microsoft for access</li>
+</ul></li>
 </ol>
-<h1 id="additional-considerations">6.0 Additional Considerations</h1>
+<h2 id="monitoring-and-health-checks">5.0 Monitoring and Health
+Checks</h2>
+<h3 id="entra-connect-health-monitoring">5.1 Entra Connect Health
+Monitoring</h3>
+<ol type="1">
+<li><p><strong>Access Entra Connect Health:</strong></p>
 <ul>
-<li><p>Any changes to the external IP address of the `Setco-ADFS01`
-server must be reflected in the `externalvalidation.setcoservices.com`
-DNS `A` record to avoid authentication failures.</p></li>
-<li><p>The `Microsoft Azure AD Sync` service should be monitored for any
-stoppage or errors, as this will prevent password and user object
-changes from being reflected in M365.</p></li>
+<li>Navigate to: <strong>entra.microsoft.com &gt; Identity &gt; Hybrid
+management &gt; Microsoft Entra Connect &gt; Connect
+Health</strong></li>
+<li>Or: <strong>Microsoft 365 Admin Center &gt; Health &gt; Directory
+sync status</strong></li>
+</ul></li>
+<li><p><strong>Key Metrics to Monitor:</strong> | Metric | Healthy State
+| Action if Unhealthy | |——–|—————|———————| | Last sync time | Within 3
+hours | Check ADSync service, run manual sync | | Sync errors | 0 |
+Review sync error report, fix attribute conflicts | | Export errors | 0
+| Check connector space, verify object permissions | | Password sync |
+Enabled (if used) | Verify service account, check event logs |</p></li>
+<li><p><strong>Manual Sync Commands (PowerShell on sync
+server):</strong></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check sync status</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>ADSyncScheduler</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Force delta sync</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Start<span class="op">-</span>ADSyncSyncCycle <span class="op">-</span>PolicyType Delta</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Force full sync (use sparingly)</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>Start<span class="op">-</span>ADSyncSyncCycle <span class="op">-</span>PolicyType Initial</span></code></pre></div></li>
+<li><p><strong>Event Logs to Review:</strong></p>
+<ul>
+<li>Application Log: Source <code>Directory Synchronization</code></li>
+<li>Application Log: Source <code>ADSync</code></li>
+</ul></li>
+</ol>
+<h3 id="adfs-health-monitoring">5.2 ADFS Health Monitoring</h3>
+<ol type="1">
+<li><p><strong>ADFS Event Logs:</strong></p>
+<ul>
+<li>Event Viewer &gt; Applications and Services Logs &gt; AD FS &gt;
+Admin</li>
+</ul></li>
+<li><p><strong>Test ADFS Connectivity:</strong>
+<code>powershell     # From ADFS server     Get-AdfsProperties     Test-AdfsServiceHealth</code></p></li>
+<li><p><strong>External Test:</strong></p>
+<ul>
+<li>Navigate to:
+<code>https://sts.contoso.com/adfs/ls/IdpInitiatedSignon.aspx</code></li>
+<li>Should display ADFS sign-in page</li>
+</ul></li>
+</ol>
+<h2 id="certificate-management-critical">6.0 Certificate Management
+(CRITICAL)</h2>
+<h3 id="adfs-certificates-overview">6.1 ADFS Certificates Overview</h3>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 18%" />
+<col style="width: 20%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Certificate</th>
+<th>Purpose</th>
+<th>Location</th>
+<th>Typical Validity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Service Communications</td>
+<td>SSL/TLS for ADFS endpoints</td>
+<td>ADFS server</td>
+<td>1-2 years</td>
+</tr>
+<tr class="even">
+<td>Token Signing</td>
+<td>Signs SAML tokens</td>
+<td>ADFS (auto-generated)</td>
+<td>1 year (auto-rollover)</td>
+</tr>
+<tr class="odd">
+<td>Token Decryption</td>
+<td>Decrypts incoming tokens</td>
+<td>ADFS (auto-generated)</td>
+<td>1 year (auto-rollover)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="certificate-renewal-procedure">6.2 Certificate Renewal
+Procedure</h3>
+<p><strong>For Service Communications Certificate (SSL):</strong></p>
+<ol type="1">
+<li><p><strong>Obtain new certificate</strong> from CA (public or
+internal).</p></li>
+<li><p><strong>Import to ADFS server:</strong>
+<code>powershell     # Import certificate to Local Machine\Personal store     Import-PfxCertificate -FilePath "C:\certs\newcert.pfx" -CertStoreLocation Cert:\LocalMachine\My -Password (ConvertTo-SecureString -String "password" -AsPlainText -Force)</code></p></li>
+<li><p><strong>Update ADFS to use new certificate:</strong></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get thumbprint of new certificate</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-ChildItem</span> Cert<span class="op">:</span>\LocalMachine\My <span class="op">|</span> <span class="fu">Where-Object</span> <span class="op">{</span><span class="va">$_</span><span class="op">.</span><span class="fu">Subject</span> <span class="op">-</span>like <span class="st">&quot;*sts.contoso.com*&quot;</span><span class="op">}</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set new certificate</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Set<span class="op">-</span>AdfsSslCertificate <span class="op">-</span>Thumbprint <span class="st">&quot;&lt;new_thumbprint&gt;&quot;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Set<span class="op">-</span>AdfsCertificate <span class="op">-</span>CertificateType Service<span class="op">-</span>Communications <span class="op">-</span>Thumbprint <span class="st">&quot;&lt;new_thumbprint&gt;&quot;</span></span></code></pre></div></li>
+<li><p><strong>Restart ADFS service:</strong>
+<code>powershell     Restart-Service adfssrv</code></p></li>
+<li><p><strong>Update WAP servers</strong> (if applicable):
+<code>powershell     Set-WebApplicationProxySslCertificate -Thumbprint "&lt;new_thumbprint&gt;"</code></p></li>
+</ol>
+<h3 id="certificate-expiration-monitoring">6.3 Certificate Expiration
+Monitoring</h3>
+<ol type="1">
+<li><p><strong>Check current certificates:</strong>
+<code>powershell     Get-AdfsCertificate | Select-Object CertificateType, Certificate, Thumbprint | Format-Table</code></p></li>
+<li><p><strong>Set calendar reminders</strong> 30 days before
+expiration.</p></li>
+<li><p><strong>Enable auto-rollover</strong> for token
+signing/decryption (enabled by default):
+<code>powershell     Set-AdfsProperties -AutoCertificateRollover $true</code></p></li>
+</ol>
+<h2 id="troubleshooting">7.0 Troubleshooting</h2>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 34%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Issue</th>
+<th>Symptoms</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sync not running</td>
+<td>Objects not appearing in Entra ID</td>
+<td>Check ADSync service status, run
+<code>Start-ADSyncSyncCycle</code></td>
+</tr>
+<tr class="even">
+<td>Password sync failures</td>
+<td>Users can’t sign in with new passwords</td>
+<td>Check password hash sync status, verify service account</td>
+</tr>
+<tr class="odd">
+<td>ADFS login fails</td>
+<td>Redirect to ADFS times out</td>
+<td>Check ADFS service, verify DNS, check firewall rules for 443</td>
+</tr>
+<tr class="even">
+<td>Certificate errors</td>
+<td>Browser SSL warnings on ADFS page</td>
+<td>Renew SSL certificate per Section 6.2</td>
+</tr>
+<tr class="odd">
+<td>“User not found” in M365</td>
+<td>Account exists on-prem but not in cloud</td>
+<td>Check sync scope filters, verify OU is in sync</td>
+</tr>
+<tr class="even">
+<td>Duplicate object errors</td>
+<td>Sync errors for specific users</td>
+<td>Check for soft-matched objects, use <code>IdFix</code> tool</td>
+</tr>
+</tbody>
+</table>
+<h2 id="related-documents">8.0 Related Documents</h2>
+<ul>
+<li>SOP-AD-001: Active Directory Domain Connection Troubleshooting</li>
+<li>SOP-M365-001: Microsoft 365 Governance and Administration</li>
+<li>Microsoft Docs:
+https://learn.microsoft.com/en-us/entra/identity/hybrid/</li>
 </ul>
-
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Details</div>
-        <div class="section-content">
-            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
-
-            <div class="highlight-box">
-                <strong>Key Point:</strong> [Important information to highlight]
-            </div>
-
-            <p>Supporting details:</p>
-            <ul>
-                <li>[Detail item 1]</li>
-                <li>[Detail item 2]</li>
-                <li>[Detail item 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Next Steps</div>
-        <div class="section-content">
-            <div class="action-item">
-                <strong>Action Required:</strong> [Specific action item with owner and deadline]
-            </div>
-
-            <ul>
-                <li>[Next step 1]</li>
-                <li>[Next step 2]</li>
-                <li>[Next step 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="footer">
-        OberaConnect LLC | www.oberaconnect.com | Confidential
-    </div>
+<h2 id="revision-history">9.0 Revision History</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 16%" />
+<col style="width: 22%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Version</th>
+<th>Date</th>
+<th>Author</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0</td>
+<td>2025-12-02</td>
+<td>OberaConnect IT</td>
+<td>Initial document creation (Setco-specific).</td>
+</tr>
+<tr class="even">
+<td>1.1</td>
+<td>2025-12-29</td>
+<td>Jeremy Smith</td>
+<td>SME Review: Generalized for reuse across clients. Updated
+terminology to Entra ID. Added Section 5.0 (Monitoring and Health
+Checks). Added Section 6.0 (Certificate Management). Added comprehensive
+troubleshooting table.</td>
+</tr>
+</tbody>
+</table>
 </body>
 </html>

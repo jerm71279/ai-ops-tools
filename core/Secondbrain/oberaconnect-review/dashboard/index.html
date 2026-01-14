@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OberaConnect Fleet Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .chat-message { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    <div class="container mx-auto p-4 max-w-6xl">
+        <!-- Header -->
+        <header class="mb-6">
+            <h1 class="text-3xl font-bold text-blue-400">OberaConnect Fleet Dashboard</h1>
+            <p class="text-gray-400">UniFi Fleet Query Engine</p>
+        </header>
+        
+        <!-- Summary Cards -->
+        <div id="summary-cards" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-gray-800 rounded-lg p-4">
+                <div class="text-gray-400 text-sm">Total Sites</div>
+                <div id="total-sites" class="text-2xl font-bold text-blue-400">--</div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-4">
+                <div class="text-gray-400 text-sm">Fleet Health</div>
+                <div id="fleet-health" class="text-2xl font-bold text-green-400">--%</div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-4">
+                <div class="text-gray-400 text-sm">Total Devices</div>
+                <div id="total-devices" class="text-2xl font-bold text-purple-400">--</div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-4">
+                <div class="text-gray-400 text-sm">Offline Devices</div>
+                <div id="offline-devices" class="text-2xl font-bold text-red-400">--</div>
+            </div>
+        </div>
+        
+        <!-- Chat Interface -->
+        <div class="bg-gray-800 rounded-lg overflow-hidden">
+            <div class="p-4 border-b border-gray-700">
+                <h2 class="text-lg font-semibold">Query Engine</h2>
+                <p class="text-sm text-gray-400">Ask questions about your fleet in natural language</p>
+            </div>
+            
+            <!-- Chat History -->
+            <div id="chat-history" class="h-96 overflow-y-auto p-4 space-y-4">
+                <div class="chat-message bg-gray-700 rounded-lg p-3">
+                    <div class="text-blue-400 font-medium">System</div>
+                    <div class="text-gray-300">Welcome! Try queries like:</div>
+                    <ul class="text-gray-400 text-sm mt-2 list-disc list-inside">
+                        <li>summary</li>
+                        <li>show sites with offline devices</li>
+                        <li>top 5 by clients</li>
+                        <li>group by ISP</li>
+                        <li>find setco</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Input -->
+            <div class="p-4 border-t border-gray-700">
+                <form id="query-form" class="flex gap-2">
+                    <input 
+                        type="text" 
+                        id="query-input"
+                        placeholder="Enter your query..."
+                        class="flex-1 bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+                        autocomplete="off"
+                    >
+                    <button 
+                        type="submit"
+                        class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-medium transition-colors"
+                    >
+                        Query
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Results Table -->
+        <div id="results-section" class="mt-6 hidden">
+            <div class="bg-gray-800 rounded-lg overflow-hidden">
+                <div class="p-4 border-b border-gray-700">
+                    <h2 class="text-lg font-semibold">Results</h2>
+                    <p id="results-message" class="text-sm text-gray-400"></p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-700">
+                            <tr>
+                                <th class="px-4 py-2 text-left">Site</th>
+                                <th class="px-4 py-2 text-left">Status</th>
+                                <th class="px-4 py-2 text-right">Devices</th>
+                                <th class="px-4 py-2 text-right">Offline</th>
+                                <th class="px-4 py-2 text-right">Clients</th>
+                                <th class="px-4 py-2 text-left">ISP</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="analyzer.js"></script>
+    <script>
+        // Demo site data
+        const demoSites = [
+            { id: 'demo-001', name: 'Setco Industries', totalDevices: 8, offlineDevices: 0, totalClients: 45, apCount: 4, switchCount: 3, gatewayCount: 1, isp: 'Verizon', healthScore: 95, healthStatus: 'healthy' },
+            { id: 'demo-002', name: 'Hoods Discount Home', totalDevices: 12, offlineDevices: 2, totalClients: 87, apCount: 6, switchCount: 4, gatewayCount: 2, isp: 'Lumen', healthScore: 75, healthStatus: 'warning' },
+            { id: 'demo-003', name: 'Kinder Academy Main', totalDevices: 6, offlineDevices: 1, totalClients: 32, apCount: 3, switchCount: 2, gatewayCount: 1, isp: 'AT&T', healthScore: 80, healthStatus: 'warning' },
+            { id: 'demo-004', name: 'Celebration Church', totalDevices: 15, offlineDevices: 0, totalClients: 156, apCount: 8, switchCount: 5, gatewayCount: 2, isp: 'Spectrum', healthScore: 98, healthStatus: 'healthy' },
+            { id: 'demo-005', name: 'Gulf Shores Medical', totalDevices: 10, offlineDevices: 3, totalClients: 28, apCount: 5, switchCount: 4, gatewayCount: 1, isp: 'Comcast', healthScore: 55, healthStatus: 'critical' },
+            { id: 'demo-006', name: 'Mobile Bay Construction', totalDevices: 5, offlineDevices: 0, totalClients: 18, apCount: 2, switchCount: 2, gatewayCount: 1, isp: 'Verizon', healthScore: 100, healthStatus: 'healthy' },
+            { id: 'demo-007', name: 'Fairhope Dental', totalDevices: 4, offlineDevices: 0, totalClients: 12, apCount: 2, switchCount: 1, gatewayCount: 1, isp: 'AT&T', healthScore: 100, healthStatus: 'healthy' },
+            { id: 'demo-008', name: 'Daphne Auto Group', totalDevices: 20, offlineDevices: 1, totalClients: 95, apCount: 10, switchCount: 7, gatewayCount: 3, isp: 'Lumen', healthScore: 88, healthStatus: 'healthy' }
+        ];
+        
+        // Initialize analyzer
+        const analyzer = new UniFiAnalyzer(demoSites);
+        
+        // Update summary cards
+        function updateSummary() {
+            const summary = analyzer.getSummary();
+            document.getElementById('total-sites').textContent = summary.totalSites;
+            document.getElementById('fleet-health').textContent = summary.fleetHealthScore + '%';
+            document.getElementById('total-devices').textContent = summary.totalDevices;
+            document.getElementById('offline-devices').textContent = summary.offlineDevices;
+            
+            // Color code health
+            const healthEl = document.getElementById('fleet-health');
+            if (summary.fleetHealthScore >= 90) healthEl.classList.add('text-green-400');
+            else if (summary.fleetHealthScore >= 70) healthEl.classList.add('text-yellow-400');
+            else healthEl.classList.add('text-red-400');
+        }
+        
+        // Add message to chat
+        function addMessage(sender, content, isHtml = false) {
+            const history = document.getElementById('chat-history');
+            const msg = document.createElement('div');
+            msg.className = 'chat-message bg-gray-700 rounded-lg p-3';
+            
+            const senderColor = sender === 'You' ? 'text-green-400' : 'text-blue-400';
+            msg.innerHTML = `
+                <div class="${senderColor} font-medium">${sender}</div>
+                <div class="text-gray-300">${isHtml ? content : escapeHtml(content)}</div>
+            `;
+            
+            history.appendChild(msg);
+            history.scrollTop = history.scrollHeight;
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Display results
+        function displayResults(result) {
+            const section = document.getElementById('results-section');
+            const body = document.getElementById('results-body');
+            const message = document.getElementById('results-message');
+            
+            message.textContent = result.message;
+            body.innerHTML = '';
+            
+            const data = Array.isArray(result.data) ? result.data : [];
+            
+            if (data.length === 0) {
+                section.classList.add('hidden');
+                return;
+            }
+            
+            section.classList.remove('hidden');
+            
+            data.slice(0, 20).forEach(site => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-t border-gray-700 hover:bg-gray-700';
+                
+                const statusIcon = site.healthStatus === 'healthy' ? '🟢' : 
+                                   site.healthStatus === 'warning' ? '🟡' : '🔴';
+                
+                tr.innerHTML = `
+                    <td class="px-4 py-2">${escapeHtml(site.name)}</td>
+                    <td class="px-4 py-2">${statusIcon} ${site.healthStatus}</td>
+                    <td class="px-4 py-2 text-right">${site.totalDevices}</td>
+                    <td class="px-4 py-2 text-right ${site.offlineDevices > 0 ? 'text-red-400' : ''}">${site.offlineDevices}</td>
+                    <td class="px-4 py-2 text-right">${site.totalClients}</td>
+                    <td class="px-4 py-2">${escapeHtml(site.isp || 'Unknown')}</td>
+                `;
+                
+                body.appendChild(tr);
+            });
+        }
+        
+        // Handle query
+        function handleQuery(query) {
+            addMessage('You', query);
+            
+            const result = analyzer.analyze(query);
+            
+            let response = result.message;
+            
+            if (result.intent === 'SUMMARY') {
+                const s = result.data;
+                response = `
+                    <strong>Fleet Summary</strong><br>
+                    Sites: ${s.totalSites} (${s.healthySites} healthy, ${s.criticalSites} critical)<br>
+                    Devices: ${s.totalDevices} (${s.offlineDevices} offline)<br>
+                    Clients: ${s.totalClients}<br>
+                    Fleet Health: ${s.fleetHealthScore}%
+                `;
+                addMessage('System', response, true);
+            } else if (result.intent === 'GROUP') {
+                const groups = result.data.groups;
+                let groupText = `<strong>Grouped by ${result.data.groupedBy}</strong><br>`;
+                for (const [key, count] of Object.entries(groups)) {
+                    groupText += `${key}: ${count} sites<br>`;
+                }
+                addMessage('System', groupText, true);
+            } else {
+                addMessage('System', response);
+            }
+            
+            displayResults(result);
+        }
+        
+        // Event listeners
+        document.getElementById('query-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const input = document.getElementById('query-input');
+            const query = input.value.trim();
+            if (query) {
+                handleQuery(query);
+                input.value = '';
+            }
+        });
+        
+        // Initialize
+        updateSummary();
+    </script>
+</body>
+</html>

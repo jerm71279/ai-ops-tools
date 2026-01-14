@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOP-AZ-005_Azure_VHD_Export_Import_v1.0</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="/dev/null" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">SOP-AZ-005_Azure_VHD_Export_Import_v1.0</h1>
+</header>
+<h1
+id="standard-operating-procedure-azure-vhd-export-and-import">Standard
+Operating Procedure: Azure VHD Export and Import</h1>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>Document ID:</strong></td>
+<td>SOP-AZ-005</td>
+</tr>
+<tr class="even">
+<td><strong>Title:</strong></td>
+<td>Azure VHD Export and Import</td>
+</tr>
+<tr class="odd">
+<td><strong>Category:</strong></td>
+<td>Azure/Cloud</td>
+</tr>
+<tr class="even">
+<td><strong>Version:</strong></td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td><strong>Status:</strong></td>
+<td>Draft</td>
+</tr>
+<tr class="even">
+<td><strong>Author:</strong></td>
+<td>OberaConnect</td>
+</tr>
+<tr class="odd">
+<td><strong>Creation Date:</strong></td>
+<td>2026-01-12</td>
+</tr>
+<tr class="even">
+<td><strong>Approval Date:</strong></td>
+<td>Pending</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="purpose">1.0 Purpose</h3>
+<p>This procedure documents the process for exporting Virtual Hard Disks
+(VHDs) from Azure VMs and importing them into different Azure
+subscriptions or tenants. This enables VM migration, disaster recovery,
+and infrastructure cloning scenarios.</p>
+<h3 id="scope">2.0 Scope</h3>
+<p>This SOP applies to: - Exporting Azure managed disks to VHD format -
+Transferring VHDs between Azure storage accounts - Importing VHDs to
+create new managed disks - Cross-tenant and cross-subscription disk
+transfers</p>
+<h3 id="definitions">3.0 Definitions</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 66%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Managed Disk</strong></td>
+<td>Azure-managed storage disk with automatic replication</td>
+</tr>
+<tr class="even">
+<td><strong>VHD</strong></td>
+<td>Virtual Hard Disk format used by Azure</td>
+</tr>
+<tr class="odd">
+<td><strong>Snapshot</strong></td>
+<td>Point-in-time copy of a managed disk</td>
+</tr>
+<tr class="even">
+<td><strong>SAS URL</strong></td>
+<td>Shared Access Signature URL for secure blob access</td>
+</tr>
+<tr class="odd">
+<td><strong>AzCopy</strong></td>
+<td>Microsoft’s high-performance Azure storage transfer tool</td>
+</tr>
+<tr class="even">
+<td><strong>PageBlob</strong></td>
+<td>Azure blob type required for VHD storage</td>
+</tr>
+</tbody>
+</table>
+<h3 id="roles-responsibilities">4.0 Roles &amp; Responsibilities</h3>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 72%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Role</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Source Admin</strong></td>
+<td>Create snapshots, generate SAS URLs, initiate export</td>
+</tr>
+<tr class="even">
+<td><strong>Destination Admin</strong></td>
+<td>Prepare storage, receive VHDs, create disks</td>
+</tr>
+<tr class="odd">
+<td><strong>Security Admin</strong></td>
+<td>Approve cross-tenant transfers, manage SAS tokens</td>
+</tr>
+</tbody>
+</table>
+<h3 id="prerequisites">5.0 Prerequisites</h3>
+<h4 id="source-environment">5.1 Source Environment</h4>
+<ul class="task-list">
+<li><label><input type="checkbox" />Azure CLI or PowerShell Az module
+installed</label></li>
+<li><label><input type="checkbox" />Contributor access to source
+subscription</label></li>
+<li><label><input type="checkbox" />VM stopped/deallocated for
+consistent snapshot</label></li>
+<li><label><input type="checkbox" />Sufficient storage quota for
+snapshots</label></li>
+</ul>
+<h4 id="destination-environment">5.2 Destination Environment</h4>
+<ul class="task-list">
+<li><label><input type="checkbox" />Storage account created in target
+subscription</label></li>
+<li><label><input type="checkbox" />Blob container for VHD
+import</label></li>
+<li><label><input type="checkbox" />Sufficient storage quota for managed
+disks</label></li>
+</ul>
+<h4 id="tools-required">5.3 Tools Required</h4>
+<ul class="task-list">
+<li><label><input type="checkbox" />Azure CLI (<code>az</code>) or
+PowerShell Az module</label></li>
+<li><label><input type="checkbox" />AzCopy v10 or later</label></li>
+<li><label><input type="checkbox" />Azure Storage Explorer (optional,
+for GUI)</label></li>
+</ul>
+<hr />
+<h3 id="procedure">6.0 Procedure</h3>
+<h2 id="part-a-vhd-export-source-tenant">Part A: VHD Export (Source
+Tenant)</h2>
+<h4 id="stop-and-deallocate-vm">6.1 Stop and Deallocate VM</h4>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stop VM to ensure consistent disk state</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> vm deallocate <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>SOURCE_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>VM_NAME<span class="op">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify VM is deallocated</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> vm get-instance-view <span class="dt">\</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>SOURCE_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>VM_NAME<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--query</span> <span class="st">&quot;instanceView.statuses[?starts_with(code, &#39;PowerState&#39;)].displayStatus&quot;</span> <span class="dt">\</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> tsv</span></code></pre></div>
+<p>Expected output: <code>VM deallocated</code></p>
+<h4 id="create-snapshot-of-os-disk">6.2 Create Snapshot of OS Disk</h4>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get OS disk name</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">OS_DISK</span><span class="op">=</span><span class="va">$(</span><span class="ex">az</span> vm show <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>SOURCE_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>VM_NAME<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--query</span> <span class="st">&quot;storageProfile.osDisk.name&quot;</span> <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> tsv<span class="va">)</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create snapshot</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> snapshot create <span class="dt">\</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>SOURCE_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>VM_NAME<span class="op">&gt;</span>-os-snapshot-<span class="va">$(</span><span class="fu">date</span> +%Y%m%d<span class="va">)</span> <span class="dt">\</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--source</span> <span class="va">$OS_DISK</span> <span class="dt">\</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--sku</span> Standard_LRS</span></code></pre></div>
+<h4 id="create-snapshot-of-data-disks">6.3 Create Snapshot of Data
+Disk(s)</h4>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List data disks</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> vm show <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>SOURCE_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>VM_NAME<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--query</span> <span class="st">&quot;storageProfile.dataDisks[].name&quot;</span> <span class="dt">\</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> tsv</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create snapshot for each data disk</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> snapshot create <span class="dt">\</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>SOURCE_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>VM_NAME<span class="op">&gt;</span>-data-snapshot-<span class="va">$(</span><span class="fu">date</span> +%Y%m%d<span class="va">)</span> <span class="dt">\</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--source</span> <span class="op">&lt;</span>DATA_DISK_NAME<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--sku</span> Standard_LRS</span></code></pre></div>
+<h4 id="generate-sas-url-for-export">6.4 Generate SAS URL for
+Export</h4>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grant access and get SAS URL (valid for 24 hours)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> snapshot grant-access <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>SOURCE_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>VM_NAME<span class="op">&gt;</span>-os-snapshot-<span class="va">$(</span><span class="fu">date</span> +%Y%m%d<span class="va">)</span> <span class="dt">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--duration-in-seconds</span> 86400 <span class="dt">\</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--access-level</span> Read <span class="dt">\</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--query</span> <span class="st">&quot;accessSas&quot;</span> <span class="dt">\</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> tsv</span></code></pre></div>
+<p><strong>Save this SAS URL - needed for transfer!</strong></p>
+<p>Repeat for data disk snapshots.</p>
+<h4 id="alternative-export-directly-from-managed-disk">6.5 Alternative:
+Export Directly from Managed Disk</h4>
+<p>If you don’t want to create snapshots:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grant access to managed disk directly</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> disk grant-access <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>SOURCE_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>DISK_NAME<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--duration-in-seconds</span> 86400 <span class="dt">\</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--access-level</span> Read <span class="dt">\</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--query</span> <span class="st">&quot;accessSas&quot;</span> <span class="dt">\</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> tsv</span></code></pre></div>
+<p><strong>Note:</strong> VM must remain deallocated during export.</p>
+<hr />
+<h2 id="part-b-vhd-transfer">Part B: VHD Transfer</h2>
+<h4 id="option-1-direct-transfer-with-azcopy-recommended">6.6 Option 1:
+Direct Transfer with AzCopy (Recommended)</h4>
+<p>Transfer directly from source to destination storage:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install AzCopy if not present</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Download from: https://aka.ms/downloadazcopy</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Transfer VHD</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">azcopy</span> copy <span class="dt">\</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;&lt;SOURCE_SAS_URL&gt;&quot;</span> <span class="dt">\</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://&lt;DEST_STORAGE&gt;.blob.core.windows.net/&lt;CONTAINER&gt;/os-disk.vhd?&lt;DEST_SAS&gt;&quot;</span> <span class="dt">\</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--blob-type</span> PageBlob</span></code></pre></div>
+<p><strong>Important:</strong> Use <code>--blob-type PageBlob</code> for
+VHDs!</p>
+<h4 id="option-2-download-then-upload">6.7 Option 2: Download Then
+Upload</h4>
+<p>If direct transfer isn’t possible:</p>
+<p><strong>Download to local:</strong></p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">azcopy</span> copy <span class="st">&quot;&lt;SOURCE_SAS_URL&gt;&quot;</span> <span class="st">&quot;C:\VHD-Export\os-disk.vhd&quot;</span></span></code></pre></div>
+<p><strong>Upload to destination:</strong></p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">azcopy</span> copy <span class="dt">\</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;C:\VHD-Export\os-disk.vhd&quot;</span> <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://&lt;DEST_STORAGE&gt;.blob.core.windows.net/&lt;CONTAINER&gt;/os-disk.vhd?&lt;DEST_SAS&gt;&quot;</span> <span class="dt">\</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--blob-type</span> PageBlob</span></code></pre></div>
+<h4 id="option-3-azure-storage-explorer-gui">6.8 Option 3: Azure Storage
+Explorer (GUI)</h4>
+<ol type="1">
+<li>Open Azure Storage Explorer</li>
+<li>Connect to source storage account</li>
+<li>Navigate to snapshot/disk blob</li>
+<li>Right-click &gt; Copy</li>
+<li>Connect to destination storage account</li>
+<li>Navigate to target container</li>
+<li>Right-click &gt; Paste</li>
+</ol>
+<h4 id="monitor-transfer-progress">6.9 Monitor Transfer Progress</h4>
+<p>AzCopy shows progress automatically. For large VHDs:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check transfer status</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">azcopy</span> jobs list</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">azcopy</span> jobs show <span class="op">&lt;</span>JOB_ID<span class="op">&gt;</span></span></code></pre></div>
+<hr />
+<h2 id="part-c-vhd-import-destination-tenant">Part C: VHD Import
+(Destination Tenant)</h2>
+<h4 id="prepare-destination-storage-account">6.10 Prepare Destination
+Storage Account</h4>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create storage account (if not exists)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> storage account create <span class="dt">\</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>DEST_STORAGE<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>DEST_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--location</span> <span class="op">&lt;</span>REGION<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--sku</span> Standard_LRS</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create container</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> storage container create <span class="dt">\</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--account-name</span> <span class="op">&lt;</span>DEST_STORAGE<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> vhd-import <span class="dt">\</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--auth-mode</span> login</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate SAS token for uploads</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> storage container generate-sas <span class="dt">\</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--account-name</span> <span class="op">&lt;</span>DEST_STORAGE<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> vhd-import <span class="dt">\</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">--permissions</span> racwdl <span class="dt">\</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">--expiry</span> <span class="va">$(</span><span class="fu">date</span> <span class="at">-u</span> <span class="at">-d</span> <span class="st">&quot;7 days&quot;</span> <span class="st">&#39;+%Y-%m-%dT%H:%MZ&#39;</span><span class="va">)</span> <span class="dt">\</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">--auth-mode</span> login <span class="dt">\</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--as-user</span> <span class="dt">\</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> tsv</span></code></pre></div>
+<h4 id="verify-vhd-upload">6.11 Verify VHD Upload</h4>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List blobs in container</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> storage blob list <span class="dt">\</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--account-name</span> <span class="op">&lt;</span>DEST_STORAGE<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--container-name</span> vhd-import <span class="dt">\</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> table <span class="dt">\</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--auth-mode</span> login</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Check blob properties</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> storage blob show <span class="dt">\</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--account-name</span> <span class="op">&lt;</span>DEST_STORAGE<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--container-name</span> vhd-import <span class="dt">\</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> os-disk.vhd <span class="dt">\</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--auth-mode</span> login</span></code></pre></div>
+<p>Verify: - Blob Type: PageBlob - Size matches source</p>
+<h4 id="create-managed-disk-from-vhd">6.12 Create Managed Disk from
+VHD</h4>
+<p><strong>For OS Disk:</strong></p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get VHD URL</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="va">VHD_URL</span><span class="op">=</span><span class="va">$(</span><span class="ex">az</span> storage blob url <span class="dt">\</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--account-name</span> <span class="op">&lt;</span>DEST_STORAGE<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--container-name</span> vhd-import <span class="dt">\</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> os-disk.vhd <span class="dt">\</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--auth-mode</span> login <span class="dt">\</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> tsv<span class="va">)</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create OS managed disk</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> disk create <span class="dt">\</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>DEST_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>NEW_VM<span class="op">&gt;</span>-OS-Disk <span class="dt">\</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--location</span> <span class="op">&lt;</span>REGION<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--sku</span> Premium_LRS <span class="dt">\</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--source</span> <span class="st">&quot;</span><span class="va">$VHD_URL</span><span class="st">&quot;</span> <span class="dt">\</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--os-type</span> Windows</span></code></pre></div>
+<p><strong>For Data Disk:</strong></p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="va">DATA_VHD_URL</span><span class="op">=</span><span class="va">$(</span><span class="ex">az</span> storage blob url <span class="dt">\</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--account-name</span> <span class="op">&lt;</span>DEST_STORAGE<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--container-name</span> vhd-import <span class="dt">\</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> data-disk.vhd <span class="dt">\</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--auth-mode</span> login <span class="dt">\</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> tsv<span class="va">)</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> disk create <span class="dt">\</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>DEST_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>NEW_VM<span class="op">&gt;</span>-Data-Disk <span class="dt">\</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--location</span> <span class="op">&lt;</span>REGION<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--sku</span> Standard_LRS <span class="dt">\</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--source</span> <span class="st">&quot;</span><span class="va">$DATA_VHD_URL</span><span class="st">&quot;</span></span></code></pre></div>
+<p><strong>Disk creation time:</strong> 10-30 minutes depending on
+size.</p>
+<h4 id="verify-disk-creation">6.13 Verify Disk Creation</h4>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> disk show <span class="dt">\</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>DEST_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>NEW_VM<span class="op">&gt;</span>-OS-Disk <span class="dt">\</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--query</span> <span class="st">&quot;{Name:name, State:provisioningState, Size:diskSizeGb}&quot;</span> <span class="dt">\</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> table</span></code></pre></div>
+<p>Expected: <code>provisioningState: Succeeded</code></p>
+<hr />
+<h2 id="part-d-create-vm-from-imported-disks">Part D: Create VM from
+Imported Disks</h2>
+<h4 id="create-network-resources">6.14 Create Network Resources</h4>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create public IP</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network public-ip create <span class="dt">\</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>DEST_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>NEW_VM<span class="op">&gt;</span>-PIP <span class="dt">\</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--allocation-method</span> Static</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create NIC</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network nic create <span class="dt">\</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>DEST_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>NEW_VM<span class="op">&gt;</span>-NIC <span class="dt">\</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--vnet-name</span> <span class="op">&lt;</span>VNET_NAME<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--subnet</span> <span class="op">&lt;</span>SUBNET_NAME<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--public-ip-address</span> <span class="op">&lt;</span>NEW_VM<span class="op">&gt;</span>-PIP</span></code></pre></div>
+<h4 id="create-vm-from-disks">6.15 Create VM from Disks</h4>
+<p><strong>Azure CLI:</strong></p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="va">OS_DISK_ID</span><span class="op">=</span><span class="va">$(</span><span class="ex">az</span> disk show <span class="at">-g</span> <span class="op">&lt;</span>DEST_RG<span class="op">&gt;</span> -n <span class="op">&lt;</span>NEW_VM<span class="op">&gt;</span>-OS-Disk <span class="at">--query</span> id <span class="at">-o</span> tsv<span class="va">)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="va">DATA_DISK_ID</span><span class="op">=</span><span class="va">$(</span><span class="ex">az</span> disk show <span class="at">-g</span> <span class="op">&lt;</span>DEST_RG<span class="op">&gt;</span> -n <span class="op">&lt;</span>NEW_VM<span class="op">&gt;</span>-Data-Disk <span class="at">--query</span> id <span class="at">-o</span> tsv<span class="va">)</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="va">NIC_ID</span><span class="op">=</span><span class="va">$(</span><span class="ex">az</span> network nic show <span class="at">-g</span> <span class="op">&lt;</span>DEST_RG<span class="op">&gt;</span> -n <span class="op">&lt;</span>NEW_VM<span class="op">&gt;</span>-NIC <span class="at">--query</span> id <span class="at">-o</span> tsv<span class="va">)</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> vm create <span class="dt">\</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>DEST_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>NEW_VM<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--attach-os-disk</span> <span class="va">$OS_DISK_ID</span> <span class="dt">\</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--attach-data-disks</span> <span class="va">$DATA_DISK_ID</span> <span class="dt">\</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--nics</span> <span class="va">$NIC_ID</span> <span class="dt">\</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--os-type</span> Windows <span class="dt">\</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--size</span> Standard_D2s_v3</span></code></pre></div>
+<p><strong>PowerShell:</strong></p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="va">$osDisk</span> <span class="op">=</span> Get<span class="op">-</span>AzDisk <span class="op">-</span>ResourceGroupName <span class="op">&lt;</span>DEST_RG<span class="op">&gt;</span> <span class="op">-</span>DiskName <span class="op">&lt;</span>NEW_VM<span class="op">&gt;-</span>OS<span class="op">-</span>Disk</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="va">$dataDisk</span> <span class="op">=</span> Get<span class="op">-</span>AzDisk <span class="op">-</span>ResourceGroupName <span class="op">&lt;</span>DEST_RG<span class="op">&gt;</span> <span class="op">-</span>DiskName <span class="op">&lt;</span>NEW_VM<span class="op">&gt;-</span>Data<span class="op">-</span>Disk</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="va">$nic</span> <span class="op">=</span> Get<span class="op">-</span>AzNetworkInterface <span class="op">-</span>Name <span class="op">&lt;</span>NEW_VM<span class="op">&gt;-</span>NIC <span class="op">-</span>ResourceGroupName <span class="op">&lt;</span>DEST_RG<span class="op">&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="va">$vmConfig</span> <span class="op">=</span> New<span class="op">-</span>AzVMConfig <span class="op">-</span>VMName <span class="op">&lt;</span>NEW_VM<span class="op">&gt;</span> <span class="op">-</span>VMSize Standard_D2s_v3</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="va">$vmConfig</span> <span class="op">=</span> Set<span class="op">-</span>AzVMOSDisk <span class="op">-</span>VM <span class="va">$vmConfig</span> <span class="op">-</span>ManagedDiskId <span class="va">$osDisk</span><span class="op">.</span><span class="fu">Id</span> <span class="op">-</span>CreateOption Attach <span class="op">-</span>Windows</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="va">$vmConfig</span> <span class="op">=</span> Add<span class="op">-</span>AzVMDataDisk <span class="op">-</span>VM <span class="va">$vmConfig</span> <span class="op">-</span>ManagedDiskId <span class="va">$dataDisk</span><span class="op">.</span><span class="fu">Id</span> <span class="op">-</span>Lun 0 <span class="op">-</span>CreateOption Attach</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="va">$vmConfig</span> <span class="op">=</span> Add<span class="op">-</span>AzVMNetworkInterface <span class="op">-</span>VM <span class="va">$vmConfig</span> <span class="op">-</span>Id <span class="va">$nic</span><span class="op">.</span><span class="fu">Id</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>New<span class="op">-</span>AzVM <span class="op">-</span>ResourceGroupName <span class="op">&lt;</span>DEST_RG<span class="op">&gt;</span> <span class="op">-</span>Location <span class="op">&lt;</span>REGION<span class="op">&gt;</span> <span class="op">-</span>VM <span class="va">$vmConfig</span></span></code></pre></div>
+<hr />
+<h2 id="part-e-cleanup">Part E: Cleanup</h2>
+<h4 id="revoke-source-access">6.16 Revoke Source Access</h4>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Revoke snapshot access</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> snapshot revoke-access <span class="dt">\</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>SOURCE_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>SNAPSHOT_NAME<span class="op">&gt;</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Or revoke disk access</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> disk revoke-access <span class="dt">\</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>SOURCE_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>DISK_NAME<span class="op">&gt;</span></span></code></pre></div>
+<h4 id="delete-temporary-resources">6.17 Delete Temporary Resources</h4>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete snapshots (after confirming VM works)</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> snapshot delete <span class="dt">\</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> <span class="op">&lt;</span>SOURCE_RG<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> <span class="op">&lt;</span>SNAPSHOT_NAME<span class="op">&gt;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete VHD blobs from storage (after confirming disks work)</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> storage blob delete <span class="dt">\</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--account-name</span> <span class="op">&lt;</span>DEST_STORAGE<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--container-name</span> vhd-import <span class="dt">\</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--name</span> os-disk.vhd <span class="dt">\</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--auth-mode</span> login</span></code></pre></div>
+<hr />
+<h3 id="verification-quality-checks">7.0 Verification &amp; Quality
+Checks</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Snapshot created successfully
+(source)</label></li>
+<li><label><input type="checkbox" />SAS URL generated and
+valid</label></li>
+<li><label><input type="checkbox" />VHD transfer completed (check size
+matches)</label></li>
+<li><label><input type="checkbox" />VHD uploaded as PageBlob
+type</label></li>
+<li><label><input type="checkbox" />Managed disk created
+successfully</label></li>
+<li><label><input type="checkbox" />Disk shows “Succeeded” provisioning
+state</label></li>
+<li><label><input type="checkbox" />VM created from disk</label></li>
+<li><label><input type="checkbox" />VM boots and is
+accessible</label></li>
+<li><label><input type="checkbox" />Source access revoked</label></li>
+<li><label><input type="checkbox" />Temporary resources cleaned
+up</label></li>
+</ul>
+<hr />
+<h3 id="troubleshooting">8.0 Troubleshooting</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Issue</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“Blob type mismatch”</td>
+<td>Ensure <code>--blob-type PageBlob</code> used with AzCopy</td>
+</tr>
+<tr class="even">
+<td>SAS URL expired</td>
+<td>Regenerate with longer duration</td>
+</tr>
+<tr class="odd">
+<td>Disk creation stuck</td>
+<td>Check blob is fully uploaded, region matches</td>
+</tr>
+<tr class="even">
+<td>Transfer slow</td>
+<td>Use AzCopy with <code>--cap-mbps</code> to throttle, or run from
+Azure VM</td>
+</tr>
+<tr class="odd">
+<td>“Disk is not in correct state”</td>
+<td>Ensure VM is fully deallocated, not just stopped</td>
+</tr>
+<tr class="even">
+<td>Access denied</td>
+<td>Verify RBAC permissions, check SAS token permissions</td>
+</tr>
+<tr class="odd">
+<td>VM won’t boot from disk</td>
+<td>Check OS type (Windows/Linux) specified correctly</td>
+</tr>
+</tbody>
+</table>
+<h3 id="common-azcopy-errors">8.1 Common AzCopy Errors</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Error</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>AuthenticationFailed</code></td>
+<td>Regenerate SAS token, check expiry</td>
+</tr>
+<tr class="even">
+<td><code>BlobTypeMismatch</code></td>
+<td>Use <code>--blob-type PageBlob</code></td>
+</tr>
+<tr class="odd">
+<td><code>ServerBusy</code></td>
+<td>Retry with <code>--retry-policy exponential</code></td>
+</tr>
+<tr class="even">
+<td><code>Network timeout</code></td>
+<td>Reduce concurrency with <code>--cap-mbps 100</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="related-documents">9.0 Related Documents</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Document</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SOP-AZ-001</td>
+<td>Azure VM Administration</td>
+</tr>
+<tr class="even">
+<td>SOP-AZ-004</td>
+<td>Azure Tenant-to-Tenant VM Migration</td>
+</tr>
+</tbody>
+</table>
+<h3 id="external-references">9.1 External References</h3>
+<ul>
+<li><a
+href="https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10">AzCopy
+Documentation</a></li>
+<li><a
+href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/download-vhd">Export
+Azure Managed Disk</a></li>
+<li><a
+href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/create-vm-specialized">Create
+VM from Managed Disk</a></li>
+</ul>
+<hr />
+<h3 id="revision-history">10.0 Revision History</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Version</th>
+<th>Date</th>
+<th>Author</th>
+<th>Change Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0</td>
+<td>2026-01-12</td>
+<td>OberaConnect</td>
+<td>Initial document creation</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="approval">11.0 Approval</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Role</th>
+<th>Signature</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>Technical Lead</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Operations Manager</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="appendix-a-quick-reference-commands">Appendix A: Quick Reference
+Commands</h3>
+<p><strong>Export Snapshot to SAS URL:</strong></p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> snapshot grant-access <span class="at">-g</span> <span class="op">&lt;</span>RG<span class="op">&gt;</span> -n <span class="op">&lt;</span>SNAP<span class="op">&gt;</span> --duration-in-seconds 86400 <span class="at">--access-level</span> Read <span class="at">-o</span> tsv</span></code></pre></div>
+<p><strong>AzCopy Transfer:</strong></p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">azcopy</span> copy <span class="st">&quot;&lt;SOURCE_SAS&gt;&quot;</span> <span class="st">&quot;&lt;DEST_URL&gt;?&lt;DEST_SAS&gt;&quot;</span> <span class="at">--blob-type</span> PageBlob</span></code></pre></div>
+<p><strong>Create Disk from VHD:</strong></p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> disk create <span class="at">-g</span> <span class="op">&lt;</span>RG<span class="op">&gt;</span> -n <span class="op">&lt;</span>DISK<span class="op">&gt;</span> --source <span class="st">&quot;&lt;VHD_URL&gt;&quot;</span> <span class="at">--os-type</span> Windows <span class="at">--sku</span> Premium_LRS</span></code></pre></div>
+<p><strong>Create VM from Disk:</strong></p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> vm create <span class="at">-g</span> <span class="op">&lt;</span>RG<span class="op">&gt;</span> -n <span class="op">&lt;</span>VM<span class="op">&gt;</span> --attach-os-disk <span class="op">&lt;</span>DISK_ID<span class="op">&gt;</span> --os-type Windows</span></code></pre></div>
+<h3 id="appendix-b-estimated-transfer-times">Appendix B: Estimated
+Transfer Times</h3>
+<table>
+<thead>
+<tr class="header">
+<th>VHD Size</th>
+<th>~Transfer Time (100 Mbps)</th>
+<th>~Transfer Time (1 Gbps)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>30 GB</td>
+<td>40 minutes</td>
+<td>4 minutes</td>
+</tr>
+<tr class="even">
+<td>128 GB</td>
+<td>3 hours</td>
+<td>17 minutes</td>
+</tr>
+<tr class="odd">
+<td>512 GB</td>
+<td>12 hours</td>
+<td>70 minutes</td>
+</tr>
+<tr class="even">
+<td>1 TB</td>
+<td>24 hours</td>
+<td>2.5 hours</td>
+</tr>
+</tbody>
+</table>
+<p><em>Times vary based on network conditions and Azure region
+proximity</em></p>
+</body>
+</html>

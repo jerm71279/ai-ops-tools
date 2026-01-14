@@ -1,0 +1,53 @@
+{
+    "_comment": "SECURE CONFIG - No secrets stored here. All credentials from env vars or Key Vault.",
+
+    "databases": {
+        "customer_status": "YOUR_CUSTOMER_STATUS_DB_ID",
+        "daily_health": "YOUR_DAILY_HEALTH_DB_ID",
+        "azure_pipeline": "YOUR_AZURE_PIPELINE_DB_ID",
+        "runbook_library": "YOUR_RUNBOOK_LIBRARY_DB_ID",
+        "config_changes": "YOUR_CONFIG_CHANGES_DB_ID",
+        "deployments": "YOUR_DEPLOYMENTS_DB_ID",
+        "devices": "YOUR_DEVICES_DB_ID",
+        "alerts": "YOUR_ALERTS_DB_ID"
+    },
+
+    "unifi": {
+        "site_manager_url": "https://unifi.ui.com",
+        "_api_token": "SET VIA UNIFI_API_TOKEN ENV VAR"
+    },
+
+    "ninjaone": {
+        "api_url": "https://app.ninjarmm.com/api/v2",
+        "_client_id": "SET VIA NINJAONE_CLIENT_ID ENV VAR",
+        "_client_secret": "SET VIA NINJAONE_CLIENT_SECRET ENV VAR"
+    },
+
+    "settings": {
+        "wifi_signal_threshold_dbm": -65,
+        "health_score_warning_threshold": 70,
+        "health_score_critical_threshold": 50,
+        "sync_batch_size": 50,
+        "sync_rate_limit_per_second": 3
+    },
+
+    "maker_checker": {
+        "enabled": true,
+        "health_drop_threshold": 15,
+        "bulk_change_threshold": 10,
+        "require_rollback_for_high_risk": true
+    },
+
+    "logging": {
+        "level": "INFO",
+        "json_format": true,
+        "audit_file": "/var/log/oberaconnect/audit.log"
+    },
+
+    "resilience": {
+        "retry_max_attempts": 3,
+        "retry_base_delay_seconds": 1.0,
+        "circuit_breaker_threshold": 5,
+        "circuit_breaker_timeout_seconds": 60
+    }
+}

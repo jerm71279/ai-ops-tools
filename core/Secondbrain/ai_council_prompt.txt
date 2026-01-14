@@ -1,0 +1,92 @@
+# AI COUNCIL ANALYSIS REQUEST
+
+## CONTEXT
+You are part of an AI advisory council for OberaConnect MSP. The BA (Business Analyst) agent leads this analysis with input from Gemini and Grok perspectives. 
+
+We need assessment from THREE expert perspectives:
+1. **Network Engineer** - Infrastructure, security, scalability
+2. **Software Developer** - Code quality, architecture, maintainability  
+3. **Data Analyst** - ROI, metrics, business value
+
+## ASSETS UNDER REVIEW
+
+### ASSET 1: oberaconnect-complete.zip (New Package)
+**Purpose:** Consolidated AI operations platform for MSP management
+**Size:** 4,087 lines Python code + JS dashboard
+**Components:**
+- oberaconnect-tools/ - Core Python library
+  - common/ - Maker/Checker validation framework
+  - unifi/ - UniFi Site Manager API + NL query engine
+  - ninjaone/ - NinjaOne RMM integration
+  - n8n/ - Flask webhook API for workflows
+- oberaconnect-mcp/ - Claude Code MCP server
+- dashboard/ - Web UI for fleet monitoring
+
+**Key Features:**
+- Natural language queries: "show sites with offline APs", "top 10 by clients"
+- Risk-based validation (LOW/MEDIUM/HIGH/CRITICAL)
+- Built-in OberaConnect standards (WiFi -65dBm, channels 1/6/11, blocked VLANs)
+- Bulk operation safeguards (>10 sites requires confirmation)
+- NinjaOne correlation for cross-platform incident context
+- Demo mode for testing without credentials
+
+### ASSET 2: Secondbrain Tools (Reorganized Today)
+**Purpose:** Comprehensive MSP automation toolkit
+**Size:** 66+ Python tools organized into 10 categories
+**Structure:**
+```
+Tools/
+├── Agents/              (8 tools) - AI orchestration
+├── Call-Flow/           (4 tools) - Phone system automation
+├── Dashboards/          (6 tools) - Operations dashboards
+├── Data-Processing/     (9 tools) - Import/ETL
+├── MCP-Servers/         (4 tools) - Claude integration
+├── Network-Checklists/  (5 tools) - Site deployment
+├── Obsidian-Management/ (5 tools) - Knowledge base
+├── RAG-Query/           (8 tools) - Document search
+├── SharePoint-Sync/     (13 tools) - Document management
+└── UniFi-Automation/    (4 tools) - Bulk network config
+```
+**Core Libraries:** config, vector_store, obsidian_vault, document_processor
+**Active Cron Jobs:** 6 daily automated tasks
+**Docker Support:** 5 containerized services
+**SOPs:** 20 documented procedures
+
+### OVERLAP ANALYSIS
+Both assets contain:
+- UniFi API integration
+- NinjaOne integration concepts
+- MCP servers for Claude
+- Validation/checker patterns
+- Dashboard components
+
+## QUESTIONS FOR EACH PERSPECTIVE
+
+### NETWORK ENGINEER PERSPECTIVE
+1. Does oberaconnect-complete add value beyond existing UniFi-Automation tools?
+2. Is the maker/checker pattern robust enough for production MSP operations?
+3. Security concerns with API token handling?
+4. Scalability for 100+ sites, 1000+ devices?
+5. Would you trust this for customer network changes?
+
+### SOFTWARE DEVELOPER PERSPECTIVE
+1. Code architecture quality (proper Python packaging, separation of concerns)?
+2. Should this be merged into Secondbrain or kept separate?
+3. Technical debt vs. maintainability assessment?
+4. Test coverage and CI/CD readiness?
+5. Integration complexity with existing tools?
+
+### DATA ANALYST PERSPECTIVE
+1. What's the ROI potential (time saved per operation)?
+2. Metrics we should track for adoption success?
+3. Competitive advantage vs. commercial MSP tools?
+4. Risk vs. reward of further development investment?
+5. What would make this a "must-have" vs "nice-to-have"?
+
+## VERDICT REQUESTED
+After analysis, provide:
+1. **INVEST** (continue development) / **MERGE** (combine with Secondbrain) / **ARCHIVE** (stop development)
+2. Confidence score (1-10)
+3. Top 3 recommendations
+4. Biggest risk if adopted as-is
+5. Biggest opportunity if developed further

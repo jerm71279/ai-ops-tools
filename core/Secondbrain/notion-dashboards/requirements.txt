@@ -1,0 +1,29 @@
+# OberaConnect Notion Integration Dependencies
+# Install with: pip install -r requirements.txt --break-system-packages
+
+# Core dependency - Notion SDK
+notion-client>=2.0.0,<3.0.0
+
+# HTTP client for API calls
+httpx>=0.24.0
+
+# Environment variable loading
+python-dotenv>=1.0.0
+
+# Date handling
+python-dateutil>=2.8.0
+
+# Type hints for older Python versions
+typing-extensions>=4.0.0
+
+# Azure Key Vault (optional - for production secrets management)
+# Uncomment for Key Vault integration
+# azure-identity>=1.15.0
+# azure-keyvault-secrets>=4.7.0
+
+# Development dependencies (optional)
+# Uncomment for testing and development
+# pytest>=7.0.0
+# pytest-cov>=4.0.0
+# flake8>=6.0.0
+# mypy>=1.0.0

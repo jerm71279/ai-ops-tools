@@ -1,302 +1,426 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OberaConnect Document</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333333;
-            max-width: 8.5in;
-            margin: 0 auto;
-            padding: 0.5in;
-            background: #fff;
-        }
-
-        .header {
-            border-bottom: 3px solid #0066CC;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .logo-img {
-            height: 50px;
-            width: auto;
-        }
-
-        .tagline {
-            font-size: 14px;
-            color: #666666;
-            font-style: italic;
-            margin-left: 2px;
-        }
-
-        .doc-meta {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .doc-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #333333;
-        }
-
-        .doc-date {
-            font-size: 12px;
-            color: #666666;
-        }
-
-        .section {
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #0066CC;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-        }
-
-        .section-content {
-            color: #333333;
-            font-size: 14px;
-        }
-
-        .section-content p {
-            margin-bottom: 10px;
-        }
-
-        .section-content ul {
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
-
-        .section-content li {
-            margin-bottom: 5px;
-        }
-
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 11px;
-            color: #999999;
-            text-align: center;
-        }
-
-        .highlight-box {
-            background: #f5f9ff;
-            border-left: 4px solid #0066CC;
-            padding: 15px;
-            margin: 15px 0;
-        }
-
-        .action-item {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 10px 15px;
-            margin: 10px 0;
-        }
-
-        @media print {
-            body {
-                padding: 0;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOP-AD-001_Domain_Troubleshooting_v1.0.0</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo-container">
-            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
-            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
-        </div>
-        <div class="tagline">Technology Solutions for Modern Business</div>
-
-        <div class="doc-meta">
-            <div class="doc-title">SOP-AD-001 Domain Troubleshooting v1.0.0</div>
-            <div class="doc-date">Date: [MM/DD/YYYY]</div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Executive Summary</div>
-        <div class="section-content">
-            <p>Version: 1.0</p>
-<p>Status: Final</p>
-<p>Author: System Administrator</p>
-<p>Date: 2025-12-02</p>
-<p>────────────────────────────────────────────────────────────</p>
-<h1 id="purpose">1.0 Purpose</h1>
+<header id="title-block-header">
+<h1 class="title">SOP-AD-001_Domain_Troubleshooting_v1.0.0</h1>
+</header>
+<h1
+id="sop-ad-001-active-directory-domain-connection-troubleshooting">SOP-AD-001:
+Active Directory Domain Connection Troubleshooting</h1>
+<p><strong>Version:</strong> 1.1 <strong>Status:</strong> Final
+<strong>Author:</strong> System Administrator <strong>Date:</strong>
+2025-12-02</p>
+<hr />
+<h2 id="purpose">1.0 Purpose</h2>
 <p>The purpose of this Standard Operating Procedure (SOP) is to provide
 a systematic process for diagnosing and resolving network connectivity
 issues between an endpoint (computer or user) and the Active Directory
 (AD) domain controller.</p>
-<h1 id="scope">2.0 Scope</h1>
+<h2 id="scope">2.0 Scope</h2>
 <p>This procedure applies to any domain-joined computer that is unable
 to communicate with the Active Directory domain. This includes issues
 related to user logons, accessing network resources, or receiving group
 policy updates.</p>
-<h1 id="prerequisites">3.0 Prerequisites</h1>
+<h2 id="prerequisites">3.0 Prerequisites</h2>
 <ul>
-<li><p>Administrative privileges on the affected endpoint
-machine.</p></li>
-<li><p>Knowledge of the network's Domain Controller (DC) IP
-address(es).</p></li>
-<li><p>Access to firewall configuration, if applicable.</p></li>
-<li><p>Familiarity with basic Windows networking commands (`ipconfig`,
-`nltest`).</p></li>
+<li>Administrative privileges on the affected endpoint machine.</li>
+<li>Knowledge of the network’s Domain Controller (DC) IP
+address(es).</li>
+<li>Access to firewall configuration, if applicable.</li>
+<li>Familiarity with basic Windows networking commands
+(<code>ipconfig</code>, <code>nltest</code>).</li>
 </ul>
-<h1 id="procedure">4.0 Procedure</h1>
-<h2 id="initial-dns-and-network-configuration-diagnostics">4.1 Initial
-DNS and Network Configuration Diagnostics</h2>
+<h2 id="procedure">4.0 Procedure</h2>
+<h3 id="initial-dns-and-network-configuration-diagnostics">4.1 Initial
+DNS and Network Configuration Diagnostics</h3>
 <ol type="1">
-<li><p>**Open Command Prompt:** On the affected machine, open a Command
-Prompt window with administrative privileges.</p></li>
-<li><p>**Gather Network Information:** Execute the following command to
-display the current network configuration:</p></li>
-</ol>
-<p>`cmd</p>
-<p>ipconfig /all</p>
-<p>`</p>
-<ol start="3" type="1">
-<li><p>**Analyze Configuration:** Review the output and verify the
-following:</p></li>
-</ol>
+<li><strong>Open Command Prompt:</strong> On the affected machine, open
+a Command Prompt window with administrative privileges.</li>
+<li><strong>Gather Network Information:</strong> Execute the following
+command to display the current network configuration:
+<code>cmd     ipconfig /all</code></li>
+<li><strong>Analyze Configuration:</strong> Review the output and verify
+the following:
 <ul>
-<li><p>The machine has a valid IP address for its subnet.</p></li>
-<li><p>Note whether the network adapter is configured for **DHCP** or a
-**Static IP**.</p></li>
-<li><p>Identify the listed DNS servers.</p></li>
-</ul>
-<h2 id="correcting-dns-configuration">4.2 Correcting DNS
-Configuration</h2>
-<ol start="4" type="1">
-<li><p>**Verify DNS Server Order:** The DNS server settings are critical
-for domain communication. Ensure they are configured in the correct
-order of priority:</p></li>
+<li>The machine has a valid IP address for its subnet.</li>
+<li>Note whether the network adapter is configured for
+<strong>DHCP</strong> or a <strong>Static IP</strong>.</li>
+<li>Identify the listed DNS servers.</li>
+</ul></li>
 </ol>
+<h3 id="correcting-dns-configuration">4.2 Correcting DNS
+Configuration</h3>
+<ol type="1">
+<li><strong>Verify DNS Server Order:</strong> The DNS server settings
+are critical for domain communication. Ensure they are configured in the
+correct order of priority:
 <ul>
-<li><p>**Primary DNS:** Must be the primary Domain Controller's IP
-address.</p></li>
-<li><p>**Secondary DNS:** Should be the secondary Domain Controller's IP
-address, if one exists. If not, this can be the circuit provider's
-DNS.</p></li>
-<li><p>**Tertiary DNS:** A public DNS server (e.g., `8.8.8.8`) can be
-used as a final fallback.</p></li>
+<li><strong>Primary DNS:</strong> Must be the primary Domain
+Controller’s IP address.</li>
+<li><strong>Secondary DNS:</strong> Should be the secondary Domain
+Controller’s IP address, if one exists. If not, this can be the circuit
+provider’s DNS.</li>
+<li><strong>Tertiary DNS:</strong> A public DNS server (e.g.,
+<code>8.8.8.8</code>) can be used as a final fallback.</li>
 </ul>
-<p>Example Hierarchy:</p>
+<em>Example Hierarchy:</em>
 <ul>
-<li><p>Primary: `192.168.1.1` (Primary DC)</p></li>
-<li><p>Secondary: `192.168.1.2` (Secondary DC)</p></li>
-<li><p>Tertiary: `142.190.111.111` (ISP DNS)</p></li>
-</ul>
-<ol start="5" type="1">
-<li><p>**Apply DNS Changes:** If the DNS settings are incorrect, update
-them in the machine's network adapter properties.</p></li>
-<li><p>**Confirm Changes:** Run `ipconfig /all` again to ensure the new
-settings have been applied.</p></li>
+<li>Primary: <code>192.168.1.1</code> (Primary DC)</li>
+<li>Secondary: <code>192.168.1.2</code> (Secondary DC)</li>
+<li>Tertiary: <code>142.190.111.111</code> (ISP DNS)</li>
+</ul></li>
+<li><strong>Apply DNS Changes:</strong> If the DNS settings are
+incorrect, update them in the machine’s network adapter properties.</li>
+<li><strong>Flush DNS Cache:</strong> After making changes, clear the
+DNS resolver cache: <code>cmd     ipconfig /flushdns</code></li>
+<li><strong>Re-register DNS:</strong> Force the client to re-register
+its DNS records: <code>cmd     ipconfig /registerdns</code></li>
+<li><strong>Confirm Changes:</strong> Run <code>ipconfig /all</code>
+again to ensure the new settings have been applied.</li>
 </ol>
-<h2 id="firewall-dns-configuration">4.3 Firewall DNS Configuration</h2>
-<ol start="7" type="1">
-<li><p>If a network firewall is in place, access its management
-interface.</p></li>
-<li><p>Verify that the DNS settings configured on the firewall match the
+<h3 id="firewall-dns-configuration">4.3 Firewall DNS Configuration</h3>
+<ol type="1">
+<li>If a network firewall is in place, access its management
+interface.</li>
+<li>Verify that the DNS settings configured on the firewall match the
 required DNS hierarchy for the domain (i.e., pointing to the internal
-Domain Controllers).</p></li>
+Domain Controllers).</li>
 </ol>
-<h1 id="verification">5.0 Verification</h1>
-<ol start="9" type="1">
-<li><p>**Test Domain Controller Discovery:** After confirming the DNS
-settings are correct, run the following command in the Command Prompt to
-verify that the endpoint can successfully discover the domain
-controller. Replace `&lt;domain_name&gt;` with the actual name of your
-AD domain (e.g., `obera.local`).</p></li>
+<h3 id="time-synchronization-verification-critical-for-kerberos">4.4
+Time Synchronization Verification (CRITICAL for Kerberos)</h3>
+<blockquote>
+<p><strong>IMPORTANT:</strong> Kerberos authentication requires time to
+be synchronized within 5 minutes between the client and domain
+controller. Time skew is a common cause of authentication failures.</p>
+</blockquote>
+<ol type="1">
+<li><p><strong>Check Current Time Configuration:</strong>
+<code>cmd     w32tm /query /status</code></p></li>
+<li><p><strong>Verify Time Source:</strong> Ensure the endpoint is
+synchronizing with a domain controller:
+<code>cmd     w32tm /query /source</code> Expected output should show a
+domain controller, not <code>Local CMOS Clock</code> or
+<code>Free-running System Clock</code>.</p></li>
+<li><p><strong>Force Time Resync:</strong> If time is out of sync:
+<code>cmd     w32tm /resync /force</code></p></li>
+<li><p><strong>Check Time Skew:</strong> Compare time with domain
+controller:
+<code>cmd     net time \\&lt;domain_controller_name&gt;</code></p></li>
 </ol>
-<p>`cmd</p>
-<p>nltest /dsgetdc:&lt;domain_name&gt;</p>
-<p>`</p>
-<ol start="10" type="1">
-<li><p>**Analyze Output:** A successful output will show the name of the
-DC that responded and confirm a connection. If the command fails or
-times out, the endpoint is still unable to communicate with the DC, and
-further troubleshooting is required.</p></li>
+<h3 id="secure-channel-verification">4.5 Secure Channel
+Verification</h3>
+<ol type="1">
+<li><p><strong>Test Secure Channel:</strong> Verify the trust
+relationship between the computer and domain:
+<code>cmd     nltest /sc_verify:&lt;domain_name&gt;</code> A successful
+output shows <code>NERR_Success</code>. If it fails, the computer
+account password may be out of sync.</p></li>
+<li><p><strong>Reset Computer Account (if secure channel
+fails):</strong>
+<code>cmd     netdom resetpwd /server:&lt;domain_controller&gt; /userd:&lt;domain&gt;\administrator /passwordd:*</code>
+You will be prompted for the administrator password. A reboot is
+required after resetting.</p></li>
 </ol>
-<h1 id="additional-considerations">6.0 Additional Considerations</h1>
+<h2 id="verification">5.0 Verification</h2>
+<ol type="1">
+<li><p><strong>Verify DNS SRV Records:</strong> Confirm the client can
+locate domain controllers via DNS:
+<code>cmd     nslookup -type=SRV _ldap._tcp.dc._msdcs.&lt;domain_name&gt;</code>
+A successful response lists the domain controllers. If this fails, DNS
+is not properly configured.</p></li>
+<li><p><strong>Test Domain Controller Discovery:</strong> Run the
+following command to verify domain controller discovery:
+<code>cmd     nltest /dsgetdc:&lt;domain_name&gt;</code></p></li>
+<li><p><strong>Analyze Output:</strong> A successful output will show
+the name of the DC that responded and confirm a connection. If the
+command fails or times out, the endpoint is still unable to communicate
+with the DC, and further troubleshooting is required.</p></li>
+<li><p><strong>Test Group Policy:</strong> Force a Group Policy refresh
+to confirm full domain connectivity:
+<code>cmd     gpupdate /force</code></p></li>
+<li><p><strong>Check Event Logs:</strong> Review the following logs for
+authentication errors:</p>
 <ul>
-<li><p>**Network Equipment Power Cycle:** If settings have been changed
-but are not propagating, a restart or power cycle of network switches,
-routers, and the affected endpoint may be required to force the changes
-to apply.</p></li>
-<li><p>**Firewall IP Reservation:** In environments with a firewall
-managing DHCP, it may be necessary to create a static IP reservation for
-the Domain Controller(s) to ensure their IP addresses do not
-change.</p></li>
-<li><p>**DHCP Lease Scope:** Adjustments to the DHCP lease scope on the
-firewall or DHCP server may be necessary in specific cases, such as
-network segmentation or IP address exhaustion. This should be evaluated
-on a case-by-case basis.</p></li>
+<li>Event Viewer &gt; Windows Logs &gt; System (look for Netlogon
+errors)</li>
+<li>Event Viewer &gt; Windows Logs &gt; Security (look for logon
+failures)</li>
+</ul></li>
+</ol>
+<h2 id="troubleshooting-quick-reference">6.0 Troubleshooting Quick
+Reference</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 40%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symptom</th>
+<th>Likely Cause</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“The trust relationship between this workstation and the primary
+domain failed”</td>
+<td>Secure channel broken</td>
+<td>Run <code>nltest /sc_verify:&lt;domain&gt;</code>. If failed, reset
+with <code>netdom resetpwd</code> and reboot.</td>
+</tr>
+<tr class="even">
+<td>“There are currently no logon servers available”</td>
+<td>DNS misconfiguration</td>
+<td>Verify DNS points to DC. Run
+<code>nslookup -type=SRV _ldap._tcp.dc._msdcs.&lt;domain&gt;</code>.</td>
+</tr>
+<tr class="odd">
+<td>“The security database on the server does not have a computer
+account”</td>
+<td>Computer account deleted or missing</td>
+<td>Rejoin the computer to the domain.</td>
+</tr>
+<tr class="even">
+<td>Kerberos errors in Event Log</td>
+<td>Time skew &gt; 5 minutes</td>
+<td>Run <code>w32tm /resync /force</code>. Verify with
+<code>w32tm /query /status</code>.</td>
+</tr>
+<tr class="odd">
+<td>Group Policy not applying</td>
+<td>DC unreachable or DNS issue</td>
+<td>Run <code>gpupdate /force</code>. Check <code>gpresult /r</code> for
+errors.</td>
+</tr>
+<tr class="even">
+<td>Intermittent logon failures</td>
+<td>Multiple DCs with replication issues</td>
+<td>Run <code>repadmin /showrepl</code> on DC to check replication
+health.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="additional-considerations">7.0 Additional Considerations</h2>
+<ul>
+<li><strong>Network Equipment Power Cycle:</strong> If settings have
+been changed but are not propagating, a restart or power cycle of
+network switches, routers, and the affected endpoint may be required to
+force the changes to apply.</li>
+<li><strong>Firewall IP Reservation:</strong> In environments with a
+firewall managing DHCP, it may be necessary to create a static IP
+reservation for the Domain Controller(s) to ensure their IP addresses do
+not change.</li>
+<li><strong>DHCP Lease Scope:</strong> Adjustments to the DHCP lease
+scope on the firewall or DHCP server may be necessary in specific cases,
+such as network segmentation or IP address exhaustion. This should be
+evaluated on a case-by-case basis.</li>
 </ul>
-<p>────────────────────────────────────────────────────────────</p>
-<p>End of Document</p>
-
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Details</div>
-        <div class="section-content">
-            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
-
-            <div class="highlight-box">
-                <strong>Key Point:</strong> [Important information to highlight]
-            </div>
-
-            <p>Supporting details:</p>
-            <ul>
-                <li>[Detail item 1]</li>
-                <li>[Detail item 2]</li>
-                <li>[Detail item 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Next Steps</div>
-        <div class="section-content">
-            <div class="action-item">
-                <strong>Action Required:</strong> [Specific action item with owner and deadline]
-            </div>
-
-            <ul>
-                <li>[Next step 1]</li>
-                <li>[Next step 2]</li>
-                <li>[Next step 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="footer">
-        OberaConnect LLC | www.oberaconnect.com | Confidential
-    </div>
+<h2 id="related-documents">8.0 Related Documents</h2>
+<ul>
+<li>SOP-AD-002: Adding Mac Device to Active Directory Domain</li>
+<li>SOP-HYB-001: Hybrid Active Directory Components</li>
+</ul>
+<h2 id="revision-history">9.0 Revision History</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 16%" />
+<col style="width: 22%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Version</th>
+<th>Date</th>
+<th>Author</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0</td>
+<td>2025-12-02</td>
+<td>System Administrator</td>
+<td>Initial document creation.</td>
+</tr>
+<tr class="even">
+<td>1.1</td>
+<td>2025-12-29</td>
+<td>Jeremy Smith</td>
+<td>SME Review: Added DNS flush/registerdns steps. Added Section 4.4
+(Time Sync for Kerberos). Added Section 4.5 (Secure Channel
+Verification). Enhanced Section 5.0 with SRV records, gpupdate, and
+Event Log checks. Added troubleshooting quick reference table.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>End of Document</strong></p>
 </body>
 </html>

@@ -21,18 +21,14 @@ WORKDIR /app
 COPY docker/rag-engine/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy tool scripts (from root context)
-COPY query_brain.py .
-COPY vector_store.py .
-COPY rag_web.py .
-COPY rebuild_index.py .
-COPY config.py .
-COPY suggest_links.py .
-COPY obsidian_vault.py .
-COPY html_generator.py .
-COPY structured_store.py .
-COPY query_classifier.py .
-COPY agentic_rag.py .
+# Copy core libraries
+COPY core/ ./core/
+
+# Copy tool scripts (from new structure)
+COPY Tools/RAG-Query/query_brain.py .
+COPY Tools/RAG-Query/rag_web.py .
+COPY Tools/RAG-Query/rebuild_index.py .
+COPY Tools/Obsidian-Management/suggest_links.py .
 
 # Create data directory for ChromaDB persistence and fix ownership
 RUN mkdir -p /app/data/chroma && chown -R app:app /app

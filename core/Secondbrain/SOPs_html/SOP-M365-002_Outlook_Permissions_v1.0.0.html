@@ -1,239 +1,458 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OberaConnect Document</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333333;
-            max-width: 8.5in;
-            margin: 0 auto;
-            padding: 0.5in;
-            background: #fff;
-        }
-
-        .header {
-            border-bottom: 3px solid #0066CC;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .logo-img {
-            height: 50px;
-            width: auto;
-        }
-
-        .tagline {
-            font-size: 14px;
-            color: #666666;
-            font-style: italic;
-            margin-left: 2px;
-        }
-
-        .doc-meta {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .doc-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #333333;
-        }
-
-        .doc-date {
-            font-size: 12px;
-            color: #666666;
-        }
-
-        .section {
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #0066CC;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-        }
-
-        .section-content {
-            color: #333333;
-            font-size: 14px;
-        }
-
-        .section-content p {
-            margin-bottom: 10px;
-        }
-
-        .section-content ul {
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
-
-        .section-content li {
-            margin-bottom: 5px;
-        }
-
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 11px;
-            color: #999999;
-            text-align: center;
-        }
-
-        .highlight-box {
-            background: #f5f9ff;
-            border-left: 4px solid #0066CC;
-            padding: 15px;
-            margin: 15px 0;
-        }
-
-        .action-item {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 10px 15px;
-            margin: 10px 0;
-        }
-
-        @media print {
-            body {
-                padding: 0;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOP-M365-002_Outlook_Permissions_v1.0.0</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo-container">
-            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
-            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
-        </div>
-        <div class="tagline">Technology Solutions for Modern Business</div>
-
-        <div class="doc-meta">
-            <div class="doc-title">SOP-M365-002 Outlook Permissions v1.0.0</div>
-            <div class="doc-date">Date: [MM/DD/YYYY]</div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Executive Summary</div>
-        <div class="section-content">
-            <p>Title: Setting Permissions on Shared Mailboxes in Outlook</p>
-<p>Version: 1.0</p>
-<p>Date: 2025-12-02</p>
-<p>────────────────────────────────────────────────────────────</p>
-<h1 id="purpose">1.0 Purpose</h1>
+<header id="title-block-header">
+<h1 class="title">SOP-M365-002_Outlook_Permissions_v1.0.0</h1>
+</header>
+<h1 id="standard-operating-procedure-sop-m365-002">Standard Operating
+Procedure: SOP-M365-002</h1>
+<p><strong>Title:</strong> Setting Permissions on Shared Mailboxes in
+Outlook <strong>Version:</strong> 1.0 <strong>Date:</strong>
+2025-12-02</p>
+<hr />
+<h2 id="purpose">1.0 Purpose</h2>
 <p>This document provides standardized procedures for granting and
 managing user permissions for M365 Shared Mailboxes. Following these
 steps ensures that access is delegated consistently and securely.</p>
-<h1 id="scope">2.0 Scope</h1>
+<h2 id="scope">2.0 Scope</h2>
 <p>This SOP applies to all IT support personnel and system
 administrators responsible for managing Microsoft 365 resources at
 OberaConnect.</p>
-<h1 id="responsibilities">3.0 Responsibilities</h1>
+<h2 id="responsibilities">3.0 Responsibilities</h2>
 <ul>
-<li><p>**IT Support Staff:** Responsible for executing permission
-changes for standard user requests.</p></li>
-<li><p>**M365 Administrators:** Responsible for overseeing mailbox
-configurations and handling escalated or complex permission
-assignments.</p></li>
+<li><strong>IT Support Staff:</strong> Responsible for executing
+permission changes for standard user requests.</li>
+<li><strong>M365 Administrators:</strong> Responsible for overseeing
+mailbox configurations and handling escalated or complex permission
+assignments.</li>
 </ul>
-<h1 id="procedure">4.0 Procedure</h1>
+<h2 id="procedure">4.0 Procedure</h2>
 <p>Two methods can be used to set permissions for shared mailboxes. The
 Exchange Admin Center (EAC) is the preferred and most comprehensive
 method for administrators.</p>
-<h2 id="method-a-using-the-microsoft-outlook-client">4.1 Method A: Using
-the Microsoft Outlook Client</h2>
+<h3 id="method-a-using-the-microsoft-outlook-client">4.1 Method A: Using
+the Microsoft Outlook Client</h3>
 <p>This method is for users who have appropriate permissions to delegate
 access from within Outlook.</p>
 <ol type="1">
-<li><p>**Open Outlook** and navigate to the **File** menu in the
-top-left corner.</p></li>
-<li><p>Click on **Account Settings**, and then select **Delegate
-Access**.</p></li>
-<li><p>In the "Delegates" dialog box, click the **Add...**
-button.</p></li>
-<li><p>Search for and select the user(s) to whom you want to grant
-access and click **Add -&gt;**.</p></li>
-<li><p>Click **OK**.</p></li>
-<li><p>In the "Delegate Permissions" dialog box, specify the desired
-level of access for each folder (e.g., Calendar, Inbox). The primary
-permission levels are:</p></li>
-</ol>
+<li><strong>Open Outlook</strong> and navigate to the
+<strong>File</strong> menu in the top-left corner.</li>
+<li>Click on <strong>Account Settings</strong>, and then select
+<strong>Delegate Access</strong>.</li>
+<li>In the “Delegates” dialog box, click the <strong>Add…</strong>
+button.</li>
+<li>Search for and select the user(s) to whom you want to grant access
+and click <strong>Add -&gt;</strong>.</li>
+<li>Click <strong>OK</strong>.</li>
+<li>In the “Delegate Permissions” dialog box, specify the desired level
+of access for each folder (e.g., Calendar, Inbox). The primary
+permission levels are:
 <ul>
-<li><p>**Reviewer:** Can read items.</p></li>
-<li><p>**Author:** Can read and create items.</p></li>
-<li><p>**Editor:** Can read, create, and modify items.</p></li>
-</ul>
-<ol start="7" type="1">
-<li><p>Click **OK** to apply the permissions.</p></li>
+<li><strong>Reviewer:</strong> Can read items.</li>
+<li><strong>Author:</strong> Can read and create items.</li>
+<li><strong>Editor:</strong> Can read, create, and modify items.</li>
+</ul></li>
+<li>Click <strong>OK</strong> to apply the permissions.</li>
 </ol>
-<h2 id="method-b-using-the-exchange-admin-center-eac">4.2 Method B:
-Using the Exchange Admin Center (EAC)</h2>
-<p>This is the recommended method for administrators to manage Full
-Access and Send As permissions.</p>
-<ol start="8" type="1">
-<li><p>**Sign In:** Log in to the **Microsoft 365 Exchange Admin
-Center**.</p></li>
-<li><p>**Navigate to Shared Mailboxes:** From the left-hand menu,
-navigate to **Recipients &gt; Shared**.</p></li>
-<li><p>**Select Mailbox:** A list of shared mailboxes will appear.
-Select the mailbox you wish to manage.</p></li>
-<li><p>**Manage Delegation:** In the pane that opens on the right, click
-on **Mailbox delegation**.</p></li>
-<li><p>**Assign Permissions:**</p></li>
-</ol>
+<h3 id="method-b-using-the-exchange-admin-center-eac">4.2 Method B:
+Using the Exchange Admin Center (EAC)</h3>
+<p>This is the recommended method for administrators to manage
+<code>Full Access</code> and <code>Send As</code> permissions.</p>
+<ol type="1">
+<li><strong>Sign In:</strong> Log in to the <strong>Microsoft 365
+Exchange Admin Center</strong>.</li>
+<li><strong>Navigate to Shared Mailboxes:</strong> From the left-hand
+menu, navigate to <strong>Recipients &gt; Shared</strong>.</li>
+<li><strong>Select Mailbox:</strong> A list of shared mailboxes will
+appear. Select the mailbox you wish to manage.</li>
+<li><strong>Manage Delegation:</strong> In the pane that opens on the
+right, click on <strong>Mailbox delegation</strong>.</li>
+<li><strong>Assign Permissions:</strong>
 <ul>
-<li><p>**Full Access:** Allows the delegate to open the mailbox and
-manage its content as the mailbox owner. Click **Edit**, then **+ Add
-members** to add users.</p></li>
-<li><p>**Send As:** Allows the delegate to send email that appears to
-come from the shared mailbox. Click **Edit**, then **+ Add members** to
-add users.</p></li>
-<li><p>**Send on Behalf:** Allows the delegate to send email on behalf
-of the shared mailbox (e.g., "John Doe on behalf of Support"). Click
-**Edit**, then **+ Add members** to add users.</p></li>
-</ul>
-<ol start="13" type="1">
-<li><p>**Save Changes:** After adding the desired members to each
-permission group, close the panes. The changes are saved
-automatically.</p></li>
+<li><strong>Full Access:</strong> Allows the delegate to open the
+mailbox and manage its content as the mailbox owner. Click
+<strong>Edit</strong>, then <strong>+ Add members</strong> to add
+users.</li>
+<li><strong>Send As:</strong> Allows the delegate to send email that
+appears to come from the shared mailbox. Click <strong>Edit</strong>,
+then <strong>+ Add members</strong> to add users.</li>
+<li><strong>Send on Behalf:</strong> Allows the delegate to send email
+on behalf of the shared mailbox (e.g., “John Doe on behalf of Support”).
+Click <strong>Edit</strong>, then <strong>+ Add members</strong> to add
+users.</li>
+</ul></li>
+<li><strong>Save Changes:</strong> After adding the desired members to
+each permission group, close the panes. The changes are saved
+automatically.</li>
 </ol>
-<h1 id="references">5.0 References</h1>
-<ul>
-<li><p>[Original Support
-Document](https://oberaconnect.sharepoint.com/:w:/s/support/ESrUdO18N4JElnoByGjp8REBipQPYTsAjT_9q2S0kZVXzw?e=1KwWbL)</p></li>
-</ul>
-<h1 id="revision-history">6.0 Revision History</h1>
+<h3 id="method-c-using-exchange-online-powershell-bulkscripted">4.3
+Method C: Using Exchange Online PowerShell (Bulk/Scripted)</h3>
+<p>This method is preferred for bulk assignments or automation.</p>
+<p><strong>Prerequisites:</strong></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install Exchange Online Management Module (if not installed)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Install<span class="op">-</span>Module <span class="op">-</span>Name ExchangeOnlineManagement</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Connect to Exchange Online</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Connect<span class="op">-</span>ExchangeOnline <span class="op">-</span>UserPrincipalName admin@yourdomain<span class="op">.</span><span class="fu">com</span></span></code></pre></div>
+<p><strong>Grant Full Access:</strong></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Single user</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Add<span class="op">-</span>MailboxPermission <span class="op">-</span>Identity <span class="st">&quot;SharedMailbox@domain.com&quot;</span> <span class="op">-</span>User <span class="st">&quot;user@domain.com&quot;</span> <span class="op">-</span>AccessRights FullAccess <span class="op">-</span>InheritanceType All</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple users (from CSV)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">Import-Csv</span> <span class="st">&quot;C:\users.csv&quot;</span> <span class="op">|</span> <span class="fu">ForEach-Object</span> <span class="op">{</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    Add<span class="op">-</span>MailboxPermission <span class="op">-</span>Identity <span class="st">&quot;SharedMailbox@domain.com&quot;</span> <span class="op">-</span>User <span class="va">$_</span><span class="op">.</span><span class="fu">Email</span> <span class="op">-</span>AccessRights FullAccess <span class="op">-</span>InheritanceType All</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>Grant Send As:</strong></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Add<span class="op">-</span>RecipientPermission <span class="op">-</span>Identity <span class="st">&quot;SharedMailbox@domain.com&quot;</span> <span class="op">-</span>Trustee <span class="st">&quot;user@domain.com&quot;</span> <span class="op">-</span>AccessRights SendAs <span class="op">-</span>Confirm<span class="op">:</span><span class="va">$false</span></span></code></pre></div>
+<p><strong>Grant Send on Behalf:</strong></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Set<span class="op">-</span>Mailbox <span class="op">-</span>Identity <span class="st">&quot;SharedMailbox@domain.com&quot;</span> <span class="op">-</span>GrantSendOnBehalfTo @<span class="op">{</span>Add<span class="op">=</span><span class="st">&quot;user@domain.com&quot;</span><span class="op">}</span></span></code></pre></div>
+<p><strong>View Current Permissions:</strong></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Full Access permissions</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>MailboxPermission <span class="op">-</span>Identity <span class="st">&quot;SharedMailbox@domain.com&quot;</span> <span class="op">|</span> <span class="fu">Where-Object</span> <span class="op">{</span><span class="va">$_</span><span class="op">.</span><span class="fu">User</span> <span class="op">-</span>ne <span class="st">&quot;NT AUTHORITY\SELF&quot;</span><span class="op">}</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Send As permissions</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>RecipientPermission <span class="op">-</span>Identity <span class="st">&quot;SharedMailbox@domain.com&quot;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Send on Behalf permissions</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>Mailbox <span class="op">-</span>Identity <span class="st">&quot;SharedMailbox@domain.com&quot;</span> <span class="op">|</span> <span class="fu">Select-Object</span> GrantSendOnBehalfTo</span></code></pre></div>
+<p><strong>Remove Permissions:</strong></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove Full Access</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Remove<span class="op">-</span>MailboxPermission <span class="op">-</span>Identity <span class="st">&quot;SharedMailbox@domain.com&quot;</span> <span class="op">-</span>User <span class="st">&quot;user@domain.com&quot;</span> <span class="op">-</span>AccessRights FullAccess <span class="op">-</span>Confirm<span class="op">:</span><span class="va">$false</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove Send As</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>Remove<span class="op">-</span>RecipientPermission <span class="op">-</span>Identity <span class="st">&quot;SharedMailbox@domain.com&quot;</span> <span class="op">-</span>Trustee <span class="st">&quot;user@domain.com&quot;</span> <span class="op">-</span>AccessRights SendAs <span class="op">-</span>Confirm<span class="op">:</span><span class="va">$false</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove Send on Behalf</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>Set<span class="op">-</span>Mailbox <span class="op">-</span>Identity <span class="st">&quot;SharedMailbox@domain.com&quot;</span> <span class="op">-</span>GrantSendOnBehalfTo @<span class="op">{</span>Remove<span class="op">=</span><span class="st">&quot;user@domain.com&quot;</span><span class="op">}</span></span></code></pre></div>
+<p><strong>Disconnect when done:</strong></p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Disconnect<span class="op">-</span>ExchangeOnline <span class="op">-</span>Confirm<span class="op">:</span><span class="va">$false</span></span></code></pre></div>
+<h2 id="troubleshooting">5.0 Troubleshooting</h2>
 <table>
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
+<col style="width: 26%" />
+<col style="width: 26%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Issue</th>
+<th>Cause</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Shared mailbox not appearing in Outlook</td>
+<td>Auto-mapping disabled or Outlook cache</td>
+<td>Enable auto-mapping:
+<code>Add-MailboxPermission -Identity "Shared" -User "user" -AccessRights FullAccess -AutoMapping $true</code>.
+Restart Outlook.</td>
+</tr>
+<tr class="even">
+<td>“Send As” emails showing as sent by user</td>
+<td>Send As not granted, using Send on Behalf</td>
+<td>Verify Send As permission granted. Check sent email headers. Remove
+Send on Behalf if Send As is desired.</td>
+</tr>
+<tr class="odd">
+<td>Permission changes not taking effect</td>
+<td>Replication delay</td>
+<td>Wait 15-60 minutes for changes to propagate. User may need to
+restart Outlook.</td>
+</tr>
+<tr class="even">
+<td>Cannot connect to Exchange Online PowerShell</td>
+<td>Module not installed or auth issues</td>
+<td>Install module:
+<code>Install-Module ExchangeOnlineManagement</code>. Use MFA-enabled
+connection.</td>
+</tr>
+<tr class="odd">
+<td>Delegate cannot see calendar/inbox</td>
+<td>Only Full Access granted, not folder permissions</td>
+<td>Grant specific folder permissions via Outlook or
+<code>Add-MailboxFolderPermission</code>.</td>
+</tr>
+<tr class="even">
+<td>User receives NDR when sending as shared mailbox</td>
+<td>Send As permission missing or mailbox disabled</td>
+<td>Verify <code>Get-RecipientPermission</code>. Check mailbox is
+enabled and not hidden.</td>
+</tr>
+<tr class="odd">
+<td>Permissions removed after mailbox migration</td>
+<td>Permissions not migrated</td>
+<td>Re-apply permissions post-migration using PowerShell scripts.</td>
+</tr>
+<tr class="even">
+<td>Too many shared mailboxes slowing Outlook</td>
+<td>Auto-mapping adds all to profile</td>
+<td>Disable auto-mapping for less-used mailboxes:
+<code>-AutoMapping $false</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Verification Commands:</strong></p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check all permissions on a mailbox</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>MailboxPermission <span class="op">-</span>Identity <span class="st">&quot;SharedMailbox@domain.com&quot;</span> <span class="op">|</span> <span class="fu">Format-Table</span> User<span class="op">,</span> AccessRights</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check Send As</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>RecipientPermission <span class="op">-</span>Identity <span class="st">&quot;SharedMailbox@domain.com&quot;</span> <span class="op">|</span> <span class="fu">Format-Table</span> Trustee<span class="op">,</span> AccessRights</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check Send on Behalf</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>Mailbox <span class="op">-</span>Identity <span class="st">&quot;SharedMailbox@domain.com&quot;</span> <span class="op">|</span> <span class="fu">Select-Object</span> GrantSendOnBehalfTo</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if auto-mapping is enabled (requires examining AD attribute)</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-ADUser</span> <span class="op">-</span>Identity <span class="st">&quot;username&quot;</span> <span class="op">-</span>Properties msExchDelegateListLink</span></code></pre></div>
+<h2 id="references">6.0 References</h2>
+<ul>
+<li><a
+href="https://oberaconnect.sharepoint.com/:w:/s/support/ESrUdO18N4JElnoByGjp8REBipQPYTsAjT_9q2S0kZVXzw?e=1KwWbL">Original
+Support Document</a></li>
+</ul>
+<h2 id="revision-history">7.0 Revision History</h2>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 18%" />
+<col style="width: 26%" />
+<col style="width: 41%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -250,47 +469,15 @@ Document](https://oberaconnect.sharepoint.com/:w:/s/support/ESrUdO18N4JElnoByGjp
 <td>Gemini Assistant</td>
 <td>Initial document creation.</td>
 </tr>
+<tr class="even">
+<td>1.1</td>
+<td>2025-12-29</td>
+<td>Jeremy Smith</td>
+<td>SME Review: Added Section 4.3 (PowerShell methods for bulk/scripted
+assignments). Added Section 5.0 (Troubleshooting) with common permission
+issues and verification commands.</td>
+</tr>
 </tbody>
 </table>
-
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Details</div>
-        <div class="section-content">
-            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
-
-            <div class="highlight-box">
-                <strong>Key Point:</strong> [Important information to highlight]
-            </div>
-
-            <p>Supporting details:</p>
-            <ul>
-                <li>[Detail item 1]</li>
-                <li>[Detail item 2]</li>
-                <li>[Detail item 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Next Steps</div>
-        <div class="section-content">
-            <div class="action-item">
-                <strong>Action Required:</strong> [Specific action item with owner and deadline]
-            </div>
-
-            <ul>
-                <li>[Next step 1]</li>
-                <li>[Next step 2]</li>
-                <li>[Next step 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="footer">
-        OberaConnect LLC | www.oberaconnect.com | Confidential
-    </div>
 </body>
 </html>

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOP-NET-010: VPN Remote Printer Setup</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">SOP-NET-010: VPN Remote Printer Setup</h1>
+</header>
+<h1 id="standard-operating-procedure-vpn-remote-printer-setup">Standard
+Operating Procedure: VPN Remote Printer Setup</h1>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>Document ID:</strong></td>
+<td>SOP-NET-010</td>
+</tr>
+<tr class="even">
+<td><strong>Title:</strong></td>
+<td>VPN Remote Printer Setup using Direct TCP/IP Port 9100</td>
+</tr>
+<tr class="odd">
+<td><strong>Category:</strong></td>
+<td>Network Infrastructure</td>
+</tr>
+<tr class="even">
+<td><strong>Version:</strong></td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td><strong>Status:</strong></td>
+<td>Final</td>
+</tr>
+<tr class="even">
+<td><strong>Author:</strong></td>
+<td>Jeremy Smith</td>
+</tr>
+<tr class="odd">
+<td><strong>Creation Date:</strong></td>
+<td>2026-01-12</td>
+</tr>
+<tr class="even">
+<td><strong>Approval Date:</strong></td>
+<td>2026-01-12</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="purpose">1.0 Purpose</h3>
+<p>This procedure establishes the standard method for configuring remote
+printers across site-to-site VPN connections. It specifically addresses
+the limitation that Windows automatic printer discovery (WSD) does not
+function over VPN tunnels.</p>
+<h3 id="scope">2.0 Scope</h3>
+<p>This procedure applies to: - All OberaConnect managed sites with
+SonicWall site-to-site VPNs - Windows 10/11 workstations requiring
+access to printers at remote sites - Network printers with TCP/IP
+printing capability (port 9100)</p>
+<h3 id="definitions">3.0 Definitions</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 66%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>WSD</strong></td>
+<td>Web Services for Devices - Windows auto-discovery protocol using
+multicast (does NOT work over VPN)</td>
+</tr>
+<tr class="even">
+<td><strong>Port 9100</strong></td>
+<td>RAW/JetDirect printing port - direct TCP connection to printer</td>
+</tr>
+<tr class="odd">
+<td><strong>Port 631</strong></td>
+<td>IPP (Internet Printing Protocol) port</td>
+</tr>
+<tr class="even">
+<td><strong>Port 515</strong></td>
+<td>LPR/LPD legacy printing port</td>
+</tr>
+<tr class="odd">
+<td><strong>S2S VPN</strong></td>
+<td>Site-to-Site VPN tunnel between two firewalls</td>
+</tr>
+</tbody>
+</table>
+<h3 id="roles-responsibilities">4.0 Roles &amp; Responsibilities</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Role</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Network Engineer</td>
+<td>Verify VPN policy allows printer traffic</td>
+</tr>
+<tr class="even">
+<td>Support Technician</td>
+<td>Configure printers on client workstations</td>
+</tr>
+<tr class="odd">
+<td>End User</td>
+<td>Report printing issues</td>
+</tr>
+</tbody>
+</table>
+<h3 id="prerequisites">5.0 Prerequisites</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Site-to-site VPN tunnel is
+established and operational</label></li>
+<li><label><input type="checkbox" />Printer IP address at remote site is
+known</label></li>
+<li><label><input type="checkbox" />Port 9100 is allowed in VPN policy
+(both directions)</label></li>
+<li><label><input type="checkbox" />Administrative access to the
+workstation</label></li>
+<li><label><input type="checkbox" />Printer is powered on and connected
+to network</label></li>
+</ul>
+<hr />
+<h3 id="procedure">6.0 Procedure</h3>
+<h4 id="verify-vpn-connectivity-to-printer">6.1 Verify VPN Connectivity
+to Printer</h4>
+<p>Before configuring the printer, verify the VPN path is working.</p>
+<p><strong>Step 1:</strong> Open PowerShell as Administrator</p>
+<p><strong>Step 2:</strong> Test basic connectivity:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Test<span class="op">-</span>NetConnection <span class="op">-</span>ComputerName <span class="op">&lt;</span>PRINTER_IP<span class="op">&gt;</span> <span class="op">-</span>Port 9100</span></code></pre></div>
+<p><strong>Step 3:</strong> Verify the result shows:</p>
+<pre><code>TcpTestSucceeded : True</code></pre>
+<p>If <code>TcpTestSucceeded : False</code>, check: - VPN tunnel status
+on SonicWall - VPN policy includes port 9100 - Printer is online at
+remote site</p>
+<h4 id="identify-printer-model-optional">6.2 Identify Printer Model
+(Optional)</h4>
+<p>If printer model is unknown, access the printer’s web interface:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Start-Process</span> <span class="st">&quot;http://&lt;PRINTER_IP&gt;&quot;</span></span></code></pre></div>
+<p>Note the printer model for driver selection.</p>
+<h4 id="add-printer-port-via-powershell">6.3 Add Printer Port via
+PowerShell</h4>
+<p><strong>Step 1:</strong> Create the TCP/IP printer port:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Add<span class="op">-</span>PrinterPort <span class="op">-</span>Name <span class="st">&quot;&lt;SITENAME&gt;_&lt;PRINTERNAME&gt;&quot;</span> <span class="op">-</span>PrinterHostAddress <span class="st">&quot;&lt;PRINTER_IP&gt;&quot;</span></span></code></pre></div>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Add<span class="op">-</span>PrinterPort <span class="op">-</span>Name <span class="st">&quot;Fairhope_HP_OfficeJet&quot;</span> <span class="op">-</span>PrinterHostAddress <span class="st">&quot;192.168.0.24&quot;</span></span></code></pre></div>
+<p><strong>Step 2:</strong> Verify port was created:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>PrinterPort <span class="op">-</span>Name <span class="st">&quot;&lt;SITENAME&gt;_&lt;PRINTERNAME&gt;&quot;</span></span></code></pre></div>
+<h4 id="add-printer-via-powershell">6.4 Add Printer via PowerShell</h4>
+<p><strong>Option A: Using Generic Driver (Recommended for
+simplicity)</strong></p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Add<span class="op">-</span>Printer <span class="op">-</span>Name <span class="st">&quot;&lt;PRINTER_DISPLAY_NAME&gt;&quot;</span> <span class="op">-</span>PortName <span class="st">&quot;&lt;SITENAME&gt;_&lt;PRINTERNAME&gt;&quot;</span> <span class="op">-</span>DriverName <span class="st">&quot;Microsoft IPP Class Driver&quot;</span></span></code></pre></div>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Add<span class="op">-</span>Printer <span class="op">-</span>Name <span class="st">&quot;HP OfficeJet Fairhope (VPN)&quot;</span> <span class="op">-</span>PortName <span class="st">&quot;Fairhope_HP_OfficeJet&quot;</span> <span class="op">-</span>DriverName <span class="st">&quot;Microsoft IPP Class Driver&quot;</span></span></code></pre></div>
+<p><strong>Option B: Using Specific HP Driver</strong></p>
+<p>First, check available drivers:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>PrinterDriver <span class="op">|</span> <span class="fu">Where-Object</span> <span class="op">{</span><span class="va">$_</span><span class="op">.</span><span class="fu">Name</span> <span class="op">-</span>like <span class="st">&quot;*HP*&quot;</span><span class="op">}</span> <span class="op">|</span> <span class="fu">Select-Object</span> Name</span></code></pre></div>
+<p>Then add with specific driver:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>Add<span class="op">-</span>Printer <span class="op">-</span>Name <span class="st">&quot;HP OfficeJet Fairhope (VPN)&quot;</span> <span class="op">-</span>PortName <span class="st">&quot;Fairhope_HP_OfficeJet&quot;</span> <span class="op">-</span>DriverName <span class="st">&quot;HP OfficeJet Pro 9120&quot;</span></span></code></pre></div>
+<h4 id="add-printer-via-gui-alternative-method">6.5 Add Printer via GUI
+(Alternative Method)</h4>
+<ol type="1">
+<li>Open <strong>Settings</strong> → <strong>Printers &amp;
+Scanners</strong></li>
+<li>Click <strong>Add device</strong> → <strong>The printer I want isn’t
+listed</strong></li>
+<li>Select <strong>Add a printer using TCP/IP address or
+hostname</strong></li>
+<li>Enter:
+<ul>
+<li>Device type: <strong>TCP/IP Device</strong></li>
+<li>Hostname or IP: <code>&lt;PRINTER_IP&gt;</code></li>
+<li>Port name: <code>&lt;SITENAME&gt;_&lt;PRINTERNAME&gt;</code></li>
+</ul></li>
+<li>Uncheck “Query the printer” for faster setup</li>
+<li>If prompted for device type, select <strong>Standard</strong> →
+<strong>Generic Network Card</strong></li>
+<li>Select appropriate driver or use <strong>Microsoft IPP Class
+Driver</strong></li>
+<li>Name the printer clearly:
+<code>&lt;Model&gt; &lt;Location&gt; (VPN)</code></li>
+</ol>
+<h4 id="test-printing">6.6 Test Printing</h4>
+<p><strong>Method 1: Send test page via PowerShell</strong></p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>rundll32 printui<span class="op">.</span><span class="fu">dll</span><span class="op">,</span>PrintUIEntry <span class="op">/</span>k <span class="op">/</span>n <span class="st">&quot;&lt;PRINTER_NAME&gt;&quot;</span></span></code></pre></div>
+<p><strong>Method 2: Direct raw test (bypasses Windows
+spooler)</strong></p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">try</span> <span class="op">{</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">$job</span> <span class="op">=</span> <span class="op">[</span>System<span class="op">.</span><span class="fu">Net</span><span class="op">.</span><span class="fu">Sockets</span><span class="op">.</span><span class="fu">TcpClient</span><span class="op">]::</span>new<span class="op">(</span><span class="st">&quot;&lt;PRINTER_IP&gt;&quot;</span><span class="op">,</span> 9100<span class="op">)</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">$stream</span> <span class="op">=</span> <span class="va">$job</span><span class="op">.</span><span class="fu">GetStream</span><span class="op">()</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">$bytes</span> <span class="op">=</span> <span class="op">[</span>System<span class="op">.</span><span class="fu">Text</span><span class="op">.</span><span class="fu">Encoding</span><span class="op">]::</span>ASCII<span class="op">.</span><span class="fu">GetBytes</span><span class="op">(</span><span class="st">&quot;VPN TEST - $(Get-Date)</span><span class="ch">`r`n`r`n</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">$stream</span><span class="op">.</span><span class="fu">Write</span><span class="op">(</span><span class="va">$bytes</span><span class="op">,</span> 0<span class="op">,</span> <span class="va">$bytes</span><span class="op">.</span><span class="fu">Length</span><span class="op">)</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">$stream</span><span class="op">.</span><span class="fu">Close</span><span class="op">()</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">$job</span><span class="op">.</span><span class="fu">Close</span><span class="op">()</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Success - data sent to printer&quot;</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="kw">catch</span> <span class="op">{</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Failed - $_&quot;</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>Method 3: Print from application</strong> 1. Open Notepad 2.
+Type test text 3. File → Print → Select the VPN printer 4. Print</p>
+<hr />
+<h3 id="verification-quality-checks">7.0 Verification &amp; Quality
+Checks</h3>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 40%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Check</th>
+<th>Command/Action</th>
+<th>Expected Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Port exists</td>
+<td><code>Get-PrinterPort -Name "&lt;PORT_NAME&gt;"</code></td>
+<td>Returns port details</td>
+</tr>
+<tr class="even">
+<td>Printer exists</td>
+<td><code>Get-Printer -Name "&lt;PRINTER_NAME&gt;"</code></td>
+<td>Returns printer details</td>
+</tr>
+<tr class="odd">
+<td>Port 9100 open</td>
+<td><code>Test-NetConnection &lt;IP&gt; -Port 9100</code></td>
+<td>TcpTestSucceeded: True</td>
+</tr>
+<tr class="even">
+<td>Queue empty</td>
+<td><code>Get-PrintJob -PrinterName "&lt;PRINTER_NAME&gt;"</code></td>
+<td>Empty (job sent)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="troubleshooting">8.0 Troubleshooting</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Issue</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>TcpTestSucceeded: False</code> on port 9100</td>
+<td>Check SonicWall VPN policy allows port 9100 both directions</td>
+</tr>
+<tr class="even">
+<td>Printer shows in queue but doesn’t print</td>
+<td>Verify bidirectional traffic allowed in VPN policy</td>
+</tr>
+<tr class="odd">
+<td>“Driver not found” error</td>
+<td>Use <code>Microsoft IPP Class Driver</code> as universal
+fallback</td>
+</tr>
+<tr class="even">
+<td>Jobs stuck in queue</td>
+<td>Delete printer, recreate with correct port settings</td>
+</tr>
+<tr class="odd">
+<td>Can ping printer but can’t print</td>
+<td>Confirm using TCP/IP port, not WSD port</td>
+</tr>
+<tr class="even">
+<td>Slow printing</td>
+<td>Normal over VPN - data traverses tunnel</td>
+</tr>
+</tbody>
+</table>
+<h4 id="verify-printer-is-not-using-wsd">8.1 Verify Printer is Not Using
+WSD</h4>
+<p>Check current printer configuration:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>Printer <span class="op">|</span> <span class="fu">ForEach-Object</span> <span class="op">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">$port</span> <span class="op">=</span> Get<span class="op">-</span>PrinterPort <span class="op">-</span>Name <span class="va">$_</span><span class="op">.</span><span class="fu">PortName</span> <span class="op">-</span>ErrorAction SilentlyContinue</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">[</span>PSCustomObject<span class="op">]</span>@<span class="op">{</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        Name <span class="op">=</span> <span class="va">$_</span><span class="op">.</span><span class="fu">Name</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        Port <span class="op">=</span> <span class="va">$_</span><span class="op">.</span><span class="fu">PortName</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        IP <span class="op">=</span> <span class="va">$port</span><span class="op">.</span><span class="fu">PrinterHostAddress</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="op">|</span> <span class="fu">Where-Object</span> <span class="op">{</span><span class="va">$_</span><span class="op">.</span><span class="fu">Port</span> <span class="op">-</span>like <span class="st">&quot;WSD*&quot;</span><span class="op">}</span></span></code></pre></div>
+<p>If printer shows WSD port, it will NOT work over VPN. Reconfigure
+with TCP/IP port.</p>
+<h4 id="sonicwall-vpn-policy-check">8.2 SonicWall VPN Policy Check</h4>
+<p>On both SonicWall firewalls, verify VPN policy: 1. Navigate to
+<strong>VPN</strong> → <strong>Settings</strong> → <strong>VPN
+Policies</strong> 2. Edit the site-to-site policy 3. Confirm
+<strong>Local Networks</strong> and <strong>Remote Networks</strong>
+include printer subnets 4. Verify no access rules blocking port 9100</p>
+<h3 id="related-documents">9.0 Related Documents</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Document</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SOP-NET-006</td>
+<td>SonicWall Backup Configuration</td>
+</tr>
+<tr class="even">
+<td>SOP-NET-007</td>
+<td>SonicWall Config Restore</td>
+</tr>
+<tr class="odd">
+<td>SOP-AZ-002</td>
+<td>Azure VPN to SonicWall S2S</td>
+</tr>
+</tbody>
+</table>
+<h3 id="revision-history">10.0 Revision History</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Version</th>
+<th>Date</th>
+<th>Author</th>
+<th>Change Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0</td>
+<td>2026-01-12</td>
+<td>Jeremy Smith</td>
+<td>Initial document creation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="approval">11.0 Approval</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Role</th>
+<th>Signature</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Jeremy Smith</td>
+<td>Network Engineer</td>
+<td>Approved</td>
+<td>2026-01-12</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="quick-reference-card">Quick Reference Card</h2>
+<h3 id="add-vpn-printer-copypaste-ready">Add VPN Printer (Copy/Paste
+Ready)</h3>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variables - UPDATE THESE</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="va">$PrinterIP</span> <span class="op">=</span> <span class="st">&quot;192.168.X.X&quot;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="va">$PortName</span> <span class="op">=</span> <span class="st">&quot;SiteName_PrinterName&quot;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="va">$PrinterName</span> <span class="op">=</span> <span class="st">&quot;Printer Model Location (VPN)&quot;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create port and add printer</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>Add<span class="op">-</span>PrinterPort <span class="op">-</span>Name <span class="va">$PortName</span> <span class="op">-</span>PrinterHostAddress <span class="va">$PrinterIP</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>Add<span class="op">-</span>Printer <span class="op">-</span>Name <span class="va">$PrinterName</span> <span class="op">-</span>PortName <span class="va">$PortName</span> <span class="op">-</span>DriverName <span class="st">&quot;Microsoft IPP Class Driver&quot;</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>Get<span class="op">-</span>Printer <span class="op">-</span>Name <span class="va">$PrinterName</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>Test<span class="op">-</span>NetConnection <span class="op">-</span>ComputerName <span class="va">$PrinterIP</span> <span class="op">-</span>Port 9100</span></code></pre></div>
+<h3 id="why-wsd-doesnt-work-over-vpn">Why WSD Doesn’t Work Over VPN</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Protocol</th>
+<th>Transport</th>
+<th>VPN Compatible</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>WSD</td>
+<td>Multicast UDP</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>TCP/IP Port 9100</td>
+<td>Unicast TCP</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>IPP (Port 631)</td>
+<td>Unicast TCP</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>LPR (Port 515)</td>
+<td>Unicast TCP</td>
+<td>Yes (if enabled)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Always use Direct TCP/IP (port 9100) for VPN
+printers.</strong></p>
+</body>
+</html>

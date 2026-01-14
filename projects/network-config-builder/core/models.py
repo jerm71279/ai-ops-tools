@@ -116,14 +116,49 @@ class PortForward:
 
 
 @dataclass
+class SiteToSiteVPNConfig:
+    """Site-to-Site IPSec VPN configuration"""
+    name: str
+    peer_wan_ip: str  # Remote site's WAN IP
+    local_network: str  # Local LAN subnet (e.g., 10.54.9.0/24)
+    remote_network: str  # Remote LAN subnet (e.g., 10.54.8.0/24)
+    preshared_key: str
+
+    # IKE Phase 1 settings
+    ike_version: str = "2"  # 1 or 2
+    ike_encryption: str = "aes256"
+    ike_authentication: str = "sha256"
+    ike_dh_group: str = "14"  # DH Group 14 = 2048-bit MODP
+    ike_lifetime: int = 28800  # 8 hours in seconds
+
+    # IPSec Phase 2 settings
+    ipsec_encryption: str = "aes256"
+    ipsec_authentication: str = "sha256"
+    ipsec_pfs_group: str = "14"  # Perfect Forward Secrecy DH Group
+    ipsec_lifetime: int = 3600  # 1 hour in seconds
+
+    # Optional settings
+    local_wan_ip: Optional[str] = None  # If not set, uses WAN interface IP
+    dead_peer_detection: bool = True
+    nat_traversal: bool = True
+    enabled: bool = True
+
+    # NAT VPN settings (for overlapping subnets)
+    nat_vpn: bool = False  # Enable NAT VPN for overlapping networks
+    local_translated: Optional[str] = None  # How local appears to remote (e.g., 10.254.1.0/24)
+    remote_translated: Optional[str] = None  # How remote appears to local (e.g., 10.254.2.0/24)
+
+
+@dataclass
 class VPNConfig:
     """VPN configuration"""
-    type: str  # ipsec, wireguard, openvpn, l2tp
+    type: str  # ipsec, wireguard, openvpn, l2tp, site-to-site
     name: str
     peer_ip: Optional[str] = None
     local_subnet: Optional[str] = None
     remote_subnet: Optional[str] = None
     preshared_key: Optional[str] = None
+    site_to_site: Optional[SiteToSiteVPNConfig] = None
     config: Dict[str, Any] = field(default_factory=dict)
 
 

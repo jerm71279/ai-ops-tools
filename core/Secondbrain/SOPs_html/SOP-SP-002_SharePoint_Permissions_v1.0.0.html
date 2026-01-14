@@ -1,437 +1,462 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OberaConnect Document</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333333;
-            max-width: 8.5in;
-            margin: 0 auto;
-            padding: 0.5in;
-            background: #fff;
-        }
-
-        .header {
-            border-bottom: 3px solid #0066CC;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .logo-img {
-            height: 50px;
-            width: auto;
-        }
-
-        .tagline {
-            font-size: 14px;
-            color: #666666;
-            font-style: italic;
-            margin-left: 2px;
-        }
-
-        .doc-meta {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .doc-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #333333;
-        }
-
-        .doc-date {
-            font-size: 12px;
-            color: #666666;
-        }
-
-        .section {
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #0066CC;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-        }
-
-        .section-content {
-            color: #333333;
-            font-size: 14px;
-        }
-
-        .section-content p {
-            margin-bottom: 10px;
-        }
-
-        .section-content ul {
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
-
-        .section-content li {
-            margin-bottom: 5px;
-        }
-
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 11px;
-            color: #999999;
-            text-align: center;
-        }
-
-        .highlight-box {
-            background: #f5f9ff;
-            border-left: 4px solid #0066CC;
-            padding: 15px;
-            margin: 15px 0;
-        }
-
-        .action-item {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 10px 15px;
-            margin: 10px 0;
-        }
-
-        @media print {
-            body {
-                padding: 0;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOP-SP-002_SharePoint_Permissions_v1.0.0</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo-container">
-            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
-            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
-        </div>
-        <div class="tagline">Technology Solutions for Modern Business</div>
-
-        <div class="doc-meta">
-            <div class="doc-title">SOP-SP-002 SharePoint Permissions v1.0.0</div>
-            <div class="doc-date">Date: [MM/DD/YYYY]</div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Executive Summary</div>
-        <div class="section-content">
-            <p>I will now generate the complete Standard Operating Procedure (SOP)
-as SOP-SP-002.md and save it in the current directory.</p>
-<p>Error executing tool write_file: Tool "write_file" not found in
+<header id="title-block-header">
+<h1 class="title">SOP-SP-002_SharePoint_Permissions_v1.0.0</h1>
+</header>
+<p>Error executing tool write_file: Tool “write_file” not found in
 registry. Tools must use the exact names that are registered. Did you
-mean one of: "read_file", "write_todos", "web_fetch"?</p>
-<p>I am unable to create files directly. However, I have generated the
-complete SOP markdown for SOP-SP-002.md. You can copy the content below
+mean one of: “read_file”, “write_todos”, “web_fetch”? I am unable to
+create files directly. However, I have generated the complete SOP
+markdown for <code>SOP-SP-002.md</code>. You can copy the content below
 and save it to the desired file.</p>
-<p>Standard Operating Procedure: SOP-SP-002</p>
-<p>Title: Adding SharePoint Read-Only Permissions to an Existing Azure
-Application</p>
-<p>Version: 1.0</p>
-<p>Effective Date: 2025-12-02</p>
-<p>Owner: System Administrator</p>
-<p>────────────────────────────────────────────────────────────</p>
-<h1 id="purpose">1.0 Purpose</h1>
+<p>```markdown # Standard Operating Procedure: SOP-SP-002</p>
+<p><strong>Title:</strong> Adding SharePoint Read-Only Permissions to an
+Existing Azure Application <strong>Version:</strong> 1.0
+<strong>Effective Date:</strong> 2025-12-02 <strong>Owner:</strong>
+System Administrator</p>
+<hr />
+<h2 id="purpose">1.0 Purpose</h2>
 <p>This document outlines the standard procedure for adding
-Sites.Read.All and Files.Read.All application permissions to an existing
-Azure Active Directory (Azure AD) application. This enables the
-application to securely authenticate and retrieve data from SharePoint
-on behalf of the system, without user interaction, adhering to the
-principle of least privilege.</p>
-<h1 id="scope">2.0 Scope</h1>
+<code>Sites.Read.All</code> and <code>Files.Read.All</code> application
+permissions to an existing Azure Active Directory (Azure AD)
+application. This enables the application to securely authenticate and
+retrieve data from SharePoint on behalf of the system, without user
+interaction, adhering to the principle of least privilege.</p>
+<h2 id="scope">2.0 Scope</h2>
 <p>This procedure applies to the existing Azure AD application used for
 the SecondBrain project. It is intended for administrators with the
 necessary permissions to manage application registrations and grant
 tenant-wide admin consent in the Azure portal.</p>
-<h1 id="prerequisites">3.0 Prerequisites</h1>
+<h2 id="prerequisites">3.0 Prerequisites</h2>
 <ul>
-<li><p>An existing Azure AD application registration.</p></li>
-<li><p>Administrative access to the Azure portal
-(`portal.azure.com`).</p></li>
-<li><p>The name or Application ID of the target Azure
-application.</p></li>
-<li><p>Terminal access to the application server to update environment
-files.</p></li>
+<li>An existing Azure AD application registration.</li>
+<li>Administrative access to the Azure portal
+(<code>portal.azure.com</code>).</li>
+<li>The name or Application ID of the target Azure application.</li>
+<li>Terminal access to the application server to update environment
+files.</li>
 </ul>
-<h1 id="procedure">4.0 Procedure</h1>
+<h2 id="procedure">4.0 Procedure</h2>
 <p>The procedure is divided into four main parts: adding API
 permissions, granting consent, obtaining credentials, and configuring
 the local environment.</p>
-<h2 id="add-api-permissions">4.1 Add API Permissions</h2>
+<h3 id="add-api-permissions">4.1 Add API Permissions</h3>
 <ol type="1">
-<li><p>Navigate to the Azure portal and open **Azure Active
-Directory**.</p></li>
-<li><p>Go to **App registrations** and select your existing
-application.</p></li>
-<li><p>In the left sidebar, click on **API permissions**.</p></li>
-<li><p>Click the **+ Add a permission** button.</p></li>
-<li><p>In the "Request API permissions" panel, select **Microsoft
-Graph**.</p></li>
-<li><p>Select **Application permissions**. This allows the application
-to authenticate on its own, which is required for a background
-service.</p></li>
-<li><p>In the "Select permissions" search box, find and add the
-following two permissions:</p></li>
-</ol>
+<li>Navigate to the Azure portal and open <strong>Azure Active
+Directory</strong>.</li>
+<li>Go to <strong>App registrations</strong> and select your existing
+application.</li>
+<li>In the left sidebar, click on <strong>API permissions</strong>.</li>
+<li>Click the <strong>+ Add a permission</strong> button.</li>
+<li>In the “Request API permissions” panel, select <strong>Microsoft
+Graph</strong>.</li>
+<li>Select <strong>Application permissions</strong>. This allows the
+application to authenticate on its own, which is required for a
+background service.</li>
+<li>In the “Select permissions” search box, find and add the following
+two permissions:
 <ul>
-<li><p>**`Sites.Read.All`**: Check the box. This permits reading items
-in all site collections.</p></li>
-<li><p>**`Files.Read.All`**: Check the box. This permits reading files
-in all site collections.</p></li>
-</ul>
-<ol start="8" type="1">
-<li><p>Click the **Add permissions** button at the bottom of the
-panel.</p></li>
+<li><strong><code>Sites.Read.All</code></strong>: Check the box. This
+permits reading items in all site collections.</li>
+<li><strong><code>Files.Read.All</code></strong>: Check the box. This
+permits reading files in all site collections.</li>
+</ul></li>
+<li>Click the <strong>Add permissions</strong> button at the bottom of
+the panel.</li>
 </ol>
-<h2 id="grant-admin-consent">4.2 Grant Admin Consent</h2>
-<ol start="9" type="1">
-<li><p>Once the permissions are added, they will appear in the API
-permissions list with a status of "Not granted".</p></li>
-<li><p>Click the **"Grant admin consent for [Your Tenant Name]"** button
-located above the permissions list.</p></li>
-<li><p>A confirmation dialog will appear. Click **Yes**.</p></li>
-<li><p>Wait for the status of the new permissions to update to
-"Granted", indicated by a green checkmark. The final configuration
-should appear as follows:</p></li>
+<h3 id="grant-admin-consent">4.2 Grant Admin Consent</h3>
+<ol type="1">
+<li>Once the permissions are added, they will appear in the API
+permissions list with a status of “Not granted”.</li>
+<li>Click the <strong>“Grant admin consent for [Your Tenant
+Name]”</strong> button located above the permissions list.</li>
+<li>A confirmation dialog will appear. Click <strong>Yes</strong>.</li>
+<li>Wait for the status of the new permissions to update to “Granted”,
+indicated by a green checkmark. The final configuration should appear as
+follows:
+<code>✓ User.Read (Delegated) - Granted     ✓ Sites.Read.All (Application) - Granted     ✓ Files.Read.All (Application) - Granted</code></li>
 </ol>
-<p>`</p>
-<p>✓ User.Read (Delegated) - Granted</p>
-<p>✓ Sites.Read.All (Application) - Granted</p>
-<p>✓ Files.Read.All (Application) - Granted</p>
-<p>`</p>
-<h2 id="obtain-application-credentials">4.3 Obtain Application
-Credentials</h2>
+<h3 id="obtain-application-credentials">4.3 Obtain Application
+Credentials</h3>
 <p>Three pieces of information are required to configure the
 application.</p>
-<ol start="13" type="1">
-<li><p>**Tenant ID**:</p></li>
-</ol>
+<ol type="1">
+<li><strong>Tenant ID</strong>:
 <ul>
-<li><p>Navigate to the **Overview** page for your application.</p></li>
-<li><p>Copy the **Directory (tenant) ID** value.</p></li>
-</ul>
-<ol start="14" type="1">
-<li><p>**Application (Client) ID**:</p></li>
-</ol>
+<li>Navigate to the <strong>Overview</strong> page for your
+application.</li>
+<li>Copy the <strong>Directory (tenant) ID</strong> value.</li>
+</ul></li>
+<li><strong>Application (Client) ID</strong>:
 <ul>
-<li><p>On the same **Overview** page, copy the **Application (client)
-ID** value.</p></li>
-</ul>
-<ol start="15" type="1">
-<li><p>**Client Secret**:</p></li>
-</ol>
+<li>On the same <strong>Overview</strong> page, copy the
+<strong>Application (client) ID</strong> value.</li>
+</ul></li>
+<li><strong>Client Secret</strong>:
 <ul>
-<li><p>Navigate to the **Certificates &amp; secrets** page.</p></li>
-<li><p>If you do not have an active, unexpired secret whose value you
-have saved, you must create a new one.</p></li>
-<li><p>Click **+ New client secret**.</p></li>
-<li><p>Provide a description (e.g., `SecondBrain SharePoint
-Access`).</p></li>
-<li><p>Set the expiration period (e.g., `24 months`).</p></li>
-<li><p>Click **Add**.</p></li>
-<li><p>**CRITICAL:** Immediately copy the new secret's **Value** and
-store it in a secure location. This value is only shown once.</p></li>
-</ul>
-<h2 id="configure-environment-file">4.4 Configure Environment File</h2>
-<ol start="16" type="1">
-<li><p>Connect to the application server via terminal.</p></li>
-<li><p>Navigate to the project directory:</p></li>
+<li>Navigate to the <strong>Certificates &amp; secrets</strong>
+page.</li>
+<li>If you do not have an active, unexpired secret whose value you have
+saved, you must create a new one.</li>
+<li>Click <strong>+ New client secret</strong>.</li>
+<li>Provide a description (e.g.,
+<code>SecondBrain SharePoint Access</code>).</li>
+<li>Set the expiration period (e.g., <code>24 months</code>).</li>
+<li>Click <strong>Add</strong>.</li>
+<li><strong>CRITICAL:</strong> Immediately copy the new secret’s
+<strong>Value</strong> and store it in a secure location. This value is
+only shown once.</li>
+</ul></li>
 </ol>
-<p>`bash</p>
-<p>cd /home/mavrick/Projects/Secondbrain</p>
-<p>`</p>
-<ol start="18" type="1">
-<li><p>Open the `.env` file for editing:</p></li>
+<h3 id="configure-environment-file">4.4 Configure Environment File</h3>
+<ol type="1">
+<li>Connect to the application server via terminal.</li>
+<li>Navigate to the project directory:
+<code>bash     cd /path/to/project</code></li>
+<li>Open the <code>.env</code> file for editing:
+<code>bash     nano .env</code></li>
+<li>Add or update the following lines with the credentials obtained in
+the previous step:
+<code>bash     AZURE_TENANT_ID=your-tenant-id-here     AZURE_CLIENT_ID=your-application-client-id-here     AZURE_CLIENT_SECRET=your-client-secret-value-here</code></li>
+<li>Save the file and exit the editor (<code>Ctrl+X</code>, then
+<code>Y</code>, then <code>Enter</code>).</li>
 </ol>
-<p>`bash</p>
-<p>nano .env</p>
-<p>`</p>
-<ol start="19" type="1">
-<li><p>Add or update the following lines with the credentials obtained
-in the previous step:</p></li>
-</ol>
-<p>`bash</p>
-<p>AZURE_TENANT_ID=your-tenant-id-here</p>
-<p>AZURE_CLIENT_ID=your-application-client-id-here</p>
-<p>AZURE_CLIENT_SECRET=your-client-secret-value-here</p>
-<p>`</p>
-<ol start="20" type="1">
-<li><p>Save the file and exit the editor (`Ctrl+X`, then `Y`, then
-`Enter`).</p></li>
-</ol>
-<h1 id="verification">5.0 Verification</h1>
+<h2 id="verification">5.0 Verification</h2>
 <p>To confirm that the permissions and credentials are correctly
 configured, run the test script.</p>
-<ol start="21" type="1">
-<li><p>Navigate to the project directory:</p></li>
+<ol type="1">
+<li>Navigate to the project directory:
+<code>bash     cd /path/to/project</code></li>
+<li>Execute the SharePoint importer script using the project’s virtual
+environment:
+<code>bash     ./venv/bin/python sharepoint_importer.py</code></li>
+<li><strong>Expected Output</strong>: The script should successfully
+list the available SharePoint sites without any permission errors.
+<code>📍 Listing SharePoint sites...     📍 Found X SharePoint sites:        - Site Name 1 (https://...)        - Site Name 2 (https://...)</code></li>
 </ol>
-<p>`bash</p>
-<p>cd /home/mavrick/Projects/Secondbrain</p>
-<p>`</p>
-<ol start="22" type="1">
-<li><p>Execute the SharePoint importer script using the project's
-virtual environment:</p></li>
-</ol>
-<p>`bash</p>
-<p>./venv/bin/python sharepoint_importer.py</p>
-<p>`</p>
-<ol start="23" type="1">
-<li><p>**Expected Output**: The script should successfully list the
-available SharePoint sites without any permission errors.</p></li>
-</ol>
-<p>`</p>
-<p>📍 Listing SharePoint sites...</p>
-<p>📍 Found X SharePoint sites:</p>
+<h2 id="security-considerations">6.0 Security Considerations</h2>
 <ul>
-<li><p>Site Name 1 (https://...)</p></li>
-<li><p>Site Name 2 (https://...)</p></li>
-</ul>
-<p>`</p>
-<h1 id="security-considerations">6.0 Security Considerations</h1>
+<li><strong>Principle of Least Privilege</strong>: This procedure grants
+read-only access (<code>.Read.All</code>). <strong>DO NOT</strong> grant
+write permissions (e.g., <code>Sites.ReadWrite.All</code>,
+<code>Sites.FullControl.All</code>) unless explicitly required and
+approved.</li>
+<li><strong>Permission Scope</strong>:
 <ul>
-<li><p>**Principle of Least Privilege**: This procedure grants read-only
-access (`.Read.All`). **DO NOT** grant write permissions (e.g.,
-`Sites.ReadWrite.All`, `Sites.FullControl.All`) unless explicitly
-required and approved.</p></li>
-<li><p>**Permission Scope**:</p></li>
-<li><p>`Sites.Read.All`: Allows the application to list sites and read
-metadata. It does not permit creating, altering, or deleting
-sites.</p></li>
-<li><p>`Files.Read.All`: Allows the application to download files and
-read file metadata. It does not permit uploading, altering, or deleting
-files.</p></li>
-<li><p>**Credential Security**: The `AZURE_CLIENT_SECRET` is a sensitive
-credential. Ensure it is stored securely and is not committed to version
-control. Use environment files (`.env`) or a secrets management
-system.</p></li>
+<li><code>Sites.Read.All</code>: Allows the application to list sites
+and read metadata. It does not permit creating, altering, or deleting
+sites.</li>
+<li><code>Files.Read.All</code>: Allows the application to download
+files and read file metadata. It does not permit uploading, altering, or
+deleting files.</li>
+</ul></li>
+<li><strong>Credential Security</strong>: The
+<code>AZURE_CLIENT_SECRET</code> is a sensitive credential. Ensure it is
+stored securely and is not committed to version control. Use environment
+files (<code>.env</code>) or a secrets management system.</li>
 </ul>
-<h1 id="troubleshooting">7.0 Troubleshooting</h1>
+<h2 id="troubleshooting">7.0 Troubleshooting</h2>
 <ul>
-<li><p>**Error: "Insufficient privileges to complete the
-operation"**</p></li>
-<li><p>**Cause**: Admin consent has not been granted or has not yet
-propagated.</p></li>
-<li><p>**Solution**: Ensure you have completed step **4.2 Grant Admin
-Consent**. Wait up to 5-10 minutes for permissions to fully propagate
-across Microsoft's systems.</p></li>
-<li><p>**Error: "Failed to get access token"**</p></li>
-<li><p>**Cause**: The credentials in the `.env` file are
-incorrect.</p></li>
-<li><p>**Solution**: Double-check that the `AZURE_TENANT_ID`,
-`AZURE_CLIENT_ID`, and `AZURE_CLIENT_SECRET` values are copied correctly
-and have no extra characters or whitespace. Verify the client secret has
-not expired.</p></li>
-<li><p>**Error: "Collection does not exist"**</p></li>
-<li><p>**Cause**: The Site ID used in a script is incorrect.</p></li>
-<li><p>**Solution**: Ensure you are using the correct `site_id` as
-provided by the verification script in section **5.0**.</p></li>
+<li><strong>Error: “Insufficient privileges to complete the
+operation”</strong>
+<ul>
+<li><strong>Cause</strong>: Admin consent has not been granted or has
+not yet propagated.</li>
+<li><strong>Solution</strong>: Ensure you have completed step
+<strong>4.2 Grant Admin Consent</strong>. Wait up to 5-10 minutes for
+permissions to fully propagate across Microsoft’s systems.</li>
+</ul></li>
+<li><strong>Error: “Failed to get access token”</strong>
+<ul>
+<li><strong>Cause</strong>: The credentials in the <code>.env</code>
+file are incorrect.</li>
+<li><strong>Solution</strong>: Double-check that the
+<code>AZURE_TENANT_ID</code>, <code>AZURE_CLIENT_ID</code>, and
+<code>AZURE_CLIENT_SECRET</code> values are copied correctly and have no
+extra characters or whitespace. Verify the client secret has not
+expired.</li>
+</ul></li>
+<li><strong>Error: “Collection does not exist”</strong>
+<ul>
+<li><strong>Cause</strong>: The Site ID used in a script is
+incorrect.</li>
+<li><strong>Solution</strong>: Ensure you are using the correct
+<code>site_id</code> as provided by the verification script in section
+<strong>5.0</strong>.</li>
+</ul></li>
 </ul>
-<h1 id="appendix">8.0 Appendix</h1>
-<h2 id="post-setup-actions">8.1 Post-Setup Actions</h2>
+<h2 id="appendix">8.0 Appendix</h2>
+<h3 id="post-setup-actions">8.1 Post-Setup Actions</h3>
 <p>After successful verification, you can use the configured importer to
 interact with SharePoint.</p>
-<ol start="24" type="1">
-<li><p>Launch the Python interpreter within the project's
-environment:</p></li>
+<ol type="1">
+<li><p>Launch the Python interpreter within the project’s environment:
+<code>bash     ./venv/bin/python</code></p></li>
+<li><p>Use the <code>SharePointImporter</code> class to list libraries
+and download files:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sharepoint_importer <span class="im">import</span> SharePointImporter</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>importer <span class="op">=</span> SharePointImporter()</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: List document libraries in a specific site</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># libraries = importer.list_document_libraries(site_id=&quot;YOUR_SITE_ID&quot;)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Download files from a specific library</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># importer.download_files_from_library(</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#     site_id=&quot;YOUR_SITE_ID&quot;,</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#     drive_id=&quot;YOUR_DRIVE_ID&quot;,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#     output_dir=&quot;input_documents/sharepoint/oberaconnect&quot;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span></code></pre></div></li>
 </ol>
-<p>`bash</p>
-<p>./venv/bin/python</p>
-<p>`</p>
-<ol start="25" type="1">
-<li><p>Use the `SharePointImporter` class to list libraries and download
-files:</p></li>
-</ol>
-<p>`python</p>
-<p>from sharepoint_importer import SharePointImporter</p>
-<p>importer = SharePointImporter()</p>
-<p>Example: List document libraries in a specific site</p>
-<p>libraries =
-importer.list_document_libraries(site_id="YOUR_SITE_ID")</p>
-<p>Example: Download files from a specific library</p>
-<p>importer.download_files_from_library(</p>
-<p>site_id="YOUR_SITE_ID",</p>
-<p>drive_id="YOUR_DRIVE_ID",</p>
-<p>output_dir="input_documents/sharepoint/oberaconnect"</p>
-<p>)</p>
-<p>`</p>
-<h2 id="completion-checklist">8.2 Completion Checklist</h2>
-<ul>
-<li><p>[ ] `Sites.Read.All` (Application) permission added.</p></li>
-<li><p>[ ] `Files.Read.All` (Application) permission added.</p></li>
-<li><p>[ ] Admin consent granted for new permissions.</p></li>
-<li><p>[ ] Tenant ID copied from application Overview page.</p></li>
-<li><p>[ ] Application (Client) ID copied from application Overview
-page.</p></li>
-<li><p>[ ] Client Secret created and its value securely copied.</p></li>
-<li><p>[ ] `AZURE_TENANT_ID`, `AZURE_CLIENT_ID`, and
-`AZURE_CLIENT_SECRET` added to `.env` file.</p></li>
-<li><p>[ ] Connection verified successfully with
-`sharepoint_importer.py`.</p></li>
+<h3 id="completion-checklist">8.2 Completion Checklist</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" /><code>Sites.Read.All</code>
+(Application) permission added.</label></li>
+<li><label><input type="checkbox" /><code>Files.Read.All</code>
+(Application) permission added.</label></li>
+<li><label><input type="checkbox" />Admin consent granted for new
+permissions.</label></li>
+<li><label><input type="checkbox" />Tenant ID copied from application
+Overview page.</label></li>
+<li><label><input type="checkbox" />Application (Client) ID copied from
+application Overview page.</label></li>
+<li><label><input type="checkbox" />Client Secret created and its value
+securely copied.</label></li>
+<li><label><input type="checkbox" /><code>AZURE_TENANT_ID</code>,
+<code>AZURE_CLIENT_ID</code>, and <code>AZURE_CLIENT_SECRET</code> added
+to <code>.env</code> file.</label></li>
+<li><label><input type="checkbox" />Connection verified successfully
+with <code>sharepoint_importer.py</code>.</label></li>
 </ul>
-
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Details</div>
-        <div class="section-content">
-            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
-
-            <div class="highlight-box">
-                <strong>Key Point:</strong> [Important information to highlight]
-            </div>
-
-            <p>Supporting details:</p>
-            <ul>
-                <li>[Detail item 1]</li>
-                <li>[Detail item 2]</li>
-                <li>[Detail item 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Next Steps</div>
-        <div class="section-content">
-            <div class="action-item">
-                <strong>Action Required:</strong> [Specific action item with owner and deadline]
-            </div>
-
-            <ul>
-                <li>[Next step 1]</li>
-                <li>[Next step 2]</li>
-                <li>[Next step 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="footer">
-        OberaConnect LLC | www.oberaconnect.com | Confidential
-    </div>
 </body>
 </html>

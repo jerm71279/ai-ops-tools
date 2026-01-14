@@ -1,0 +1,211 @@
+{
+  "metadata": {
+    "customer_name": "Enterprise Corp",
+    "source_platform": "sonicwall",
+    "source_device": "",
+    "source_firmware": "",
+    "device_name": "Enterprise-Corp",
+    "serial_number": "",
+    "wan_interface": "X0",
+    "wan_ip": "203.0.113.50/29",
+    "wan_gateway": "203.0.113.49",
+    "parsed_date": "2026-01-09",
+    "total_networks": 5
+  },
+  "networks": [
+    {
+      "name": "LAN",
+      "vlan_id": 0,
+      "subnet": "10.0.0.0/24",
+      "gateway": "10.0.0.1",
+      "dhcp_enabled": true,
+      "dhcp_start": "10.0.0.100",
+      "dhcp_stop": "10.0.0.200",
+      "dns_servers": [
+        "1.1.1.1",
+        "1.0.0.1"
+      ],
+      "purpose": "corporate",
+      "network_isolation": false,
+      "interface": "X1",
+      "zone": "LAN"
+    },
+    {
+      "name": "MANAGEMENT",
+      "vlan_id": 10,
+      "subnet": "10.0.10.0/24",
+      "gateway": "10.0.10.1",
+      "dhcp_enabled": true,
+      "dhcp_start": "10.0.10.100",
+      "dhcp_stop": "10.0.10.200",
+      "dns_servers": [
+        "1.1.1.1"
+      ],
+      "purpose": "management",
+      "network_isolation": false,
+      "interface": "X1:10",
+      "zone": "MANAGEMENT"
+    },
+    {
+      "name": "ENGINEERING",
+      "vlan_id": 20,
+      "subnet": "10.0.20.0/24",
+      "gateway": "10.0.20.1",
+      "dhcp_enabled": true,
+      "dhcp_start": "10.0.20.100",
+      "dhcp_stop": "10.0.20.250",
+      "dns_servers": [
+        "1.1.1.1",
+        "1.0.0.1"
+      ],
+      "purpose": "corporate",
+      "network_isolation": false,
+      "interface": "X1:20",
+      "zone": "ENGINEERING"
+    },
+    {
+      "name": "GUEST",
+      "vlan_id": 30,
+      "subnet": "10.0.30.0/24",
+      "gateway": "10.0.30.1",
+      "dhcp_enabled": true,
+      "dhcp_start": "10.0.30.10",
+      "dhcp_stop": "10.0.30.250",
+      "dns_servers": [
+        "1.1.1.1",
+        "1.0.0.1"
+      ],
+      "purpose": "guest",
+      "network_isolation": true,
+      "interface": "X1:30",
+      "zone": "GUEST"
+    },
+    {
+      "name": "IOT",
+      "vlan_id": 40,
+      "subnet": "10.0.40.0/24",
+      "gateway": "10.0.40.1",
+      "dhcp_enabled": true,
+      "dhcp_start": "10.0.40.100",
+      "dhcp_stop": "10.0.40.200",
+      "dns_servers": [
+        "1.1.1.1",
+        "1.0.0.1"
+      ],
+      "purpose": "iot",
+      "network_isolation": true,
+      "interface": "X1:40",
+      "zone": "IOT"
+    }
+  ],
+  "firewall_rules": [
+    {
+      "name": "LAN_to_WAN",
+      "action": "allow",
+      "chain": "forward",
+      "from_zone": "LAN",
+      "to_zone": "WAN",
+      "source": "any",
+      "destination": "any",
+      "service": "any",
+      "enabled": true
+    },
+    {
+      "name": "MANAGEMENT_to_WAN",
+      "action": "allow",
+      "chain": "forward",
+      "from_zone": "MANAGEMENT",
+      "to_zone": "WAN",
+      "source": "any",
+      "destination": "any",
+      "service": "any",
+      "enabled": true
+    },
+    {
+      "name": "ENGINEERING_to_WAN",
+      "action": "allow",
+      "chain": "forward",
+      "from_zone": "ENGINEERING",
+      "to_zone": "WAN",
+      "source": "any",
+      "destination": "any",
+      "service": "any",
+      "enabled": true
+    },
+    {
+      "name": "GUEST_to_WAN",
+      "action": "allow",
+      "chain": "forward",
+      "from_zone": "GUEST",
+      "to_zone": "WAN",
+      "source": "any",
+      "destination": "any",
+      "service": "any",
+      "enabled": true
+    },
+    {
+      "name": "GUEST_to_LAN_deny",
+      "action": "deny",
+      "chain": "forward",
+      "from_zone": "GUEST",
+      "to_zone": "LAN",
+      "source": "any",
+      "destination": "any",
+      "service": "any",
+      "enabled": true
+    },
+    {
+      "name": "IOT_to_WAN",
+      "action": "allow",
+      "chain": "forward",
+      "from_zone": "IOT",
+      "to_zone": "WAN",
+      "source": "any",
+      "destination": "any",
+      "service": "any",
+      "enabled": true
+    },
+    {
+      "name": "IOT_to_LAN_deny",
+      "action": "deny",
+      "chain": "forward",
+      "from_zone": "IOT",
+      "to_zone": "LAN",
+      "source": "any",
+      "destination": "any",
+      "service": "any",
+      "enabled": true
+    }
+  ],
+  "nat_rules": [
+    {
+      "action": "dynamic-ip",
+      "chain": "srcnat",
+      "from_zone": "LAN",
+      "to_zone": "WAN",
+      "source": "any",
+      "destination": "any",
+      "enabled": true
+    },
+    {
+      "action": "dynamic-ip",
+      "chain": "srcnat",
+      "from_zone": "MANAGEMENT",
+      "to_zone": "WAN",
+      "source": "any",
+      "destination": "any",
+      "enabled": true
+    },
+    {
+      "action": "dynamic-ip",
+      "chain": "srcnat",
+      "from_zone": "ENGINEERING",
+      "to_zone": "WAN",
+      "source": "any",
+      "destination": "any",
+      "enabled": true
+    }
+  ],
+  "port_forwards": [],
+  "static_dhcp_leases": []
+}

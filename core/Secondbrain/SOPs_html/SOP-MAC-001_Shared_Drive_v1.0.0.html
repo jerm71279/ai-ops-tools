@@ -1,250 +1,424 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OberaConnect Document</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333333;
-            max-width: 8.5in;
-            margin: 0 auto;
-            padding: 0.5in;
-            background: #fff;
-        }
-
-        .header {
-            border-bottom: 3px solid #0066CC;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .logo-img {
-            height: 50px;
-            width: auto;
-        }
-
-        .tagline {
-            font-size: 14px;
-            color: #666666;
-            font-style: italic;
-            margin-left: 2px;
-        }
-
-        .doc-meta {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .doc-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #333333;
-        }
-
-        .doc-date {
-            font-size: 12px;
-            color: #666666;
-        }
-
-        .section {
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #0066CC;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-        }
-
-        .section-content {
-            color: #333333;
-            font-size: 14px;
-        }
-
-        .section-content p {
-            margin-bottom: 10px;
-        }
-
-        .section-content ul {
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
-
-        .section-content li {
-            margin-bottom: 5px;
-        }
-
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 11px;
-            color: #999999;
-            text-align: center;
-        }
-
-        .highlight-box {
-            background: #f5f9ff;
-            border-left: 4px solid #0066CC;
-            padding: 15px;
-            margin: 15px 0;
-        }
-
-        .action-item {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 10px 15px;
-            margin: 10px 0;
-        }
-
-        @media print {
-            body {
-                padding: 0;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOP-MAC-001_Shared_Drive_v1.0.0</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo-container">
-            <img src="file:///C:/Users/JeremySmith/OneDrive%20-%20Obera%20Connect/Pictures/Screenshots/OberaConnect%20logo.png" alt="OberaConnect" class="logo-img">
-            <img src="oberaconnect-logo.png" alt="OberaConnect Logo" class="logo" style="max-width: 200px; height: auto;">
-        </div>
-        <div class="tagline">Technology Solutions for Modern Business</div>
-
-        <div class="doc-meta">
-            <div class="doc-title">SOP-MAC-001 Shared Drive v1.0.0</div>
-            <div class="doc-date">Date: [MM/DD/YYYY]</div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Executive Summary</div>
-        <div class="section-content">
-            <table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
+<header id="title-block-header">
+<h1 class="title">SOP-MAC-001_Shared_Drive_v1.0.0</h1>
+</header>
+<h1
+id="standard-operating-procedure-mapping-a-shared-drive-on-mac">Standard
+Operating Procedure: Mapping a Shared Drive on Mac</h1>
+<table>
 <thead>
 <tr class="header">
-<th><strong>**Document ID**</strong></th>
-<th><strong>**SOP-MAC-001**</strong></th>
+<th style="text-align: left;"><strong>Document ID</strong></th>
+<th style="text-align: left;"><strong>SOP-MAC-001</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>**Version**</td>
-<td>1.0</td>
+<td style="text-align: left;"><strong>Version</strong></td>
+<td style="text-align: left;">1.0</td>
 </tr>
 <tr class="even">
-<td>**Status**</td>
-<td>Approved</td>
+<td style="text-align: left;"><strong>Status</strong></td>
+<td style="text-align: left;">Approved</td>
 </tr>
 <tr class="odd">
-<td>**Date**</td>
-<td>2025-12-02</td>
+<td style="text-align: left;"><strong>Date</strong></td>
+<td style="text-align: left;">2025-12-02</td>
 </tr>
 <tr class="even">
-<td>**Department**</td>
-<td>IT</td>
+<td style="text-align: left;"><strong>Department</strong></td>
+<td style="text-align: left;">IT</td>
 </tr>
 <tr class="odd">
-<td>**Author**</td>
-<td>OberaConnect IT</td>
+<td style="text-align: left;"><strong>Author</strong></td>
+<td style="text-align: left;">OberaConnect IT</td>
 </tr>
 </tbody>
 </table>
-<p>────────────────────────────────────────────────────────────</p>
-<h1 id="purpose">1.0 Purpose</h1>
+<hr />
+<h2 id="purpose">1.0 Purpose</h2>
 <p>This document outlines the standard procedure for connecting to
 (mapping) a network shared drive on a computer running macOS. Following
 these steps ensures consistent and successful access to shared network
 resources.</p>
-<h1 id="scope">2.0 Scope</h1>
+<h2 id="scope">2.0 Scope</h2>
 <p>This procedure applies to all employees and contractors using
 company-provided Mac computers who require access to network shared
 drives.</p>
-<h1 id="prerequisites">3.0 Prerequisites</h1>
-<p>Before starting, ensure you have the following:</p>
-<ul>
-<li><p>A Mac computer connected to the company network (either via
-Ethernet or VPN).</p></li>
-<li><p>The server address (file path) for the shared drive (e.g.,
-`smb://servername/sharename`).</p></li>
-<li><p>Valid user credentials (username and password) with permission to
-access the server.</p></li>
-</ul>
-<h1 id="procedure">4.0 Procedure</h1>
+<h2 id="prerequisites">3.0 Prerequisites</h2>
+<p>Before starting, ensure you have the following: - A Mac computer
+connected to the company network (either via Ethernet or VPN). - The
+server address (file path) for the shared drive (e.g.,
+<code>smb://servername/sharename</code>). - Valid user credentials
+(username and password) with permission to access the server.</p>
+<h2 id="procedure">4.0 Procedure</h2>
 <p>Follow these steps to map a shared drive.</p>
-<h2 id="connecting-to-the-server">4.1 Connecting to the Server</h2>
+<h3 id="connecting-to-the-server">4.1 Connecting to the Server</h3>
 <ol type="1">
-<li><p>Open **Finder** by clicking its icon in the Dock.</p></li>
-<li><p>From the menu bar at the top of the screen, click
-**Go**.</p></li>
-<li><p>In the dropdown menu, select **Connect to Server...**. (Keyboard
-shortcut: `Command+K`)</p></li>
-<li><p>In the "Connect to Server" window, enter the server address in
-the **Server Address** field. The format must be
-`smb://&lt;server_path&gt;`.</p></li>
-</ol>
+<li>Open <strong>Finder</strong> by clicking its icon in the Dock.</li>
+<li>From the menu bar at the top of the screen, click
+<strong>Go</strong>.</li>
+<li>In the dropdown menu, select <strong>Connect to Server…</strong>.
+(Keyboard shortcut: <code>Command+K</code>)</li>
+<li>In the “Connect to Server” window, enter the server address in the
+<strong>Server Address</strong> field. The format must be
+<code>smb://&lt;server_path&gt;</code>.
 <ul>
-<li><p>*Example:* `smb://fcgserver/fulcrumshared`</p></li>
-</ul>
-<ol start="5" type="1">
-<li><p>Click the **Connect** button.</p></li>
-<li><p>A credentials prompt will appear. Select **Registered
-User**.</p></li>
-<li><p>Enter your assigned server **Name** (username) and
-**Password**.</p></li>
-<li><p>Click **Connect**. The drive is now mounted.</p></li>
+<li><em>Example:</em> <code>smb://fcgserver/fulcrumshared</code></li>
+<li>For domain-joined servers:
+<code>smb://server.domain.com/sharename</code></li>
+</ul></li>
+<li>Click the <strong>+</strong> button to save this address to
+Favorites for future use.</li>
+<li>Click the <strong>Connect</strong> button.</li>
+<li>A credentials prompt will appear. Select <strong>Registered
+User</strong>.</li>
+<li>Enter your assigned server <strong>Name</strong> (username) and
+<strong>Password</strong>.
+<ul>
+<li>For domain accounts, use: <code>DOMAIN\username</code> or
+<code>username@domain.com</code></li>
+</ul></li>
+<li><strong>Save Credentials:</strong> Check <strong>Remember this
+password in my keychain</strong> to avoid entering credentials each
+time.</li>
+<li>Click <strong>Connect</strong>. The drive is now mounted.</li>
 </ol>
-<h2 id="making-the-drive-visible">4.2 Making the Drive Visible</h2>
+<h3 id="configuring-auto-mount-on-login">4.2 Configuring Auto-Mount on
+Login</h3>
+<p>To automatically reconnect to the shared drive when you log in:</p>
+<p><strong>Method 1: Login Items (Recommended)</strong> 1. Connect to
+the server using Section 4.1 (with Keychain enabled). 2. Open
+<strong>System Settings</strong> (or System Preferences on older macOS).
+3. Navigate to <strong>General &gt; Login Items</strong> (or Users &amp;
+Groups &gt; Login Items on older macOS). 4. Click the <strong>+</strong>
+button under “Open at Login”. 5. In the file browser, navigate to the
+mounted drive (under Locations or in /Volumes). 6. Select the shared
+drive and click <strong>Add</strong>. 7. The drive will now auto-mount
+at each login.</p>
+<p><strong>Method 2: AppleScript (Advanced)</strong> 1. Open
+<strong>Script Editor</strong> (Applications &gt; Utilities). 2. Enter
+the following script:
+<code>applescript     tell application "Finder"         try             mount volume "smb://server/sharename"         end try     end tell</code>
+3. Save as Application: <strong>File &gt; Export</strong> &gt; File
+Format: <strong>Application</strong>. 4. Add this application to Login
+Items (per Method 1 steps 2-6).</p>
+<h3 id="making-the-drive-visible">4.3 Making the Drive Visible</h3>
 <p>To ensure the connected drive is easily accessible, follow these
 steps:</p>
-<ol start="9" type="1">
-<li><p>With **Finder** as the active application, click **Finder** in
-the top menu bar.</p></li>
-<li><p>Select **Settings...** (on macOS Ventura and newer) or
-**Preferences...** (on older macOS versions).</p></li>
-<li><p>In the settings/preferences window, click on the **General**
-tab.</p></li>
-<li><p>Under "Show these items on the desktop:", ensure the box for
-**Connected servers** is checked.</p></li>
-<li><p>Next, click on the **Sidebar** tab.</p></li>
-<li><p>Under "Locations", ensure the box for **Connected servers** is
-checked.</p></li>
+<ol type="1">
+<li>With <strong>Finder</strong> as the active application, click
+<strong>Finder</strong> in the top menu bar.</li>
+<li>Select <strong>Settings…</strong> (on macOS Ventura and newer) or
+<strong>Preferences…</strong> (on older macOS versions).</li>
+<li>In the settings/preferences window, click on the
+<strong>General</strong> tab.</li>
+<li>Under “Show these items on the desktop:”, ensure the box for
+<strong>Connected servers</strong> is checked.</li>
+<li>Next, click on the <strong>Sidebar</strong> tab.</li>
+<li>Under “Locations”, ensure the box for <strong>Connected
+servers</strong> is checked.</li>
 </ol>
-<h1 id="verification">5.0 Verification</h1>
+<h2 id="verification">5.0 Verification</h2>
 <p>Upon successful completion of the procedure, the shared drive will be
-visible in the following locations:</p>
-<ul>
-<li><p>On the **Desktop**.</p></li>
-<li><p>In the **Finder sidebar** under the "Locations" section.</p></li>
-</ul>
-<p>You can now navigate the drive's contents by double-clicking its icon
+visible in the following locations: - On the <strong>Desktop</strong>. -
+In the <strong>Finder sidebar</strong> under the “Locations”
+section.</p>
+<p>You can now navigate the drive’s contents by double-clicking its icon
 in either of these locations.</p>
-<h1 id="revision-history">6.0 Revision History</h1>
+<h2 id="troubleshooting">6.0 Troubleshooting</h2>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 26%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Issue</th>
+<th>Cause</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“Connection failed” error</td>
+<td>Server unreachable or DNS issue</td>
+<td>Verify network connection. Try IP address instead of hostname.</td>
+</tr>
+<tr class="even">
+<td>“Invalid username or password”</td>
+<td>Wrong credentials or format</td>
+<td>Try <code>DOMAIN\username</code> format. Check Caps Lock.</td>
+</tr>
+<tr class="odd">
+<td>Drive disconnects after sleep</td>
+<td>macOS drops idle connections</td>
+<td>Enable auto-mount via Login Items (Section 4.2).</td>
+</tr>
+<tr class="even">
+<td>Slow performance</td>
+<td>SMB version mismatch</td>
+<td>Check server supports SMB3. Try adding <code>?vers=3</code> to
+path.</td>
+</tr>
+<tr class="odd">
+<td>Keychain keeps asking for password</td>
+<td>Keychain entry corrupted</td>
+<td>Delete entry in Keychain Access app, reconnect with “Remember
+password”.</td>
+</tr>
+<tr class="even">
+<td>Drive not auto-mounting</td>
+<td>Login Item not configured correctly</td>
+<td>Remove and re-add Login Item. Ensure Keychain has credentials
+saved.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>CLI Connection (Alternative):</strong></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mount share via Terminal</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/mnt/sharename</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">mount_smbfs</span> //username@server/sharename ~/mnt/sharename</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Unmount</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">umount</span> ~/mnt/sharename</span></code></pre></div>
+<h2 id="related-documents">7.0 Related Documents</h2>
+<ul>
+<li>SOP-AD-002: Adding Mac Device to Active Directory Domain</li>
+</ul>
+<h2 id="revision-history">8.0 Revision History</h2>
 <table>
 <colgroup>
 <col style="width: 25%" />
@@ -254,60 +428,30 @@ in either of these locations.</p>
 </colgroup>
 <thead>
 <tr class="header">
-<th>Version</th>
-<th>Date</th>
-<th>Author</th>
-<th>Change Description</th>
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">Date</th>
+<th style="text-align: left;">Author</th>
+<th style="text-align: left;">Change Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1.0</td>
-<td>2025-12-02</td>
-<td>OberaConnect IT</td>
-<td>Initial document creation from source material.</td>
+<td style="text-align: left;">1.0</td>
+<td style="text-align: left;">2025-12-02</td>
+<td style="text-align: left;">OberaConnect IT</td>
+<td style="text-align: left;">Initial document creation from source
+material.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1.1</td>
+<td style="text-align: left;">2025-12-29</td>
+<td style="text-align: left;">Jeremy Smith</td>
+<td style="text-align: left;">SME Review: Added Keychain password
+storage option. Added Section 4.2 (Auto-Mount on Login with Login Items
+and AppleScript methods). Added troubleshooting table. Added CLI
+alternative.</td>
 </tr>
 </tbody>
 </table>
-
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Details</div>
-        <div class="section-content">
-            <p>[Main content goes here. Include relevant information, analysis, or documentation.]</p>
-
-            <div class="highlight-box">
-                <strong>Key Point:</strong> [Important information to highlight]
-            </div>
-
-            <p>Supporting details:</p>
-            <ul>
-                <li>[Detail item 1]</li>
-                <li>[Detail item 2]</li>
-                <li>[Detail item 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Next Steps</div>
-        <div class="section-content">
-            <div class="action-item">
-                <strong>Action Required:</strong> [Specific action item with owner and deadline]
-            </div>
-
-            <ul>
-                <li>[Next step 1]</li>
-                <li>[Next step 2]</li>
-                <li>[Next step 3]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="footer">
-        OberaConnect LLC | www.oberaconnect.com | Confidential
-    </div>
 </body>
 </html>

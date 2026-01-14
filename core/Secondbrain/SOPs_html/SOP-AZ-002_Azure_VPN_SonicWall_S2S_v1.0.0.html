@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SOP-AZ-002: Azure Site-to-Site VPN with SonicWall</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">SOP-AZ-002: Azure Site-to-Site VPN with SonicWall</h1>
+</header>
+<h1
+id="standard-operating-procedure-azure-site-to-site-vpn-with-sonicwall">Standard
+Operating Procedure: Azure Site-to-Site VPN with SonicWall</h1>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>Document ID:</strong></td>
+<td>SOP-AZ-002</td>
+</tr>
+<tr class="even">
+<td><strong>Title:</strong></td>
+<td>Azure Site-to-Site VPN with SonicWall</td>
+</tr>
+<tr class="odd">
+<td><strong>Category:</strong></td>
+<td>Azure / Network</td>
+</tr>
+<tr class="even">
+<td><strong>Version:</strong></td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td><strong>Status:</strong></td>
+<td>Draft</td>
+</tr>
+<tr class="even">
+<td><strong>Author:</strong></td>
+<td>OberaConnect</td>
+</tr>
+<tr class="odd">
+<td><strong>Creation Date:</strong></td>
+<td>2026-01-09</td>
+</tr>
+<tr class="even">
+<td><strong>Approval Date:</strong></td>
+<td>Pending</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="purpose">1.0 Purpose</h3>
+<p>To establish a standardized process for creating a site-to-site IPsec
+VPN connection between an Azure Virtual Network Gateway and a SonicWall
+firewall, enabling secure communication between on-premises networks and
+Azure resources.</p>
+<h3 id="scope">2.0 Scope</h3>
+<p>This SOP applies to Network Engineers and Cloud Administrators
+responsible for: - Adding new spoke sites to an existing Azure hub VPN
+gateway - Connecting SonicWall firewalls (Gen 6 or Gen 7) to Azure -
+Configuring IPsec/IKEv2 tunnels between Azure and on-premises
+networks</p>
+<h3 id="definitions">3.0 Definitions</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 66%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>S2S VPN</strong></td>
+<td>Site-to-Site Virtual Private Network</td>
+</tr>
+<tr class="even">
+<td><strong>VNet</strong></td>
+<td>Azure Virtual Network</td>
+</tr>
+<tr class="odd">
+<td><strong>VPN Gateway</strong></td>
+<td>Azure managed gateway service for VPN connections</td>
+</tr>
+<tr class="even">
+<td><strong>Local Network Gateway</strong></td>
+<td>Azure resource representing the on-premises VPN device</td>
+</tr>
+<tr class="odd">
+<td><strong>PSK</strong></td>
+<td>Pre-Shared Key for IPsec authentication</td>
+</tr>
+<tr class="even">
+<td><strong>IKE</strong></td>
+<td>Internet Key Exchange protocol</td>
+</tr>
+<tr class="odd">
+<td><strong>IPsec</strong></td>
+<td>Internet Protocol Security</td>
+</tr>
+<tr class="even">
+<td><strong>PFS</strong></td>
+<td>Perfect Forward Secrecy</td>
+</tr>
+<tr class="odd">
+<td><strong>DH Group</strong></td>
+<td>Diffie-Hellman key exchange group</td>
+</tr>
+<tr class="even">
+<td><strong>SA</strong></td>
+<td>Security Association</td>
+</tr>
+</tbody>
+</table>
+<h3 id="roles-responsibilities">4.0 Roles &amp; Responsibilities</h3>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 72%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Role</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Network Engineer</strong></td>
+<td>Configure SonicWall VPN policy and verify tunnel connectivity</td>
+</tr>
+<tr class="even">
+<td><strong>Cloud Administrator</strong></td>
+<td>Create Azure VPN resources and configure IPsec policies</td>
+</tr>
+<tr class="odd">
+<td><strong>Security Team</strong></td>
+<td>Approve network address ranges and PSK complexity requirements</td>
+</tr>
+</tbody>
+</table>
+<h3 id="prerequisites">5.0 Prerequisites</h3>
+<h4 id="azure-side">Azure Side</h4>
+<ul>
+<li>Existing Azure VPN Gateway (Route-based, Generation2
+recommended)</li>
+<li>Virtual Network with GatewaySubnet configured</li>
+<li>Appropriate Azure subscription permissions (Network Contributor or
+higher)</li>
+<li>Azure CLI authenticated (<code>az login</code>)</li>
+</ul>
+<h4 id="on-premises-side">On-Premises Side</h4>
+<ul>
+<li>SonicWall firewall (Gen 6 SonicOS 6.5.x or Gen 7 SonicOS 7.x)</li>
+<li>Static public IP address on WAN interface</li>
+<li>Defined LAN subnet(s) to route through VPN</li>
+<li>Administrative access to SonicWall</li>
+</ul>
+<h4 id="information-required">Information Required</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SonicWall WAN IP</td>
+<td>170.249.184.236</td>
+</tr>
+<tr class="even">
+<td>On-premises LAN subnet</td>
+<td>192.168.10.0/24</td>
+</tr>
+<tr class="odd">
+<td>Azure VNet subnet to access</td>
+<td>10.20.1.0/24</td>
+</tr>
+<tr class="even">
+<td>Connection name</td>
+<td>Obera_Lab</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="procedure">6.0 Procedure</h3>
+<h4 id="gather-on-premises-network-information">6.1 Gather On-Premises
+Network Information</h4>
+<ol type="1">
+<li><strong>Get SonicWall Public IP:</strong>
+<ul>
+<li>From a device on the LAN, browse to https://ipchicken.com or
+https://ifconfig.me</li>
+<li>Or use PowerShell:
+<code>(Invoke-WebRequest -Uri "https://ifconfig.me" -UseBasicParsing).Content</code></li>
+<li>Record the public IP address</li>
+</ul></li>
+<li><strong>Document LAN Subnets:</strong>
+<ul>
+<li>Identify all subnets that need VPN access to Azure</li>
+<li>Example: <code>192.168.10.0/24</code></li>
+</ul></li>
+</ol>
+<h4 id="create-local-network-gateway-in-azure">6.2 Create Local Network
+Gateway in Azure</h4>
+<p>The Local Network Gateway represents the on-premises SonicWall in
+Azure.</p>
+<p><strong>Azure Portal:</strong> 1. Search “Local network gateways” →
+<strong>Create</strong> 2. Configure: - <strong>Resource Group:</strong>
+Use existing networking RG - <strong>Name:</strong>
+<code>lgw-{site-name}</code> (e.g., <code>Obera_Lab</code>) -
+<strong>Region:</strong> Same as VPN Gateway - <strong>IP
+address:</strong> SonicWall WAN public IP - <strong>Address
+space:</strong> On-premises LAN subnets 3. Click
+<strong>Create</strong></p>
+<p><strong>Azure CLI:</strong></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network local-gateway create <span class="dt">\</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-g</span> DataCenter <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-n</span> Obera_Lab <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--gateway-ip-address</span> 170.249.184.236 <span class="dt">\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--local-address-prefixes</span> 192.168.10.0/24 <span class="dt">\</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--location</span> eastus</span></code></pre></div>
+<h4 id="create-vpn-connection">6.3 Create VPN Connection</h4>
+<p><strong>Azure Portal:</strong> 1. Navigate to <strong>Virtual Network
+Gateway</strong> → <strong>Connections</strong> → <strong>+ Add</strong>
+2. Configure: - <strong>Name:</strong> <code>conn-{site-name}</code>
+(e.g., <code>Obera_Lab</code>) - <strong>Connection type:</strong>
+Site-to-site (IPsec) - <strong>Local network gateway:</strong> Select
+created gateway - <strong>Shared key (PSK):</strong> Generate strong 20+
+character key - <strong>IKE Protocol:</strong> IKEv2 3. Click
+<strong>Create</strong></p>
+<p><strong>Azure CLI:</strong></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network vpn-connection create <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-g</span> DataCenter <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-n</span> Obera_Lab <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--vnet-gateway1</span> DataCenter_Gateway <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--local-gateway2</span> Obera_Lab <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--shared-key</span> <span class="st">&quot;YourSecurePSK123!&quot;</span> <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--location</span> eastus</span></code></pre></div>
+<h4 id="configure-custom-ipsecike-policy">6.4 Configure Custom IPsec/IKE
+Policy</h4>
+<p>Configure matching IPsec parameters for SonicWall compatibility.</p>
+<p><strong>Recommended Settings:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Phase</th>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>IKE Phase 1</td>
+<td>Encryption</td>
+<td>AES256</td>
+</tr>
+<tr class="even">
+<td>IKE Phase 1</td>
+<td>Integrity</td>
+<td>SHA256</td>
+</tr>
+<tr class="odd">
+<td>IKE Phase 1</td>
+<td>DH Group</td>
+<td>DHGroup14 (2048-bit)</td>
+</tr>
+<tr class="even">
+<td>IKE Phase 1</td>
+<td>SA Lifetime</td>
+<td>28800 seconds</td>
+</tr>
+<tr class="odd">
+<td>IPsec Phase 2</td>
+<td>Encryption</td>
+<td>AES256</td>
+</tr>
+<tr class="even">
+<td>IPsec Phase 2</td>
+<td>Integrity</td>
+<td>SHA256</td>
+</tr>
+<tr class="odd">
+<td>IPsec Phase 2</td>
+<td>PFS</td>
+<td>None (disabled)</td>
+</tr>
+<tr class="even">
+<td>IPsec Phase 2</td>
+<td>SA Lifetime</td>
+<td>28800 seconds</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Azure CLI:</strong></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network vpn-connection ipsec-policy add <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-g</span> DataCenter <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--connection-name</span> Obera_Lab <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--ike-encryption</span> AES256 <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--ike-integrity</span> SHA256 <span class="dt">\</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--dh-group</span> DHGroup14 <span class="dt">\</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--ipsec-encryption</span> AES256 <span class="dt">\</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--ipsec-integrity</span> SHA256 <span class="dt">\</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pfs-group</span> None <span class="dt">\</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--sa-lifetime</span> 28800 <span class="dt">\</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--sa-max-size</span> 0</span></code></pre></div>
+<h4 id="configure-traffic-selectors-optional">6.5 Configure Traffic
+Selectors (Optional)</h4>
+<p>To restrict which Azure subnets are accessible through the
+tunnel:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enable policy-based traffic selectors</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network vpn-connection update <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-g</span> DataCenter <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-n</span> Obera_Lab <span class="dt">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--use-policy-based-traffic-selectors</span> true</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Add traffic selector</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network vpn-connection update <span class="dt">\</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">-g</span> DataCenter <span class="dt">\</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">-n</span> Obera_Lab <span class="dt">\</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--set</span> trafficSelectorPolicies=<span class="st">&#39;[{&quot;localAddressRanges&quot;:[&quot;10.20.1.0/24&quot;],&quot;remoteAddressRanges&quot;:[&quot;192.168.10.0/24&quot;]}]&#39;</span></span></code></pre></div>
+<h4 id="configure-sonicwall-vpn-policy">6.6 Configure SonicWall VPN
+Policy</h4>
+<h5 id="gen-7-sonicwall-sonicos-7.x">Gen 7 SonicWall (SonicOS 7.x)</h5>
+<ol type="1">
+<li>Navigate to <strong>Network</strong> → <strong>IPSec VPN</strong> →
+<strong>Rules and Settings</strong></li>
+<li>Click <strong>+ Add</strong> to create new policy</li>
+</ol>
+<h5 id="gen-6-sonicwall-sonicos-6.5.x">Gen 6 SonicWall (SonicOS
+6.5.x)</h5>
+<ol type="1">
+<li>Navigate to <strong>VPN</strong> → <strong>Settings</strong></li>
+<li>Click <strong>Add</strong> under VPN Policies</li>
+</ol>
+<h5 id="general-tab-configuration">General Tab Configuration</h5>
+<table>
+<thead>
+<tr class="header">
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Policy Type</td>
+<td>Site to Site</td>
+</tr>
+<tr class="even">
+<td>Authentication Method</td>
+<td>IKE using Preshared Secret</td>
+</tr>
+<tr class="odd">
+<td>Name</td>
+<td>Azure-{VNet-Name}</td>
+</tr>
+<tr class="even">
+<td>IPSec Primary Gateway</td>
+<td>Azure VPN Gateway Public IP</td>
+</tr>
+<tr class="odd">
+<td>Shared Secret</td>
+<td>Same PSK as Azure connection</td>
+</tr>
+</tbody>
+</table>
+<h5 id="network-tab-configuration">Network Tab Configuration</h5>
+<table>
+<thead>
+<tr class="header">
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Local Networks</td>
+<td>On-premises LAN subnet(s)</td>
+</tr>
+<tr class="even">
+<td>Remote Networks</td>
+<td>Azure VNet subnet(s)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Create Address Objects if needed:</strong> - Local:
+<code>Local_LAN</code> → <code>192.168.10.0/24</code> - Remote:
+<code>Azure_VNet</code> → <code>10.20.1.0/24</code></p>
+<h5 id="proposals-tab-configuration">Proposals Tab Configuration</h5>
+<p><strong>IKE (Phase 1) Proposal:</strong> | Setting | Value |
+|———|——-| | Exchange | IKEv2 Mode | | DH Group | Group 14 | | Encryption
+| AES-256 | | Authentication | SHA256 | | Life Time (seconds) | 28800
+|</p>
+<p><strong>IPsec (Phase 2) Proposal:</strong> | Setting | Value |
+|———|——-| | Protocol | ESP | | Encryption | AES-256 | | Authentication |
+SHA256 | | Enable Perfect Forward Secrecy | <strong>Unchecked</strong> |
+| Life Time (seconds) | 28800 |</p>
+<h5 id="advanced-tab-configuration">Advanced Tab Configuration</h5>
+<table>
+<thead>
+<tr class="header">
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Local IKE ID</td>
+<td>IP Address → SonicWall WAN IP</td>
+</tr>
+<tr class="even">
+<td>Peer IKE ID</td>
+<td>IPv4 Address → Azure Gateway IP</td>
+</tr>
+<tr class="odd">
+<td>Enable Keep Alive</td>
+<td>Checked</td>
+</tr>
+</tbody>
+</table>
+<ol start="4" type="1">
+<li>Click <strong>OK</strong> to save</li>
+<li>Ensure policy is <strong>Enabled</strong></li>
+</ol>
+<hr />
+<h3 id="verification-quality-checks">7.0 Verification &amp; Quality
+Checks</h3>
+<h4 id="azure-side-verification">Azure Side Verification</h4>
+<p><strong>Check Connection Status:</strong></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network vpn-connection show <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-g</span> DataCenter <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-n</span> Obera_Lab <span class="dt">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--query</span> <span class="st">&quot;{Name:name, Status:connectionStatus, Ingress:ingressBytesTransferred, Egress:egressBytesTransferred}&quot;</span> <span class="dt">\</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> table</span></code></pre></div>
+<p>Expected output when connected:</p>
+<pre><code>Name       Status     Ingress    Egress
+---------  ---------  ---------  ---------
+Obera_Lab  Connected  12345      67890</code></pre>
+<h4 id="sonicwall-side-verification">SonicWall Side Verification</h4>
+<p><strong>Gen 7:</strong> Navigate to <strong>Monitor</strong> →
+<strong>VPN</strong> → <strong>IPSec</strong> <strong>Gen 6:</strong>
+Navigate to <strong>VPN</strong> → <strong>Settings</strong> and check
+status indicator</p>
+<p>Green indicator = Tunnel established</p>
+<h4 id="connectivity-test">Connectivity Test</h4>
+<p>From on-premises device (192.168.10.x):</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ping</span> 10.20.1.8    <span class="co"># Azure VM or resource</span></span></code></pre></div>
+<p>From Azure VM (10.20.1.x):</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ping</span> 192.168.10.1    <span class="co"># On-premises gateway or device</span></span></code></pre></div>
+<hr />
+<h3 id="troubleshooting">8.0 Troubleshooting</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 45%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Issue</th>
+<th>Possible Cause</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Status: NotConnected, 0 bytes transferred</td>
+<td>SonicWall not initiating</td>
+<td>Enable VPN policy; check “Keep Alive” is enabled</td>
+</tr>
+<tr class="even">
+<td>IKE Phase 1 failure</td>
+<td>DH Group mismatch</td>
+<td>Verify both sides use Group 14 (2048-bit)</td>
+</tr>
+<tr class="odd">
+<td>IKE Phase 1 failure</td>
+<td>Encryption mismatch</td>
+<td>Ensure both use AES-256 and SHA256</td>
+</tr>
+<tr class="even">
+<td>IKE Phase 1 failure</td>
+<td>IKE ID mismatch</td>
+<td>Set Local IKE ID to IP Address (not Firewall Identifier)</td>
+</tr>
+<tr class="odd">
+<td>Phase 2 failure</td>
+<td>PFS mismatch</td>
+<td>Disable PFS on SonicWall if Azure has PFS=None</td>
+</tr>
+<tr class="even">
+<td>Phase 2 failure</td>
+<td>Lifetime mismatch</td>
+<td>Set both Phase 1 and Phase 2 to 28800 seconds</td>
+</tr>
+<tr class="odd">
+<td>Tunnel up but no traffic</td>
+<td>Traffic selector mismatch</td>
+<td>Verify Local/Remote networks match on both sides</td>
+</tr>
+<tr class="even">
+<td>Tunnel up but no traffic</td>
+<td>Firewall rules</td>
+<td>Check SonicWall access rules allow VPN zone traffic</td>
+</tr>
+<tr class="odd">
+<td>Intermittent connectivity</td>
+<td>NAT-T issues</td>
+<td>Ensure UDP 500 and 4500 are open</td>
+</tr>
+</tbody>
+</table>
+<h4 id="sonicwall-vpn-logs">SonicWall VPN Logs</h4>
+<ul>
+<li><strong>Gen 7:</strong> Monitor → Logs → Filter: VPN</li>
+<li><strong>Gen 6:</strong> Log → View → Category: VPN</li>
+</ul>
+<p>Look for IKE negotiation messages to identify which phase is
+failing.</p>
+<h4 id="azure-diagnostics">Azure Diagnostics</h4>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View activity logs for VPN connection</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> monitor activity-log list <span class="dt">\</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--resource-group</span> DataCenter <span class="dt">\</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--offset</span> 1h <span class="dt">\</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--query</span> <span class="st">&quot;[?contains(resourceId, &#39;Obera_Lab&#39;)]&quot;</span></span></code></pre></div>
+<hr />
+<h3 id="related-documents">9.0 Related Documents</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Document</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SOP-NET-001</td>
+<td>Initial SonicWall Firewall Setup</td>
+</tr>
+<tr class="even">
+<td>SOP-NET-006</td>
+<td>SonicWall Backup Configuration</td>
+</tr>
+<tr class="odd">
+<td>SOP-AZ-001</td>
+<td>Azure VM Infrastructure Administration</td>
+</tr>
+</tbody>
+</table>
+<h3 id="revision-history">10.0 Revision History</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Version</th>
+<th>Date</th>
+<th>Author</th>
+<th>Change Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0</td>
+<td>2026-01-09</td>
+<td>OberaConnect</td>
+<td>Initial document creation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="approval">11.0 Approval</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Role</th>
+<th>Signature</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>Network Manager</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Cloud Administrator</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="appendix-a-azure-cli-quick-reference">Appendix A: Azure CLI
+Quick Reference</h2>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List all VPN connections</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network vpn-connection list <span class="at">-g</span> DataCenter <span class="at">-o</span> table</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check specific connection status</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network vpn-connection show <span class="at">-g</span> DataCenter <span class="at">-n</span> Obera_Lab <span class="dt">\</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--query</span> <span class="st">&quot;{Status:connectionStatus}&quot;</span> <span class="at">-o</span> table</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Update shared key</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network vpn-connection shared-key update <span class="dt">\</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">-g</span> DataCenter <span class="at">--connection-name</span> Obera_Lab <span class="dt">\</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--value</span> <span class="st">&quot;NewSecurePSK123!&quot;</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># View IPsec policy</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network vpn-connection ipsec-policy list <span class="dt">\</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">-g</span> DataCenter <span class="at">--connection-name</span> Obera_Lab</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete connection (if needed)</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network vpn-connection delete <span class="at">-g</span> DataCenter <span class="at">-n</span> Obera_Lab</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="ex">az</span> network local-gateway delete <span class="at">-g</span> DataCenter <span class="at">-n</span> Obera_Lab</span></code></pre></div>
+<h2 id="appendix-b-setco-azure-hub-reference">Appendix B: Setco Azure
+Hub Reference</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Resource</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VPN Gateway</td>
+<td>DataCenter_Gateway</td>
+</tr>
+<tr class="even">
+<td>Gateway Public IP</td>
+<td>4.157.5.219</td>
+</tr>
+<tr class="odd">
+<td>VNet</td>
+<td>DataCenter_vNet</td>
+</tr>
+<tr class="even">
+<td>Primary Subnet</td>
+<td>10.20.1.0/24</td>
+</tr>
+<tr class="odd">
+<td>Resource Group</td>
+<td>DataCenter</td>
+</tr>
+<tr class="even">
+<td>Region</td>
+<td>East US</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
