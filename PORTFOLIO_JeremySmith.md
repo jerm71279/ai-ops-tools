@@ -202,7 +202,7 @@ oberaconnect-ai-ops/
 - Leadership that sees technology as a business enabler
 - Teams solving meaningful problems with measurable impact
 
-**Compensation:** $130k+ | **Location:** Remote only
+**Compensation:** $130k+ | **Location:** Remote, or within 50miles local onsite.
 
 ---
 
