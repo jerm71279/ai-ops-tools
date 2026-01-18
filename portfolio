@@ -1,0 +1,87 @@
+# Jeremy Smith | Network Engineer & Security Professional
+
+> **Building systems that streamline business processes through AI-first automation and security-focused infrastructure.**
+
+---
+
+## Professional Summary
+
+Network Engineer with 10+ years in IT infrastructure and security, including hands-on experience managing 98 customer sites and 492 network devices across 14 states. Background includes Zero Trust implementation at enterprise scale (Elevance Health, 500+ systems) and network security supporting 600+ hospital locations (TruBridge). Track record of identifying operational inefficiencies and building automated solutions that deliver measurable business value.
+
+---
+
+## What I Built
+
+| Project | Business Impact |
+|---------|-----------------|
+| **5-Layer AI Operating System** | Positioned MSP ahead of industry standards in AI adoption with Identity Layer v2.0 and 15-spell Execution Layer |
+| **Multi-AI CLI Orchestration** | Integrated Claude, Grok, Gemini, and ChatGPT for specialized MSP workflows with maker/checker validation |
+| **Customer Intelligence System** | Unified data from UniFi Site Manager, NinjaOne, ticket systems, and SharePoint into single support context |
+| **UniFi Fleet Management** | Natural language query capabilities with SQLite-backed customer intelligence across 98 sites |
+| **Security Validation Framework** | Automated enforcement of UniFi best practices including VLAN isolation, firewall rules, and wireless standards |
+| **SIEM Implementation** | Deployed Graylog and Wazuh for centralized security monitoring |
+
+*Results will vary based on environment and implementation.*
+
+---
+
+## Technical Stack
+
+**Infrastructure:** Ubiquiti UniFi, SonicWall, MikroTik RouterOS, Azure  
+**Languages:** Python, Bash, PowerShell  
+**Integrations:** NinjaOne, UniFi Site Manager, Microsoft 365/Entra ID, CIPP  
+**AI/Automation:** Claude API, OpenAI API, multi-model orchestration  
+**Security:** SIEM patterns (Graylog/Wazuh), ISO 27001, NIST 800-53  
+
+---
+
+## Certifications
+
+| Certification | Status |
+|---------------|--------|
+| **CISSP** | ✅ Active |
+| **CompTIA Security+** | ✅ Active |
+| **CompTIA Network+** | ✅ Active |
+| **CompTIA A+** | ✅ Active |
+| **Azure Fundamentals (AZ-900)** | ✅ Active |
+| **CCNA** | 📅 In Progress |
+
+---
+
+## What I'm Looking For
+
+**Roles:** Network Engineer, Team Lead, L3 Support Lead, Engineering Team Lead, Security Operations Lead, IT Manager
+
+**What I bring:**
+- Proven ability to manage infrastructure at scale (98 sites, 492 devices)
+- Security-first mindset backed by CISSP and hands-on implementation
+- Track record of building systems that streamline business processes
+- AI integration experience that solves business problems, not just technical ones
+- 10+ years in IT with supervisory experience
+
+**What I do:**
+- Identify operational inefficiencies and build systems to eliminate them
+- Translate business problems into automated, repeatable solutions
+- Create documentation and processes that enable teams to scale
+- Lead technical escalations and complex problem resolution
+
+**Environment I thrive in:**
+- Organizations ready to transform operations, not just maintain them
+- Leadership that sees technology as a business enabler
+- Teams solving meaningful problems with measurable impact
+
+**Compensation:** $130k+ | **Location:** Remote or onsite (Mobile, AL area)
+
+---
+
+## Let's Connect
+
+This repository isn't a demo project—it's production code that solved real business problems. I'm looking for a role where I can bring this same approach: identify inefficiencies, build systems that scale, and align technology strategy with business outcomes.
+
+📧 **Email:** Jerm712@icloud.com  
+💼 **LinkedIn:** [linkedin.com/in/jszerotrustops](https://linkedin.com/in/jszerotrustops)  
+📍 **Location:** Spanish Fort, AL
+
+---
+
+*I believe technology strategy should solve business problems—not create new ones. Let me show you what that looks like in practice.*
