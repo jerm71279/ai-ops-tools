@@ -176,7 +176,7 @@ oberaconnect-ai-ops/
 | **CompTIA Network+** | ✅ Active |
 | **CompTIA A+** | ✅ Active |
 | **Azure Fundamentals (AZ-900)** | ✅ Active |
-| **Azure Security Engineer (AZ-500)** | 📅 Q2 2026 |
+| **CCNA** | 📅 Q2 2026 |
 
 ---
 
