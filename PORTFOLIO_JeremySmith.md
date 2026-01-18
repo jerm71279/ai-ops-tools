@@ -182,14 +182,14 @@ oberaconnect-ai-ops/
 
 ## What I'm Looking For
 
-**Roles:** Team Lead, L3 Support Lead, Engineering Team Lead, Security Operations Lead, IT Manager
+**Roles:** Network Engineer, Team Lead, L3 Support Lead, Engineering Team Lead, Security Operations Lead, IT Manager
 
 **What I bring:**
 - Proven ability to manage infrastructure at scale (98 sites, 492 devices)
 - Security-first mindset backed by CISSP and hands-on implementation
 - Track record of building systems that streamline business processes
 - AI integration experience that solves business problems, not just technical ones
-- 10 years in IT with 5 years in prior leadership roles
+- 10+ years in IT with supervisory experience
 
 **What I do:**
 - Identify operational inefficiencies and build systems to eliminate them
