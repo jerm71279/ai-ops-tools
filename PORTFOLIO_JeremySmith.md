@@ -182,7 +182,7 @@ oberaconnect-ai-ops/
 
 ## What I'm Looking For
 
-**Roles:** Network Engineer, Team Lead, L3 Support Lead, Engineering Team Lead, Security Operations Lead, IT Manager
+**Roles:** Network Engineer, L3 Support, Security Operatiions.
 
 **What I bring:**
 - Proven ability to manage infrastructure at scale (98 sites, 492 devices)
@@ -202,7 +202,7 @@ oberaconnect-ai-ops/
 - Leadership that sees technology as a business enabler
 - Teams solving meaningful problems with measurable impact
 
-**Compensation:** $130k+ | **Location:** Remote, or within 50miles local onsite.
+**Compensation:** Negotiable | **Location:** Remote, or within 50miles local onsite.
 
 ---
 
