@@ -182,7 +182,7 @@ oberaconnect-ai-ops/
 
 ## What I'm Looking For
 
-**Roles:** Network Engineer, L3 Support, Security Operatiions.
+**Roles:** Network Engineer, L3 Support, Security Operations.
 
 **What I bring:**
 - Proven ability to manage infrastructure at scale (98 sites, 492 devices)
@@ -208,7 +208,7 @@ oberaconnect-ai-ops/
 
 ## Let's Connect
 
-This repository isn't a demo project—it's production code that solved real business problems. I'm looking for a leadership role where I can bring this same approach: identify inefficiencies, build systems that scale, and align technology strategy with business outcomes.
+This repository isn't a demo project—it's production code that solved real business problems. I'm looking for an opertunity where I can bring this same approach: identify inefficiencies, build systems that scale, and align technology strategy with business outcomes.
 
 📧 **Email:** Jerm712@icloud.com  
 💼 **LinkedIn:** [linkedin.com/in/jszerotrustops](https://linkedin.com/in/jszerotrustops)  
