@@ -1,6 +1,6 @@
 # Network Engineer & AI Operations Portfolio
 
-**Jeremy Smith | Seeking Engineering Leadership Opportunities**
+**Jeremy Smith | Seeking Network Engineering Opportunities**
 
 *Building systems that streamline business processes and solve operational problems at scale.*
 
